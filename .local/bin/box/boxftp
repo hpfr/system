@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# syncs uw-madison box account
+lftp -c 'open -e "set ftps:initial-prot ""; \
+   set ftp:ssl-force true; \
+   set ftp:ssl-protect-data true; \
+   open ftps://ftp.box.com:990; \
+   user lhupfer@wisc.edu; \
+   mirror --reverse --delete --no-perms --verbose $1 hello;" '
