@@ -97,7 +97,7 @@
 
     git = {
       enable = true;
-      userName = "lh";
+      userName = "hpfr";
       userEmail = "44043764+hpfr@users.noreply.github.com";
     };
 
