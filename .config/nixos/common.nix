@@ -137,6 +137,14 @@
 
     # DualShock 4 Slim over bluetooth hidraw
     KERNEL=="hidraw*", KERNELS=="*054C:09CC*", MODE="0660", TAG+="uaccess"
+
+    ######################################################################
+
+    # IPTS Touchscreen (SP2017)
+    SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Touchscreen", ENV{ID_INPUT_TOUCHSCREEN}="1", SYMLINK+="input/touchscreen"
+
+    # IPTS Pen (SP2017)
+    SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Pen", SYMLINK+="input/pen"
   '';
 
   services.flatpak = { # for Spotify, Discord, and Telegram
