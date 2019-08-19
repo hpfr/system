@@ -18,7 +18,7 @@
     htop # system monitoring TUI
 
     google-fonts
-    nerdfonts
+    nerdfonts # warning: downloads almost 2 GiB
     sxhkd # wm agnostic keybindings for X
 
     xorg.xwininfo # query window information
@@ -49,7 +49,7 @@
         enable = true;
         package = pkgs.i3-gaps;
         config = null;
-  extraConfig = builtins.readFile ~/.config/i3/nixconfig;
+  extraConfig = builtins.readFile ~/.config/i3/config-nix;
       };
     };
   };
@@ -115,7 +115,7 @@
 
     zathura = {
       enable = true;
-      extraConfig = builtins.readFile ~/.config/zathura/nix-zathurarc;
+      extraConfig = builtins.readFile ~/.config/zathura/zathurarc-nix;
     };
 
     mpv = {
@@ -143,7 +143,7 @@
       package = pkgs.polybar.override {
         i3GapsSupport = true;
       };
-      config = ~/.config/polybar/nixconfig;
+      config = ~/.config/polybar/config-nix;
       script = "";
     };
   };
