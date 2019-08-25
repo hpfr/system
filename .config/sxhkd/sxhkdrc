@@ -1,30 +1,24 @@
 # Basic binds
 super + Return
 	$TERMINAL
+super + shift + Return
+	samedir
 super + d
 	dmenu_run
-super + r
-	$TERMINAL -e $FILE
 super + e
-	$TERMINAL -e neomutt
+	$EDITOR
 super + m
-	$TERMINAL -e ncmpcpp
-super + n
-	$TERMINAL -e newsboat
+	com.spotify.Client
 super + i
 	$TERMINAL -e htop
-super + y
-	$TERMINAL -e calcurse
-super + shift + a
-	$TERMINAL -e pulsemixer; pkill -RTMIN+10 i3blocks
+super + s
+	$TERMINAL -e pulsemixer
 super + shift + c
 	camtoggle
-super + shift + e
-	tutorialvids
 super + w
-	webby | xargs -r $BROWSER
-super + shift + w
 	$BROWSER
+super + n
+	xournalpp
 super + shift + g
 	gimp
 
@@ -45,18 +39,10 @@ XF86Launch1
 	xset dpms force off
 XF86AudioMute
 	lmc mute
-XF86AudioLowerVolume
-	lmc down 5
-shift+XF86AudioLowerVolume
-	lmc down 10
-control+XF86AudioLowerVolume
-	lmc down 1
-XF86AudioRaiseVolume
-	lmc up 5
-shift+XF86AudioRaiseVolume
-	lmc up 10
-control+XF86AudioRaiseVolume
-	lmc up 1
+{_, control, shift} + XF86AudioLowerVolume
+	lmc down {5, 1, 10}
+{_, control, shift} + XF86AudioRaiseVolume
+	lmc up {5, 1, 10}
 XF86AudioNext
 	lmc next
 XF86AudioPlay
@@ -65,10 +51,10 @@ XF86AudioPrev
 	lmc prev
 XF86AudioStop
 	lmc toggle
-XF86MonBrightnessDown
-	xbacklight -dec 15
-XF86MonBrightnessUp
-	xbacklight -inc 15
+{_, control, shift} + XF86MonBrightnessDown
+	xbacklight -dec {5, 1, 10}
+{_, control, shift} + XF86MonBrightnessUp
+	xbacklight -inc {5, 1, 10}
 
 
 # Recording
@@ -108,9 +94,6 @@ super + {_,shift +} bracketleft
 	lmc back {10,120}
 
 # Function keys
-# Show readme
-super + F1
-	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
 # F2 is restart in i3 right now.
 # Change display
 super + F3
@@ -141,6 +124,4 @@ super + F11
 	ducksearch
 # Network Manager interface
 super + F12
-	$TERMINAL -e sudo -A nmtui
-
-
+	$TERMINAL -e nmtui
