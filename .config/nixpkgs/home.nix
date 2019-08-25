@@ -19,10 +19,12 @@
 
     google-fonts
     nerdfonts # warning: downloads almost 2 GiB
-    sxhkd # wm agnostic keybindings for X
+    emojione # emoji
 
+    sxhkd # wm agnostic keybindings for X
     xorg.xwininfo # query window information
     xorg.xprop # query window properties
+    xorg.xdpyinfo # get info like DPI
     xdotool # manage windows in scripts
     xclip # manage clipboard in scripts
     arandr # monitor layout GUI
@@ -30,6 +32,7 @@
     sxiv # simple x image viewer
     maim # lightweight screenshot utility
     keepassxc # password manager
+    xournalpp # handwritten notes and PDF markup
     steam
   ];
 
@@ -37,7 +40,7 @@
     enable = true;
     initExtra = ''
       # setbg &		# Set the background
-      # [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+      [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
       sxhkd &	# Bind keys
       xset r rate 300 50 &	# Speed xrate up
       mpdupdate &
@@ -141,9 +144,11 @@
     polybar = {
       enable = true;
       package = pkgs.polybar.override {
+        mpdSupport = true;
+        pulseSupport = true;
         i3GapsSupport = true;
       };
-      config = ~/.config/polybar/config-nix;
+      config = ~/.config/polybar/nix.conf;
       script = "";
     };
   };
