@@ -3,9 +3,7 @@
 {
   home.packages = with pkgs; [
     gnumake
-    cmake # for vterm in emacs
-    gcc # for vterm in emacs
-    libtool # for vterm
+    gnutls # for circe
     shellcheck
     zip unzip
     socat # detach processes
@@ -96,6 +94,7 @@
 
     emacs = {
       enable = true;
+      extraPackages = epkgs: [ epkgs.emacs-libvterm ];
     };
 
     git = {
@@ -114,6 +113,15 @@
         name = "default";
 	userChrome = builtins.readFile ~/.config/firefox/userChrome.css;
       };
+    };
+
+    rofi = {
+      enable = true;
+      theme = "Arc-Dark";
+      extraConfig = ''
+        rofi.dpi: 196
+        rofi.combi:
+      '';
     };
 
     zathura = {
