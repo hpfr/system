@@ -70,6 +70,16 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.networks = {
+  #   eduroam = {
+  #     auth = ''
+  #       key_mgmt=WPA-EAP
+  #       eap=PEAP
+  #       identity="user@example.com"
+  #       password="secret"
+  #     '';
+  #   };
+  # };
   networking.networkmanager.enable = true;
 
   # Configure network proxy if necessary
