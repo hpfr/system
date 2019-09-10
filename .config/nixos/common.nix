@@ -25,6 +25,11 @@
       });
     })
     (self: super: {
+      keepassxc = super.keepassxc.override {
+        withKeePassNetworking = true;
+      };
+    })
+    (self: super: {
       linux_5_1 = super.linux_5_1.override {
         extraConfig = ''
           SERIAL_DEV_BUS y
