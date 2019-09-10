@@ -26,7 +26,11 @@
     xdotool # manage windows in scripts
     xclip # manage clipboard in scripts
     arandr # monitor layout GUI
-    dmenu # runner / dropdown UI
+    blueman # bluetooth GUI
+    pavucontrol # pulseaudio GUI
+    wpgtk # gtk GUI
+    networkmanager_dmenu
+    rofi-systemd
     sxiv # simple x image viewer
     maim # lightweight screenshot utility
     keepassxc # password manager
@@ -120,7 +124,8 @@
       theme = "Arc-Dark";
       extraConfig = ''
         rofi.dpi: 196
-        rofi.combi:
+        rofi.modi: window,run,ssh,drun,combi
+        rofi.combi-modi: window,drun
       '';
     };
 

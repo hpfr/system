@@ -4,7 +4,9 @@ super + Return
 super + shift + Return
 	samedir
 super + d
-	dmenu_run
+	rofi -show combi
+super + r
+	rofi -show run
 super + e
 	$EDITOR
 super + m
@@ -17,14 +19,16 @@ super + shift + c
 	camtoggle
 super + w
 	$BROWSER
+super + shift + w
+	networkmanager_dmenu
 super + n
 	xournalpp
 super + shift + g
 	gimp
 
 # Et cetera...
-super + grave
-	dmenuunicode
+# super + grave
+# 	rofimoji
 super + Scroll_Lock
 	killall screenkey || screenkey
 super + Insert
@@ -66,10 +70,10 @@ shift + Print
 	maimpick
 # Record audio or video
 super + Print
-	dmenurecord
+	menurecord
 # kill active recording
 super + Delete
-	dmenurecord kill
+	menurecord kill
 
 # Pause audio
 super + {_,shift +} p
@@ -115,10 +119,10 @@ super + F8
 	mailsync
 # Mount a USB drive or Android device
 super + F9
-	dmenumount
+	menumount
 # Unmount a USB drive or Android device
 super + F10
-	dmenuumount
+	menuumount
 # Search with Duckduckgo
 super + F11
 	ducksearch
