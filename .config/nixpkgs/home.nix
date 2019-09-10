@@ -11,6 +11,8 @@
     youtube-dl # video download CLI
     mpc_cli # mpd CLI
     rclone # multiplatform cloud sync CLI
+    texlive.combined.scheme-medium
+    python3
 
     htop # system monitoring TUI
     pulsemixer # pulseaudio TUI
