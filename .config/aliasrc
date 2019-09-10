@@ -19,5 +19,6 @@ alias pk="pkill" \
 	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner" \
+	ltspice="wine start 'C:\Program Files\LTC\LTspiceXVII\XVIIx86.exe'"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.

@@ -37,6 +37,8 @@
     keepassxc # password manager
     xournalpp # handwritten notes and PDF markup
     steam
+
+    wine # wine is not an emulator
   ];
 
   xsession = {
