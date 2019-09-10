@@ -65,6 +65,8 @@
   time.timeZone = "America/Chicago";
   location.provider = "geoclue2";
 
+  fonts.fontconfig.penultimate.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
