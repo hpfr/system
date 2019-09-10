@@ -3,8 +3,8 @@
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
-gaps inner 15
-gaps outer 15
+gaps inner 0
+gaps outer 0
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 
@@ -53,9 +53,6 @@ bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
 bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
 
-bindsym $mod+s			gaps inner current plus 5
-bindsym $mod+Shift+s		gaps inner current minus 5
-
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 bindsym $mod+f			fullscreen toggle
@@ -77,9 +74,6 @@ bindsym $mod+Ctrl+k		move workspace to output up
 bindsym $mod+l			focus right
 bindsym $mod+Shift+l		move right 30
 bindsym $mod+Ctrl+l		move workspace to output right
-
-bindsym $mod+z			gaps outer current plus 5
-bindsym $mod+Shift+z		gaps outer current minus 5
 
 bindsym $mod+c			exec --no-startup-id cabl
 
