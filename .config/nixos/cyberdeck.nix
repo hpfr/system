@@ -58,6 +58,8 @@
     consoleFont = "latarcyrheb-sun32"; # large console font
   };
 
+  fonts.fontconfig.dpi = 192;
+
   networking.hostName = "cyberdeck"; # Define your hostname.
 
   services = {
@@ -69,8 +71,11 @@
     };
     xserver = {
       wacom.enable = true;
-      multitouch.enable = true;
-      # dpi = 192; # doesn't seem to work with startx
+      libinput = {
+        enable = true;
+        naturalScrolling = true;
+      };
+      dpi = 192; # doesn't seem to work with startx
     };
     redshift = {
       enable = true;
