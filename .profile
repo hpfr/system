@@ -4,7 +4,7 @@
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$HOME/.emacs.d/bin/:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 # export EDITOR="/usr/bin/emacsclient -ca """
-export EDITOR="nvim"
+export EDITOR="emacsclient -ca emacs"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"

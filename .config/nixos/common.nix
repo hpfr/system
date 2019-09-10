@@ -216,6 +216,14 @@
     enable = true;
   };
 
+  services.emacs = {
+    enable = true;
+    package = with pkgs;
+      ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
+        epkgs.emacs-libvterm
+      ]));
+  };
+
   xdg.portal = { # for Flatpak
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

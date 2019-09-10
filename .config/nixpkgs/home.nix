@@ -99,10 +99,10 @@
       enable = true;
     };
 
-    emacs = {
-      enable = true;
-      extraPackages = epkgs: [ epkgs.emacs-libvterm ];
-    };
+    # emacs = {
+    #   enable = true;
+    #   extraPackages = epkgs: [ epkgs.emacs-libvterm ];
+    # };
 
     git = {
       enable = true;
