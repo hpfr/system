@@ -9,11 +9,11 @@
     socat # detach processes
     wget # file download CLI
     youtube-dl # video download CLI
-    pulsemixer # pulseaudio CLI
     mpc_cli # mpd CLI
     rclone # multiplatform cloud sync CLI
 
     htop # system monitoring TUI
+    pulsemixer # pulseaudio TUI
 
     google-fonts
     nerdfonts # warning: downloads almost 2 GiB

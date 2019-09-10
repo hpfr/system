@@ -114,7 +114,11 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull; # for bluetooth?
+  };
+  hardware.bluetooth.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
