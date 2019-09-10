@@ -41,6 +41,23 @@
         # ignoreConfigErrors = true;
       };
     })
+    (self: super: {
+      linux_4_19 = super.linux_4_19.override {
+        extraConfig = ''
+          SERIAL_DEV_BUS y
+          SERIAL_DEV_CTRL_TTYPORT y
+          SURFACE_ACPI m
+          SURFACE_ACPI_SSH y
+          SURFACE_ACPI_SAN y
+          SURFACE_ACPI_VHF y
+          SURFACE_ACPI_DTX y
+          SURFACE_ACPI_SID n
+          INTEL_IPTS m
+          MWLWIFI n
+        '';
+        # ignoreConfigErrors = true;
+      };
+    })
   ];
 
   # Use the systemd-boot EFI boot loader.
