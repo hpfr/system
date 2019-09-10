@@ -1,12 +1,6 @@
 # vim: filetype=i3
 # File originally by Luke Smith <https://lukesmith.xyz>
 
-# This config file will use environmental variables such as $BROWSER and $TERMINAL.
-# You can set these variables in ~/.profile or ~/.bash_profile if you have it as below:
-#
-# export FILE="ranger"
-# export TERMINAL="st"
-
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
 gaps inner 15
@@ -35,7 +29,7 @@ bindsym $mod+space		focus mode_toggle
 bindsym $mod+Escape		workspace prev
 bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
 
-#STOP/HIDE EVERYTHING:
+# STOP/HIDE EVERYTHING:
 bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec --no-startup-id lmc pause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e $FILE
 
 # #---Letter Key Bindings---# #
@@ -64,12 +58,7 @@ bindsym $mod+Shift+s		gaps inner current minus 5
 
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
-set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
-mode "$freeze" { bindsym $mod+Shift+f mode "default"
-}
-
 bindsym $mod+f			fullscreen toggle
-bindsym $mod+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Shift+f to return."
 
 bindsym $mod+g			workspace prev
 
@@ -94,11 +83,7 @@ bindsym $mod+Shift+z		gaps outer current minus 5
 
 bindsym $mod+c			exec --no-startup-id cabl
 
-bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
-
-bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
-
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 
 # #---Workspace Bindings---# #

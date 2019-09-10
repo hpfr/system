@@ -25,6 +25,7 @@
     xorg.xdpyinfo # get info like DPI
     xdotool # manage windows in scripts
     xclip # manage clipboard in scripts
+
     arandr # monitor layout GUI
     blueman # bluetooth GUI
     pavucontrol # pulseaudio GUI
@@ -54,7 +55,7 @@
         enable = true;
         package = pkgs.i3-gaps;
         config = null;
-  extraConfig = builtins.readFile ~/.config/i3/config-nix;
+        extraConfig = builtins.readFile ~/.config/i3/config-nix;
       };
     };
   };
@@ -115,7 +116,7 @@
       enable = true;
       profiles.default = {
         name = "default";
-	userChrome = builtins.readFile ~/.config/firefox/userChrome.css;
+        userChrome = builtins.readFile ~/.config/firefox/userChrome.css;
       };
     };
 
@@ -131,7 +132,7 @@
 
     zathura = {
       enable = true;
-      extraConfig = builtins.readFile ~/.config/zathura/zathurarc-nix;
+      extraConfig = builtins.readFile ~/.config/zathura/nix;
     };
 
     mpv = {
