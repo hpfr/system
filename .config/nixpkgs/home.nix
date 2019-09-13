@@ -51,6 +51,7 @@
       sxhkd &	# Bind keys
       xset r rate 300 50 &	# Speed xrate up
       mpdupdate &
+      emacs &
     '';
 
     windowManager = {
@@ -101,10 +102,10 @@
       enable = true;
     };
 
-    # emacs = {
-    #   enable = true;
-    #   extraPackages = epkgs: [ epkgs.emacs-libvterm ];
-    # };
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: [ epkgs.emacs-libvterm ];
+    };
 
     git = {
       enable = true;
