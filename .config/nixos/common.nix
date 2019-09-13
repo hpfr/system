@@ -101,9 +101,9 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    hplip python27Packages.dbus-python dbus
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   hplip # python27Packages.dbus-python dbus
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -122,10 +122,10 @@
   # networking.firewall.enable = false;
 
   # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.hplipWithPlugin ]; # FIXME hp-setup not working
-  };
+  # services.printing = {
+  #   enable = true;
+  #   drivers = [ pkgs.hplipWithPlugin ]; # FIXME hp-setup not working
+  # };
 
   # Enable sound.
   sound.enable = true;
