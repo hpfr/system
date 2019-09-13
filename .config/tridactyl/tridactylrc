@@ -1,0 +1,82 @@
+" bovine3dom's dogfood
+
+" WARNING: This file defines and runs a command called fixamo_quiet. If you
+" also have a malicious addon that operates on `<all_urls>` installed this
+" will allow it to steal your firefox account credentials!
+"
+" With those credentials, an attacker can read anything in your sync account,
+" publish addons to the AMO, etc, etc.
+"
+" Without this command a malicious addon can steal credentials from any site
+" that you visit that is not in the restrictedDomains list.
+"
+" You should comment out the fixamo lines unless you are entirely sure that
+" they are what you want.
+"
+" The advantage of running the command is that you can use the tridactyl
+" interface on addons.mozilla.org and other restricted sites.
+
+" Provided only as an example.
+" Do not install/run without reading through as you may be surprised by some
+" of the settings.
+
+" May require the latest beta builds.
+
+" Move this to $XDG_CONFIG_DIR/tridactyl/tridactylrc (that's
+" ~/.config/tridactyl/tridactylrc to mere mortals) or ~/.tridactylrc and
+" install the native messenger (:installnative in Tridactyl). Run :source to
+" get it in the browser, or just restart.
+
+" NB: If you want "vim-like" behaviour where removing a line from
+" here makes the setting disappear, uncomment the line below.
+
+sanitise tridactyllocal tridactylsync
+
+set editorcmd $EDITOR
+
+"
+" Binds
+"
+
+unbind <F1>
+bind <F2> help
+bind J tabnext
+bind K tabprev
+
+" Allow Ctrl-a to select all in the commandline
+unbind --mode=ex <C-a>
+
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+" Handy multiwindow/multitasking binds
+bind gd tabdetach
+bind gD composite tabduplicate | tabdetach
+
+" Make yy use canonical / short links on the 5 websites that support them
+bind yy clipboard yankshort
+
+" Stupid workaround to let hint -; be used with composite which steals semi-colons
+command hint_focus hint -;
+
+" Open right click menu on links
+bind ;C composite hint_focus; !s xdotool key Menu
+
+" Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
+set hintdelay 100
+
+" Add helper commands that Mozillians think make Firefox irredeemably
+" insecure. For details, read the comment at the top of this file.
+" command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
+" command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
+
+" Make Tridactyl work on more sites at the expense of some security. For
+" details, read the comment at the top of this file.
+" set csp clobber
+" fixamo_quiet
+
+" Make quickmarks for the sane Tridactyl issue view
+quickmark t https://github.com/tridactyl/tridactyl/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+
+
+" This will have to do until someone writes us a nice syntax file :)
+" vim: set filetype=vim:
