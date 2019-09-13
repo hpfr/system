@@ -129,4 +129,20 @@
     [Sleep]
     SuspendState=freeze
   '';
+
+  home-manager.users.lh = { config, pkgs, ... }: {
+    services = {
+      polybar = {
+        config = {
+          "bar/main" = {
+            height = 40;
+            font-0 = "Hasklug Nerd Font:size=16;2";
+            font-1 = "EmojiOne Color:size=16";
+            font-2 = "unifont:fontformat=truetype:size=16:antialias=false;0";
+            font-3 = "siji:pixelsize=16;1";
+          };
+        };
+      };
+    };
+  };
 }

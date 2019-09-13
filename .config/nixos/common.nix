@@ -428,7 +428,7 @@
           pulseSupport = true;
           i3GapsSupport = true;
         };
-        config = /home/lh/.config/polybar/nix.conf;
+        extraConfig = builtins.readFile /home/lh/.config/polybar/nix.conf;
         script = "";
       };
     };
