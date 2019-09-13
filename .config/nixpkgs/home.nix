@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    nix-diff
     gnumake
     gnutls # for circe
     shellcheck
@@ -12,6 +13,7 @@
     mpc_cli # mpd CLI
     rclone # multiplatform cloud sync CLI
     texlive.combined.scheme-medium
+    pandoc # convert document formats
     python3
 
     htop # system monitoring TUI
@@ -36,6 +38,8 @@
     rofi-systemd
     sxiv # simple x image viewer
     maim # lightweight screenshot utility
+
+    libreoffice # office suite
     keepassxc # password manager
     xournalpp # handwritten notes and PDF markup
     steam
