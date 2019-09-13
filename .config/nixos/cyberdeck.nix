@@ -131,6 +131,9 @@
   '';
 
   home-manager.users.lh = { config, pkgs, ... }: {
+    programs.rofi.extraConfig = ''
+      rofi.dpi: 192
+    '';
     services = {
       polybar = {
         config = {

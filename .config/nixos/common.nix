@@ -390,7 +390,6 @@
         enable = true;
         theme = "Arc-Dark";
         extraConfig = ''
-          rofi.dpi: 196
           rofi.modi: window,run,ssh,drun,combi
           rofi.combi-modi: window,drun
         '';
