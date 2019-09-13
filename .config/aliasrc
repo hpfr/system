@@ -5,7 +5,6 @@ alias pk="pkill" \
 	nrs="sudo nixos-rebuild switch" \
 	nrb="sudo nixos-rebuild boot" \
 	nrt="sudo nixos-rebuild test" \
-	hms="home-manager switch" \
 	SS="sudo systemctl" \
 	dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' \
 	f='$FILE' \
