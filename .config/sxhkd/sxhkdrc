@@ -25,6 +25,8 @@ super + n
 	xournalpp
 super + shift + g
 	gimp
+super + question
+	~/repos/cheeet/cheatsheet.sh all
 
 # Et cetera...
 # super + grave
