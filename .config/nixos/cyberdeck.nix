@@ -131,6 +131,9 @@
   '';
 
   home-manager.users.lh = { config, pkgs, ... }: {
+    home.packages = with pkgs; [
+      onboard
+    ];
     programs.rofi.extraConfig = ''
       rofi.dpi: 192
     '';
