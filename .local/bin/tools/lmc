@@ -38,5 +38,3 @@ All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be tru
 i.e. \`lmc r\` for \`lmc restart\`.
 EOF
 esac
-
-pkill -RTMIN+10 i3blocks
