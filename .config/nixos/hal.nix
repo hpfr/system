@@ -2,7 +2,7 @@
 
 {
   imports = [ # Include the results of the hardware scan.
-    ./common.nix
+    ./gui.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
