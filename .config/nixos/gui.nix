@@ -148,6 +148,8 @@
       sxiv # simple x image viewer
       maim # lightweight screenshot utility
 
+      virtmanager # manage server VM's remotely
+      # x11_ssh_askpass # fill ssh password requests
       libreoffice # office suite
       keepassxc # password manager
       xournalpp # handwritten notes and PDF markup
