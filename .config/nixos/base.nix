@@ -134,12 +134,6 @@
     #       epkgs.emacs-libvterm
     #     ]));
     # };
-
-    syncthing = {
-      enable = true;
-      user = "lh";
-      # relay.enable = true; # for non-local sync
-    };
   };
 
   # users.mutableUsers = false;
@@ -187,6 +181,10 @@
         userName = "hpfr";
         userEmail = "44043764+hpfr@users.noreply.github.com";
       };
+    };
+
+    services = {
+      syncthing.enable = true;
     };
   };
 
