@@ -153,8 +153,9 @@
       libreoffice # office suite
       keepassxc # password manager
       xournalpp # handwritten notes and PDF markup
-      steam
+      fractal # matrix gtk client
 
+      steam
       wine # wine is not an emulator
     ];
 
