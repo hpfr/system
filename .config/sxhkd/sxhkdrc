@@ -41,6 +41,9 @@ super + shift + BackSpace
 	prompt "Reboot computer?" "shutdown -r now"
 super + x
 	i3lock-fancy -pt ""; xset dpms force off # prepend "mpc pause; pauseallmpv;" once that's set up
+super + b
+	polybar-msg cmd toggle
+
 XF86Launch1
 	xset dpms force off
 XF86AudioMute
