@@ -137,6 +137,7 @@
 
     syncthing = {
       enable = true;
+      user = "lh";
       # relay.enable = true; # for non-local sync
     };
   };
