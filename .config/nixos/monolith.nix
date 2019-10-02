@@ -5,9 +5,12 @@
     ./base.nix
   ];
 
-  boot.kernelModules = [ "kvm-amd" ]; # required for virtualisation
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "kvm-amd" ]; # required for virtualisation
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+    };
   };
 
   networking = {
