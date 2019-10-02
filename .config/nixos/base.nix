@@ -134,6 +134,11 @@
     #       epkgs.emacs-libvterm
     #     ]));
     # };
+
+    syncthing = {
+      enable = true;
+      # relay.enable = true; # for non-local sync
+    };
   };
 
   # users.mutableUsers = false;
