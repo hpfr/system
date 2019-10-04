@@ -115,10 +115,14 @@
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall = {
+    allowedTCPPorts = [
+      22000 # syncthing transfer
+    ];
+    allowedUDPPorts = [
+      21027 # syncthing discovery
+    ];
+  };
 
   services = {
     # Enable CUPS to print documents.
