@@ -146,6 +146,10 @@
             font-1 = "EmojiOne Color:size=16";
             font-2 = "unifont:fontformat=truetype:size=16:antialias=false;0";
             font-3 = "siji:pixelsize=16;1";
+            modules-right = "filesystem backlight-acpi pulseaudio memory cpu wlan temperature battery date";
+          };
+          "module/wlan" = {
+            interface = "wlp5s0";
           };
         };
       };
