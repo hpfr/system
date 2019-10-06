@@ -203,7 +203,7 @@
         enable = true;
         fade = true;
         fadeDelta = 4;
-        inactiveOpacity = "0.9";
+        # inactiveOpacity = "0.9";
       };
 
       dunst = {
