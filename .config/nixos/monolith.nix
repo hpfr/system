@@ -49,4 +49,12 @@
   };
 
   users.extraUsers.lh.extraGroups = [ "libvirtd" "kvm" ];
+
+  home-manager.users.lh = { config, pkgs, ... }: {
+    home.packages = with pkgs; [
+      # disable tty output so I can leave server hooked up to second monitor
+      # without monitor switching to server VGA when desktop HDMI sleeps
+      vbetool
+    ];
+  };
 }
