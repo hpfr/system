@@ -9,6 +9,10 @@ super + r
 	rofi -show run
 super + e
 	$EDITOR
+super + w
+	$BROWSER
+super + n
+	xournalpp
 super + m
 	com.spotify.Client
 super + i
@@ -17,12 +21,10 @@ super + s
 	$TERMINAL -e pulsemixer
 super + shift + c
 	camtoggle
-super + w
-	$BROWSER
 super + shift + w
 	networkmanager_dmenu
-super + n
-	xournalpp
+super + shift + d
+	displayselect
 super + shift + g
 	gimp
 super + question
@@ -31,8 +33,6 @@ super + question
 # Et cetera...
 # super + grave
 # 	rofimoji
-super + Scroll_Lock
-	killall screenkey || screenkey
 super + Insert
 	showclip
 super + shift + x
@@ -76,6 +76,9 @@ shift + Print
 # Record audio or video
 super + Print
 	menurecord
+# Show keys
+super + shift + Print
+	pkill screenkey || screenkey
 # kill active recording
 super + Delete
 	menurecord kill
@@ -128,9 +131,6 @@ super + F9
 # Unmount a USB drive or Android device
 super + F10
 	menuumount
-# Search with Duckduckgo
-super + F11
-	ducksearch
 # Network Manager interface
 super + F12
 	$TERMINAL -e nmtui
