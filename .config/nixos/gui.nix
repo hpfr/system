@@ -121,8 +121,8 @@
         # setbg &		# Set the background
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
         sxhkd &	# Bind keys
-        xset r rate 300 50 &	# Speed xrate up
-        mpdupdate &
+        xset r rate 300 50 &	# faster hold key repeat rate
+        # mpd >/dev/null 2>&1 &
         emacs &
       '';
 

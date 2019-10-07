@@ -12,9 +12,11 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    programs.rofi.extraConfig = ''
-      rofi.dpi: 96
-    '';
+    programs = {
+      rofi.extraConfig = ''
+        rofi.dpi: 96
+      '';
+    };
     services = {
       polybar = {
         config = {

@@ -171,6 +171,87 @@
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
 
+      bash = {
+        enable = true;
+        sessionVariables = {
+          # add .local/bin/ and all subdirectories to path
+          PATH = "$PATH:$HOME/.emacs.d/bin/:$(du \"$HOME/.local/bin/\" | cut -f2 | tr '\n' ':' | sed 's/:*$//')";
+          # fall back to emacs if no emacs server
+          EDITOR = "emacsclient -ca emacs";
+          TERMINAL = "alacritty";
+          BROWSER = "firefox";
+          READER = "zathura";
+          FILE = "nnn";
+          # use this variable in scripts to generalize dmenu, rofi, etc
+          MENU = "rofi -dmenu";
+          SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass";
+
+          # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+          LESS = "--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-2";
+          # less colors
+          # https://unix.stackexchange.com/questions/119/colors-in-man-pages/147#147
+          # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+          LESS_TERMCAP_mb = "$(tput bold; tput setaf 2)"; # green
+          LESS_TERMCAP_md = "$(tput bold; tput setaf 6)"; # cyan
+          LESS_TERMCAP_me = "$(tput sgr0)";
+          LESS_TERMCAP_so = "$(tput bold; tput setaf 3; tput setab 4)"; # yellow on blue
+          LESS_TERMCAP_se = "$(tput rmso; tput sgr0)";
+          LESS_TERMCAP_us = "$(tput smul; tput bold; tput setaf 7)"; # white
+          LESS_TERMCAP_ue = "$(tput rmul; tput sgr0)";
+          LESS_TERMCAP_mr = "$(tput rev)";
+          LESS_TERMCAP_mh = "$(tput dim)";
+          LESS_TERMCAP_ZN = "$(tput ssubm)";
+          LESS_TERMCAP_ZV = "$(tput rsubm)";
+          LESS_TERMCAP_ZO = "$(tput ssupm)";
+          LESS_TERMCAP_ZW = "$(tput rsupm)";
+
+          # QT_QPA_PLATFORMTHEME = "qt5ct";
+        };
+        profileExtra = ''
+          # autostart graphical server on login
+          # ensure i3 not running if reloading profile
+          # [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
+        '';
+        shellOptions = [
+          # Append to history file rather than replacing
+          "histappend"
+          # extended globbing
+          "extglob" "globstar"
+          # warn if closing shell with running jobs
+          "checkjobs"
+          # cd by typing directory name alone
+          "autocd"
+        ];
+        shellAliases = {
+          pg = "pgrep";
+          pk = "pkill";
+          mkd = "mkdir -pv";
+          mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
+          nrs = "sudo nixos-rebuild switch";
+          nrsu = "sudo nixos-rebuild switch --upgrade";
+          nrb = "sudo nixos-rebuild boot";
+          nrt = "sudo nixos-rebuild test";
+          SS = "sudo systemctl";
+          dots = "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME";
+          f = "$FILE";
+          trem = "transmission-remote";
+          e = "$EDITOR";
+          x = "sxiv -ft *";
+          sdn = "sudo shutdown -h now";
+          ls = "ls -hN --color=auto --group-directories-first";
+          grep = "grep --color=auto";
+          diff = "diff --color";
+          yt = "youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'";
+          yta = "yt -x -f bestaudio/best";
+          ffmpeg = "ffmpeg -hide_banner";
+        };
+        initExtra = ''
+          stty -ixon # disable ctrl-s and ctrl-q
+          # https://wiki.archlinux.org/index.php/Bash/Prompt_customization
+          export PS1=export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+        '';
+      };
+
       neovim = {
         enable = true;
       };

@@ -134,9 +134,17 @@
     home.packages = with pkgs; [
       onboard
     ];
-    programs.rofi.extraConfig = ''
-      rofi.dpi: 192
-    '';
+    programs = {
+      bash.sessionVariables = {
+        GDK_SCALE = 2;
+        GDK_DPI_SCALE = 0.5;
+        QT_AUTO_SCREEN_SCALE_FACTOR = 1;
+        MOZ_USE_XINPUT2 = 1;
+      };
+      rofi.extraConfig = ''
+        rofi.dpi: 192
+      '';
+    };
     services = {
       polybar = {
         config = {
