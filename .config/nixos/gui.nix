@@ -111,8 +111,10 @@
       xournalpp # handwritten notes and PDF markup
       fractal # matrix gtk client
 
+      sc-controller # use steam controller without steam
       steam
       wine # wine is not an emulator
+      protontricks # for problematic Steam Play games
     ];
 
     xsession = {
