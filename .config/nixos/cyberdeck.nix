@@ -69,6 +69,7 @@
         HandlePowerKey=suspend
       '';
     };
+
     xserver = {
       wacom.enable = true;
       libinput = {
@@ -77,10 +78,18 @@
       };
       dpi = 192; # doesn't seem to work with startx
     };
-    redshift = {
-      enable = true;
-      temperature.night = 3000;
-    };
+
+    udev.extraRules = ''
+      ######################################################################
+
+      # IPTS Touchscreen (SP2017)
+      SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Touchscreen", ENV{ID_INPUT_TOUCHSCREEN}="1", SYMLINK+="input/touchscreen"
+
+      # IPTS Pen (SP2017)
+      SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Pen", SYMLINK+="input/pen"
+
+      ######################################################################
+    '';
   };
 
   systemd.services = {
