@@ -162,15 +162,24 @@
     };
 
     programs = {
-      alacritty = {
-        enable = true;
-      };
+      alacritty = { enable = true; };
 
       firefox = {
         enable = true;
         profiles.default = {
           name = "default";
-          userChrome = builtins.readFile /home/lh/.config/firefox/userChrome.css;
+          settings = {
+            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+            # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
+            "browser.in-content.dark-mode" = true;
+            "ui.systemUsesDarkTheme" = 1;
+          };
+          userChrome =
+            builtins.readFile /home/lh/.config/firefox/userChrome.css;
+        };
+        profiles.clean = {
+          name = "clean";
+          id = 1;
         };
       };
 
