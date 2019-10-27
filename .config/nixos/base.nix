@@ -1,4 +1,4 @@
-{ config, pkgs, options, ... }:
+{ config, pkgs, lib, options, ... }:
 
 {
   imports = [
@@ -11,57 +11,59 @@
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
+      (self: super: { mwlwifi = super.callPackage ./pkgs/mwlwifi { }; })
+      (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
+      (self: super: { i915 = super.callPackage ./pkgs/i915 { }; })
+      (self: super: { mrvl = super.callPackage ./pkgs/mrvl { }; })
+      # # Globally patched libwacom. Forces rebuilds of libinput and all
+      # # dependents
+      # (self: super: {
+      #   libwacom = super.libwacom.overrideAttrs (oldAttrs: {
+      #     patches = oldAttrs.patches or [ ]
+      #       ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
+      #         (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
+      #           (builtins.readDir ./pkgs/libwacom/patches))));
+      #   });
+      # })
+      # Limit patched libwacom to Xorg. Everything still works afaict
       (self: super: {
-        mwlwifi = super.callPackage ./pkgs/mwlwifi { };
-      })
-      (self: super: {
-        ipts = super.callPackage ./pkgs/ipts { };
-      })
-      (self: super: {
-        i915 = super.callPackage ./pkgs/i915 { };
-      })
-      (self: super: {
-        mrvl = super.callPackage ./pkgs/mrvl { };
-      })
-      (self: super: {
-        libwacom = super.libwacom.overrideAttrs (oldAttrs: {
-          patches = oldAttrs.patches or [] ++ [ ./pkgs/libwacom/patches/00_mei-bus.patch ./pkgs/libwacom/patches/01_surface-tablet-data.patch ];
-        });
-      })
-      (self: super: {
-        keepassxc = super.keepassxc.override {
-          withKeePassNetworking = true;
+        # I believe this is for desktop environments that depend on
+        # xf86inputlibinput, but otherwise the xorg overlay covers everything
+        xf86inputlibinput = super.xf86inputlibinput.override {
+          libinput = self.libinput-surface;
+        };
+        xorg = super.xorg // {
+          xf86inputlibinput = super.xorg.xf86inputlibinput.override {
+            libinput = self.libinput-surface;
+          };
+        };
+        libinput-surface = super.libinput.override {
+          libwacom = super.libwacom.overrideAttrs (oldAttrs: {
+            patches = oldAttrs.patches or [ ]
+              ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
+                (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
+                  (builtins.readDir ./pkgs/libwacom/patches))));
+          });
         };
       })
+      # not sure why this isn't the default, KPXC has it as their default
       (self: super: {
-        linux_5_1 = super.linux_5_1.override {
-          extraConfig = ''
-            SERIAL_DEV_BUS y
-            SERIAL_DEV_CTRL_TTYPORT y
-            SURFACE_ACPI m
-            SURFACE_ACPI_SSH y
-            SURFACE_ACPI_SAN y
-            SURFACE_ACPI_VHF y
-            SURFACE_ACPI_DTX y
-            SURFACE_ACPI_SID n
-            INTEL_IPTS m
-            MWLWIFI n
-          '';
-          # ignoreConfigErrors = true;
-        };
+        keepassxc = super.keepassxc.override { withKeePassNetworking = true; };
       })
       (self: super: {
         linux_4_19 = super.linux_4_19.override {
           extraConfig = ''
             SERIAL_DEV_BUS y
             SERIAL_DEV_CTRL_TTYPORT y
-            SURFACE_ACPI m
-            SURFACE_ACPI_SSH y
-            SURFACE_ACPI_SAN y
-            SURFACE_ACPI_VHF y
-            SURFACE_ACPI_DTX y
-            SURFACE_ACPI_SID n
+            SURFACE_SAM y
+            SURFACE_SAM_SSH m
+            SURFACE_SAM_SAN m
+            SURFACE_SAM_VHF m
+            SURFACE_SAM_DTX m
+            SURFACE_SAM_SID n
+            INPUT_SOC_BUTTON_ARRAY m
             INTEL_IPTS m
+            INTEL_IPTS_SURFACE m
             MWLWIFI n
           '';
           # ignoreConfigErrors = true;
