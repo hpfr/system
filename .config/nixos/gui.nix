@@ -75,6 +75,7 @@
     home.packages = with pkgs; [
       mpc_cli # mpd CLI
       pulsemixer # pulseaudio TUI
+      fltrdr # speedreader TUI
 
       google-fonts
       nerdfonts # warning: downloads almost 2 GiB
@@ -97,16 +98,18 @@
       sxiv # simple x image viewer
       maim # lightweight screenshot utility
 
+      safeeyes
+      rsibreak
       virtmanager # manage server VM's remotely
       # x11_ssh_askpass # fill ssh password requests
-      libreoffice # office suite
+      # libreoffice # office suite. bloated, especially for surface
       keepassxc # password manager
       xournalpp # handwritten notes and PDF markup
       fractal # matrix gtk client
 
       sc-controller # use steam controller without steam
       steam
-      wine # wine is not an emulator
+      # wine # wine is not an emulator
       protontricks # for problematic Steam Play games
     ];
 

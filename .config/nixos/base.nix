@@ -153,16 +153,21 @@
   home-manager.users.lh = { config, pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
-      nix-diff
       gnumake
       gnutls # for circe
-      shellcheck
-      zip unzip
+      zip
+      unzip
       socat # detach processes
+
+      shellcheck # check shell scripts for syntax and semantics
+      nix-diff
+      nixfmt # format nix files
+
       wget # file download CLI
       youtube-dl # video download CLI
       rclone # multiplatform cloud sync CLI
-      texlive.combined.scheme-medium
+
+      texlive.combined.scheme-medium # latex environment
       pandoc # convert document formats
       python3
 
