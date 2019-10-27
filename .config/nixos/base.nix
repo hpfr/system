@@ -166,6 +166,7 @@
       pandoc # convert document formats
       python3
 
+      ncdu # disk management TUI
       htop # system monitoring TUI
     ];
 

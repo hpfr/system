@@ -62,6 +62,23 @@
 
   networking.hostName = "cyberdeck"; # Define your hostname.
 
+  # I have very limited space on this machine, so I have to be very strict with
+  # disk management, especially with how space hungry NixOS generations can be.
+  #
+  # sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
+  # to see system profiles, and then
+  # ls -l /nix/var/nix/profiles/system*link
+  # to see nixpkgs revision
+  # sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations {a..b}
+  # and then sudo nix-collect-garbage to delete all the new garbage
+  # or sudo nix-collect-garbage -d to delete all profiles
+  #
+  # ncdu on /nix/store to find largest items, then
+  # nix-store --query --roots /nix/store/large-item
+  # to determine why it can't be GC'd, then delete roots and
+  # nix-store --delete /nix/store/large-item
+  # to target space hogs
+
   nix = {
     buildMachines = [{
       hostName = "builder";
