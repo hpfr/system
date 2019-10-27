@@ -62,6 +62,27 @@
 
   networking.hostName = "cyberdeck"; # Define your hostname.
 
+  nix = {
+    buildMachines = [{
+      hostName = "builder";
+      system = "x86_64-linux";
+      maxJobs = 16;
+      supportedFeatures = [ "kvm" ];
+    }];
+    # remote builds. test with nix-build '<nixpkgs/nixos>' -A system [-vvv]
+    # override with:
+    # nrs --option builders "" --option substituters "https://cache.nixos.org"
+    #     --option trusted-public-keys "cache.nixos.org-1:<snip>"
+    distributedBuilds = true;
+    extraOptions = ''
+      # use when remote builder has faster internet connection than local
+      builders-use-substitutes = true
+    '';
+    # builder as remote substituter
+    binaryCaches = [ "ssh-ng://builder" ];
+    binaryCachePublicKeys =
+      [ "builder:uAGekC7E+5VX90GFu3Tef0l5cD3dUAEgT6/s3F8v6Fo=" ];
+  };
   services = {
     logind = {
       lidSwitch = "ignore";

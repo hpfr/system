@@ -39,9 +39,14 @@
     };
   };
 
-  services = {
-    openssh.enable = true;
+  nix = {
+    trustedUsers = [ "root" "@wheel" ];
+    extraOptions = ''
+      secret-key-files = /home/lh/cache-priv-key.pem
+    '';
   };
+
+  services.openssh.enable = true;
 
   virtualisation = {
     libvirtd.enable = true;
