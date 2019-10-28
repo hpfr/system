@@ -124,8 +124,8 @@
       sxiv # simple x image viewer
       maim # lightweight screenshot utility
 
-      safeeyes
-      rsibreak
+      safeeyes # reminds user on eye health
+      rsibreak # reminds user against RSI
       virtmanager # manage server VM's remotely
       # x11_ssh_askpass # fill ssh password requests
       # libreoffice # office suite. bloated, especially for surface
@@ -142,11 +142,13 @@
     xsession = {
       enable = true;
       initExtra = ''
-        # setbg &		# Set the background
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
-        sxhkd &	# Bind keys
+        # setbg & # set background
+        sxhkd &
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
+        safeeyes &
+        rsibreak &
         emacs &
       '';
 
