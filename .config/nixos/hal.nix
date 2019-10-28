@@ -26,14 +26,11 @@
             font-1 = "EmojiOne Color:size=12";
             font-2 = "unifont:fontformat=truetype:size=16:antialias=false;0";
             font-3 = "siji:pixelsize=16;1";
-            modules-right = "filesystem pulseaudio memory cpu wlan eth temperature date";
+            modules-right =
+              "filesystem pulseaudio memory cpu wlan eth temperature date";
           };
-          "module/wlan" = {
-            interface = "wlp5s0";
-          };
-          "module/eth" = {
-            interface = "enp4s0";
-          };
+          "module/wlan".interface = "wlp5s0";
+          "module/eth".interface = "enp4s0";
         };
       };
     };

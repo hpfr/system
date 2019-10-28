@@ -1,11 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./base.nix
-  ];
+  imports = [ ./base.nix ];
 
-  boot.kernelModules = [ "uinput" ]; # hw.steam-hw should do this automatically soon
+  boot.kernelModules =
+    [ "uinput" ]; # hw.steam-hw should do this automatically soon
   location.provider = "geoclue2"; # for redshift
 
   fonts.enableDefaultFonts = false;
@@ -37,18 +36,33 @@
 
   networking.firewall = {
     allowedTCPPorts = [
-      27036 27037 # steam in-home streaming
+      # steam in-home streaming
+      27036
+      27037
     ];
-    allowedTCPPortRanges = [
-      { from = 27015; to = 27030; } # steam login and download
-    ];
+    allowedTCPPortRanges = [{
+      # steam login and download
+      from = 27015;
+      to = 27030;
+    }];
     allowedUDPPorts = [
-      27031 27036 # steam in-home streaming
-      4380 # steam client?
+      # steam in-home streaming
+      27031
+      27036
+      # steam client?
+      4380
     ];
     allowedUDPPortRanges = [
-      { from = 27015; to = 27030; } # steam login and download
-      { from = 27000; to = 27100; } # steam game traffic
+      # steam login and download
+      {
+        from = 27015;
+        to = 27030;
+      }
+      # steam game traffic
+      {
+        from = 27000;
+        to = 27100;
+      }
     ];
   };
 
@@ -219,9 +233,7 @@
         extraConfig = builtins.readFile /home/lh/.config/zathura/nix;
       };
 
-      mpv = {
-        enable = true;
-      };
+      mpv.enable = true;
     };
 
     services = {
@@ -232,9 +244,7 @@
         # inactiveOpacity = "0.9";
       };
 
-      dunst = {
-        enable = true;
-      };
+      dunst.enable = true;
 
       unclutter.enable = true;
       xcape.enable = true;

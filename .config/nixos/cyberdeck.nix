@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./gui.nix
-  ];
+  imports = [ ./gui.nix ];
 
   hardware = {
     firmware = with pkgs; [ mwlwifi ipts i915 mrvl ];
@@ -51,7 +49,15 @@
       }
     ];
     # extraModulePackages = [ pkgs.mwlwifi ]; # not sure of diff between this and hw.fw
-    kernelModules = [ "hid" "hid_sensor_hub" "hid_generic" "usbhid" "hid_multitouch" "intel_ipts" ]; # surface_acpi not in lsmod?
+    kernelModules = [
+      # surface_san not in lsmod?
+      "hid"
+      "hid_sensor_hub"
+      "hid_generic"
+      "usbhid"
+      "hid_multitouch"
+      "intel_ipts"
+    ];
   };
 
   i18n = {
@@ -167,10 +173,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    libwacom
-    acpilight
-  ];
+  environment.systemPackages = with pkgs; [ libwacom acpilight ];
 
   environment.etc."systemd/sleep.conf".text = ''
     [Sleep]
@@ -178,9 +181,7 @@
   '';
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    home.packages = with pkgs; [
-      onboard
-    ];
+    home.packages = with pkgs; [ onboard ];
     programs = {
       bash.sessionVariables = {
         GDK_SCALE = 2;
@@ -201,11 +202,10 @@
             font-1 = "EmojiOne Color:size=16";
             font-2 = "unifont:fontformat=truetype:size=16:antialias=false;0";
             font-3 = "siji:pixelsize=16;1";
-            modules-right = "filesystem backlight-acpi pulseaudio memory cpu wlan temperature battery date";
+            modules-right =
+              "filesystem backlight-acpi pulseaudio memory cpu wlan temperature battery date";
           };
-          "module/wlan" = {
-            interface = "wlp5s0";
-          };
+          "module/wlan".interface = "wlp5s0";
         };
       };
     };
