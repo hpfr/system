@@ -179,6 +179,13 @@
     programs = {
       alacritty = { enable = true; };
 
+      bash = {
+        profileExtra = ''
+          # autostart graphical server on tty1 login
+          [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
+        '';
+      };
+
       firefox = {
         enable = true;
         profiles.default = {

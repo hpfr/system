@@ -217,11 +217,6 @@
 
           # QT_QPA_PLATFORMTHEME = "qt5ct";
         };
-        profileExtra = ''
-          # autostart graphical server on login
-          # ensure i3 not running if reloading profile
-          # [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
-        '';
         shellOptions = [
           # Append to history file rather than replacing
           "histappend"
