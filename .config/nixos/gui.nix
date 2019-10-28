@@ -8,7 +8,20 @@
   boot.kernelModules = [ "uinput" ]; # hw.steam-hw should do this automatically soon
   location.provider = "geoclue2"; # for redshift
 
-  fonts.fontconfig.penultimate.enable = true;
+  fonts.enableDefaultFonts = false;
+  fonts.fonts = with pkgs; [
+    google-fonts
+    nerdfonts # warning: downloads almost 2 GiB
+    joypixels # emoji
+  ];
+
+  # fonts.fontconfig.penultimate.enable = true;
+  fonts.fontconfig.defaultFonts = {
+    serif = [ "Noto Serif" ];
+    sansSerif = [ "Lato" ];
+    monospace = [ "Hasklug Nerd Font" ];
+    emoji = [ "JoyPixels" ];
+  };
 
   # Enable sound.
   sound.enable = true;
@@ -76,10 +89,6 @@
       mpc_cli # mpd CLI
       pulsemixer # pulseaudio TUI
       fltrdr # speedreader TUI
-
-      google-fonts
-      nerdfonts # warning: downloads almost 2 GiB
-      emojione # emoji
 
       sxhkd # wm agnostic keybindings for X
       xorg.xwininfo # query window information
