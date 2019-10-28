@@ -247,7 +247,6 @@
       dunst.enable = true;
 
       unclutter.enable = true;
-      xcape.enable = true;
 
       polybar = {
         enable = true;
