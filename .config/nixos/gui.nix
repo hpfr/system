@@ -96,6 +96,8 @@
       xorg.xdpyinfo # get info like DPI
       xdotool # manage windows in scripts
       xclip # manage clipboard in scripts
+      libnotify # notify-send command
+      libxml2 # xmllint for rofi-emoji
 
       i3lock-fancy
       arandr # monitor layout GUI

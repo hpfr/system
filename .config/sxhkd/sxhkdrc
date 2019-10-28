@@ -31,8 +31,8 @@ super + question
 	~/repos/cheeet/cheatsheet.sh all
 
 # Et cetera...
-# super + grave
-# 	rofimoji
+super + grave
+	rofi-emoji
 super + Insert
 	showclip
 super + x
