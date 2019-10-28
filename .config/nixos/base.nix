@@ -254,6 +254,8 @@
           yt = "youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'";
           yta = "yt -x -f bestaudio/best";
           ffmpeg = "ffmpeg -hide_banner";
+          ffplay = "ffplay -hide_banner";
+          ffprobe = "ffprobe -hide_banner";
         };
         initExtra = ''
           stty -ixon # disable ctrl-s and ctrl-q
