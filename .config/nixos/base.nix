@@ -169,6 +169,7 @@
 
       texlive.combined.scheme-medium # latex environment
       pandoc # convert document formats
+      fio # disk benchmarking
       python3
 
       ncdu # disk management TUI
