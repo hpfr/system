@@ -98,6 +98,7 @@
       xclip # manage clipboard in scripts
       libnotify # notify-send command
       libxml2 # xmllint for rofi-emoji
+      imagemagick7 # image editing CLI and GUI
 
       i3lock-fancy
       arandr # monitor layout GUI
