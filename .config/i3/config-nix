@@ -3,8 +3,11 @@
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
+# mouse_warping none
 gaps inner 0
 gaps outer 0
+# smart_borders no_gaps
+hide_edge_borders smart
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 
