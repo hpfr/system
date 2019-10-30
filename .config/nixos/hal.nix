@@ -23,11 +23,9 @@
           "bar/main" = {
             height = 27;
             font-0 = "Hasklug Nerd Font:size=12;2";
-            font-1 = "EmojiOne Color:size=12";
-            font-2 = "unifont:fontformat=truetype:size=16:antialias=false;0";
-            font-3 = "siji:pixelsize=16;1";
+            font-1 = "JoyPixels:size=12";
             modules-right =
-              "filesystem pulseaudio memory cpu wlan eth temperature date";
+              "temperature cpu memory filesystem eth wlan pulseaudio date";
           };
           "module/wlan".interface = "wlp5s0";
           "module/eth".interface = "enp4s0";
