@@ -197,6 +197,8 @@
           SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
 
           # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
+          # for adwaita-qt
+          QT_STYLE_OVERRIDE = "Adwaita-Dark";
 
           # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
           LESS =
@@ -218,8 +220,6 @@
           LESS_TERMCAP_ZV = "$(tput rsubm)";
           LESS_TERMCAP_ZO = "$(tput ssupm)";
           LESS_TERMCAP_ZW = "$(tput rsupm)";
-
-          # QT_QPA_PLATFORMTHEME = "qt5ct";
         };
         shellOptions = [
           # Append to history file rather than replacing

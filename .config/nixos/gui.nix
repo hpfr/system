@@ -113,6 +113,7 @@
       libnotify # notify-send command
       libxml2 # xmllint for rofi-emoji
       imagemagick7 # image editing CLI and GUI
+      adwaita-qt # make qt apps look like gtk apps
 
       i3lock-fancy
       arandr # monitor layout GUI
@@ -162,24 +163,26 @@
           extraConfig = builtins.readFile /home/lh/.config/i3/config-nix;
         };
       };
+
+      pointerCursor = {
+        package = pkgs.capitaine-cursors;
+        name = "capitaine-cursors";
+      };
     };
 
     fonts.fontconfig.enable = true;
 
     gtk = {
       enable = true;
-      theme = {
-        package = pkgs.arc-theme;
-        name = "arc";
-      };
+      theme.name = "Adwaita";
       iconTheme = {
         package = pkgs.gnome3.adwaita-icon-theme;
-        name = "adwaita-icons";
+        name = "Adwaita-icons";
       };
       font.name = "Sans 10";
       gtk3.extraConfig = {
-        gtk-cursor-theme-size = 0;
-        gtk-toolbar-style = "GTK_TOOLBAR_TEXT";
+        gtk-application-prefer-dark-theme = true;
+        gtk-toolbar-style = "GTK_TOOLBAR_ICONS";
         gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
         gtk-button-images = 0;
         gtk-menu-images = 1;
@@ -189,9 +192,14 @@
         gtk-xft-hinting = 1;
         gtk-xft-hintstyle = "hintfull";
         gtk-xft-rgba = "rgb";
-        gtk-cursor-theme-name = "Adwaita";
       };
     };
+
+    # qt apps quit with "No GSettings schemas are installed on the system"
+    # qt = {
+    #   enable = true;
+    #   platformTheme = "gnome"; # use gtk file chooser, etc with qt apps
+    # };
 
     programs = {
       alacritty = { enable = true; };
