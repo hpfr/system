@@ -1,2 +1,6 @@
 #!/bin/sh
-$MENU -fn Monospace-18 -sb "#d79921" -sf "#1d2021" -nf "#000000" -nb "#000000" -p "$1" <&- && echo
+
+# https://ncoop.github.io/2017/01/02/enter-passwords-from-dmenu
+caller="$(ps -o comm= -p $(ps -o ppid= -p $$))"
+prompt="${1:-[$caller]}"
+$MENU -p "$prompt" -l -password 

@@ -193,7 +193,8 @@
           FILE = "nnn";
           # use this variable in scripts to generalize dmenu, rofi, etc
           MENU = "rofi -dmenu";
-          SUDO_ASKPASS = "$HOME/.local/bin/tools/dmenupass";
+          SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
+
           # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
 
           # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
