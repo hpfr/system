@@ -170,8 +170,9 @@
       fio # disk benchmarking
       python3
 
-      ncdu # disk management TUI
+      nnn # TUI file manager
       htop # system monitoring TUI
+      ncdu # disk management TUI
     ];
 
     programs = {

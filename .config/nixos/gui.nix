@@ -124,6 +124,7 @@
       sxiv # simple x image viewer
       maim # lightweight screenshot utility
 
+      celluloid # mpv gtk frontend
       safeeyes # reminds user on eye health
       rsibreak # reminds user against RSI
       virtmanager # manage server VM's remotely
