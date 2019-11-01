@@ -11,3 +11,4 @@ map p print
 set page-padding	"1"
 set statusbar-h-padding	"0"
 set statusbar-v-padding	"0"
+set selection-clipboard clipboard
