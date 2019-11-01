@@ -214,6 +214,8 @@
         profiles.default = {
           name = "default";
           settings = {
+            "general.warnOnAboutConfig" = false;
+            "extensions.pocket.enabled" = false;
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
             "browser.in-content.dark-mode" = true;
