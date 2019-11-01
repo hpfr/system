@@ -12,6 +12,8 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   home-manager.users.lh = { config, pkgs, ... }: {
+    # boot into windows without keyboard
+    home.packages = with pkgs; [ refind ];
     programs = {
       rofi.extraConfig = ''
         rofi.dpi: 96

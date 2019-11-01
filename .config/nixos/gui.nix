@@ -127,7 +127,6 @@
 
       celluloid # mpv gtk frontend
       safeeyes # reminds user on eye health
-      rsibreak # reminds user against RSI
       virtmanager # manage server VM's remotely
       # x11_ssh_askpass # fill ssh password requests
       # libreoffice # office suite. bloated, especially for surface
@@ -150,7 +149,6 @@
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
         safeeyes &
-        rsibreak &
         emacs &
       '';
 

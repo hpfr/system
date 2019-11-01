@@ -151,28 +151,32 @@
   home-manager.users.lh = { config, pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+      # system-related
       gnumake
       gnutls # for circe
       zip
       unzip
       socat # detach processes
 
+      # CLI's
+      fio # disk benchmarking
+      ripgrep # better grep, needed for doom-emacs features
+      wget # file download
+      youtube-dl # video download
+      rclone # multiplatform cloud sync
+
+      # environments and related
+      texlive.combined.scheme-medium # latex environment
+      pandoc # convert document formats
+      python3
       shellcheck # check shell scripts for syntax and semantics
       nix-diff
       nixfmt # format nix files
 
-      wget # file download CLI
-      youtube-dl # video download CLI
-      rclone # multiplatform cloud sync CLI
-
-      texlive.combined.scheme-medium # latex environment
-      pandoc # convert document formats
-      fio # disk benchmarking
-      python3
-
-      nnn # TUI file manager
-      htop # system monitoring TUI
-      ncdu # disk management TUI
+      # TUI's
+      nnn # file manager
+      htop # system monitoring
+      ncdu # disk management
     ];
 
     programs = {
