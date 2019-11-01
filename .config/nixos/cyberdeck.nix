@@ -189,6 +189,10 @@
 
   home-manager.users.lh = { config, pkgs, ... }: {
     home.packages = with pkgs; [ onboard ];
+
+    xresources.properties."Xft.dpi" = 192;
+    xsession.pointerCursor.size = 64;
+
     programs = {
       bash.sessionVariables = {
         GDK_SCALE = 2;
