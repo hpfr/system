@@ -96,6 +96,13 @@
     # override with:
     # nrs --option builders "" --option substituters "https://cache.nixos.org"
     #     --option trusted-public-keys "cache.nixos.org-1:<snip>"
+    #
+    # root's ~/.ssh/config must include:
+    # Host builder
+    #   HostName 192.168.1.9
+    #   User lh
+    #   IdentitiesOnly yes
+    #   IdentityFile /root/.ssh/nix_remote
     distributedBuilds = true;
     extraOptions = ''
       # use when remote builder has faster internet connection than local

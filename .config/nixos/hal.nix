@@ -7,7 +7,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "hal-nixos"; # Define your hostname.
+  networking.hostName = "hal";
 
   services.xserver.videoDrivers = [ "nvidia" ];
 

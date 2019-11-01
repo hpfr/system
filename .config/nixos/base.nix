@@ -281,6 +281,24 @@
         userName = "hpfr";
         userEmail = "44043764+hpfr@users.noreply.github.com";
       };
+
+      ssh = {
+        enable = true;
+        matchBlocks = {
+          monolith = {
+            hostname = "192.168.1.9";
+            user = "lh";
+          };
+        };
+        # home-manager doesn't support SetEnv yet
+        # neither do the lab machines (need OpenSSH 7.8)
+        extraConfig = ''
+          Host cs
+            HostName best-linux.cs.wisc.edu
+            User hupfer
+            SetEnv TERM=xterm-256color;
+        '';
+      };
     };
 
     services.syncthing.enable = true;
