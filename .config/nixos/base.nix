@@ -3,6 +3,9 @@
 {
   imports = [ /etc/nixos/hardware-configuration.nix <home-manager/nixos> ];
 
+  environment.etc."nixos/overlays-compat/overlays.nix".text =
+    builtins.readFile ./pkgs/overlays.nix;
+
   nix.nixPath = options.nix.nixPath.default
     ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
 
