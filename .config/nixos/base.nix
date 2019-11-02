@@ -6,8 +6,12 @@
   environment.etc."nixos/overlays-compat/overlays.nix".text =
     builtins.readFile ./pkgs/overlays.nix;
 
-  nix.nixPath = options.nix.nixPath.default
-    ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
+  nix = {
+    # required for remote builders
+    trustedUsers = [ "root" "@wheel" ];
+    nixPath = options.nix.nixPath.default
+      ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
+  };
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -290,6 +294,10 @@
         matchBlocks = {
           monolith = {
             hostname = "192.168.1.9";
+            user = "lh";
+          };
+          hal = {
+            hostname = "192.168.1.8";
             user = "lh";
           };
         };

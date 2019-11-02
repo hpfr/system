@@ -27,12 +27,9 @@
     };
   };
 
-  nix = {
-    trustedUsers = [ "root" "@wheel" ];
-    extraOptions = ''
-      secret-key-files = /home/lh/cache-priv-key.pem
-    '';
-  };
+  nix.extraOptions = ''
+    secret-key-files = /home/lh/cache-priv-key.pem
+  '';
 
   services.openssh.enable = true;
 
