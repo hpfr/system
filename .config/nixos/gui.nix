@@ -147,6 +147,7 @@
       xdotool # manage windows in scripts
       xclip # manage clipboard in scripts
       libnotify # notify-send command
+      xwallpaper # set wallpaper
       libxml2 # xmllint for rofi-emoji
       imagemagick7 # image editing CLI and GUI
       adwaita-qt # make qt apps look like gtk apps
