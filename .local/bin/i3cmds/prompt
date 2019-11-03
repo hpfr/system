@@ -3,5 +3,5 @@
 # Gives a $MENU prompt labeled with $1 to perform command $2.
 # For example:
 # `./prompt "Do you want to shutdown?" "shutdown -h now"`
-
-[ "$(printf "No\\nYes" | $MENU -i -p "$1" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && $2
+width=$((-(${#1}+8)))
+[ "$(printf "No\\nYes" | $MENU -i -p "$1" -l 2 -width $width)" = "Yes" ] && $2
