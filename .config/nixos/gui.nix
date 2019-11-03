@@ -3,8 +3,6 @@
 {
   imports = [ ./base.nix ];
 
-  boot.kernelModules =
-    [ "uinput" ]; # hw.steam-hw should do this automatically soon
   location.provider = "geoclue2"; # for redshift
 
   fonts.enableDefaultFonts = false;
