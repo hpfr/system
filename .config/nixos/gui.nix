@@ -295,7 +295,23 @@
 
       zathura = {
         enable = true;
-        extraConfig = builtins.readFile /home/lh/.config/zathura/nix;
+        options = {
+          page-padding = 1;
+          statusbar-h-padding = 0;
+          statusbar-v-padding = 0;
+          selection-clipboard = "clipboard";
+        };
+        extraConfig = ''
+          map u scroll half-up
+          map d scroll half-down
+          map D toggle_page_mode
+          map r reload
+          map R rotate
+          map K zoom in
+          map J zoom out
+          map i recolor
+          map p print
+        '';
       };
 
       mpv.enable = true;
