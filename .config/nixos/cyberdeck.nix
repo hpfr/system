@@ -86,33 +86,42 @@
   # to target space hogs
 
   nix = {
-    buildMachines = [{
-      hostName = "builder";
-      system = "x86_64-linux";
-      maxJobs = 16;
-      supportedFeatures = [ "kvm" ];
-    }];
+    buildMachines = [
+      {
+        hostName = "monolith";
+        system = "x86_64-linux";
+        maxJobs = 16;
+        speedFactor = 2;
+        supportedFeatures = [ "kvm" ];
+      }
+      {
+        hostName = "hal";
+        system = "x86_64-linux";
+        maxJobs = 12;
+        speedFactor = 1;
+      }
+    ];
     # remote builds. test with nix-build '<nixpkgs/nixos>' -A system [-vvv]
     # override with:
     # nrs --option builders "" --option substituters "https://cache.nixos.org"
     #     --option trusted-public-keys "cache.nixos.org-1:<snip>"
     #
-    # root's ~/.ssh/config must include:
-    # Host builder
-    #   HostName 192.168.1.9
-    #   User lh
-    #   IdentitiesOnly yes
-    #   IdentityFile /root/.ssh/nix_remote
+    # root's ~/.ssh/config must include the relevant config
+    # add authorized public keys to remotes
     distributedBuilds = true;
     extraOptions = ''
       # use when remote builder has faster internet connection than local
+      # otherwise local gets all dependencies and sends them to builder
       builders-use-substitutes = true
     '';
     # builder as remote substituter
-    binaryCaches = [ "ssh-ng://builder" ];
-    binaryCachePublicKeys =
-      [ "builder:uAGekC7E+5VX90GFu3Tef0l5cD3dUAEgT6/s3F8v6Fo=" ];
+    binaryCaches = [ "ssh-ng://monolith" "ssh-ng://hal" ];
+    binaryCachePublicKeys = [
+      "monolith:qYcj/A6mRSPaaFn9sYYieWVY+0ZRPb2KavAJwYzTeJQ="
+      "hal:qCUZMYJDjG0op5k8grKUSYojNoaqA+931VeFucyqH6U="
+    ];
   };
+
   services = {
     logind = {
       lidSwitch = "ignore";
@@ -204,6 +213,7 @@
         rofi.dpi: 192
       '';
     };
+
     services = {
       polybar = {
         config = {
