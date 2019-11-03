@@ -198,7 +198,7 @@
       enable = true;
       initExtra = ''
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
-        setbg # set background
+        setbg ~/.config/wall # set background
         sxhkd &
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
