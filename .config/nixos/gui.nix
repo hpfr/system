@@ -307,6 +307,9 @@
         fade = true;
         fadeDelta = 4;
         # inactiveOpacity = "0.9";
+        # can remove alacritty once 0.3.4 released, that will respect text
+        opacityRule = [ "92:class_g = 'Emacs'" "85:class_g = 'Alacritty'" ];
+        blur = true;
       };
 
       dunst.enable = true;
