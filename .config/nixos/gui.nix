@@ -121,12 +121,29 @@
       temperature.night = 3000;
     };
 
-    flatpak = { # for Spotify, Discord, and Telegram
-      enable = true;
+    # for Spotify, Discord, and Telegram
+    flatpak = { enable = true; };
+  };
+
+  systemd.user = {
+    timers.bgcron = {
+      after = [ "graphical.target" ];
+      timerConfig = {
+        OnCalendar = "daily";
+        Unit = "bgcron.service";
+        Persistent = true;
+      };
+      wantedBy = [ "timers.target" ];
+    };
+    services.bgcron = {
+      after = [ "graphical.target" ];
+      wants = [ "bgcron.timer" ];
+      script = builtins.readFile /home/lh/.local/bin/tools/setbg;
     };
   };
 
-  xdg.portal = { # for Flatpak
+  # for Flatpak
+  xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
@@ -181,7 +198,7 @@
       enable = true;
       initExtra = ''
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
-        # setbg & # set background
+        setbg # set background
         sxhkd &
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
