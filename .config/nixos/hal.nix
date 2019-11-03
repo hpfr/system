@@ -30,8 +30,11 @@
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    # boot into windows without keyboard
-    home.packages = with pkgs; [ refind ];
+    home.packages = with pkgs;
+      [
+        refind # boot into windows without keyboard
+        # onlykey # doesn't work yet :/
+      ];
     programs = {
       rofi.extraConfig = ''
         rofi.dpi: 96
