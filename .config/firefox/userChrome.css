@@ -161,6 +161,6 @@ tab {
   width: 0px !important;
 }
 /* hide the sidebar header in Tree Style Tab */
-/* #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header { */
-/*   display: none; */
-/* } */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+  display: none;
+}
