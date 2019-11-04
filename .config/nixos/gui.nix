@@ -254,7 +254,29 @@
     # };
 
     programs = {
-      alacritty = { enable = true; };
+      alacritty = {
+        enable = true;
+        settings = {
+          window.padding = {
+            x = 8;
+            y = 8;
+          };
+          # won't work until 0.3.4 releases
+          # background_opacity = 0.8;
+          key_bindings = [
+            {
+              key = "C";
+              mods = "Control|Shift";
+              action = "Copy";
+            }
+            {
+              key = "V";
+              mods = "Control|Shift";
+              action = "Paste";
+            }
+          ];
+        };
+      };
 
       bash = {
         profileExtra = ''
