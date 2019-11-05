@@ -1,8 +1,6 @@
 # Basic binds
 super + Return
 	$TERMINAL
-super + shift + Return
-	samedir
 super + d
 	rofi -show combi
 super + r
@@ -38,33 +36,14 @@ super + Insert
 super + x
 	prompt "Shutdown computer?" "shutdown -h now"
 super + shift + x
-	prompt "Reboot computer?" "shutdown -r now"
+	prompt "Reboot computer?" "reboot"
 super + z
 	i3lock-fancy -pt ""; xset dpms force off # prepend "mpc pause; pauseallmpv;" once that's set up
 super + b
 	polybar-msg cmd toggle
 
-XF86Launch1
-	xset dpms force off
-XF86AudioMute
-	lmc mute
-{_, control, shift} + XF86AudioLowerVolume
-	lmc down {5, 1, 10}
-{_, control, shift} + XF86AudioRaiseVolume
-	lmc up {5, 1, 10}
-XF86AudioNext
-	lmc next
-XF86AudioPlay
-	lmc toggle
-XF86AudioPrev
-	lmc prev
-XF86AudioStop
-	lmc toggle
-{_, control, shift} + XF86MonBrightnessDown
-	xbacklight -dec {5, 1, 10}
-{_, control, shift} + XF86MonBrightnessUp
-	xbacklight -inc {5, 1, 10}
-
+super + shift + r
+	winresize
 
 # Recording
 # Take screenshot
@@ -85,25 +64,40 @@ super + Delete
 
 # Pause audio
 super + {_,shift +} p
-	lmc {toggle,pause}
+	mpc {toggle,pause}
 # Changes to next/previous tracks
 super + {comma,period}
-	lmc {prev,next}
+	mpc {prev,next}
 # Restart track
 super + shift + less
-	lmc replay
-# Increase volume
-super + {equal,plus}
-	lmc up {5,15}
-# Decrease volume
-super {_,shift +} + minus
-	lmc down {5,15}
+	mpc seek 0%
 # Seek foward in song
 super + {_,shift +} bracketright
-	lmc forward {10,120}
+	mpc seek +{10,120}
 # Seek backward in song
 super + {_,shift +} bracketleft
-	lmc back {10,120}
+	mpc seek -{10,120}
+
+XF86Launch1
+	xset dpms force off
+XF86AudioMute
+	pulsemixer --toggle-mute
+{_, control, shift} + XF86AudioLowerVolume
+	pulsemixer --change-volume -{5, 1, 10}
+{_, control, shift} + XF86AudioRaiseVolume
+	pulsemixer --change-volume +{5, 1, 10}
+XF86AudioNext
+	mpc next
+XF86AudioPlay
+	mpc toggle
+XF86AudioPrev
+	mpc prev
+XF86AudioStop
+	mpc toggle
+{_, control, shift} + XF86MonBrightnessDown
+	xbacklight -dec {5, 1, 10}
+{_, control, shift} + XF86MonBrightnessUp
+	xbacklight -inc {5, 1, 10}
 
 # Function keys
 # F2 is restart in i3 right now.
@@ -116,15 +110,6 @@ super + F4
 # Restart/rescan wifi/eth networks
 super + F5
 	sudo -A systemctl restart NetworkManager
-# Start torrent daemon/open interface
-super + F6
-	torwrap
-# toggle torrent daemon
-super + F7
-	td-toggle
-# sync email
-super + F8
-	mailsync
 # Mount a USB drive or Android device
 super + F9
 	menumount
