@@ -72,8 +72,6 @@
       libinput.enable = true;
       displayManager.startx.enable = true;
       desktopManager.xterm.enable = false;
-      # windowManager.i3.enable = true;
-      # windowManager.i3.package = pkgs.i3-gaps;
     };
 
     dbus.packages = with pkgs; [ gnome3.dconf ];
@@ -151,7 +149,7 @@
   # create group for steam controller
   # users.groups.steam-input = {};
 
-  home-manager.users.lh = { config, pkgs, ... }: {
+  home-manager.users.lh = { config, pkgs, lib, ... }: {
     home.packages = with pkgs; [
       mpc_cli # mpd CLI
       pulsemixer # pulseaudio TUI
@@ -206,14 +204,130 @@
         emacs &
       '';
 
-      windowManager = {
-        # command = "exec ${pkgs.i3}/bin/i3";
-        i3 = {
-          enable = true;
-          package = pkgs.i3-gaps;
-          config = null;
-          extraConfig = builtins.readFile /home/lh/.config/i3/config-nix;
+      windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+        config = {
+          bars = [ ];
+          # https://github.com/rycee/home-manager/issues/195
+          startup = [{
+            command = "systemctl --user restart polybar";
+            always = true;
+            notification = false;
+          }];
+          window = {
+            hideEdgeBorders = "smart";
+            commands = [
+              # {
+              #   criteria.window_role = "GtkFileChooserDialog";
+              #   command = "resize set 800 600; move position center";
+              # }
+              {
+                criteria.title = "Steam Keyboard";
+                command = "floating enable";
+              }
+              {
+                criteria.title = "mpvfloat";
+                command = "sticky enable; border pixel 0";
+              }
+              {
+                criteria.class = "^Spotify$";
+                command = "move scratchpad; scratchpad show; resize 1600 1000";
+              }
+              {
+                criteria.class = "^keepassxc$";
+                command = "move scratchpad; scratchpad show; resize 1200 800";
+              }
+            ];
+          };
+          floating.criteria = [
+            { "title" = "Steam - Update News"; }
+            { "title" = "Steam Keyboard"; }
+            { "title" = "mpvfloat"; }
+          ];
+          # not released yet
+          # workspaceAutoBackAndForth = true;
+          gaps = {
+            inner = 0;
+            outer = 0;
+            # mouseWarping = false;
+            # smartBorders = "no_gaps";
+            # smartGaps = true;
+          };
+          modifier = "Mod4";
+          keybindings =
+            let mod = config.xsession.windowManager.i3.config.modifier;
+            in lib.mkOptionDefault {
+              # unbind keys handled by sxhkd
+              "${mod}+Return" = null;
+              "${mod}+d" = null;
+              "${mod}+v" = null;
+              "${mod}+s" = null;
+              "${mod}+w" = null;
+              "${mod}+e" = null;
+              "${mod}+r" = null;
+              "${mod}+Shift+c" = null;
+              "${mod}+Shift+r" = null;
+              "${mod}+Shift+e" = null;
+              # for some reason workspace 10 isn't default
+              "${mod}+0" = "workspace 10";
+              "${mod}+Shift+0" = "move container to workspace 10";
+
+              "${mod}+q" =
+                ''[con_id="__focused__" instance="^(?!dropdown_).*$"] kill'';
+              "${mod}+Shift+q" = ''
+                [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)'';
+
+              "${mod}+t" = "split toggle";
+              "${mod}+o" = "sticky toggle";
+
+              "${mod}+g" = "workspace prev";
+              "${mod}+semicolon" = "workspace next";
+              "${mod}+Tab" = "workspace back_and_forth";
+              "${mod}+backslash" = "workspace back_and_forth";
+              "${mod}+minus" = "scratchpad show";
+
+              "{mod}+Shift+b" =
+                "floating toggle; sticky toggle; exec --no-startup-id hover left";
+              "{mod}+Shift+n" =
+                "floating toggle; sticky toggle; exec --no-startup-id hover right";
+
+              "${mod}+h" = "focus left";
+              "${mod}+Shift+h" = "move left 30";
+              "${mod}+j" = "focus down";
+              "${mod}+Shift+j" = "move down 30";
+              "${mod}+k" = "focus up";
+              "${mod}+Shift+k" = "move up 30";
+              "${mod}+l" = "focus right";
+              "${mod}+Shift+l" = "move right 30";
+
+              "${mod}+Shift+y" = "exec --no-startup-id i3resize left";
+              "${mod}+Shift+u" = "exec --no-startup-id i3resize down";
+              "${mod}+Shift+i" = "exec --no-startup-id i3resize up";
+              "${mod}+Shift+o" = "exec --no-startup-id i3resize right";
+
+              "${mod}+Ctrl+h" = "move workspace to output left";
+              "${mod}+Ctrl+j" = "move workspace to output down";
+              "${mod}+Ctrl+k" = "move workspace to output up";
+              "${mod}+Ctrl+l" = "move workspace to output right";
+              "${mod}+Ctrl+Left" = "move workspace to output left";
+              "${mod}+Ctrl+Down" = "move workspace to output down";
+              "${mod}+Ctrl+Up" = "move workspace to output up";
+              "${mod}+Ctrl+Right" = "move workspace to output right";
+
+              "${mod}+Home" = "workspace 1";
+              "${mod}+Shift+Home" = "move container to workspace 1";
+              "${mod}+End" = "workspace 1";
+              "${mod}+Shift+End" = "move container to workspace 1";
+
+              "${mod}+F2" = "restart";
+              "${mod}+Shift+Escape" =
+                ''exec --no-startup-id prompt "Exit i3?" "i3-msg exit"'';
+            };
         };
+        extraConfig = ''
+          no_focus [title="mpvfloat"]
+        '';
       };
 
       pointerCursor = {
@@ -254,6 +368,13 @@
     # };
 
     programs = {
+      bash = {
+        profileExtra = ''
+          # autostart graphical server on tty1 login
+          [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
+        '';
+      };
+
       alacritty = {
         enable = true;
         settings = {
@@ -276,13 +397,6 @@
             }
           ];
         };
-      };
-
-      bash = {
-        profileExtra = ''
-          # autostart graphical server on tty1 login
-          [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
-        '';
       };
 
       firefox = {
