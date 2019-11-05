@@ -490,7 +490,7 @@
           i3GapsSupport = true;
         };
         extraConfig = builtins.readFile /home/lh/.config/polybar/nix.conf;
-        script = "";
+        script = builtins.readFile /home/lh/.local/bin/polybar/polybar-launch;
       };
     };
   };
