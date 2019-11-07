@@ -235,7 +235,10 @@
                 command = "move scratchpad; scratchpad show; resize 1600 1000";
               }
               {
-                criteria.class = "^keepassxc$";
+                criteria = {
+                  class = "^keepassxc$";
+                  title = " - KeePassXC$";
+                };
                 command = "move scratchpad; scratchpad show; resize 1200 800";
               }
             ];
@@ -287,9 +290,9 @@
               "${mod}+backslash" = "workspace back_and_forth";
               "${mod}+minus" = "scratchpad show";
 
-              "{mod}+Shift+b" =
+              "${mod}+Shift+b" =
                 "floating toggle; sticky toggle; exec --no-startup-id hover left";
-              "{mod}+Shift+n" =
+              "${mod}+Shift+n" =
                 "floating toggle; sticky toggle; exec --no-startup-id hover right";
 
               "${mod}+h" = "focus left";
