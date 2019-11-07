@@ -197,18 +197,20 @@
   '';
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    home.packages = with pkgs; [ onboard ];
-
-    xresources.properties."Xft.dpi" = 192;
-    xsession.pointerCursor.size = 64;
-
-    programs = {
-      bash.sessionVariables = {
+    home = {
+      packages = with pkgs; [ onboard ];
+      sessionVariables = {
         GDK_SCALE = 2;
         GDK_DPI_SCALE = 0.5;
         QT_AUTO_SCREEN_SCALE_FACTOR = 1;
         MOZ_USE_XINPUT2 = 1;
       };
+    };
+
+    xresources.properties."Xft.dpi" = 192;
+    xsession.pointerCursor.size = 64;
+
+    programs = {
       rofi.extraConfig = ''
         rofi.dpi: 192
       '';

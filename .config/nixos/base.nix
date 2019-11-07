@@ -160,34 +160,77 @@
   home-manager.useUserPackages = true;
   home-manager.users.lh = { config, pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
-    home.packages = with pkgs; [
-      # system-related
-      gnumake
-      gnutls # for circe
-      zip
-      unzip
-      socat # detach processes
+    home = {
+      packages = with pkgs; [
+        # system-related
+        gnumake
+        gnutls # for circe
+        zip
+        unzip
+        socat # detach processes
 
-      # CLI's
-      fio # disk benchmarking
-      ripgrep # better grep, needed for doom-emacs features
-      wget # file download
-      youtube-dl # video download
-      rclone # multiplatform cloud sync
+        # CLI's
+        fio # disk benchmarking
+        ripgrep # better grep, needed for doom-emacs features
+        wget # file download
+        youtube-dl # video download
+        rclone # multiplatform cloud sync
 
-      # environments and related
-      texlive.combined.scheme-medium # latex environment
-      pandoc # convert document formats
-      python3
-      shellcheck # check shell scripts for syntax and semantics
-      nix-diff
-      nixfmt # format nix files
+        # environments and related
+        texlive.combined.scheme-medium # latex environment
+        pandoc # convert document formats
+        python3
+        shellcheck # check shell scripts for syntax and semantics
+        nix-diff
+        nixfmt # format nix files
 
-      # TUI's
-      nnn # file manager
-      htop # system monitoring
-      ncdu # disk management
-    ];
+        # TUI's
+        nnn # file manager
+        htop # system monitoring
+        ncdu # disk management
+      ];
+      # sourced by .profile
+      sessionVariables = {
+        # add .local/bin/ and all subdirectories to path
+        PATH = ''
+          $PATH:$HOME/.emacs.d/bin/:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')
+        '';
+        # fall back to emacs if no emacs server
+        EDITOR = "emacsclient -ca emacs";
+        TERMINAL = "alacritty";
+        BROWSER = "firefox";
+        READER = "zathura";
+        FILE = "nnn";
+        # use this variable in scripts to generalize dmenu, rofi, etc
+        MENU = "rofi -dmenu";
+        SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
+
+        # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
+        # for adwaita-qt
+        QT_STYLE_OVERRIDE = "Adwaita-Dark";
+
+        # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+        LESS =
+          "--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-2";
+        # less colors
+        # https://unix.stackexchange.com/questions/119/colors-in-man-pages/147#147
+        # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+        LESS_TERMCAP_mb = "$(tput bold; tput setaf 2)"; # green
+        LESS_TERMCAP_md = "$(tput bold; tput setaf 6)"; # cyan
+        LESS_TERMCAP_me = "$(tput sgr0)";
+        LESS_TERMCAP_so =
+          "$(tput bold; tput setaf 3; tput setab 4)"; # yellow on blue
+        LESS_TERMCAP_se = "$(tput rmso; tput sgr0)";
+        LESS_TERMCAP_us = "$(tput smul; tput bold; tput setaf 7)"; # white
+        LESS_TERMCAP_ue = "$(tput rmul; tput sgr0)";
+        LESS_TERMCAP_mr = "$(tput rev)";
+        LESS_TERMCAP_mh = "$(tput dim)";
+        LESS_TERMCAP_ZN = "$(tput ssubm)";
+        LESS_TERMCAP_ZV = "$(tput rsubm)";
+        LESS_TERMCAP_ZO = "$(tput ssupm)";
+        LESS_TERMCAP_ZW = "$(tput rsupm)";
+      };
+    };
 
     programs = {
       # Let Home Manager install and manage itself.
@@ -195,46 +238,6 @@
 
       bash = {
         enable = true;
-        sessionVariables = {
-          # add .local/bin/ and all subdirectories to path
-          PATH = ''
-            $PATH:$HOME/.emacs.d/bin/:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')
-          '';
-          # fall back to emacs if no emacs server
-          EDITOR = "emacsclient -ca emacs";
-          TERMINAL = "alacritty";
-          BROWSER = "firefox";
-          READER = "zathura";
-          FILE = "nnn";
-          # use this variable in scripts to generalize dmenu, rofi, etc
-          MENU = "rofi -dmenu";
-          SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
-
-          # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
-          # for adwaita-qt
-          QT_STYLE_OVERRIDE = "Adwaita-Dark";
-
-          # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
-          LESS =
-            "--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-2";
-          # less colors
-          # https://unix.stackexchange.com/questions/119/colors-in-man-pages/147#147
-          # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-          LESS_TERMCAP_mb = "$(tput bold; tput setaf 2)"; # green
-          LESS_TERMCAP_md = "$(tput bold; tput setaf 6)"; # cyan
-          LESS_TERMCAP_me = "$(tput sgr0)";
-          LESS_TERMCAP_so =
-            "$(tput bold; tput setaf 3; tput setab 4)"; # yellow on blue
-          LESS_TERMCAP_se = "$(tput rmso; tput sgr0)";
-          LESS_TERMCAP_us = "$(tput smul; tput bold; tput setaf 7)"; # white
-          LESS_TERMCAP_ue = "$(tput rmul; tput sgr0)";
-          LESS_TERMCAP_mr = "$(tput rev)";
-          LESS_TERMCAP_mh = "$(tput dim)";
-          LESS_TERMCAP_ZN = "$(tput ssubm)";
-          LESS_TERMCAP_ZV = "$(tput rsubm)";
-          LESS_TERMCAP_ZO = "$(tput ssupm)";
-          LESS_TERMCAP_ZW = "$(tput rsupm)";
-        };
         shellOptions = [
           # Append to history file rather than replacing
           "histappend"
