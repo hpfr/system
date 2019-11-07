@@ -122,6 +122,8 @@
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
+  programs.ssh.startAgent = true;
+
   # Open ports in the firewall.
   networking.firewall = {
     allowedTCPPorts = [
@@ -315,28 +317,6 @@
         enable = true;
         userName = "hpfr";
         userEmail = "44043764+hpfr@users.noreply.github.com";
-      };
-
-      ssh = {
-        enable = true;
-        matchBlocks = {
-          monolith = {
-            hostname = "192.168.1.9";
-            user = "lh";
-          };
-          hal = {
-            hostname = "192.168.1.8";
-            user = "lh";
-          };
-        };
-        # home-manager doesn't support SetEnv yet
-        # neither do the lab machines (need OpenSSH 7.8)
-        extraConfig = ''
-          Host cs
-            HostName best-linux.cs.wisc.edu
-            User hupfer
-            SetEnv TERM=xterm-256color;
-        '';
       };
     };
 
