@@ -34,6 +34,8 @@ sanitise tridactyllocal tridactylsync
 
 set editorcmd $EDITOR
 
+colors dark
+
 "
 " Binds
 "
