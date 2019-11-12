@@ -4,4 +4,4 @@
 # For example:
 # `./prompt "Do you want to shutdown?" "shutdown -h now"`
 width=$((-(${#1}+8)))
-[ "$(printf "No\\nYes" | $MENU -i -p "$1" -l 2 -width $width)" = "Yes" ] && $2
+[ "$(printf "No\\nYes" | $MENU -i -p "$1" -l 2 -width $width)" = "Yes" ] && eval "$2"
