@@ -201,7 +201,6 @@
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
         safeeyes &
-        emacs &
       '';
 
       windowManager.i3 = {
@@ -272,9 +271,8 @@
               "${mod}+Shift+c" = null;
               "${mod}+Shift+r" = null;
               "${mod}+Shift+e" = null;
-              # for some reason workspace 10 isn't default
-              "${mod}+0" = "workspace 10";
-              "${mod}+Shift+0" = "move container to workspace 10";
+              "${mod}+0" = "workspace 0";
+              "${mod}+Shift+0" = "move container to workspace 0";
 
               "${mod}+q" =
                 ''[con_id="__focused__" instance="^(?!dropdown_).*$"] kill'';

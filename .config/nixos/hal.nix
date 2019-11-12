@@ -35,27 +35,33 @@
         refind # boot into windows without keyboard
         # onlykey # doesn't work yet :/
       ];
-    xsession.windowManager.i3 = {
-      config.assigns = { "6" = [{ class = "^Firefox$"; }]; };
-      # the dual monitor config I prefer
-      extraConfig = ''
-        workspace 1 output DP-0
-        workspace 2 output DP-0
-        workspace 3 output DP-0
-        workspace 4 output DP-0
-        workspace 5 output DP-0
-        workspace 6 output HDMI-0
-        workspace 7 output HDMI-0
-        workspace 8 output HDMI-0
-        workspace 9 output HDMI-0
-        workspace 10 output HDMI-0
+    xsession = {
+      initExtra = ''
+        emacs &
+        i3-msg workspace 5
+        firefox &
+        i3-msg workspace 0
       '';
+      windowManager.i3 = {
+        config.assigns = { "5" = [{ class = "^Firefox$"; }]; };
+        # the dual monitor config I prefer
+        extraConfig = ''
+          workspace 0 output DP-0
+          workspace 1 output DP-0
+          workspace 2 output DP-0
+          workspace 3 output DP-0
+          workspace 4 output DP-0
+          workspace 5 output HDMI-0
+          workspace 6 output HDMI-0
+          workspace 7 output HDMI-0
+          workspace 8 output HDMI-0
+          workspace 9 output HDMI-0
+        '';
+      };
     };
-    programs = {
-      rofi.extraConfig = ''
-        rofi.dpi: 96
-      '';
-    };
+    programs.rofi.extraConfig = ''
+      rofi.dpi: 1
+    '';
     services = {
       polybar = {
         config = {
