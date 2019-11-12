@@ -168,6 +168,8 @@
         zip
         unzip
         socat # detach processes
+        exfat # use exFAT-formatted drives
+        ntfs3g # write to NTFS-formatted drives
 
         # CLI's
         fio # disk benchmarking
@@ -175,6 +177,7 @@
         wget # file download
         youtube-dl # video download
         rclone # multiplatform cloud sync
+        ffsend # firefox send client
 
         # environments and related
         texlive.combined.scheme-medium # latex environment
