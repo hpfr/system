@@ -329,6 +329,10 @@
         enable = true;
         userName = "hpfr";
         userEmail = "44043764+hpfr@users.noreply.github.com";
+        extraConfig = {
+          url."git@github.com:".pushInsteadOf =
+            "git://github.com,https://github.com";
+        };
       };
     };
 
