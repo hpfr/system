@@ -210,11 +210,9 @@
     xresources.properties."Xft.dpi" = 192;
     xsession.pointerCursor.size = 64;
 
-    programs = {
-      rofi.extraConfig = ''
-        rofi.dpi: 192
-      '';
-    };
+    programs.rofi.extraConfig = ''
+      rofi.dpi: 192
+    '';
 
     services = {
       polybar = {
