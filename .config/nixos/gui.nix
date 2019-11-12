@@ -432,6 +432,8 @@
             # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
             "browser.in-content.dark-mode" = true;
             "ui.systemUsesDarkTheme" = 1;
+            # don't sync whether add-ons are enabled to disable some on Surface
+            "services.sync.addons.ignoreUserEnabledChanges" = true;
           };
           userChrome =
             builtins.readFile /home/lh/.config/firefox/userChrome.css;
