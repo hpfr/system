@@ -78,10 +78,16 @@
     ];
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    # exfat support
+    extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
+    # ntfs write support
+    supportedFilesystems = [ "ntfs-3g" ];
   };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

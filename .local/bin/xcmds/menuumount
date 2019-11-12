@@ -3,19 +3,13 @@
 # Provides you with mounted partitions, select one to unmount.
 # Drives mounted at /, /boot and /home will not be options to unmount.
 
-unmountusb() {
-	[ -z "$drives" ] && exit
-	chosen=$(echo "$drives" | $MENU -i -p "Unmount which drive?" | awk '{print $1}')
-	[ -z "$chosen" ] && exit
-	sudo -A umount "$chosen" && notify-send "💻 USB unmounting" "$chosen unmounted."
-	}
-
-drives=$(lsblk -nrpo "name,type,size,mountpoint" | awk '$2=="part"&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "%s (%s)\n",$4,$3}')
+drives=$(lsblk -nrpo "name,type,mountpoint" | awk '$2=="part" && $3 !~ /\/boot|\/home$|SWAP/ && length($3)>1 {print $3}')
 
 if [ -z "$drives" ]; then
-	echo "No drives to unmount."
-	exit
+	notify-send "No drives to unmount."
 else
-	echo "Unmountable USB drive detected."
-	unmountusb
+	mp=$(echo "$drives" | $MENU -i -p "Unmount which drive?")
+	[ -z "$mp" ] && exit
+	chosen=$(lsblk -nrpo "name,type,size,mountpoint" | awk "\$4==\"$mp\" {print \$1}")
+	notify-send "💻 $(udisksctl unmount -b "$chosen")"
 fi
