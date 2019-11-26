@@ -61,7 +61,7 @@ allposs=$(xrandr -q | grep "connected")
 screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
 
 # Get user choice including multi-monitor and manual selection:
-chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | $MENU -i -p "Select display arangement:") &&
+chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | $MENU -i -p "Select display arrangement") &&
 case "$chosen" in
 	"manual selection") arandr ; exit ;;
 	"multi-monitor") multimon ;;
