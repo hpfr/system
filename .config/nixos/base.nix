@@ -84,7 +84,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    # exfat support
+    # TODO exfat support not needed with 5.4?
     extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
     # ntfs write support
     supportedFilesystems = [ "ntfs-3g" ];
@@ -288,6 +288,19 @@
           export PS1=export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
         '';
       };
+
+      # doesn't work yet?
+      # readline = {
+      #   enable = true;
+      #   variables.editing-mode = "vi";
+      #   extraconfig = ''
+      #     $if mode=vi
+      #       set show-mode-in-prompt on
+      #       set vi-ins-mode-string \1\e[6 q\2
+      #       set vi-cmd-mode-string \1\e[2 q\2
+      #     $endif
+      #   '';
+      # };
 
       neovim = {
         enable = true;
