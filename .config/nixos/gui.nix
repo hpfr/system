@@ -426,11 +426,13 @@
           name = "default";
           settings = {
             "general.warnOnAboutConfig" = false;
+            "browser.aboutConfig.showWarning" = false;
             "extensions.pocket.enabled" = false;
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
             "browser.in-content.dark-mode" = true;
             "ui.systemUsesDarkTheme" = 1;
+            "widget.content.allow-gtk-dark-theme" = true;
             # don't sync whether add-ons are enabled to disable some on Surface
             "services.sync.addons.ignoreUserEnabledChanges" = true;
           };
