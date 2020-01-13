@@ -235,7 +235,7 @@
               }
               {
                 criteria = {
-                  class = "^keepassxc$";
+                  class = "^KeePassXC$";
                   title = " - KeePassXC$";
                 };
                 command = "move scratchpad; scratchpad show; resize 1200 800";
@@ -404,8 +404,7 @@
             x = 8;
             y = 8;
           };
-          # won't work until 0.3.4 releases
-          # background_opacity = 0.8;
+          background_opacity = 0.85;
           key_bindings = [
             {
               key = "C";
@@ -497,8 +496,7 @@
         fade = true;
         fadeDelta = 4;
         # inactiveOpacity = "0.9";
-        # can remove alacritty once 0.3.4 released, that will respect text
-        opacityRule = [ "92:class_g = 'Emacs'" "85:class_g = 'Alacritty'" ];
+        opacityRule = [ "92:class_g = 'Emacs'" ];
         blur = true;
       };
 
