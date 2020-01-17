@@ -268,7 +268,6 @@
           SS = "sudo systemctl";
           dots = "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME";
           f = "$FILE";
-          trem = "transmission-remote";
           e = "$EDITOR";
           x = "sxiv -ft *";
           sdn = "sudo shutdown -h now";
