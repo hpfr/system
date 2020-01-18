@@ -165,9 +165,7 @@
     ];
   };
 
-  i18n = {
-    consoleFont = "latarcyrheb-sun32"; # large console font
-  };
+  console.font = "latarcyrheb-sun32"; # large console font
 
   fonts.fontconfig.dpi = 192;
 
@@ -329,7 +327,7 @@
             modules-right =
               "temperature cpu memory filesystem battery wlan backlight-acpi pulseaudio date";
           };
-          "module/wlan".interface = "wlp5s0";
+          "module/wlan".interface = "wlp1s0";
         };
       };
     };
