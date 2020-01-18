@@ -1,7 +1,7 @@
-From 428a110a8e7d8ca6dbf4d916ea4f861747c8f285 Mon Sep 17 00:00:00 2001
+From eb5625524a9f025ade096508db976f6318387fc4 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 28 Sep 2019 18:00:19 +0200
-Subject: [PATCH 08/12] wifi
+Subject: [PATCH 08/13] wifi
 
 ---
  drivers/net/wireless/marvell/mwifiex/11n_aggr.c |  3 +--
@@ -33,10 +33,10 @@ index 042a1d07f686..fc9041f58e9f 100644
  
  		skb_src = skb_dequeue(&pra_list->skb_head);
 diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-index 47ec5293c045..435c346116a2 100644
+index 7b74ef71bef1..f0d1b0d48e07 100644
 --- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
 +++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-@@ -428,7 +428,10 @@ mwifiex_cfg80211_set_power_mgmt(struct wiphy *wiphy,
+@@ -437,7 +437,10 @@ mwifiex_cfg80211_set_power_mgmt(struct wiphy *wiphy,
  		mwifiex_dbg(priv->adapter, INFO,
  			    "info: ignore timeout value for IEEE Power Save\n");
  
@@ -97,7 +97,7 @@ index 1fb76d2f5d3f..fb32379da99d 100644
  
  struct hw_spec_api_rev {
 diff --git a/drivers/net/wireless/marvell/mwifiex/main.c b/drivers/net/wireless/marvell/mwifiex/main.c
-index 20cee5c397fb..13e49a3ae812 100644
+index e48b47f42554..15bbcbf1420f 100644
 --- a/drivers/net/wireless/marvell/mwifiex/main.c
 +++ b/drivers/net/wireless/marvell/mwifiex/main.c
 @@ -163,6 +163,7 @@ void mwifiex_queue_main_work(struct mwifiex_adapter *adapter)
@@ -250,7 +250,7 @@ index 69e3b624adbb..884bad677cc3 100644
  	if (adapter->curr_cmd->wait_q_enabled)
  		adapter->cmd_wait_q.status = -1;
 diff --git a/drivers/net/wireless/marvell/mwifiex/usb.c b/drivers/net/wireless/marvell/mwifiex/usb.c
-index 433c6a16870b..a2ff1ee3d230 100644
+index d445acc4786b..ae8e60cc17cb 100644
 --- a/drivers/net/wireless/marvell/mwifiex/usb.c
 +++ b/drivers/net/wireless/marvell/mwifiex/usb.c
 @@ -144,6 +144,8 @@ static int mwifiex_usb_recv(struct mwifiex_adapter *adapter,
@@ -266,5 +266,5 @@ diff --git a/scripts/leaking_addresses.pl b/scripts/leaking_addresses.pl
 old mode 100755
 new mode 100644
 -- 
-2.23.0
+2.24.1
 

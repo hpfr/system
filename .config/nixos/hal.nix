@@ -5,6 +5,8 @@
     ./gui.nix
   ];
 
+  system.stateVersion = "19.03";
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
