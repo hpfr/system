@@ -3,6 +3,14 @@
 {
   imports = [ ./base.nix ];
 
+  nixpkgs.overlays = [
+    # not sure why this isn't the default, KPXC has it as their default
+    (self: super: {
+      keepassxc = super.keepassxc.override { withKeePassNetworking = true; };
+    })
+    (self: super: { xwallpaper = super.callPackage ./pkgs/xwallpaper { }; })
+  ];
+
   location.provider = "geoclue2"; # for redshift
 
   fonts.enableDefaultFonts = false;

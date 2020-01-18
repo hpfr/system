@@ -13,16 +13,7 @@
       ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [
-      # not sure why this isn't the default, KPXC has it as their default
-      # (self: super: {
-      #   keepassxc = super.keepassxc.override { withKeePassNetworking = true; };
-      # })
-      (self: super: { xwallpaper = super.callPackage ./pkgs/xwallpaper { }; })
-    ];
-  };
+  nixpkgs.config.allowUnfree = true;
 
   boot = {
     # Use the systemd-boot EFI boot loader.
