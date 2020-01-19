@@ -245,7 +245,7 @@
           set go=a
           set mouse=a
           set nohlsearch
-          set clipboard+=unnamedplus
+          set clipboard=unnamed,unnamedplus
 
           " some basics
             nnoremap c "_c
