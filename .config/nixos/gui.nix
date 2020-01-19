@@ -197,6 +197,11 @@
       protontricks # for problematic Steam Play games
     ];
 
+    home.file.".xinitrc".text = ''
+      #!/bin/sh
+      . $HOME/.xsession
+    '';
+
     xsession = {
       enable = true;
       initExtra = ''
