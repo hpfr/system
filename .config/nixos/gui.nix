@@ -227,11 +227,14 @@
               #   command = "resize set 800 600; move position center";
               # }
               {
-                criteria.title = "Steam Keyboard";
-                command = "floating enable";
+                criteria.title = "mpvfloat";
+                command = "sticky enable; border pixel 0";
               }
               {
-                criteria.title = "mpvfloat";
+                criteria = {
+                  class = "Firefox";
+                  window_role = "PictureInPicture";
+                };
                 command = "sticky enable; border pixel 0";
               }
               {
@@ -251,6 +254,10 @@
             { "title" = "Steam - Update News"; }
             { "title" = "Steam Keyboard"; }
             { "title" = "mpvfloat"; }
+            {
+              "class" = "^Firefox$";
+              "window_role" = "^About$";
+            }
           ];
           # not released yet
           # workspaceAutoBackAndForth = true;
