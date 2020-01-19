@@ -228,18 +228,17 @@
         '';
       };
 
-      # doesn't work yet?
-      # readline = {
-      #   enable = true;
-      #   variables.editing-mode = "vi";
-      #   extraconfig = ''
-      #     $if mode=vi
-      #       set show-mode-in-prompt on
-      #       set vi-ins-mode-string \1\e[6 q\2
-      #       set vi-cmd-mode-string \1\e[2 q\2
-      #     $endif
-      #   '';
-      # };
+      readline = {
+        enable = true;
+        variables.editing-mode = "vi";
+        extraConfig = ''
+          $if mode=vi
+            set show-mode-in-prompt on
+            set vi-ins-mode-string \1\e[6 q\2
+            set vi-cmd-mode-string \1\e[2 q\2
+          $endif
+        '';
+      };
 
       neovim = {
         enable = true;
