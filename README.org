@@ -33,11 +33,11 @@ me know!
 - and more!
 
 * Installation
-- [[https://nixos.org/nixos/download.html][Install NixOS]]
-  - A simple configuration.nix from ~nixos-generate-config~ including git and
-    internet access should be enough
-- [[https://www.atlassian.com/git/tutorials/dotfiles][Install dotfiles as bare Git repo]]
-- Symlink the desired host-specific Nix expression to the system-wide
+1. [[https://nixos.org/nixos/download.html][Install NixOS]]
+   - A simple configuration.nix from ~nixos-generate-config~ including git and
+     internet access should be enough
+2. [[https://www.atlassian.com/git/tutorials/dotfiles][Install dotfiles as bare Git repo]]
+3. Symlink the desired host-specific Nix expression to the system-wide
   configuration and rebuild:
   #+BEGIN_SRC sh
   ln -s /etc/nixos/configuration.nix /home/lh/.config/nixos/$HOST.nix
