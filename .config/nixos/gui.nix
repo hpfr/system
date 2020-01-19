@@ -154,9 +154,6 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # create group for steam controller
-  # users.groups.steam-input = {};
-
   home-manager.users.lh = { config, pkgs, lib, ... }: {
     home.packages = with pkgs; [
       mpc_cli # mpd CLI
