@@ -1,0 +1,56 @@
+#+TITLE:   NixOS Configuration
+#+DATE:    January 19, 2020
+#+STARTUP: inlineimages nofold
+
+* Table of Contents :TOC_3:noexport:
+- [[#overview][Overview]]
+- [[#features][Features]]
+- [[#installation][Installation]]
+- [[#caveats][Caveats]]
+
+* Overview
+These are my dotfiles. They're built on NixOS, a Linux distribution
+based on the Nix package manager and focusing on reproducible builds and
+environments. I'm not too experienced with Nix yet, so my configurations aren't
+as well-organized and robust as they could be (yet!).
+
+Like any dotfiles, they aren't really designed to be used as-is. I've made them
+public because NixOS configurations aren't very common and so I could more
+easily get advice from other users. If you have a suggestion, feel free to let
+me know!
+
+* Features
+- Declarative: Changing intuitive variables create the more complex
+  configs necessary for a functioning system; easily toggle between different
+  services, configurations, and packages
+- Reproducible: As a result of Nix and NixOS, these simple text files produce
+  the same result--a customized NixOS installation and home environment--on any
+  standard NixOS installation
+- Multi-host: I can easily manage the configurations of all my NixOS machines.
+- Distributed builds: I can build the patched kernel for my laptop
+  (https://github.com/linux-surface/linux-surface) on my much more performant
+  desktop with Nix's remote builds
+- and more!
+
+* Installation
+- [[https://nixos.org/nixos/download.html][Install NixOS]]
+  - A simple configuration.nix from ~nixos-generate-config~ including git and
+    internet access should be enough
+- [[https://www.atlassian.com/git/tutorials/dotfiles][Install dotfiles as bare Git repo]]
+- Symlink the desired host-specific Nix expression to the system-wide
+  configuration and rebuild:
+  #+BEGIN_SRC sh
+  ln -s /etc/nixos/configuration.nix /home/lh/.config/nixos/$HOST.nix
+  sudo nixos-rebuild switch
+  #+END_SRC
+* Caveats
+I haven't documented this nearly thoroughly enough yet. I just wanted to put
+this up so potential employers could understand where my GitHub heatmap comes
+from. I don't recommend trying to install it in its current state.
+
+I plan to modularize the setup more robustly in the near future. Right now, it's
+based on simple file imports, but I plan to employ features of the Nix language
+to create modules for parts of my configuration, as many Nix users do. Soon, I
+should be able to move away from a bare repo in my home directory to a more
+intuitive standard git repo that writes all necessary config files and scripts,
+immutably, to the system, while remaining self-contained.
