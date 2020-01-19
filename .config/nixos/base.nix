@@ -11,8 +11,11 @@
     trustedUsers = [ "root" "@wheel" ];
     nixPath = options.nix.nixPath.default
       ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
+    # conserve disk space by hardlinking identical store files
+    autoOptimiseStore = true;
   };
 
+  # steam, etc
   nixpkgs.config.allowUnfree = true;
 
   boot = {
