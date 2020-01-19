@@ -394,7 +394,7 @@
             # identitiesOnly = true;
           };
           monolith = {
-            hostname = "192.168.1.9";
+            hostname = "10.10.10.9";
             user = "lh";
             identityFile = "~/.ssh/kpxc-id.pub";
             identitiesOnly = true;

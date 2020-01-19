@@ -313,9 +313,19 @@
     xresources.properties."Xft.dpi" = 192;
     xsession.pointerCursor.size = 64;
 
-    programs.rofi.extraConfig = ''
-      rofi.dpi: 192
-    '';
+    programs = {
+      ssh.matchBlocks = {
+        hal = {
+          hostname = "10.10.10.8";
+          user = "lh";
+          identityFile = "~/.ssh/kpxc-id.pub";
+          identitiesOnly = true;
+        };
+      };
+      rofi.extraConfig = ''
+        rofi.dpi: 192
+      '';
+    };
 
     services = {
       polybar = {
