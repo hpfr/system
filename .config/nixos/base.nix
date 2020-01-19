@@ -202,9 +202,7 @@
           mkd = "mkdir -pv";
           mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
           nrs = "sudo nixos-rebuild switch";
-          nrsu = "sudo nixos-rebuild switch --upgrade";
-          nrb = "sudo nixos-rebuild boot";
-          nrt = "sudo nixos-rebuild test";
+          nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           SS = "sudo systemctl";
           dots = "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME";
           f = "$FILE";
