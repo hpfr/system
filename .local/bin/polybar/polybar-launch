@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-pkill polybar >/dev/null
-while pgrep -u $(id -u) -x polybar >/dev/null; do sleep 1; done
-polybar main &

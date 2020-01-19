@@ -639,7 +639,12 @@
           i3GapsSupport = true;
         };
         extraConfig = builtins.readFile /home/lh/.config/polybar/nix.conf;
-        script = builtins.readFile /home/lh/.local/bin/polybar/polybar-launch;
+        script = ''
+          #!/usr/bin/env sh
+          pkill polybar >/dev/null
+          while pgrep -u $(id -u) -x polybar >/dev/null; do sleep 1; done
+          polybar main &
+        '';
       };
     };
   };
