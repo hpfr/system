@@ -32,11 +32,12 @@
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    home.packages = with pkgs;
-      [
-        refind # boot into windows without keyboard
-        # onlykey # doesn't work yet :/
-      ];
+    home.packages = with pkgs; [
+      refind # boot into windows without keyboard
+      # multibootusb # unmaintained
+      # onlykey # doesn't work yet :/
+      minecraft
+    ];
     xsession = {
       initExtra = ''
         emacs &
