@@ -63,7 +63,7 @@
       };
     };
     programs = {
-      firefox.userChrome = ''
+      firefox.profiles.default.userChrome = ''
         /* hide the native tabs */
         #tabbrowser-tabs {
             visibility: hidden !important;
