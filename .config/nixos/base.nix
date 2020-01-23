@@ -30,18 +30,10 @@
     supportedFilesystems = [ "ntfs-3g" ];
   };
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.wireless.networks = {
-  #   eduroam = {
-  #     auth = ''
-  #       key_mgmt=WPA-EAP
-  #       eap=PEAP
-  #       identity="user@example.com"
-  #       password="secret"
-  #     '';
-  #   };
-  # };
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    # wifi.backend = "iwd";
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
