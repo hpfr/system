@@ -87,17 +87,6 @@
     udev.extraRules = ''
       # UDEV Rules for OnlyKey, https://docs.crp.to/linux.html
       #
-      # This file must be placed at:
-      #
-      # /etc/udev/rules.d/49-onlykey.rules    (preferred location)
-      #   or
-      # /lib/udev/rules.d/49-onlykey.rules    (req'd on some broken systems)
-      #
-      # To install, type this command in a terminal:
-      #   sudo cp 49-onlykey.rules /etc/udev/rules.d/49-onlykey.rules
-      #
-      # After this file is installed, physically unplug and reconnect OnlyKey.
-      #
       ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{ID_MM_DEVICE_IGNORE}="1"
       ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{MTP_NO_PROBE}="1"
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
@@ -193,8 +182,8 @@
 
       sc-controller # use steam controller without steam
       steam
-      # wine # wine is not an emulator
       protontricks # for problematic Steam Play games
+      # wine # wine is not an emulator
     ];
 
     home.file.".xinitrc".text = ''

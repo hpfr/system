@@ -194,13 +194,13 @@
           mkd = "mkdir -pv";
           mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
           nrs = "sudo nixos-rebuild switch";
+          nrsl = ''sudo nixos-rebuild switch -option builders ""'';
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           SS = "sudo systemctl";
           dots = "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME";
           f = "$FILE";
           e = "$EDITOR";
           x = "sxiv -ft *";
-          sdn = "sudo shutdown -h now";
           ls = "ls -hN --color=auto --group-directories-first";
           grep = "grep --color=auto";
           diff = "diff --color";
