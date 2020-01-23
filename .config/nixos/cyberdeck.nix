@@ -202,11 +202,7 @@
         speedFactor = 1;
       }
     ];
-    # remote builds. test with nix-build '<nixpkgs/nixos>' -A system [-vvv]
-    # override with:
-    # nrs --option builders "" --option substituters "https://cache.nixos.org"
-    #     --option trusted-public-keys "cache.nixos.org-1:<snip>"
-    #
+    # remote builds. override with: nrs --option builders ""
     # root's ~/.ssh/config must include the relevant config
     # add authorized public keys to remotes
     distributedBuilds = true;
@@ -216,7 +212,8 @@
       builders-use-substitutes = true
     '';
     # builder as remote substituter
-    binaryCaches = [ "ssh-ng://monolith" "ssh-ng://hal" ];
+    # enable with --option trusted-substituters "ssh-ng://host"
+    trustedBinaryCaches = [ "ssh-ng://monolith" "ssh-ng://hal" ];
     binaryCachePublicKeys = [
       "monolith:qYcj/A6mRSPaaFn9sYYieWVY+0ZRPb2KavAJwYzTeJQ="
       "hal:qCUZMYJDjG0op5k8grKUSYojNoaqA+931VeFucyqH6U="
