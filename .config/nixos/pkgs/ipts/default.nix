@@ -7,6 +7,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/lib/firmware/intel/ipts/
-    cp $src/* $out/lib/firmware/intel/ipts/
+    cp -r $src/* $out/lib/firmware/intel/ipts/
   '';
 }

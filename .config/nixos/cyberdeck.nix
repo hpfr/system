@@ -4,28 +4,17 @@
   imports = [ ./gui.nix ];
 
   hardware = {
-    firmware = with pkgs; [ mwlwifi ipts i915 mrvl ];
-    # firmware = with pkgs; [ mwlwifi i915 mrvl ];
+    firmware = with pkgs; [ ipts ];
+    # firmware = with pkgs; [ mwlwifi mrvl ];
     acpilight.enable = true;
   };
 
   system.stateVersion = "19.03";
 
   nixpkgs.overlays = [
-    (self: super: { mwlwifi = super.callPackage ./pkgs/mwlwifi { }; })
     (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
-    (self: super: { i915 = super.callPackage ./pkgs/i915 { }; })
-    (self: super: { mrvl = super.callPackage ./pkgs/mrvl { }; })
-    # # Globally patched libwacom. Forces rebuilds of libinput and all
-    # # dependents
-    # (self: super: {
-    #   libwacom = super.libwacom.overrideAttrs (oldAttrs: {
-    #     patches = oldAttrs.patches or [ ]
-    #       ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
-    #         (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
-    #           (builtins.readDir ./pkgs/libwacom/patches))));
-    #   });
-    # })
+    # (self: super: { mwlwifi = super.callPackage ./pkgs/mwlwifi { }; })
+    # (self: super: { mrvl = super.callPackage ./pkgs/mrvl { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
     (self: super: {
       # I believe this is for desktop environments that depend on
@@ -37,32 +26,44 @@
           libinput = self.libinput-surface;
         };
       };
-      libinput-surface = super.libinput.override {
-        libwacom = super.libwacom.overrideAttrs (oldAttrs: {
-          patches = oldAttrs.patches or [ ]
-            ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
-              (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
-                (builtins.readDir ./pkgs/libwacom/patches))));
-        });
-      };
+      libinput-surface =
+        super.libinput.override { libwacom = self.libwacom-surface; };
+      libwacom-surface = super.libwacom.overrideAttrs (oldAttrs: {
+        patches = oldAttrs.patches or [ ]
+          ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
+            (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
+              (builtins.readDir ./pkgs/libwacom/patches))));
+      });
     })
     (self: super: {
       linux_4_19 = super.linux_4_19.override {
+        argsOverride = {
+          version = "4.19.95";
+          modDirVersion = "4.19.95";
+          src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v4.x/linux-4.19.95.tar.xz";
+            sha256 = "1c2g5wcf4zgy5q51qrf0s4hf3pr1j8gi8gn27w8cafn1xqrcmvaa";
+          };
+        };
         extraConfig = ''
+          INTEL_IPTS m
+          INTEL_IPTS_SURFACE m
           SERIAL_DEV_BUS y
           SERIAL_DEV_CTRL_TTYPORT y
-          SURFACE_SAM y
+          SURFACE_SAM m
           SURFACE_SAM_SSH m
+          SURFACE_SAM_SSH_DEBUG_DEVICE y
           SURFACE_SAM_SAN m
           SURFACE_SAM_VHF m
           SURFACE_SAM_DTX m
+          SURFACE_SAM_HPS m
           SURFACE_SAM_SID m
           SURFACE_SAM_SID_GPELID m
+          SURFACE_SAM_SID_PERFMODE m
           SURFACE_SAM_SID_VHF m
+          SURFACE_SAM_SID_POWER m
           INPUT_SOC_BUTTON_ARRAY m
-          INTEL_IPTS m
-          INTEL_IPTS_SURFACE m
-          MWLWIFI n
+          MWLWIFI m
         '';
         # ignoreConfigErrors = true;
       };
@@ -114,10 +115,6 @@
         name = "surface-ipts";
         patch = ./pkgs/linux/patches/4.19/0005-ipts.patch;
       }
-      # {
-      #   name = "surface-hid";
-      #   patch = ./pkgs/linux/patches/4.19/0006-hid.patch;
-      # }
       {
         name = "surface-sd";
         patch = ./pkgs/linux/patches/4.19/0007-sdcard-reader.patch;
@@ -162,6 +159,7 @@
       "usbhid"
       "hid_multitouch"
       "intel_ipts"
+      "ipts_surface"
     ];
   };
 
@@ -241,18 +239,6 @@
       };
       dpi = 192; # doesn't seem to work with startx
     };
-
-    udev.extraRules = ''
-      ######################################################################
-
-      # IPTS Touchscreen (SP2017)
-      SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Touchscreen", ENV{ID_INPUT_TOUCHSCREEN}="1", SYMLINK+="input/touchscreen"
-
-      # IPTS Pen (SP2017)
-      SUBSYSTEMS=="input", ATTRS{name}=="ipts 1B96:001F Pen", SYMLINK+="input/pen"
-
-      ######################################################################
-    '';
   };
 
   systemd.services = {
@@ -292,7 +278,11 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ libwacom acpilight ];
+  environment.systemPackages = with pkgs; [
+    libinput-surface
+    libwacom-surface
+    acpilight
+  ];
 
   environment.etc."systemd/sleep.conf".text = ''
     [Sleep]
