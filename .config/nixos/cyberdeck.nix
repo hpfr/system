@@ -167,7 +167,13 @@
 
   fonts.fontconfig.dpi = 192;
 
-  networking.hostName = "cyberdeck"; # Define your hostname.
+  networking = {
+    hostName = "cyberdeck"; # Define your hostname.
+    networkmanager.wifi = {
+      powersave = false;
+      scanRandMacAddress = false;
+    };
+  };
 
   # I have very limited space on this machine, so I have to be very strict with
   # disk management, especially with how space hungry NixOS generations can be.

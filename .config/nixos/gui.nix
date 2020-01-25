@@ -607,6 +607,8 @@
     };
 
     services = {
+      network-manager-applet.enable = true;
+
       compton = {
         enable = true;
         fade = true;
