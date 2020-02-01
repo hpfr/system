@@ -384,10 +384,16 @@
             hostname = "best-linux.cs.wisc.edu";
             user = "hupfer";
             # # home-manager hasn't implemented yet
-            # setEnv  = { "TERM" = "xterm-256color";
+            # setEnv  = { "TERM" = "xterm-256color" };
             # # CSL doesn't support key auth :(
             # identityFile = "~/.ssh/kpxc-id.pub";
             # identitiesOnly = true;
+          };
+          engr = {
+            hostname = "best-tux.cae.wisc.edu";
+            user = "liam";
+            identityFile = "~/.ssh/kpxc-id.pub";
+            identitiesOnly = true;
           };
           monolith = {
             hostname = "10.10.10.9";
