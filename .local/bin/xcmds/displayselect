@@ -32,7 +32,7 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
             --scale "$scale_x"x"$scale_y"
     else
 
-        primary=$(echo "$screens" | $MENU -i -p "Select primary display:")
+        primary=$(echo "$screens" | $MENU -i -p "Select primary display")
         secondary=$(echo "$screens" | grep -v "$primary")
         direction=$(printf "left\\nright" | $MENU -i -p "What side of $primary should $secondary be on?")
         xrandr --output "$primary" --auto --scale 1.0x1.0 --output "$secondary" --"$direction"-of "$primary" --auto --scale 1.0x1.0
@@ -40,10 +40,10 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
     }
 
 morescreen() { # If multi-monitor is selected and there are more than two screens.
-	primary=$(echo "$screens" | $MENU -i -p "Select primary display:")
-	secondary=$(echo "$screens" | grep -v "$primary" | $MENU -i -p "Select secondary display:")
+	primary=$(echo "$screens" | $MENU -i -p "Select primary display")
+	secondary=$(echo "$screens" | grep -v "$primary" | $MENU -i -p "Select secondary display")
 	direction=$(printf "left\\nright" | $MENU -i -p "What side of $primary should $secondary be on?")
-	tertiary=$(echo "$screens" | grep -v "$primary" | grep -v "$secondary" | $MENU -i -p "Select third display:")
+	tertiary=$(echo "$screens" | grep -v "$primary" | grep -v "$secondary" | $MENU -i -p "Select third display")
 	xrandr --output "$primary" --auto --output "$secondary" --"$direction"-of "$primary" --auto --output "$tertiary" --"$(printf "left\\nright" | grep -v "$direction")"-of "$primary" --auto
 	}
 
@@ -65,8 +65,9 @@ chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | $MENU -i -p
 case "$chosen" in
 	"manual selection") arandr ; exit ;;
 	"multi-monitor") multimon ;;
+    "") exit ;;
 	*) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
 esac
 
-setbg		# Fix background if screen size/arangement has changed.
-pgrep -x dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper location on screen
+setbg # Fix background if screen size/arrangement has changed.
+systemctl --user restart dunst polybar # Restart dunst to ensure proper location on screen
