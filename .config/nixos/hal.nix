@@ -40,13 +40,20 @@
     ];
     xsession = {
       initExtra = ''
+        # G-Sync is enabled by default, causes stuttering
+        nvidia-settings -a AllowVRR=0
+        # S2417DG defaults to 60 Hz unfortunately
+        xrandr --output DP-0 --primary --mode 2560x1440 --rate 144 --pos 0x0 --rotate normal --output HDMI-0 --mode 1920x1080 --pos 2560x360 --rotate normal
         emacs &
-        i3-msg workspace 5
         firefox &
-        i3-msg workspace 0
       '';
       windowManager.i3 = {
-        config.assigns = { "5" = [{ class = "^Firefox$"; }]; };
+        config.assigns = {
+          "5" = [{
+            class = "^Firefox$";
+            window_role = "browser";
+          }];
+        };
         # the dual monitor config I prefer
         extraConfig = ''
           workspace 0 output DP-0
