@@ -192,7 +192,6 @@
           pg = "pgrep";
           pk = "pkill";
           mkd = "mkdir -pv";
-          mpv = "mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)";
           nrs = "sudo nixos-rebuild switch";
           nrsl = ''sudo nixos-rebuild switch -option builders ""'';
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";

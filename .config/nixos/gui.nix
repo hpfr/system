@@ -221,10 +221,6 @@
               #   command = "resize set 800 600; move position center";
               # }
               {
-                criteria.title = "mpvfloat";
-                command = "sticky enable; border pixel 0";
-              }
-              {
                 criteria = {
                   class = "Firefox";
                   window_role = "PictureInPicture";
@@ -247,7 +243,6 @@
           floating.criteria = [
             { "title" = "Steam - Update News"; }
             { "title" = "Steam Keyboard"; }
-            { "title" = "mpvfloat"; }
             {
               "class" = "^Firefox$";
               "window_role" = "^About$";
@@ -333,7 +328,7 @@
             };
         };
         extraConfig = ''
-          no_focus [title="mpvfloat"]
+          no_focus [class="Firefox" window_role="PictureInPicture"]
         '';
       };
 
