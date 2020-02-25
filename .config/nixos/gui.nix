@@ -439,9 +439,12 @@
             # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
             "browser.in-content.dark-mode" = true;
             "ui.systemUsesDarkTheme" = 1;
-            "widget.content.allow-gtk-dark-theme" = true;
+            # the below option forces dark UI elements like text boxes but can break with bad webpages
+            # "widget.content.allow-gtk-dark-theme" = true;
             # don't sync whether add-ons are enabled to disable some on Surface
             "services.sync.addons.ignoreUserEnabledChanges" = true;
+            # open popups in new tabs, not new windows with no UI
+            "browser.link.open_newwindow.restriction" = 0;
           };
           userChrome = ''
             /* security-colored URL bar (from reddit)*/
