@@ -340,6 +340,104 @@
 
     fonts.fontconfig.enable = true;
 
+    xdg = {
+      dataFile = {
+        img = {
+          target = "applications/img.desktop";
+          text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=Image viewer
+            Exec=sxiv -a %u
+          '';
+        };
+        # mail = {
+        #   target = "applications/mail.desktop";
+        #   text = ''
+        #     [Desktop Entry]
+        #     Type=Application
+        #     Name=Mail
+        #     Exec=emacsclient -e neomutt %u
+        #   '';
+        # };
+        pdf = {
+          target = "applications/pdf.desktop";
+          text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=PDF reader
+            Exec=zathura %u
+          '';
+        };
+        # rss = {
+        #   target = "applications/rss.desktop";
+        #   text = ''
+        #     [Desktop Entry]
+        #     Type=Application
+        #     Name=RSS feed addition
+        #     Exec=emacsclient %U
+        #   '';
+        # };
+        text = {
+          target = "applications/text.desktop";
+          text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=Text editor
+            Exec=emacsclient %u
+          '';
+        };
+        # torrent = {
+        #   target = "applications/torrent.desktop";
+        #   text = ''
+        #     [Desktop Entry]
+        #     Type=Application
+        #     Name=Torrent
+        #     Exec=transadd %U
+        #   '';
+        # };
+      };
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "x-scheme-handler/magnet" = "torrent.desktop;";
+          "x-scheme-handler/mailto" = "mail.desktop;";
+          "text/plain" = "text.desktop;";
+          "text/x-shellscript" = "text.desktop;";
+          "application/pdf" = "pdf.desktop;";
+          "image/png" = "img.desktop;";
+          "image/jpeg" = "img.desktop;";
+          "image/gif" = "img.desktop;";
+          "application/rss+xml" = "rss.desktop;";
+          "x-scheme-handler/http" = "firefox.desktop;";
+          "x-scheme-handler/https" = "firefox.desktop;";
+          "x-scheme-handler/ftp" = "firefox.desktop;";
+          "x-scheme-handler/chrome" = "firefox.desktop;";
+          "text/html" = "firefox.desktop;";
+          "application/x-extension-htm" = "firefox.desktop;";
+          "application/x-extension-html" = "firefox.desktop;";
+          "application/x-extension-shtml" = "firefox.desktop;";
+          "application/xhtml+xml" = "firefox.desktop;";
+          "application/x-extension-xhtml" = "firefox.desktop;";
+          "application/x-extension-xht" = "firefox.desktop;";
+        };
+        associations.added = {
+          "x-scheme-handler/http" = "firefox.desktop;";
+          "x-scheme-handler/https" = "firefox.desktop;";
+          "x-scheme-handler/ftp" = "firefox.desktop;";
+          "x-scheme-handler/chrome" = "firefox.desktop;";
+          "text/html" = "firefox.desktop;";
+          "application/x-extension-htm" = "firefox.desktop;";
+          "application/x-extension-html" = "firefox.desktop;";
+          "application/x-extension-shtml" = "firefox.desktop;";
+          "application/xhtml+xml" = "firefox.desktop;";
+          "application/x-extension-xhtml" = "firefox.desktop;";
+          "application/x-extension-xht" = "firefox.desktop;";
+          "application/pdf" = "org.pwmt.zathura.desktop;xournalpp.desktop;";
+        };
+      };
+    };
+
     gtk = {
       enable = true;
       theme.name = "Adwaita";
