@@ -9,24 +9,24 @@ super + e
 	$EDITOR
 super + w
 	$BROWSER
+super + p
+	$READER
 super + n
 	xournalpp
+super + k
+	keepassxc
 super + m
 	com.spotify.Client
 super + i
 	$TERMINAL -e htop
 super + s
 	$TERMINAL -e pulsemixer
-super + shift + c
-	camtoggle
 super + shift + w
 	networkmanager_dmenu
 super + shift + d
 	displayselect
 super + shift + g
 	gimp
-super + question
-	~/repos/cheeet/cheatsheet.sh all
 
 # Et cetera...
 super + grave
@@ -34,11 +34,11 @@ super + grave
 super + Insert
 	showclip
 super + x
-	prompt "Shutdown computer?" "shutdown -h now"
+	prompt 'Shutdown computer?' 'shutdown -h now'
 super + shift + x
-	prompt "Reboot computer?" "reboot"
+	prompt 'Reboot computer?' 'reboot'
 super + z
-	i3lock-fancy -pt ""; xset dpms force off # prepend "mpc pause; pauseallmpv;" once that's set up
+	mpc pause; i3lock-fancy -pt ""; xset dpms force off
 super + b
 	polybar-msg cmd toggle
 
@@ -52,15 +52,9 @@ Print
 # Pick screenshot type
 shift + Print
 	maimpick
-# Record audio or video
-super + Print
-	menurecord
-# Show keys
-super + shift + Print
-	pkill screenkey || screenkey
-# kill active recording
-super + Delete
-	menurecord kill
+# # Show keys
+# super + shift + Print
+# 	pkill screenkey || screenkey
 
 # Pause audio
 super + {_,shift +} p
@@ -110,10 +104,10 @@ super + F4
 # Restart/rescan wifi/eth networks
 super + F5
 	sudo -A systemctl restart NetworkManager
-# Mount a USB drive or Android device
+# Mount a USB drive
 super + F9
 	menumount
-# Unmount a USB drive or Android device
+# Unmount a USB drive
 super + F10
 	menuumount
 # Network Manager interface

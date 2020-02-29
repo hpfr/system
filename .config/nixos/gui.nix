@@ -178,7 +178,8 @@
       # libreoffice # office suite. bloated, especially for surface
       keepassxc # password manager
       xournalpp # handwritten notes and PDF markup
-      fractal # matrix gtk client
+      riot-desktop # matrix electron client
+      signal-desktop # signal client
 
       sc-controller # use steam controller without steam
       steam
@@ -275,13 +276,14 @@
               "${mod}+0" = "workspace 0";
               "${mod}+Shift+0" = "move container to workspace 0";
 
-              "${mod}+q" =
-                ''[con_id="__focused__" instance="^(?!dropdown_).*$"] kill'';
-              "${mod}+Shift+q" = ''
-                [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)'';
+              "${mod}+q" = "kill";
+              "${mod}+Shift+q" =
+                "exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)";
 
               "${mod}+t" = "split toggle";
               "${mod}+o" = "sticky toggle";
+              # after switching to tabbed, mod+t to go back to split
+              "${mod}+Shift+t" = "layout tabbed";
 
               "${mod}+g" = "workspace prev";
               "${mod}+semicolon" = "workspace next";
@@ -713,6 +715,7 @@
 
       compton = {
         enable = true;
+        # https://github.com/yshui/picom/blob/next/picom.sample.conf
         fade = true;
         fadeDelta = 4;
         # inactiveOpacity = "0.9";

@@ -36,6 +36,13 @@
       refind # boot into windows without keyboard
       # multibootusb # unmaintained
       # onlykey # doesn't work yet :/
+
+      libreoffice
+      # freecad
+      blender
+      kicad
+
+      lutris
       minecraft
     ];
     xsession = {
