@@ -36,11 +36,12 @@ me know!
 1. [[https://nixos.org/nixos/download.html][Install NixOS]]
    - A simple configuration.nix from ~nixos-generate-config~ including git and
      internet access should be enough
-2. [[https://www.atlassian.com/git/tutorials/dotfiles][Install dotfiles as bare Git repo]]
+2. Clone this repo to desired location
 3. Symlink the desired host-specific Nix expression to the system-wide
   configuration and rebuild:
   #+BEGIN_SRC sh
-  ln -s /etc/nixos/configuration.nix /home/lh/.config/nixos/$HOST.nix
+  rm /etc/nixos/configuration.nix
+  ln -s ~/repos/dotfiles/$HOST.nix /etc/nixos/configuration.nix
   sudo nixos-rebuild switch
   #+END_SRC
 * Caveats
@@ -50,7 +51,4 @@ from. I don't recommend trying to install it in its current state.
 
 I plan to modularize the setup more robustly in the near future. Right now, it's
 based on simple file imports, but I plan to employ features of the Nix language
-to create modules for parts of my configuration, as many Nix users do. Soon, I
-should be able to move away from a bare repo in my home directory to a more
-intuitive standard git repo that writes all necessary config files and scripts,
-immutably, to the system, while remaining self-contained.
+to create modules for parts of my configuration, as many Nix users do.

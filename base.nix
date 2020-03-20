@@ -196,7 +196,6 @@
           nrsl = ''sudo nixos-rebuild switch -option builders ""'';
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           SS = "sudo systemctl";
-          dots = "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME";
           f = "$FILE";
           e = "$EDITOR";
           x = "sxiv -ft *";

@@ -133,7 +133,7 @@
     services.bgcron = {
       after = [ "graphical.target" ];
       wants = [ "bgcron.timer" ];
-      script = builtins.readFile /home/lh/.local/bin/tools/setbg;
+      script = builtins.readFile bin/tools/setbg;
     };
   };
 
@@ -144,53 +144,62 @@
   };
 
   home-manager.users.lh = { config, pkgs, lib, ... }: {
-    home.packages = with pkgs; [
-      mpc_cli # mpd CLI
-      pulsemixer # pulseaudio TUI
-      fltrdr # speedreader TUI
+    nixpkgs.config = { allowUnfree = true; };
+    home = {
+      packages = with pkgs; [
+        mpc_cli # mpd CLI
+        pulsemixer # pulseaudio TUI
+        fltrdr # speedreader TUI
 
-      sxhkd # wm agnostic keybindings for X
-      xorg.xwininfo # query window information
-      xorg.xprop # query window properties
-      xorg.xdpyinfo # get info like DPI
-      xdotool # manage windows in scripts
-      xclip # manage clipboard in scripts
-      libnotify # notify-send command
-      xwallpaper # set wallpaper
-      libxml2 # xmllint for rofi-emoji
-      imagemagick7 # image editing CLI and GUI
-      adwaita-qt # make qt apps look like gtk apps
+        sxhkd # wm agnostic keybindings for X
+        xorg.xwininfo # query window information
+        xorg.xprop # query window properties
+        xorg.xdpyinfo # get info like DPI
+        xdotool # manage windows in scripts
+        xclip # manage clipboard in scripts
+        libnotify # notify-send command
+        xwallpaper # set wallpaper
+        libxml2 # xmllint for rofi-emoji
+        imagemagick7 # image editing CLI and GUI
+        adwaita-qt # make qt apps look like gtk apps
 
-      i3lock-fancy
-      arandr # monitor layout GUI
-      blueman # bluetooth GUI
-      pavucontrol # pulseaudio GUI
-      wpgtk # gtk GUI
-      networkmanager_dmenu # connect to wifi from rofi
-      rofi-systemd # manage services with rofi
-      sxiv # simple x image viewer
-      maim # lightweight screenshot utility
+        i3lock-fancy
+        arandr # monitor layout GUI
+        blueman # bluetooth GUI
+        pavucontrol # pulseaudio GUI
+        wpgtk # gtk GUI
+        networkmanager_dmenu # connect to wifi from rofi
+        rofi-systemd # manage services with rofi
+        sxiv # simple x image viewer
+        maim # lightweight screenshot utility
 
-      celluloid # mpv gtk frontend
-      safeeyes # reminds user on eye health
-      virtmanager # manage server VM's remotely
-      # x11_ssh_askpass # fill ssh password requests
-      # libreoffice # office suite. bloated, especially for surface
-      keepassxc # password manager
-      xournalpp # handwritten notes and PDF markup
-      riot-desktop # matrix electron client
-      signal-desktop # signal client
+        celluloid # mpv gtk frontend
+        safeeyes # reminds user on eye health
+        virtmanager # manage server VM's remotely
+        # x11_ssh_askpass # fill ssh password requests
+        # libreoffice # office suite. bloated, especially for surface
+        keepassxc # password manager
+        xournalpp # handwritten notes and PDF markup
+        riot-desktop # matrix electron client
+        signal-desktop # signal client
 
-      sc-controller # use steam controller without steam
-      steam
-      protontricks # for problematic Steam Play games
-      # wine # wine is not an emulator
-    ];
+        sc-controller # use steam controller without steam
+        steam
+        protontricks # for problematic Steam Play games
+        # wine # wine is not an emulator
+      ];
 
-    home.file.".xinitrc".text = ''
-      #!/bin/sh
-      . $HOME/.xsession
-    '';
+      file = {
+        ".xinitrc".text = ''
+          #!/bin/sh
+          . $HOME/.xsession
+        '';
+        ".local/bin" = {
+          source = ./bin;
+          recursive = true;
+        };
+      };
+    };
 
     xsession = {
       enable = true;
@@ -437,6 +446,16 @@
           "application/x-extension-xht" = "firefox.desktop;";
           "application/pdf" = "org.pwmt.zathura.desktop;xournalpp.desktop;";
         };
+      };
+      # TODO: this is temporary to escape the bare repo, modularize at some point
+      configFile = {
+        "fontconfig" = {
+          source = cfg/fontconfig;
+          recursive = true;
+        };
+        "networkmanager-dmenu/config.ini".source = cfg/nm-dmenu.ini;
+        "sxhkd/sxhkdrc".source = cfg/sxhkdrc;
+        "tridactyl/tridactylrc".source = cfg/tridactylrc;
       };
     };
 
@@ -766,7 +785,7 @@
           pulseSupport = true;
           i3GapsSupport = true;
         };
-        extraConfig = builtins.readFile /home/lh/.config/polybar/nix.conf;
+        extraConfig = builtins.readFile cfg/polybar.conf;
         script = ''
           #!/usr/bin/env sh
           pkill polybar >/dev/null
