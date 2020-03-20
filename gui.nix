@@ -116,8 +116,8 @@
       temperature.night = 3000;
     };
 
-    # for Spotify, Discord, and Telegram
-    flatpak = { enable = true; };
+    # for proprietary apps like Spotify, Discord, and Slack
+    flatpak.enable = true;
   };
 
   systemd.user = {
@@ -170,8 +170,9 @@
         wpgtk # gtk GUI
         networkmanager_dmenu # connect to wifi from rofi
         rofi-systemd # manage services with rofi
-        sxiv # simple x image viewer
+        nomacs # image viewer
         maim # lightweight screenshot utility
+        bookworm # ebook reader
 
         celluloid # mpv gtk frontend
         safeeyes # reminds user on eye health
@@ -182,12 +183,26 @@
         xournalpp # handwritten notes and PDF markup
         riot-desktop # matrix electron client
         signal-desktop # signal client
+        tdesktop # telegram client (FOSS)
 
         sc-controller # use steam controller without steam
         steam
         protontricks # for problematic Steam Play games
         # wine # wine is not an emulator
       ];
+
+      sessionVariables = {
+        TERMINAL = "alacritty";
+        BROWSER = "firefox";
+        READER = "zathura";
+        # use this variable in scripts to generalize dmenu, rofi, etc
+        MENU = "rofi -dmenu";
+        SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
+
+        # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
+        # for adwaita-qt
+        QT_STYLE_OVERRIDE = "Adwaita-Dark";
+      };
 
       file = {
         ".xinitrc".text = ''
@@ -359,7 +374,7 @@
             [Desktop Entry]
             Type=Application
             Name=Image viewer
-            Exec=sxiv -a %u
+            Exec=nomacs %u
           '';
         };
         # mail = {
@@ -489,12 +504,10 @@
     # };
 
     programs = {
-      bash = {
-        profileExtra = ''
-          # autostart graphical server on tty1 login
-          [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
-        '';
-      };
+      bash.profileExtra = ''
+        # autostart graphical server on tty1 login
+        [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
+      '';
 
       ssh = {
         enable = true;
@@ -511,6 +524,7 @@
           engr = {
             hostname = "best-tux.cae.wisc.edu";
             user = "liam";
+            # setEnv  = { "TERM" = "xterm-256color" };
             identityFile = "~/.ssh/kpxc-id.pub";
             identitiesOnly = true;
           };
