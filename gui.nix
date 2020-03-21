@@ -9,6 +9,18 @@
       keepassxc = super.keepassxc.override { withKeePassNetworking = true; };
     })
     (self: super: { xwallpaper = super.callPackage ./pkgs/xwallpaper { }; })
+    (self: super: {
+      gui-scripts = (super.runCommand "gui-scripts" {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      } ''
+        shopt -s globstar
+        for tool in ${./bin/gui}"/"**; do
+          [ -f $tool ] && install -D -m755 $tool $out/bin/$(basename $tool)
+        done
+        patchShebangs $out/bin
+      '');
+    })
   ];
 
   location.provider = "geoclue2"; # for redshift
@@ -120,23 +132,6 @@
     flatpak.enable = true;
   };
 
-  systemd.user = {
-    timers.bgcron = {
-      after = [ "graphical.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Unit = "bgcron.service";
-        Persistent = true;
-      };
-      wantedBy = [ "timers.target" ];
-    };
-    services.bgcron = {
-      after = [ "graphical.target" ];
-      wants = [ "bgcron.timer" ];
-      script = builtins.readFile bin/tools/setbg;
-    };
-  };
-
   # for Flatpak
   xdg.portal = {
     enable = true;
@@ -144,7 +139,6 @@
   };
 
   home-manager.users.lh = { config, pkgs, lib, ... }: {
-    nixpkgs.config = { allowUnfree = true; };
     home = {
       packages = with pkgs; [
         mpc_cli # mpd CLI
@@ -189,6 +183,8 @@
         steam
         protontricks # for problematic Steam Play games
         # wine # wine is not an emulator
+
+        gui-scripts
       ];
 
       sessionVariables = {
@@ -204,14 +200,33 @@
         QT_STYLE_OVERRIDE = "Adwaita-Dark";
       };
 
-      file = {
-        ".xinitrc".text = ''
-          #!/bin/sh
-          . $HOME/.xsession
-        '';
-        ".local/bin" = {
-          source = ./bin;
-          recursive = true;
+      file.".xinitrc".text = ''
+        #!/bin/sh
+        . $HOME/.xsession
+      '';
+    };
+
+    systemd.user = {
+      timers.bgcron = {
+        Unit.After = [ "graphical.target" ];
+        Timer = {
+          OnCalendar = "daily";
+          Unit = "bgcron.service";
+          Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
+      };
+      services.bgcron = {
+        Unit = {
+          After = [ "graphical.target" ];
+          Wants = [ "bgcron.timer" ];
+        };
+        Service = {
+          Environment = "PATH=${
+              with pkgs;
+              lib.makeBinPath [ coreutils libnotify xwallpaper ]
+            }";
+          ExecStart = "${pkgs.gui-scripts}/bin/setbg";
         };
       };
     };

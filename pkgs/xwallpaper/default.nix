@@ -3,19 +3,19 @@
 
 stdenv.mkDerivation rec {
   pname = "xwallpaper";
-  version = "0.6.2";
+  version = "0.6.4";
 
   src = fetchFromGitHub {
     owner = "stoeckmann";
     repo = "xwallpaper";
     rev = "v" + version;
-    sha256 = "1cbb7czkpwkw1g9n2y6y3jsb01s8qwsip2li0jqjj4m5xy8hj40r";
+    sha256 = "175fzifvia58vah2x7509drvfn3xfv5d9szgh9x1w1a1w8rcs2hx";
   };
 
   buildInputs = [
     libjpeg
     libpng
-    libseccomp
+    # libseccomp
     libXpm
     pixman
     xcbutil

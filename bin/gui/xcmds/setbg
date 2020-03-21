@@ -6,22 +6,18 @@ if [ ! -z "$1" ]; then
     WP_PATH=$(realpath "$1")
 else
     WALLS="$HOME/box-local/personal/wallpapers"
-
-    echo "Changing wallpaper..."
-    # Get number of files minus the total size line
-    COUNT=$(($(ls -l $WALLS | grep --count --invert-match ^d) - 1))
-    echo "Wallpaper count: $COUNT"
-
-    RAND=$((RANDOM % $COUNT))
-    echo "Selected wallpaper $RAND"
-
     # array of wallpaper paths
     WA=("$WALLS"/*)
+    echo "Changing wallpaper..."
+    COUNT=${#WA[@]}
+    echo "Wallpaper count: $COUNT"
+
+    RAND=$((RANDOM % COUNT))
+    echo "Selected wallpaper $RAND"
+
     WP_PATH=${WA[$RAND]}
     echo "Wallpaper file path: $WP_PATH"
 fi
 ln -s --force $WP_PATH ~/.config/wall
-# I use this as part of a systemd service on a timer in my Nix config, and it
-# doesn't recognize packages installed with home-manager
-/etc/profiles/per-user/lh/bin/notify-send -i "$WP_PATH" "Wallpaper changed."
-/etc/profiles/per-user/lh/bin/xwallpaper --zoom "$WP_PATH"
+notify-send -i "$WP_PATH" "Wallpaper changed."
+xwallpaper --zoom "$WP_PATH"

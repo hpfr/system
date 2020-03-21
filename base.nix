@@ -16,7 +16,23 @@
   };
 
   # steam, etc
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (self: super: {
+        base-scripts = (super.runCommand "base-scripts" {
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        } ''
+          for tool in ${./bin/tools}"/"*; do
+            install -D -m755 $tool $out/bin/$(basename $tool)
+          done
+
+          patchShebangs $out/bin
+        '');
+      })
+    ];
+  };
 
   boot = {
     # Use the systemd-boot EFI boot loader.
@@ -127,13 +143,13 @@
         nnn # file manager
         htop # system monitoring
         ncdu # disk management
+
+        base-scripts
       ];
       # sourced by .profile
       sessionVariables = {
-        # add .local/bin/ and all subdirectories to path
-        PATH = ''
-          $PATH:$HOME/.emacs.d/bin/:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')
-        '';
+        # add doom commands to path
+        PATH = "$PATH:$HOME/.emacs.d/bin/";
         # fall back to emacs if no emacs server
         EDITOR = "emacsclient -ca emacs";
         FILE = "nnn";
