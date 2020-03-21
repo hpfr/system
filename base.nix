@@ -116,7 +116,6 @@
       packages = with pkgs; [
         # system-related
         gnumake
-        gnutls # for circe
         zip
         unzip
         socat # detach processes

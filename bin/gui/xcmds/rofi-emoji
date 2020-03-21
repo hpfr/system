@@ -10,11 +10,11 @@
 #     1. Download all emoji
 #        $ rofi-emoji --download
 #
-#     2. Run it!
+#     2. Run it
 #        $ rofi-emoji
 #
 #   Notes:
-#     * You'll need a emoji font like "Noto Emoji" or "EmojiOne".
+#     * You'll need a emoji font like Noto Emoji or Joypixels.
 #     * Confirming an item will automatically paste it WITHOUT
 #       writing it to your clipboard.
 #     * C-c will copy it to your clipboard WITHOUT pasting it.
@@ -36,16 +36,8 @@ URLS=(
 'https://emojipedia.org/flags/'
 )
 
-
-function notify() {
-	if [ "$(command -v notify-send)" ]; then
-		notify-send "$1" "$2"
-	fi
-}
-
-
 function download() {
-	notify "$(basename "$0")" 'Downloading all emoji from emojipedia...'
+	notify-send "$(basename "$0")" 'Downloading all emoji from emojipedia...'
 
 	echo "" > "$EMOJI_FILE"
 
@@ -67,7 +59,7 @@ function download() {
 		echo "$emojis" >> "$EMOJI_FILE"
 	done
 
-	notify "$(basename "$0")" 'Download complete'
+	notify-send "$(basename "$0")" 'Download complete'
 }
 
 function rofi_menu() { # {{{
@@ -94,7 +86,7 @@ function toclipboard() { # {{{
 function display() {
 	local emoji line exit_code quantifier
 
-	emoji=$(cat "$EMOJI_FILE" | grep -v '#' | grep -v '^[[:space:]]*$')
+	emoji=$(grep -v '#' "$EMOJI_FILE" | grep -v '^[[:space:]]*$')
 	line="$(echo "$emoji" | rofi_menu)"
 	exit_code=$?
 
@@ -129,5 +121,4 @@ if [ ! -f "$EMOJI_FILE" ]; then
 	download
 fi
 
-# display displays :)
 display
