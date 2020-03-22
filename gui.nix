@@ -143,9 +143,9 @@
       packages = with pkgs; [
         mpc_cli # mpd CLI
         pulsemixer # pulseaudio TUI
-        fltrdr # speedreader TUI
 
         sxhkd # wm agnostic keybindings for X
+        # TODO package scripts with these dependencies
         xorg.xwininfo # query window information
         xorg.xprop # query window properties
         xorg.xdpyinfo # get info like DPI

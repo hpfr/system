@@ -40,8 +40,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    # TODO exfat support not needed with 5.4?
-    extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
     # ntfs write support
     supportedFilesystems = [ "ntfs-3g" ];
   };
@@ -51,10 +49,6 @@
     # wifi.backend = "iwd";
   };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   console = {
     # font = "Lat2-Terminus16";
     keyMap = "us";
@@ -62,12 +56,6 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "America/Chicago";
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   hplip # python27Packages.dbus-python dbus
-  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -86,24 +74,8 @@
     ];
   };
 
-  services = {
-    # Enable CUPS to print documents.
-    # printing = {
-    #   enable = true;
-    #   drivers = [ pkgs.hplipWithPlugin ]; # FIXME hp-setup not working
-    # };
-
-    # emacs = {
-    #   enable = true;
-    #   package = with pkgs;
-    #     ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
-    #       epkgs.emacs-libvterm
-    #     ]));
-    # };
-  };
-
   # users.mutableUsers = false;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Don't forget to set a password with ‘passwd’.
   users.users.lh = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "input" "video" "lp" ];
@@ -118,8 +90,8 @@
         gnumake
         zip
         unzip
-        socat # detach processes
-        exfat # use exFAT-formatted drives
+        # TODO package as utils only?
+        # exfat # use exFAT-formatted drives
         ntfs3g # write to NTFS-formatted drives
 
         # CLI's
@@ -216,7 +188,7 @@
         initExtra = ''
           stty -ixon # disable ctrl-s and ctrl-q
           # https://wiki.archlinux.org/index.php/Bash/Prompt_customization
-          export PS1=export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+          export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
         '';
       };
 

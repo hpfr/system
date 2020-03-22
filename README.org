@@ -24,7 +24,7 @@ me know!
   configs necessary for a functioning system; easily toggle between different
   services, configurations, and packages
 - Reproducible: As a result of Nix and NixOS, these simple text files produce
-  the same result--a customized NixOS installation and home environment--on any
+  the same result—a customized NixOS installation and home environment—on any
   standard NixOS installation
 - Multi-host: I can easily manage the configurations of all my NixOS machines.
 - Distributed builds: I can build the patched kernel for my laptop
@@ -34,16 +34,19 @@ me know!
 
 * Installation
 1. [[https://nixos.org/nixos/download.html][Install NixOS]]
-   - A simple configuration.nix from ~nixos-generate-config~ including git and
-     internet access should be enough
+   - A simple configuration.nix from ~nixos-generate-config~ including git,
+     internet access, and a user account should be enough
 2. Clone this repo to desired location
+   #+begin_src sh
+   git clone git@github.com:hpfr/dotfiles ~/repos/dotfiles
+   #+end_src
 3. Symlink the desired host-specific Nix expression to the system-wide
-  configuration and rebuild:
-  #+BEGIN_SRC sh
-  rm /etc/nixos/configuration.nix
-  ln -s ~/repos/dotfiles/$HOST.nix /etc/nixos/configuration.nix
-  sudo nixos-rebuild switch
-  #+END_SRC
+   configuration and rebuild:
+   #+BEGIN_SRC sh
+   sudo rm /etc/nixos/configuration.nix
+   sudo ln -s ~/repos/dotfiles/$HOSTNAME.nix /etc/nixos/configuration.nix
+   sudo nixos-rebuild switch
+   #+END_SRC
 * Caveats
 I haven't documented this nearly thoroughly enough yet. I just wanted to put
 this up so potential employers could understand where my GitHub heatmap comes
