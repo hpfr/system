@@ -596,6 +596,13 @@
             "services.sync.addons.ignoreUserEnabledChanges" = true;
             # open popups in new tabs, not new windows with no UI
             "browser.link.open_newwindow.restriction" = 0;
+            # not officially supported yet on Nvidia proprietary drivers
+            # but I haven't noticed bugs and it's much faster:
+            # https://testdrive-archive.azurewebsites.net/Performance/Chalkboard/
+            "gfx.webrender.all" = true;
+            "gfx.webrender.enable" = true;
+            # may improve perf?
+            # "gfx.use-glx-texture-from-pixmap" = true;
           };
           userChrome = ''
             /* security-colored URL bar (from reddit)*/
