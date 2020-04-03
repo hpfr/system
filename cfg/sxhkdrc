@@ -13,7 +13,7 @@ super + p
 	$READER
 super + n
 	xournalpp
-super + k
+super + shift + p
 	keepassxc
 super + m
 	com.spotify.Client
@@ -27,6 +27,9 @@ super + shift + d
 	displayselect
 super + shift + g
 	gimp
+# toggle current dropdown
+super + a
+	tdrop -am -w '-4' -x 2 current
 
 # Et cetera...
 super + grave

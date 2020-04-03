@@ -168,6 +168,7 @@
         maim # lightweight screenshot utility
         bookworm # ebook reader
 
+        tdrop # WM- and TE-agnostic dropdown terminal panes
         celluloid # mpv gtk frontend
         safeeyes # reminds user on eye health
         virtmanager # manage server VM's remotely
@@ -281,6 +282,7 @@
             ];
           };
           floating.criteria = [
+            { "title" = "(Dropdown)"; }
             { "title" = "Steam - Update News"; }
             { "title" = "Steam Keyboard"; }
             {
@@ -303,6 +305,7 @@
             in lib.mkOptionDefault {
               # unbind keys handled by sxhkd
               "${mod}+Return" = null;
+              "${mod}+a" = null;
               "${mod}+d" = null;
               "${mod}+v" = null;
               "${mod}+s" = null;
@@ -761,7 +764,7 @@
     services = {
       network-manager-applet.enable = true;
 
-      compton = {
+      picom = {
         enable = true;
         # https://github.com/yshui/picom/blob/next/picom.sample.conf
         fade = true;
