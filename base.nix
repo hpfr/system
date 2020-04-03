@@ -121,8 +121,8 @@
       sessionVariables = {
         # add doom commands to path
         PATH = "$PATH:$HOME/.emacs.d/bin/";
-        # fall back to emacs if no emacs server
-        EDITOR = "emacsclient -ca emacs";
+        # let user choose editor if no emacs server
+        EDITOR = "emacsclient -ca ''";
         FILE = "nnn";
 
         # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
@@ -166,15 +166,11 @@
           "autocd"
         ];
         shellAliases = {
-          pg = "pgrep";
-          pk = "pkill";
           mkd = "mkdir -pv";
           nrs = "sudo nixos-rebuild switch";
-          nrsl = ''sudo nixos-rebuild switch -option builders ""'';
+          nrsl = "sudo nixos-rebuild switch -option builders ''";
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           SS = "sudo systemctl";
-          f = "$FILE";
-          e = "$EDITOR";
           ls = "ls -hN --color=auto --group-directories-first";
           grep = "grep --color=auto";
           diff = "diff --color";

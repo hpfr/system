@@ -428,7 +428,7 @@
             [Desktop Entry]
             Type=Application
             Name=Text editor
-            Exec=emacsclient %u
+            Exec=$EDITOR %u
           '';
         };
         # torrent = {
