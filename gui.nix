@@ -785,6 +785,7 @@
         # inactiveOpacity = "0.9";
         opacityRule = [ "92:class_g = 'Emacs'" ];
         blur = true;
+        blurExclude = [ "class_g = 'slop'" ];
       };
 
       dunst = {
