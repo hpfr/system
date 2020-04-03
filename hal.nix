@@ -36,6 +36,7 @@
       refind # boot into windows without keyboard
       # multibootusb # unmaintained
       # onlykey # doesn't work yet :/
+      nvtop
 
       libreoffice
       # freecad

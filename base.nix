@@ -103,8 +103,6 @@
         ffsend # firefox send client
 
         # environments and related
-        texlive.combined.scheme-medium # latex environment
-        pandoc # convert document formats
         python3
         shellcheck # check shell scripts for syntax and semantics
         nix-diff
