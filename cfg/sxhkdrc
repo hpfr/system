@@ -20,7 +20,7 @@ super + m
 super + i
 	$TERMINAL -e htop
 super + s
-	$TERMINAL -e pulsemixer
+	pavucontrol
 super + shift + w
 	networkmanager_dmenu
 super + shift + d
@@ -78,11 +78,11 @@ super + {_,shift +} bracketleft
 XF86Launch1
 	xset dpms force off
 XF86AudioMute
-	pulsemixer --toggle-mute
+	pamixer --toggle-mute
 {_, control, shift} + XF86AudioLowerVolume
-	pulsemixer --change-volume -{5, 1, 10}
+	pamixer --decrease {5, 1, 10}
 {_, control, shift} + XF86AudioRaiseVolume
-	pulsemixer --change-volume +{5, 1, 10}
+	pamixer --increase {5, 1, 10}
 XF86AudioNext
 	mpc next
 XF86AudioPlay

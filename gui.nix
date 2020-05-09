@@ -141,9 +141,9 @@
   home-manager.users.lh = { config, pkgs, lib, ... }: {
     home = {
       packages = with pkgs; [
-        mpc_cli # mpd CLI
-        pulsemixer # pulseaudio TUI
         sshfs
+
+        pamixer # pulseaudio CLI (for volume keys)
 
         texlive.combined.scheme-medium # latex environment
         pandoc # convert document formats
