@@ -29,7 +29,12 @@ super + shift + g
 	gimp
 # toggle current dropdown
 super + a
-	tdrop -am -w '-4' -x 2 current
+	tdrop -am -w '-6' -x 3 -y 3 current
+# fresh terminal dropdown
+super + shift + a
+	tdrop --auto-detect-wm --monitor-aware --width '-6' \
+		--x-offset 3 --y-offset 3 \
+		--program-flags "--title 'Alacritty (Dropdown)'" alacritty
 
 # Et cetera...
 super + grave
