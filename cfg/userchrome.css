@@ -1,0 +1,106 @@
+/* https://github.com/nearcatch/firefox_css/blob/master/chr10-urlbar_security.css */
+#urlbar {
+    z-index: 2 !important;
+}
+#urlbar-background {
+    z-index: -2 !important;
+}
+#identity-box {
+    --focus-offset: 16px;
+}
+:root:not([uidensity="compact"]) #identity-box {
+    --focus-offset: 15px;
+}
+#identity-box::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: calc(100% + var(--focus-offset));
+    top: 0;
+    left: 0;
+    /* background: repeating-linear-gradient(135deg, var(--sec-color,#0000) 0px 10px, var(--sec-color2,var(--sec-color,#0000)) 10px 20px); */
+    background: var(--sec-color,#0000);
+    opacity: .4;
+    transition: background 100ms linear;
+    z-index: -1;
+    pointer-events: none;
+    touch-action: none;
+}
+#urlbar[focused] #identity-box::after {
+    left: calc(var(--focus-offset) * -1);
+}
+#urlbar-input,
+#identity-icon-labels {
+    /* text-shadow: 0px 0px 3px #000 !important; */
+}
+
+/* GREY: about:devtools */
+#urlbar[pageproxystate='valid'] #identity-box.unknownIdentity::after {--sec-color:grey;}
+/* BLUE: about:config */
+#urlbar[pageproxystate='valid'] #identity-box.chromeUI::after {--sec-color:dodgerblue;}
+/* TEAL: moz-extension:// */
+#urlbar[pageproxystate='valid'] #identity-box.extensionPage::after {--sec-color:teal;}
+/* GREEN: Don't know example */
+#urlbar[pageproxystate='valid'] #identity-box.verifiedIdentity:after {--sec-color:seagreen;}
+/* GREEN: https://extended-validation.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.verifiedDomain:after {--sec-color:seagreen;}
+/* YELLOW/GREEN: https://mixed.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContent:after {--sec-color:goldenrod;--sec-color2:seagreen;}
+/* YELLOW/GREEN: https://very.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContentLoadedActiveBlocked:after {--sec-color:goldenrod;--sec-color2:seagreen;}
+/* YELLOW/GREEN: https://mixed-script.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedActiveBlocked:after {--sec-color:goldenrod;--sec-color2:seagreen;}
+/* YELLOW/RED: https://self-signed.badssl.com/ - warning page */
+#urlbar[pageproxystate='valid'] #identity-box.certErrorPage:after {--sec-color:goldenrod;--sec-color2:firebrick;}
+/* YELLOW/RED: https://self-signed.badssl.com/ - post-override page */
+#urlbar[pageproxystate='valid'] #identity-box.certUserOverridden:after {--sec-color:goldenrod;--sec-color2:firebrick;}
+/* YELLOW: Don't know example */
+#urlbar[pageproxystate='valid'] #identity-box.weakCipher:after {--sec-color:goldenrod;}
+/* RED/YELLOW: https://mixed-script.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedActiveContent:after {--sec-color:firebrick;--sec-color2:goldenrod;}
+/* RED: http://http-login.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {--sec-color:firebrick;}
+/* RED: http://www.httpvshttps.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.notSecure::after {--sec-color:firebrick;}
+
+/* Remove menu items */
+/*Hamburger Menu*/
+#appMenu-tp-button,
+#appMenu-tp-separator,
+#appMenu-new-window-button,
+#appMenu-private-window-button,
+#appMenuRestoreLastSession + toolbarseparator,
+#appMenu-zoom-controls,
+#appMenu-zoom-controls + toolbarseparator,
+#appMenu-edit-controls,
+#appMenu-edit-controls + toolbarseparator,
+#appMenu-library-button,
+#appMenu-logins-button,
+#appMenu-addons-button,
+#appMenu-preferences-button,
+#appMenu-customize-button,
+#appMenu-open-file-button,
+#appMenu-save-file-button,
+#appMenu-print-button,
+#appMenu-print-button + toolbarseparator,
+#appMenu-find-button,
+/* Developer Subview */
+toolbarbutton[class="subviewbutton"][label="Inspector"],
+toolbarbutton[class="subviewbutton"][label="Web Console"],
+toolbarbutton[class="subviewbutton"][label="Debugger"],
+toolbarbutton[class="subviewbutton"][label="Style Editor"],
+toolbarbutton[class="subviewbutton"][label="Performance"],
+toolbarbutton[class="subviewbutton"][label="Network"],
+toolbarbutton[class="subviewbutton"][label="Storage Inspector"],
+toolbarbutton[class="subviewbutton"][label="Accessibility"],
+toolbarbutton[class="subviewbutton"][label="Accessibility"] + menuseparator,
+toolbarbutton[class="subviewbutton"][label="Get More Tools"] + menuseparator,
+#PanelUI-developerItems > toolbarbutton[class="subviewbutton"][label="Work Offline"],
+/* Page Action Panel */
+/* #pageActionButton, /1* Removes button to open page action panel entirely *1/ */
+/* #pageAction-panel-bookmark, /1* this and below removes superfluous items in panel if it is used *1/ */
+/* #pageAction-panel-bookmarkSeparator, */
+#pageAction-panel-copyURL,
+#pageAction-panel-emailLink {
+    display: none !important;
+}

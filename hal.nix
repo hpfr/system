@@ -78,45 +78,6 @@
       };
     };
     programs = {
-      firefox.profiles.default.userChrome = ''
-        /* hide the native tabs */
-        #tabbrowser-tabs {
-            visibility: hidden !important;
-        }
-        tab {
-          display: none !important;
-        }
-        /* merge title bar and menu bar with nav bar */
-        #main-window[sizemode="normal"] > #titlebar {
-          -moz-appearance: initial !important; /* remove weird padding above tab bar in windowed mode */
-        }
-        /* #titlebar-buttonbox { */
-        /* 	height: 32px !important; /1* make title bar 32px like others *1/ */
-        /* 	background: var(--chrome-secondary-background-color) !important; /1* blend with nav bar *1/ */
-        /* } */
-        #toolbar-menubar{
-          background: var(--toolbar-bgcolor) !important;
-        }
-        #TabsToolbar {
-          height: 32px; /* make tab bar 32px like others (even though it is hidden, it controls the dynamic margin-bottom for the title bar) */
-        }
-        #nav-bar {
-          /* padding-right: 168px; /1* leave space on right for window control buttons in title bar *1/ */
-          margin-top: -32px; /* move the nav-bar up into the tab bar's spot */
-          box-shadow: none !important; /* remove 1px line above*/
-        }
-        #main-window[privatebrowsingmode="temporary"] #nav-bar {
-          padding-right: 32px !important; /* room for private browsing indicator */
-        }
-
-        #sidebar-splitter {
-          width: 0px !important;
-        }
-        /* hide the sidebar header in Tree Style Tab */
-        #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-          display: none;
-        }
-      '';
       rofi.extraConfig = ''
         rofi.dpi: 1
       '';

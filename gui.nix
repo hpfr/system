@@ -609,121 +609,27 @@
             "gfx.webrender.enable" = true;
             # may improve perf?
             # "gfx.use-glx-texture-from-pixmap" = true;
+            "extensions.formautofill.addresses.enabled" = false;
           };
-          userChrome = ''
-            /* security-colored URL bar (from reddit)*/
-            #urlbar {
-              position: relative;
-              z-index: 1;
-            }
-            #identity-box:after {
-              content: ''';
-              position: absolute;
-              height: 100%;
-              width: 100%;
-              top: 0;
-              left: 0;
-              pointer-events: none;
-              z-index: -1;
-              background: white;
-              opacity: 0.2;
-            }
-            /* There is also grantedPermissions, but irrelevant. */
-            /* about:about */
-            #urlbar[pageproxystate='valid'] #identity-box.unknownIdentity:after {
-              background: #ff0039; /* Firefox Red 50 */
-            }
-            /* about:config */
-            #urlbar[pageproxystate='valid'] #identity-box.chromeUI:after {
-              background: #0a84ff; /* Firefox Blue 50 */
-            }
-            /* uBlock Origin Dashboard */
-            #urlbar[pageproxystate='valid'] #identity-box.extensionPage:after {
-              background: #45a1ff; /* Firefox Blue 40 */
-            }
-            /* https://www.github.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.verifiedIdentity:after{
-              background: #058b00; /* Firefox Green 70 */
-            }
-            /* https://www.google.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.verifiedDomain:after{
-              background: #12bc00; /* Firefox Green 60 */
-            }
-            /* https://mixed-script.badssl.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.mixedActiveBlocked:after {
-              background: #30e60b; /* Firefox Green 50 */
-            }
-            /* https://mixed.badssl.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContent:after {
-              background: #d7b600; /* Firefox Yellow 60 */
-            }
-            /* https://very.badssl.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContentLoadedActiveBlocked:after {
-              background: #d7b600; /* Firefox Yellow 60 */
-            }
-            /* https://self-signed.badssl.com/ but add certificate exception */
-            #urlbar[pageproxystate='valid'] #identity-box.certUserOverridden:after {
-              background: #ffe900; /* Firefox Yellow 50 */
-            }
-            /* Don't know an example for this */
-            #urlbar[pageproxystate='valid'] #identity-box.weakCipher:after {
-              background: #a47f00; /* Firefox Yellow 70 */
-            }
-            /* https://mixed-script.badssl.com/ but disable protection */
-            #urlbar[pageproxystate='valid'] #identity-box.mixedActiveContent:after {
-              background: #d70022;  /* Firefox Red 60 */
-            }
-            /* http://http-login.badssl.com/ */
-            #urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {
-              background: #a4000f;  /* Firefox Red 70 */
-            }
-
-            /* Remove menu items */
-            /*Hamburger Menu*/
-            #appMenu-tp-button,
-            #appMenu-tp-separator,
-            #appMenu-new-window-button,
-            #appMenu-private-window-button,
-            #appMenuRestoreLastSession + toolbarseparator,
-            #appMenu-zoom-controls,
-            #appMenu-zoom-controls + toolbarseparator,
-            #appMenu-edit-controls,
-            #appMenu-edit-controls + toolbarseparator,
-            #appMenu-library-button,
-            #appMenu-logins-button,
-            #appMenu-addons-button,
-            #appMenu-preferences-button,
-            #appMenu-customize-button,
-            #appMenu-open-file-button,
-            #appMenu-save-file-button,
-            #appMenu-print-button,
-            #appMenu-print-button + toolbarseparator,
-            #appMenu-find-button,
-            /* Developer Subview */
-            toolbarbutton[class="subviewbutton"][label="Inspector"],
-            toolbarbutton[class="subviewbutton"][label="Web Console"],
-            toolbarbutton[class="subviewbutton"][label="Debugger"],
-            toolbarbutton[class="subviewbutton"][label="Style Editor"],
-            toolbarbutton[class="subviewbutton"][label="Performance"],
-            toolbarbutton[class="subviewbutton"][label="Network"],
-            toolbarbutton[class="subviewbutton"][label="Storage Inspector"],
-            toolbarbutton[class="subviewbutton"][label="Accessibility"],
-            toolbarbutton[class="subviewbutton"][label="Accessibility"] + menuseparator,
-            toolbarbutton[class="subviewbutton"][label="Get More Tools"] + menuseparator,
-            #PanelUI-developerItems > toolbarbutton[class="subviewbutton"][label="Work Offline"],
-            /* Page Action Panel */
-            /* #pageActionButton, /1* Removes button to open page action panel entirely *1/ */
-            /* #pageAction-panel-bookmark, /1* this and below removes superfluous items in panel if it is used *1/ */
-            /* #pageAction-panel-bookmarkSeparator, */
-            #pageAction-panel-copyURL,
-            #pageAction-panel-emailLink {
-              display: none !important;
-            }
-          '';
+          userChrome = builtins.readFile cfg/userchrome.css;
         };
+        # profile for debugging
         profiles.clean = {
           name = "clean";
           id = 1;
+          settings = {
+            "general.warnOnAboutConfig" = false;
+            "browser.aboutConfig.showWarning" = false;
+            "extensions.pocket.enabled" = false;
+            "extensions.formautofill.addresses.enabled" = false;
+            # no history
+            "browser.privatebrowsing.autostart" = true;
+            "browser.newtabpage.activity-stream.feeds.topsites" = false;
+            "browser.newtabpage.activity-stream.feeds.section.topstories" =
+              false;
+            "browser.newtabpage.activity-stream.feeds.section.highlights" =
+              false;
+          };
         };
       };
 
