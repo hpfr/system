@@ -90,8 +90,12 @@
       enable = true;
       layout = "us";
       libinput.enable = true;
-      displayManager.startx.enable = true;
+      displayManager.lightdm.enable = true;
       desktopManager.xterm.enable = false;
+      windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+      };
     };
 
     dbus.packages = with pkgs; [ gnome3.dconf ];
@@ -206,11 +210,6 @@
         # for adwaita-qt
         QT_STYLE_OVERRIDE = "Adwaita-Dark";
       };
-
-      file.".xinitrc".text = ''
-        #!/bin/sh
-        . $HOME/.xsession
-      '';
     };
 
     systemd.user = {
@@ -528,11 +527,6 @@
     # };
 
     programs = {
-      bash.profileExtra = ''
-        # autostart graphical server on tty1 login
-        [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x X >/dev/null && exec startx
-      '';
-
       ssh = {
         enable = true;
         matchBlocks = {
