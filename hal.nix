@@ -64,15 +64,10 @@
         sleep 0.1
 
         emacs &
+        i3-msg 'workspace 5'
         firefox &
       '';
       windowManager.i3 = {
-        config.assigns = {
-          "5" = [{
-            class = "^Firefox$";
-            window_role = "browser";
-          }];
-        };
         # the dual monitor config I prefer
         extraConfig = ''
           workspace 0 output DP-0
