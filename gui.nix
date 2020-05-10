@@ -58,11 +58,19 @@
     steam-hardware.enable = true;
   };
 
+  # fix for virt-manager USB redirection
+  security.wrappers.spice-client-glib-usb-acl-helper.source =
+    "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
+  # packages that use polkit must be at system level
+  environment.systemPackages = with pkgs; [ spice-gtk ];
+
   networking.firewall = {
     allowedTCPPorts = [
       # steam in-home streaming
       27036
       27037
+      # barrier
+      24800
     ];
     allowedTCPPortRanges = [{
       # steam login and download
@@ -75,6 +83,8 @@
       27036
       # steam client?
       4380
+      # barrier?
+      24800
     ];
     allowedUDPPortRanges = [
       # steam login and download
@@ -189,15 +199,23 @@
         tdrop # WM- and TE-agnostic dropdown terminal panes
         celluloid # mpv gtk frontend
         safeeyes # reminds user on eye health
-        virtmanager # manage server VM's remotely
-        # x11_ssh_askpass # fill ssh password requests
-        # libreoffice # office suite. bloated, especially for surface
+        syncthingtray # syncthing tray
+
+        # virtualization
+        libvirt # manage VM's
+        virtmanager # manage VM's graphically
+        barrier # software KVM
+        remmina # usable RDP client
+
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
+
+        # messaging
         riot-desktop # matrix electron client
         signal-desktop # signal client
         tdesktop # telegram client (FOSS)
 
+        # gaming
         sc-controller # use steam controller without steam
         steam
         protontricks # for problematic Steam Play games
