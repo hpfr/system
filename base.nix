@@ -73,13 +73,23 @@
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  programs.ssh.startAgent = true;
+  programs = {
+    ssh.startAgent = true;
+    fish.enable = true;
+  };
 
   # users.mutableUsers = false;
   # Don't forget to set a password with ‘passwd’.
   users.users.lh = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" "video" "lp" ];
+    shell = pkgs.fish;
+    extraGroups = [
+      "wheel" # sudo
+      "networkmanager" # networking
+      "input" # uinput? steam controller?
+      "video"
+      "lp" # printing?
+    ];
   };
 
   home-manager.useUserPackages = true;
@@ -151,6 +161,34 @@
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
 
+      fish = {
+        enable = true;
+        shellInit = ''
+          fish_vi_key_bindings
+          # Emulates vim's cursor shape behavior
+          # Set the normal and visual mode cursors to a block
+          set fish_cursor_default block
+          # Set the insert mode cursor to a line
+          set fish_cursor_insert line
+          # Set the replace mode cursor to an underscore
+          set fish_cursor_replace_one underscore
+          # The following variable can be used to configure cursor shape in
+          # visual mode, but due to fish_cursor_default, is redundant here
+          set fish_cursor_visual block
+        '';
+        shellAliases = {
+          ls = "ls -hN --color=auto --group-directories-first";
+          grep = "grep --color=auto";
+          diff = "diff --color";
+        };
+        shellAbbrs = {
+          mkd = "mkdir -pv";
+          nrs = "sudo nixos-rebuild switch";
+          nrsl = "sudo nixos-rebuild switch -option builders ''";
+          nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
+        };
+      };
+
       bash = {
         enable = true;
         shellOptions = [
@@ -169,7 +207,6 @@
           nrs = "sudo nixos-rebuild switch";
           nrsl = "sudo nixos-rebuild switch -option builders ''";
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
-          SS = "sudo systemctl";
           ls = "ls -hN --color=auto --group-directories-first";
           grep = "grep --color=auto";
           diff = "diff --color";
