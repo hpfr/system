@@ -88,6 +88,7 @@
       "networkmanager" # networking
       "input" # uinput? steam controller?
       "video"
+      "dialout" # serial ports for MCU programming
       "lp" # printing?
     ];
   };

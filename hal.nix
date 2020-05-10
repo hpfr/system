@@ -26,9 +26,30 @@
     secret-key-files = /home/lh/cache-priv-key.pem
   '';
 
+  nixpkgs.overlays = [
+    (self: super: {
+      quartus-prime-lite = super.quartus-prime-lite.override {
+        supportedDevices = [ "Cyclone IV" ];
+      };
+    })
+    (self: super: {
+      openocd = super.openocd.overrideAttrs (oldAttrs: {
+        configureFlags = oldAttrs.configureFlags or [ ] ++ [
+          "--enable-maintainer-mode"
+          "--enable-ti-icdi"
+          "--enable-stlink"
+        ];
+      });
+    })
+  ];
+
   services = {
     openssh.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
+    udev.extraRules = ''
+      # flash Stellaris Launchpad without root permissions
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
+    '';
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
@@ -39,11 +60,24 @@
       nvtop
 
       libreoffice
-      # freecad
+      freecad
       blender
       kicad
 
       lutris
+
+      # MCU dev
+      gcc-arm-embedded
+      openocd
+      picocom
+
+      # closed-source
+      quartus-prime-lite
+      # does screen share in xwayland flatpak work?
+      # discord
+
+      # browser games
+      chromium
       minecraft
     ];
     xsession = {
