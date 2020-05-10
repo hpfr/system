@@ -95,35 +95,40 @@
 
   home-manager.useUserPackages = true;
   home-manager.users.lh = { config, pkgs, ... }: {
+    # home-manager
     nixpkgs.config.allowUnfree = true;
+    # nix-shell, etc
+    xdg.configFile."nixpkgs/config.nix".text = ''
+      {
+        allowUnfree = true;
+      }
+    '';
     home = {
       packages = with pkgs; [
         # system-related
-        gnumake
-        zip
-        unzip
         # TODO package as utils only?
         # exfat # use exFAT-formatted drives
         ntfs3g # write to NTFS-formatted drives
 
         # CLI's
-        fio # disk benchmarking
-        ripgrep # better grep, needed for doom-emacs features
+        zip
+        unzip
         wget # file download
+        ripgrep # better grep, needed for doom-emacs features
+        fio # disk benchmarking
+        rmlint # find and rm duplicate files
         youtube-dl # video download
         rclone # multiplatform cloud sync
         ffsend # firefox send client
 
-        # environments and related
-        python3
+        # language tools for emacs integration
         shellcheck # check shell scripts for syntax and semantics
-        nix-diff
         nixfmt # format nix files
+        # broken
+        # nix-diff
 
         # TUI's
-        nnn # file manager
         htop # system monitoring
-        ncdu # disk management
 
         base-scripts
       ];

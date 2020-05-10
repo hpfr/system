@@ -151,14 +151,15 @@
   home-manager.users.lh = { config, pkgs, lib, ... }: {
     home = {
       packages = with pkgs; [
-        sshfs
+        sxhkd # wm agnostic keybindings for X
 
         pamixer # pulseaudio CLI (for volume keys)
 
+        # for circe in emacs
+        gnutls
+
         texlive.combined.scheme-medium # latex environment
         pandoc # convert document formats
-
-        sxhkd # wm agnostic keybindings for X
 
         # TODO package scripts with these dependencies
         xorg.xwininfo # query window information
@@ -169,11 +170,12 @@
         libnotify # notify-send command
         libxml2 # xmllint for rofi-emoji
 
+        # nixpkgs overlays not recognized on first build?
         xwallpaper # set wallpaper
         imagemagick7 # image editing CLI and GUI
         adwaita-qt # make qt apps look like gtk apps
 
-        i3lock-fancy
+        i3lock-fancy # screen locker
         arandr # monitor layout GUI
         blueman # bluetooth GUI
         pavucontrol # pulseaudio GUI
@@ -685,6 +687,7 @@
         };
       };
 
+      # hide pointer
       unclutter.enable = true;
 
       polybar = {
