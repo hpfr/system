@@ -27,9 +27,15 @@
 
   fonts.enableDefaultFonts = false;
   fonts.fonts = with pkgs; [
+    # lato, noto serif
     google-fonts
-    nerdfonts # warning: downloads almost 2 GiB
-    joypixels # emoji
+    # mono fonts with icons baked in
+    # warning: downloads almost 2 GiB
+    nerdfonts
+    # emoji
+    joypixels
+    # pseudo-bitmap
+    undefined-medium
   ];
 
   # fonts.fontconfig.penultimate.enable = true;
