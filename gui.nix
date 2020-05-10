@@ -391,98 +391,53 @@
 
     xdg = {
       dataFile = {
-        img = {
-          target = "applications/img.desktop";
+        emacsclient = {
+          target = "applications/emacsclient.desktop";
           text = ''
             [Desktop Entry]
             Type=Application
-            Name=Image viewer
-            Exec=nomacs %u
-          '';
-        };
-        # mail = {
-        #   target = "applications/mail.desktop";
-        #   text = ''
-        #     [Desktop Entry]
-        #     Type=Application
-        #     Name=Mail
-        #     Exec=emacsclient -e neomutt %u
-        #   '';
-        # };
-        pdf = {
-          target = "applications/pdf.desktop";
-          text = ''
-            [Desktop Entry]
+            Name=Emacsclient
+            GenericName=Text Editor
+            Comment=Edit text
+            MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+            # The -n option is necessary to actually get a new frame for some reason
+            # from terminal you don't need it but you do from openers like firefox
+            # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
+            Exec=emacsclient -cna "" %F
+            Icon=emacs
             Type=Application
-            Name=PDF reader
-            Exec=zathura %u
+            Terminal=false
+            Categories=Development;TextEditor;
+            StartupWMClass=Emacs
+            Keywords=Text;Editor;
           '';
         };
-        # rss = {
-        #   target = "applications/rss.desktop";
-        #   text = ''
-        #     [Desktop Entry]
-        #     Type=Application
-        #     Name=RSS feed addition
-        #     Exec=emacsclient %U
-        #   '';
-        # };
-        text = {
-          target = "applications/text.desktop";
-          text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Text editor
-            Exec=$EDITOR %u
-          '';
-        };
-        # torrent = {
-        #   target = "applications/torrent.desktop";
-        #   text = ''
-        #     [Desktop Entry]
-        #     Type=Application
-        #     Name=Torrent
-        #     Exec=transadd %U
-        #   '';
-        # };
       };
-      mimeApps = {
+      mimeApps = let
+        imageViewer = "nomacs.desktop";
+        pdfReader = "org.pwmt.zathura.desktop";
+        browser = "firefox.desktop";
+      in {
         enable = true;
-        defaultApplications = {
-          "x-scheme-handler/magnet" = "torrent.desktop;";
-          "x-scheme-handler/mailto" = "mail.desktop;";
-          "text/plain" = "text.desktop;";
-          "text/x-shellscript" = "text.desktop;";
-          "application/pdf" = "pdf.desktop;";
-          "image/png" = "img.desktop;";
-          "image/jpeg" = "img.desktop;";
-          "image/gif" = "img.desktop;";
-          "application/rss+xml" = "rss.desktop;";
-          "x-scheme-handler/http" = "firefox.desktop;";
-          "x-scheme-handler/https" = "firefox.desktop;";
-          "x-scheme-handler/ftp" = "firefox.desktop;";
-          "x-scheme-handler/chrome" = "firefox.desktop;";
-          "text/html" = "firefox.desktop;";
-          "application/x-extension-htm" = "firefox.desktop;";
-          "application/x-extension-html" = "firefox.desktop;";
-          "application/x-extension-shtml" = "firefox.desktop;";
-          "application/xhtml+xml" = "firefox.desktop;";
-          "application/x-extension-xhtml" = "firefox.desktop;";
-          "application/x-extension-xht" = "firefox.desktop;";
-        };
+
         associations.added = {
-          "x-scheme-handler/http" = "firefox.desktop;";
-          "x-scheme-handler/https" = "firefox.desktop;";
-          "x-scheme-handler/ftp" = "firefox.desktop;";
-          "x-scheme-handler/chrome" = "firefox.desktop;";
-          "text/html" = "firefox.desktop;";
-          "application/x-extension-htm" = "firefox.desktop;";
-          "application/x-extension-html" = "firefox.desktop;";
-          "application/x-extension-shtml" = "firefox.desktop;";
-          "application/xhtml+xml" = "firefox.desktop;";
-          "application/x-extension-xhtml" = "firefox.desktop;";
-          "application/x-extension-xht" = "firefox.desktop;";
-          "application/pdf" = "org.pwmt.zathura.desktop;xournalpp.desktop;";
+          "x-scheme-handler/chrome" = "${browser}";
+          "application/pdf" = [ "${browser}" "emacsclient.desktop" ];
+        };
+        defaultApplications = {
+          # "x-scheme-handler/magnet" = "torrent.desktop;";
+          # "x-scheme-handler/mailto" = "mail.desktop;";
+          # "application/rss+xml" = "rss.desktop;";
+          "application/pdf" = "${pdfReader}";
+          "application/xhtml+xml" = "${browser}";
+          "image/png" = "${imageViewer}";
+          "image/jpeg" = "${imageViewer}";
+          "image/gif" = "${imageViewer}";
+          # needed for default browser check
+          "text/html" = "${browser}";
+          "x-scheme-handler/http" = "${browser}";
+          "x-scheme-handler/https" = "${browser}";
+          "x-scheme-handler/ftp" = "${browser}";
         };
       };
       # TODO: this is temporary to escape the bare repo, modularize at some point
