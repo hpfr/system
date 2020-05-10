@@ -44,9 +44,20 @@
     supportedFilesystems = [ "ntfs-3g" ];
   };
 
-  networking.networkmanager = {
-    enable = true;
-    # wifi.backend = "iwd";
+  networking = {
+    firewall = {
+      allowedTCPPorts = [
+        22000 # syncthing transfer
+      ];
+      allowedUDPPorts = [
+        21027 # syncthing discovery
+      ];
+    };
+
+    networkmanager = {
+      enable = true;
+      # wifi.backend = "iwd";
+    };
   };
 
   console = {
@@ -63,16 +74,6 @@
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
   programs.ssh.startAgent = true;
-
-  # Open ports in the firewall.
-  networking.firewall = {
-    allowedTCPPorts = [
-      22000 # syncthing transfer
-    ];
-    allowedUDPPorts = [
-      21027 # syncthing discovery
-    ];
-  };
 
   # users.mutableUsers = false;
   # Don't forget to set a password with ‘passwd’.
