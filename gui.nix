@@ -275,14 +275,15 @@
               }
               {
                 criteria.class = "^Spotify$";
-                command = "move scratchpad; scratchpad show; resize 1600 1000";
+                command =
+                  "move scratchpad; resize set 1600 1000; move position center; scratchpad show";
               }
               {
                 criteria = {
                   class = "^KeePassXC$";
                   title = " - KeePassXC$";
                 };
-                command = "move scratchpad; scratchpad show; resize 1200 800";
+                command = "resize set 1600 1000; move position center";
               }
             ];
           };
@@ -294,6 +295,7 @@
               "class" = "^Firefox$";
               "window_role" = "^About$";
             }
+            { "class" = "^KeePassXC$"; }
           ];
           # not released yet
           # workspaceAutoBackAndForth = true;
