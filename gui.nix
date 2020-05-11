@@ -431,7 +431,7 @@
             # The -n option is necessary to actually get a new frame for some reason
             # from terminal you don't need it but you do from openers like firefox
             # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
-            Exec=emacsclient -cna "" %F
+            Exec=emacsclient -cna 'emacs' %F
             Icon=emacs
             Type=Application
             Terminal=false

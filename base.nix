@@ -136,8 +136,8 @@
       sessionVariables = {
         # add doom commands to path
         PATH = "$PATH:$HOME/.emacs.d/bin/";
-        # let user choose editor if no emacs server
-        EDITOR = "emacsclient -ca ''";
+        # fall back to emacs if no emacs server
+        EDITOR = "emacsclient -ca emacs";
         FILE = "nnn";
 
         # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
