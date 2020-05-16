@@ -1,7 +1,7 @@
-From fa8fbe3e4d077f4b22d0da65fe9bff4b038f05e8 Mon Sep 17 00:00:00 2001
+From 435a6d9547d5b24a73da93cdba0d7bb5c513b6c1 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 1 Jun 2019 21:17:15 +0200
-Subject: [PATCH 1/7] Add support for Intel Management Engine bus
+Subject: [PATCH 1/8] Add support for Intel Management Engine bus
 
 Add support for devices connected via the Intel Management Engine (MEI).
 This is required to support IPTS based devices, such as (among others)
@@ -71,17 +71,17 @@ index 8035e17..799e9b2 100644
  
  /**
 diff --git a/test/test-tablet-validity.c b/test/test-tablet-validity.c
-index 7f36197..2805da5 100644
+index 8ee41e2..42e5f54 100644
 --- a/test/test-tablet-validity.c
 +++ b/test/test-tablet-validity.c
-@@ -171,6 +171,7 @@ test_vidpid(gconstpointer data)
- 		case WBUSTYPE_USB:
+@@ -172,6 +172,7 @@ assert_vidpid(WacomBusType bus, int vid, int pid)
+ 			/* fall through */
  		case WBUSTYPE_BLUETOOTH:
  		case WBUSTYPE_I2C:
 +		case WBUSTYPE_MEI:
- 			g_assert_cmpint(libwacom_get_vendor_id(device), >, 0);
- 			g_assert_cmpint(libwacom_get_product_id(device), >, 0);
+ 			g_assert_cmpint(vid, >, 0);
+ 			g_assert_cmpint(pid, >, 0);
  			break;
 -- 
-2.23.0
+2.26.0
 
