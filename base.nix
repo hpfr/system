@@ -96,7 +96,11 @@
   home-manager.useUserPackages = true;
   home-manager.users.lh = { config, pkgs, ... }: {
     # home-manager
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+      # lutris and protontricks depend on this
+      permittedInsecurePackages = [ "p7zip-16.02" ];
+    };
     # nix-shell, etc
     xdg.configFile."nixpkgs/config.nix".text = ''
       {
