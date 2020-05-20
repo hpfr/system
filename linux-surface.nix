@@ -6,9 +6,8 @@
   };
 
   nixpkgs.overlays = [
-    # (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
-    # (self: super: { mwlwifi = super.callPackage ./pkgs/mwlwifi { }; })
-    # (self: super: { mrvl = super.callPackage ./pkgs/mrvl { }; })
+    # only use for kernels <= 5.3
+    (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
     (self: super: {
       # I believe this is for desktop environments that depend on
