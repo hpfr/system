@@ -1,154 +1,158 @@
 { config, lib, pkgs, ... }:
 
 {
+  # TODO: move into nixos module, set up a nixos option for surface model, use
+  # that to enable IPTS, libwacom and other model-dependent config. right now my
+  # setup should mostly handle switching between 4.19 and 5.6, but it doesn't
+  # handle different surface models at all.
   hardware = {
-    # firmware = with pkgs; [ ipts ];
+    firmware = lib.optional
+      (lib.versionOlder config.boot.kernelPackages.kernel.version "5.4")
+      pkgs.ipts;
   };
 
   nixpkgs.overlays = [
-    # only use for kernels <= 5.3
+    # only use for kernels pre-5.4
     (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
-    (self: super: {
-      # I believe this is for desktop environments that depend on
-      # xf86inputlibinput, but otherwise the xorg overlay covers everything
-      xf86inputlibinput =
-        super.xf86inputlibinput.override { libinput = self.libinput-surface; };
-      xorg = super.xorg // {
-        xf86inputlibinput = super.xorg.xf86inputlibinput.override {
+    # this avoids huge rebuilds of stuff like qt that depend on libwacom
+    (self: super:
+      let
+        /* nix-shell -I nixpkgs=channel:nixos-unstable \
+           -p nix-prefetch-github --run \
+           "nix-prefetch-github linux-surface libwacom-surface > libwacom-surface.json"
+        */
+        libwacomSurface = super.fetchFromGitHub {
+          inherit (lib.importJSON ./libwacom-surface.json)
+            owner repo rev sha256;
+        };
+      in {
+        # I believe this is for desktop environments that depend on
+        # xf86inputlibinput, but otherwise the xorg overlay covers everything
+        xf86inputlibinput = super.xf86inputlibinput.override {
           libinput = self.libinput-surface;
         };
-      };
-      libinput-surface =
-        super.libinput.override { libwacom = self.libwacom-surface; };
-      libwacom-surface = super.libwacom.overrideAttrs (oldAttrs: {
-        patches = oldAttrs.patches or [ ]
-          ++ (map (name: ./pkgs/libwacom/patches + "/${name}")
-            (builtins.attrNames (lib.filterAttrs (k: v: v == "regular")
-              (builtins.readDir ./pkgs/libwacom/patches))));
-      });
-    })
-    (self: super: {
-      linux_4_19 = super.linux_4_19.override {
-        # argsOverride = {
-        #   version = "4.19.95";
-        #   modDirVersion = "4.19.95";
-        #   src = pkgs.fetchurl {
-        #     url = "mirror://kernel/linux/kernel/v4.x/linux-4.19.95.tar.xz";
-        #     sha256 = "1c2g5wcf4zgy5q51qrf0s4hf3pr1j8gi8gn27w8cafn1xqrcmvaa";
-        #   };
-        # };
-        structuredExtraConfig = with lib.kernel; {
-          INTEL_IPTS = module;
-          INTEL_IPTS_SURFACE = module;
-          SERIAL_DEV_BUS = yes;
-          SERIAL_DEV_CTRL_TTYPORT = yes;
-          SURFACE_SAM = module;
-          SURFACE_SAM_SSH = module;
-          SURFACE_SAM_SSH_DEBUG_DEVICE = yes;
-          SURFACE_SAM_SAN = module;
-          SURFACE_SAM_VHF = module;
-          SURFACE_SAM_DTX = module;
-          SURFACE_SAM_HPS = module;
-          SURFACE_SAM_SID = module;
-          SURFACE_SAM_SID_GPELID = module;
-          SURFACE_SAM_SID_PERFMODE = module;
-          SURFACE_SAM_SID_VHF = module;
-          SURFACE_SAM_SID_POWER = module;
-          INPUT_SOC_BUTTON_ARRAY = module;
-
-          PINCTRL_INTEL = yes;
-          PINCTRL_SUNRISEPOINT = yes;
+        xorg = super.xorg // {
+          xf86inputlibinput = super.xorg.xf86inputlibinput.override {
+            libinput = self.libinput-surface;
+          };
         };
-        # ignoreConfigErrors = true;
-      };
-    })
-    (self: super: {
-      linux_latest = super.linux_latest.override {
-        structuredExtraConfig = with lib.kernel; {
-          # Intel IPTS touchscreen
-          TOUCHSCREEN_IPTS = module;
+        libinput-surface =
+          super.libinput.override { libwacom = self.libwacom-surface; };
+        libwacom-surface = super.libwacom.overrideAttrs (oldAttrs: {
+          # TODO: clean up this godforsaken mess
+          patches = oldAttrs.patches or [ ]
+            ++ (map (name: "${libwacomSurface}/${name}") (builtins.concatLists
+              (builtins.filter builtins.isList
+                (map (builtins.match ".*([[:digit:]]{4}.*)") (builtins.attrNames
+                  (lib.filterAttrs (k: v: v == "regular")
+                    (builtins.readDir "${libwacomSurface}/")))))));
+        });
+      })
+    (self: super:
+      let
+        overlayKernel = version:
+          let
+            /* Can do pinning via these files:
+               nix-shell -I nixpkgs=channel:nixos-unstable \
+               -p nix-prefetch-github nix-prefetch-scripts --run \
+               "nix-prefetch-github linux-surface linux-surface > linux-surface.json; \
+               nix-prefetch-url 'mirror://kernel/linux/kernel/v4.x/linux-4.19.123.tar.xz' > linux-4.19.txt; \
+               nix-prefetch-url 'mirror://kernel/linux/kernel/v5.x/linux-5.6.13.tar.xz' > linux-5.6.txt"
+            */
+            linuxSurface = super.fetchFromGitHub {
+              inherit (lib.importJSON ./linux-surface.json)
+                owner repo rev sha256;
+            };
+            fullVersion = with builtins;
+              head (match ".*([[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+).*"
+                (head (match
+                  ".*(KERNEL_VERSION: [[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+).*"
+                  (readFile ("${linuxSurface}/.github/workflows/debian"
+                    + (if version == "4.19" then "_lts" else "") + ".yml")))));
+          in super."linux_${
+            builtins.replaceStrings [ "." ] [ "_" ] version
+          }".override {
+            argsOverride = {
+              version = fullVersion;
+              modDirVersion = fullVersion;
+              extraMeta.branch = version;
+              src = super.fetchurl {
+                url = "mirror://kernel/linux/kernel/v${
+                    lib.versions.major fullVersion
+                  }.x/linux-${fullVersion}.tar.xz";
+                sha256 = lib.fileContents (./linux- + "${version}.txt");
+              };
 
-          # Surface Aggregator Module
-          GPIO_SYSFS = yes; # req for SURFACE_SAM_HPS
-          SURFACE_SAM = module;
-          SURFACE_SAM_SSH = module;
-          SURFACE_SAM_SSH_DEBUG_DEVICE = yes;
-          SURFACE_SAM_SAN = module;
-          SURFACE_SAM_VHF = module;
-          SURFACE_SAM_DTX = module;
-          SURFACE_SAM_HPS = module;
-          SURFACE_SAM_SID = module;
-          SURFACE_SAM_SID_GPELID = module;
-          SURFACE_SAM_SID_PERFMODE = module;
-          SURFACE_SAM_SID_VHF = module;
-          SURFACE_SAM_SID_POWER = module;
+              structuredExtraConfig = let
+                # TODO: clean up code
+                origConf = builtins.readFile
+                  "${linuxSurface}/configs/surface-${version}.config";
 
-          # other drivers
-          INPUT_SOC_BUTTON_ARRAY = module;
-        };
-        # ignoreConfigErrors = true;
-      };
-    })
+                flatten = x:
+                  if builtins.isList x then
+                    builtins.concatMap (y: flatten y) x
+                  else
+                    [ x ];
+
+                kernelValues = with lib.kernel; {
+                  y = yes;
+                  n = no;
+                  m = module;
+                };
+
+                tokenize = sep: str:
+                  let x = flatten (builtins.split sep str);
+                  in if builtins.length x < 2 then
+                    null
+                  else {
+                    name = builtins.head x;
+                    value = kernelValues."${builtins.head (builtins.tail x)}";
+                  };
+
+                parseFile = with builtins;
+                  sep: str:
+                  (listToAttrs (map (tokenize sep) (flatten (filter isList
+                    (map (match ".*(CONFIG_.*[mny]$)")
+                      (flatten (split "\n" str)))))));
+              in with lib.kernel;
+              (parseFile "=" origConf) // {
+                # https://github.com/NixOS/nixpkgs/issues/88073
+                SERIAL_DEV_BUS = yes;
+                SERIAL_DEV_CTRL_TTYPORT = yes;
+
+              }
+              // (if lib.versionOlder config.boot.kernelPackages.kernel.version
+              "5.4" then {
+                # https://github.com/linux-surface/linux-surface/issues/61
+                PINCTRL_INTEL = yes;
+                PINCTRL_SUNRISEPOINT = yes;
+              } else
+                { });
+
+              # get patches from linux-surface patches directory
+              # convert to attrset format nix expects
+              kernelPatches = let
+                mapDir = f: p:
+                  builtins.attrValues
+                  (builtins.mapAttrs (k: _: f p k) (builtins.readDir p));
+                patch = dir: file: {
+                  name = file;
+                  patch = dir + "/${file}";
+                };
+              in mapDir patch "${linuxSurface}/patches/${version}";
+            };
+          };
+      in {
+        linux_4_19 = overlayKernel "4.19";
+        linux_5_6 = overlayKernel "5.6";
+      })
   ];
 
   boot = {
-    # kernelPackages = pkgs.linuxPackages_4_19;
-    kernelPackages = pkgs.linuxPackages_latest;
-    # in case upgrade fails, comment out patches and kernel config, rebuild, and
-    # then rebuild on the new gen and it should work
-    # kernelPatches = [
-    #   {
-    #     name = "surface-buttons";
-    #     patch = ./pkgs/linux/patches/4.19/0004-surface-buttons.patch;
-    #   }
-    #   {
-    #     name = "surface-sam";
-    #     patch = ./pkgs/linux/patches/4.19/0005-surface-sam.patch;
-    #   }
-    #   {
-    #     name = "surface-suspend";
-    #     patch = ./pkgs/linux/patches/4.19/0006-suspend.patch;
-    #   }
-    #   {
-    #     name = "surface-ipts";
-    #     patch = ./pkgs/linux/patches/4.19/0007-ipts.patch;
-    #   }
-    #   {
-    #     name = "surface-ioremap-uc";
-    #     patch = ./pkgs/linux/patches/4.19/0009-ioremap_uc.patch;
-    #   }
-    #   {
-    #     name = "surface-wifi";
-    #     patch = ./pkgs/linux/patches/4.19/0010-wifi.patch;
-    #   }
-    # ];
-    kernelPatches = [
-      {
-        name = "surface-sam";
-        patch = ./pkgs/linux/patches/5.6/0004-surface-sam.patch;
-      }
-      {
-        name = "surface-wifi";
-        patch = ./pkgs/linux/patches/5.6/0006-wifi.patch;
-      }
-      {
-        name = "surface-ipts";
-        patch = ./pkgs/linux/patches/5.6/0007-ipts.patch;
-      }
-    ];
-    # not sure of diff between this and hw.fw
-    # extraModulePackages = [ pkgs.mwlwifi ];
-    kernelModules = [
-      # surface_san not in lsmod?
-      "hid"
-      "hid_sensor_hub"
-      "hid_generic"
-      "usbhid"
-      "hid_multitouch"
-      # "intel_ipts"
-      # "ipts_surface"
-    ];
+    # is this necessary?
+    kernelModules =
+      [ "hid" "hid_sensor_hub" "hid_generic" "usbhid" "hid_multitouch" ];
   };
 
 }

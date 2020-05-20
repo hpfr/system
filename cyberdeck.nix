@@ -8,9 +8,19 @@
     # ../nixos-hardware/microsoft/surface
   ];
 
-  hardware = { acpilight.enable = true; };
+  hardware = {
+    acpilight.enable = true;
+    # surface wifi doesn't work alongside bluetooth
+    # depends on model, maybe even varies device-to-device
+    bluetooth.enable = false;
+  };
 
   system.stateVersion = "19.03";
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_4_19;
+    # kernelPackages = pkgs.linuxPackages_5_6;
+  };
 
   console.font = "latarcyrheb-sun32"; # large console font
 
@@ -48,7 +58,7 @@
         system = "x86_64-linux";
         maxJobs = 16;
         speedFactor = 2;
-        supportedFeatures = [ "kvm" ];
+        supportedFeatures = [ "kvm" "big-parallel" ];
       }
       {
         hostName = "hal";

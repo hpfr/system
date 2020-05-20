@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ./base.nix ];
@@ -53,7 +53,7 @@
       enable = true;
       package = pkgs.pulseaudioFull; # for bluetooth?
     };
-    bluetooth.enable = true;
+    bluetooth.enable = lib.mkDefault true;
     opengl.driSupport32Bit = true; # for 32-bit games
     steam-hardware.enable = true;
   };
