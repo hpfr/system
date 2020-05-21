@@ -272,6 +272,8 @@
         xset r rate 300 50 &	# faster hold key repeat rate
         # mpd >/dev/null 2>&1 &
         safeeyes &
+        # acts as ssh agent and secret service
+        keepassxc &
       '';
 
       windowManager.i3 = {
