@@ -155,4 +155,62 @@
       [ "hid" "hid_sensor_hub" "hid_generic" "usbhid" "hid_multitouch" ];
   };
 
+  systemd.services = {
+    # not necessary for every model
+    # https://github.com/linux-surface/linux-surface/wiki/Known-Issues-and-FAQ#sleep-script
+    # only for kernels running original IPTS firmware
+    surface-sleep = {
+      enable = lib.versionOlder config.boot.kernelPackages.kernel.version "5.4";
+      before = [ "suspend.target" ];
+      wantedBy = [ "suspend.target" ];
+      serviceConfig.Type = "oneshot";
+      path = with pkgs; [ procps kmod bluez ];
+      script = ''
+        # Disable bluetooth if no device is connected
+        if ps cax | grep bluetoothd && ! bluetoothctl info; then
+          bluetoothctl power off
+        fi
+
+        ## Disable bluetooth regardless if devices are connected (see notes below)
+        # if ps cax | grep bluetoothd; then
+        #   bluetoothctl power off
+        # fi
+
+        ## > Remove IPTS from ME side
+        modprobe -r ipts_surface
+        modprobe -r intel_ipts
+        # modprobe -r mei_hdcp
+        modprobe -r mei_me
+        modprobe -r mei
+        ## > Remove IPTS from i915 side
+        for i in $(find /sys/kernel/debug/dri -name i915_ipts_cleanup); do
+          echo 1 > $i
+        done
+      '';
+    };
+    surface-wake = {
+      enable = lib.versionOlder config.boot.kernelPackages.kernel.version "5.4";
+      after = [ "post-resume.target" ];
+      wantedBy = [ "post-resume.target" ];
+      serviceConfig.Type = "oneshot";
+      path = with pkgs; [ procps kmod bluez ];
+      script = ''
+        ## > Load IPTS from i915 side
+        for i in $(find /sys/kernel/debug/dri -name i915_ipts_init); do
+          echo 1 > $i
+        done
+        ## > Load IPTS from ME side
+        modprobe mei
+        modprobe mei_me
+        # modprobe mei_hdcp
+        modprobe intel_ipts
+        modprobe ipts_surface
+
+        # Restart bluetooth
+        if ps cax | grep bluetoothd; then
+          bluetoothctl power on
+        fi
+      '';
+    };
+  };
 }

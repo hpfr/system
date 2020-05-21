@@ -87,7 +87,7 @@
 
   services = {
     logind = {
-      lidSwitch = "ignore";
+      # lidSwitch = "ignore";
       extraConfig = ''
         HandlePowerKey=suspend
       '';
@@ -103,53 +103,7 @@
     };
   };
 
-  systemd.services = {
-    surface-sleep = {
-      wantedBy = [ "systemd-suspend.target" ];
-      script = ''
-        # unload the modules before going to sleep
-        systemctl stop NetworkManager.service
-        modprobe -r intel_ipts
-        modprobe -r mei_me
-        modprobe -r mei
-        modprobe -r mwifiex_pcie;
-        modprobe -r mwifiex;
-        modprobe -r cfg80211;
-      '';
-    };
-    surface-wake = {
-      wantedBy = [ "post-resume.target" ];
-      script = ''
-        # need to cycle the modules on a resume and after the reset is called, so unload...
-        modprobe -r intel_ipts
-        modprobe -r mei_me
-        modprobe -r mei
-        modprobe -r mwifiex_pcie;
-        modprobe -r mwifiex;
-        modprobe -r cfg80211;
-        # and reload
-        modprobe -i intel_ipts
-        modprobe -i mei_me
-        modprobe -i mei
-        modprobe -i cfg80211;
-        modprobe -i mwifiex;
-        modprobe -i mwifiex_pcie;
-        echo 1 > /sys/bus/pci/rescan
-        systemctl restart NetworkManager.service
-      '';
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    libinput-surface
-    libwacom-surface
-    acpilight
-  ];
-
-  environment.etc."systemd/sleep.conf".text = ''
-    [Sleep]
-    SuspendState=freeze
-  '';
+  environment.systemPackages = [ pkgs.acpilight ];
 
   home-manager.users.lh = { config, pkgs, ... }: {
     home = {
