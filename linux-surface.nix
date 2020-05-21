@@ -212,5 +212,24 @@
         fi
       '';
     };
+
+    /* not necessary for every model. kernels >= 5.5 only, see
+       https://github.com/linux-surface/linux-surface/wiki/Known-Issues-and-FAQ#aspm-related-issue
+       disables some power-saving states for stability at the cost of battery
+       when upgrading here from 4.x, nixos tries to immediately run it since
+       multi-user has already been reached and fails because the file doesn't
+       exist. so you have to comment it out once when moving from pre 5.5. maybe
+       there's a better target than multi-user?
+    */
+    surface-aspm = {
+      enable =
+        lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.5";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      # the device ID and states that need to be disabled may change per device
+      script = ''
+        echo 0 | tee /sys/bus/pci/drivers/mwifiex_pcie/0000:01:00.0/link/l1_2_aspm
+      '';
+    };
   };
 }
