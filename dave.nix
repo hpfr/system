@@ -27,7 +27,7 @@
   fonts.fontconfig.dpi = 192;
 
   networking = {
-    hostName = "cyberdeck"; # Define your hostname.
+    hostName = "dave";
     networkmanager.wifi = {
       powersave = false;
       scanRandMacAddress = false;
