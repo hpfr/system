@@ -215,11 +215,11 @@
 
     /* not necessary for every model. kernels >= 5.5 only, see
        https://github.com/linux-surface/linux-surface/wiki/Known-Issues-and-FAQ#aspm-related-issue
-       disables some power-saving states for stability at the cost of battery
-       when upgrading here from 4.x, nixos tries to immediately run it since
-       multi-user has already been reached and fails because the file doesn't
-       exist. so you have to comment it out once when moving from pre 5.5. maybe
-       there's a better target than multi-user?
+       disables some power-saving states for stability at the cost of battery.
+       when upgrading to >= 5.5 from 4.x, nixos tries to immediately run this
+       since multi-user.target has already been reached. it fails because the
+       file doesn't exist. to avoid, use nixos-rebuild boot, not switch. you
+       have to reboot for the new kernel anyway
     */
     surface-aspm = {
       enable =
