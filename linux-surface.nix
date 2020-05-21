@@ -121,14 +121,10 @@
                 SERIAL_DEV_BUS = yes;
                 SERIAL_DEV_CTRL_TTYPORT = yes;
 
-              }
-              // (if lib.versionOlder config.boot.kernelPackages.kernel.version
-              "5.4" then {
                 # https://github.com/linux-surface/linux-surface/issues/61
                 PINCTRL_INTEL = yes;
                 PINCTRL_SUNRISEPOINT = yes;
-              } else
-                { });
+              };
 
               # get patches from linux-surface patches directory
               # convert to attrset format nix expects
