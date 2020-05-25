@@ -86,13 +86,6 @@
   };
 
   services = {
-    logind = {
-      # lidSwitch = "ignore";
-      extraConfig = ''
-        HandlePowerKey=suspend
-      '';
-    };
-
     xserver = {
       wacom.enable = true;
       libinput = {

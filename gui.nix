@@ -101,6 +101,10 @@
   };
 
   services = {
+    logind.extraConfig = ''
+      HandlePowerKey=suspend
+    '';
+
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
