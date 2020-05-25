@@ -136,7 +136,6 @@
 
         base-scripts
       ];
-      # sourced by .profile
       sessionVariables = {
         # add doom commands to path
         PATH = "$PATH:$HOME/.emacs.d/bin/";
@@ -173,7 +172,26 @@
 
       fish = {
         enable = true;
-        shellInit = ''
+        loginShellInit = ''
+          # fish does not perform wordsplitting
+          set EDITOR emacsclient -ca emacs
+
+          # fish-foreign-env does not handle $()
+          set LESS_TERMCAP_mb (tput bold; tput setaf 2)
+          set LESS_TERMCAP_md (tput bold; tput setaf 6)
+          set LESS_TERMCAP_me (tput sgr0)
+          set LESS_TERMCAP_so (tput bold; tput setaf 3; tput setab 4)
+          set LESS_TERMCAP_se (tput rmso; tput sgr0)
+          set LESS_TERMCAP_us (tput smul; tput bold; tput setaf 7)
+          set LESS_TERMCAP_ue (tput rmul; tput sgr0)
+          set LESS_TERMCAP_mr (tput rev)
+          set LESS_TERMCAP_mh (tput dim)
+          set LESS_TERMCAP_ZN (tput ssubm)
+          set LESS_TERMCAP_ZV (tput rsubm)
+          set LESS_TERMCAP_ZO (tput ssupm)
+          set LESS_TERMCAP_ZW (tput rsupm)
+        '';
+        interactiveShellInit = ''
           fish_vi_key_bindings
           # Emulates vim's cursor shape behavior
           # Set the normal and visual mode cursors to a block
@@ -186,16 +204,20 @@
           # visual mode, but due to fish_cursor_default, is redundant here
           set fish_cursor_visual block
         '';
-        shellAliases = {
-          ls = "ls -hN --color=auto --group-directories-first";
-          grep = "grep --color=auto";
-          diff = "diff --color";
-        };
         shellAbbrs = {
           mkd = "mkdir -pv";
           nrs = "sudo nixos-rebuild switch";
           nrsl = "sudo nixos-rebuild switch -option builders ''";
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
+        };
+        functions = {
+          ls.body = ''
+            command ls --human-readable --literal --color=auto \
+            --group-directories-first $argv
+          '';
+          grep.body = "command grep --color=auto $argv";
+          diff.body = "command diff --color $argv";
+          pgrep.body = "command pgrep --list-name --ignore-case $argv";
         };
       };
 
@@ -234,6 +256,7 @@
         '';
       };
 
+      # vi mode for bash, other shells like python
       readline = {
         enable = true;
         variables = {

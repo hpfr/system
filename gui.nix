@@ -237,6 +237,9 @@
         QT_STYLE_OVERRIDE = "Adwaita-Dark";
       };
     };
+    programs.fish.loginShellInit = ''
+      set MENU rofi -dmenu
+    '';
 
     systemd.user = {
       timers.bgcron = {
