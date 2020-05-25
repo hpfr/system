@@ -230,7 +230,8 @@
         READER = "zathura";
         # use this variable in scripts to generalize dmenu, rofi, etc
         MENU = "rofi -dmenu";
-        SUDO_ASKPASS = "$HOME/.local/bin/tools/menupass";
+        # use in scripts called from dmenu or sxhkd
+        SUDO_ASKPASS = "${pkgs.gui-scripts}/bin/menupass";
 
         # GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
         # for adwaita-qt
