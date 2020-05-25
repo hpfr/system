@@ -85,21 +85,13 @@
         # G-Sync is enabled by default, causes stuttering
         nvidia-settings -a AllowVRR=0
         # S2417DG defaults to 60 Hz unfortunately
-        xrandr --output DP-0 --primary --mode 2560x1440 --rate 144 --pos 0x0 --rotate normal \
-               --output HDMI-0 --mode 1920x1080 --pos 2560x360 --rotate normal
-
-        # start dropdown terminal hidden
-        tdrop --auto-detect-wm --monitor-aware --width '-6' \
-              --x-offset 3 --y-offset 3 \
-              --program-flags "--title 'Alacritty (Dropdown)'" alacritty
-
-        sleep 0.1
-        tdrop -am -w '-6' -x 3 -y 3 current
-        sleep 0.1
+        # I have all kinds of problems with X. for some reason, one of my monitors won't wake from sleep on input
+        # so I have to run xrandr to wake it. with dual monitors, for some reason X sometimes sets up panning
+        # on the 1920x1080 monitor to make it 1440 pixels tall. this is sometimes unfixable
+        xrandr --output DP-0 --primary --mode 2560x1440 --rate 144 --pos 0x0 \
+               --output HDMI-0 --mode 1920x1080 --pos 2560x360
 
         emacs &
-        i3-msg 'workspace 5'
-        firefox &
       '';
       windowManager.i3 = {
         # the dual monitor config I prefer
