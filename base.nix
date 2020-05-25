@@ -316,7 +316,7 @@
 
       emacs = {
         enable = true;
-        extraPackages = epkgs: [ epkgs.emacs-libvterm ];
+        extraPackages = epkgs: [ epkgs.vterm ];
       };
 
       git = {
