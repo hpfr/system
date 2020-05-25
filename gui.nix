@@ -780,7 +780,11 @@
             alignment = "left";
             follow = "keyboard";
             frame_width = 1;
-            geometry = "1000+780+0";
+            geometry = let
+              barHeight = config.services.polybar.config."bar/main".height;
+              gap = barHeight / 2;
+            in "500x3-${toString gap}+${toString (barHeight + gap)}";
+            shrink = true;
             padding = 5;
             separator_color = "#383838";
             frame_color = "#383838";
