@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libjpeg
     libpng
-    # libseccomp
+    libseccomp
     libXpm
     pixman
     xcbutil
@@ -23,4 +23,20 @@ stdenv.mkDerivation rec {
     pkgconfig
     autoreconfHook
   ];
+
+  meta = with stdenv.lib; {
+    description = "A simple wallpaper utility for X";
+    longDescription = ''
+      The xwallpaper utility allows you to set image files as your X wallpaper.
+      JPEG, PNG, and XPM file formats are supported, all of them being
+      configurable and therefore no fixed dependencies.
+
+      The wallpaper is also advertised to programs which support
+      semi-transparent backgrounds.
+    '';
+    homepage = "https://github.com/stoeckmann/xwallpaper";
+    license = licenses.isc;
+    # maintainers = with maintainers; [ liam ];
+    platforms = platforms.unix;
+  };
 }
