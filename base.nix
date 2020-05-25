@@ -285,6 +285,12 @@
         '';
       };
 
+      # cross-shell prompt with many integrations
+      starship = {
+        enable = true;
+        settings.character.symbol = "🧮";
+      };
+
       neovim = {
         enable = true;
         extraConfig = ''
