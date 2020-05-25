@@ -406,7 +406,7 @@
               "${mod}+Shift+End" = "move container to workspace 1";
 
               "${mod}+F2" = "restart";
-              "${mod}+Shift+Escape" =
+              "${mod}+Shift+z" =
                 ''exec --no-startup-id prompt "Exit i3?" "i3-msg exit"'';
             };
         };

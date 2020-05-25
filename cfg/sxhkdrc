@@ -36,17 +36,20 @@ super + shift + a
 		--x-offset 3 --y-offset 3 \
 		--program-flags "--title 'Alacritty (Dropdown)'" alacritty
 
-# Et cetera...
 super + grave
 	rofi-emoji
 super + Insert
 	showclip
+
+super + z
+	mpc pause; i3lock-fancy -pt ""; xset dpms force off
+# super + shift + z: logout via exiting window manager (see WM config)
+
 super + x
 	prompt 'Shutdown computer?' 'shutdown -h now'
 super + shift + x
 	prompt 'Reboot computer?' 'reboot'
-super + z
-	mpc pause; i3lock-fancy -pt ""; xset dpms force off
+
 super + b
 	polybar-msg cmd toggle
 
