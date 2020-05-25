@@ -131,8 +131,10 @@
         config = {
           "bar/main" = {
             height = 40;
-            font-0 = "Hasklug Nerd Font:size=16;2";
-            font-1 = "JoyPixels:size=16";
+            font-0 = "undefined medium:size=16;2";
+            font-1 = "Iosevka Nerd Font:size=16;3";
+            # https://github.com/polybar/polybar/wiki/Known-Issues#huge-emojis
+            font-2 = "JoyPixels:scale=10;2";
             modules-right =
               "temperature cpu memory filesystem battery wlan backlight-acpi pulseaudio date";
           };
