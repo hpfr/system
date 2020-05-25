@@ -166,6 +166,9 @@
       };
     };
 
+    # restart obsolete services on rebuild
+    systemd.user.startServices = true;
+
     programs = {
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
