@@ -35,6 +35,8 @@ in {
         wget # file download
         ripgrep # better grep, needed for doom-emacs features
         fio # disk benchmarking
+        pciutils # lspci
+        usbutils # lsusb
         rmlint # find and rm duplicate files
         youtube-dl # video download
         rclone # multiplatform cloud sync
