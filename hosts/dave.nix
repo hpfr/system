@@ -2,11 +2,16 @@
 
 {
   imports = [
-    ./gui.nix
+    ./hosts-base.nix
     ./linux-surface.nix
     # testing
     # ../nixos-hardware/microsoft/surface
   ];
+
+  profiles.system = {
+    xorg-base.enable = true;
+    hidpi.enable = true;
+  };
 
   hardware = {
     acpilight.enable = true;
@@ -24,8 +29,6 @@
 
   console.font = "latarcyrheb-sun32"; # large console font
 
-  fonts.fontconfig.dpi = 192;
-
   networking = {
     hostName = "dave";
     networkmanager.wifi = {
@@ -34,22 +37,23 @@
     };
   };
 
-  # I have very limited space on this machine, so I have to be very strict with
-  # disk management, especially with how space hungry NixOS generations can be.
-  #
-  # sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
-  # to see system profiles, and then
-  # ls -l /nix/var/nix/profiles/system*link
-  # to see nixpkgs revision
-  # sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations {a..b}
-  # and then sudo nix-collect-garbage to delete all the new garbage
-  # or sudo nix-collect-garbage -d to delete all profiles
-  #
-  # ncdu on /nix/store to find largest items, then
-  # nix-store --query --roots /nix/store/large-item
-  # to determine why it can't be GC'd, then delete roots and
-  # nix-store --delete /nix/store/large-item
-  # to target space hogs
+  /* I have very limited space on this machine, so I have to be very strict with
+     disk management, especially with how space hungry NixOS generations can be.
+
+     sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
+     to see system profiles, and then
+     ls -l /nix/var/nix/profiles/system*link
+     to see nixpkgs revision
+     sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations {a..b}
+     and then sudo nix-collect-garbage to delete all the new garbage
+     or sudo nix-collect-garbage -d to delete all profiles
+
+     ncdu on /nix/store to find largest items, then
+     nix-store --query --roots /nix/store/large-item
+     to determine why it can't be GC'd, then delete roots and
+     nix-store --delete /nix/store/large-item
+     to target space hogs
+  */
 
   nix = {
     buildMachines = [
@@ -92,55 +96,21 @@
         enable = true;
         naturalScrolling = true;
       };
-      dpi = 192; # doesn't seem to work with startx
     };
   };
 
   environment.systemPackages = [ pkgs.acpilight ];
 
-  home-manager.users.lh = { config, pkgs, ... }: {
+  home-manager.users.lh = {
+    profiles.user.xorg-base.enable = true;
+
     home = {
       packages = with pkgs; [ onboard ];
-      sessionVariables = {
-        GDK_SCALE = 2;
-        GDK_DPI_SCALE = 0.5;
-        QT_AUTO_SCREEN_SCALE_FACTOR = 1;
-        MOZ_USE_XINPUT2 = 1;
-      };
+      sessionVariables.MOZ_USE_XINPUT2 = 1;
     };
 
-    xresources.properties."Xft.dpi" = 192;
     xsession.pointerCursor.size = 64;
 
-    programs = {
-      ssh.matchBlocks = {
-        hal = {
-          hostname = "10.10.10.8";
-          user = "lh";
-          identityFile = "~/.ssh/kpxc-id.pub";
-          identitiesOnly = true;
-        };
-      };
-      rofi.extraConfig = ''
-        rofi.dpi: 192
-      '';
-    };
-
-    services = {
-      polybar = {
-        config = {
-          "bar/main" = {
-            height = 40;
-            font-0 = "undefined medium:size=16;2";
-            font-1 = "Iosevka Nerd Font:size=16;3";
-            # https://github.com/polybar/polybar/wiki/Known-Issues#huge-emojis
-            font-2 = "JoyPixels:scale=10;2";
-            modules-right =
-              "temperature cpu memory filesystem battery wlan backlight-acpi pulseaudio date";
-          };
-          "module/wlan".interface = "wlp1s0";
-        };
-      };
-    };
+    services.polybar.config."module/wlan".interface = "wlp1s0";
   };
 }

@@ -1,23 +1,31 @@
-#+TITLE:   NixOS Configuration
-#+DATE:    January 19, 2020
+#+TITLE:   NixOS System
+#+DATE:    May 31, 2020
 #+STARTUP: inlineimages nofold
 
 * Table of Contents :TOC_3:noexport:
 - [[#overview][Overview]]
 - [[#features][Features]]
 - [[#installation][Installation]]
-- [[#caveats][Caveats]]
 
 * Overview
-These are my dotfiles. They're built on NixOS, a Linux distribution
-based on the Nix package manager and focusing on reproducible builds and
-environments. I'm not too experienced with Nix yet, so my configurations aren't
-as well-organized and robust as they could be (yet!).
+#+BEGIN_QUOTE
+A system is a group of interacting or interrelated entities that form a unified
+whole. A system is described by its spatial and temporal boundaries, surrounded
+and influenced by its environment, described by its structure and purpose and
+expressed in its functioning. ―[[https://en.wikipedia.org/wiki/System][Wikipedia, The Free Encyclopedia]]
+#+END_QUOTE
+
+This is my NixOS configuration, encompassing my dotfiles as well as the
+machine-level configuration of the computers I own. NixOS is a Linux
+distribution based on the Nix package manager focusing on reproducible builds
+and environments. I'm not too experienced with Nix, so my configurations aren't
+as [[https://grahamc.com/blog/erase-your-darlings][robust]] as I intend them to be.
 
 Like any dotfiles, they aren't really designed to be used as-is. I've made them
 public because NixOS configurations aren't very common and so I could more
-easily get advice from other users. If you have a suggestion, feel free to let
-me know!
+easily get advice from other users. I intend to document this repo more
+thoroughly, and I may move to a literate configuration eventually. If you have a
+suggestion, feel free to let me know!
 
 * Features
 - Declarative: Changing intuitive variables create the more complex
@@ -36,22 +44,14 @@ me know!
 1. [[https://nixos.org/nixos/download.html][Install NixOS]]
    - A simple configuration.nix from ~nixos-generate-config~ including git,
      internet access, and a user account should be enough
-2. Clone this repo to desired location
-   #+begin_src sh
-   git clone https://github.com/hpfr/dotfiles ~/repos/dotfiles
-   #+end_src
+2. Clone this repo to the desired location
+   #+BEGIN_SRC sh
+git clone https://github.com/hpfr/dotfiles ~/repos/dotfiles
+   #+END_SRC
 3. Set up channels, symlink the desired host-specific Nix expression to the
    system-wide configuration and rebuild:
    #+BEGIN_SRC sh
-   sudo rm /etc/nixos/configuration.nix
-   sudo ln -s ~/repos/dotfiles/$HOSTNAME.nix /etc/nixos/configuration.nix
-   sudo nixos-rebuild switch
+sudo rm /etc/nixos/configuration.nix
+sudo ln -s ~/repos/dotfiles/$HOSTNAME.nix /etc/nixos/configuration.nix
+sudo nixos-rebuild switch
    #+END_SRC
-* Caveats
-I haven't documented this nearly thoroughly enough yet. I just wanted to put
-this up so potential employers could understand where my GitHub heatmap comes
-from. I don't recommend trying to install it in its current state.
-
-I plan to modularize the setup more robustly in the near future. Right now, it's
-based on simple file imports, but I plan to employ features of the Nix language
-to create modules for parts of my configuration, as many Nix users do.

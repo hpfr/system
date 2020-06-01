@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./base.nix ];
+  imports = [ ./hosts-base.nix ];
+
+  profiles.system.base.enable = true;
 
   system.stateVersion = "19.03";
 
@@ -33,21 +35,11 @@
     secret-key-files = /home/lh/cache-priv-key.pem
   '';
 
-  services.openssh.enable = true;
-
-  virtualisation = {
-    libvirtd.enable = true;
-    # docker.enable = true; # docker screws with networking, use a VM
-  };
+  virtualisation.libvirtd.enable = true;
 
   users.extraUsers.lh.extraGroups = [ "libvirtd" "kvm" ];
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    home.packages = with pkgs;
-      [
-        # disable tty output so I can leave server hooked up to second monitor
-        # without monitor switching to server VGA when desktop HDMI sleeps
-        vbetool
-      ];
+    profiles.user.base.enable = true;
   };
 }

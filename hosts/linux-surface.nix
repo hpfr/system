@@ -13,7 +13,7 @@
 
   nixpkgs.overlays = [
     # only use for kernels pre-5.4
-    (self: super: { ipts = super.callPackage ./pkgs/ipts { }; })
+    (self: super: { ipts = super.callPackage ../pkgs/ipts { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
     # this avoids huge rebuilds of stuff like qt that depend on libwacom
     (self: super:
@@ -23,7 +23,7 @@
            "nix-prefetch-github linux-surface libwacom-surface > libwacom-surface.json"
         */
         libwacomSurface = super.fetchFromGitHub {
-          inherit (lib.importJSON ./libwacom-surface.json)
+          inherit (lib.importJSON ../libwacom-surface.json)
             owner repo rev sha256;
         };
       in {
@@ -61,7 +61,7 @@
                nix-prefetch-url 'mirror://kernel/linux/kernel/v5.x/linux-5.6.13.tar.xz' > linux-5.6.txt"
             */
             linuxSurface = super.fetchFromGitHub {
-              inherit (lib.importJSON ./linux-surface.json)
+              inherit (lib.importJSON ../linux-surface.json)
                 owner repo rev sha256;
             };
             fullVersion = with builtins;
@@ -81,7 +81,7 @@
                 url = "mirror://kernel/linux/kernel/v${
                     lib.versions.major fullVersion
                   }.x/linux-${fullVersion}.tar.xz";
-                sha256 = lib.fileContents (./linux- + "${version}.txt");
+                sha256 = lib.fileContents (../linux- + "${version}.txt");
               };
 
               structuredExtraConfig = let

@@ -1,26 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
-    ./gui.nix
-  ];
+  imports = [ ./hosts-base.nix ];
+
+  profiles.system.xorg-base.enable = true;
 
   system.stateVersion = "19.03";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking = {
-    hostName = "hal";
-    # interfaces.enp4s0.ipv4.addresses = [{
-    #   address = "192.168.1.8";
-    #   prefixLength = 24;
-    # }];
-    # defaultGateway = {
-    #   address = "192.168.1.1";
-    #   interface = "enp4s0";
-    # };
-    # nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  };
+  networking.hostName = "hal";
 
   nix.extraOptions = ''
     secret-key-files = /home/lh/cache-priv-key.pem
@@ -44,27 +33,31 @@
   ];
 
   services = {
-    openssh.enable = true;
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver = {
+      dpi = 96;
+      videoDrivers = [ "nvidia" ];
+    };
     udev.extraRules = ''
-      # flash Stellaris Launchpad without root permissions
+      # flash Tiva Launchpad without root permissions
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
     '';
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
+    profiles.user.xorg-base.enable = true;
+
     home.packages = with pkgs; [
       refind # boot into windows without keyboard
-      # multibootusb # unmaintained
-      # onlykey # doesn't work yet :/
       nvtop
 
+      # beefy software suites
       libreoffice
       freecad
       blender
       kicad
 
       lutris
+      chromium # browser games
 
       # MCU dev
       gcc-arm-embedded
@@ -73,12 +66,6 @@
 
       # closed-source
       quartus-prime-lite
-      # does screen share in xwayland flatpak work?
-      # discord
-
-      # browser games
-      chromium
-      minecraft
     ];
     xsession = {
       initExtra = ''
@@ -109,27 +96,9 @@
         '';
       };
     };
-    programs = {
-      rofi.extraConfig = ''
-        rofi.dpi: 1
-      '';
-    };
-    services = {
-      polybar = {
-        config = {
-          "bar/main" = {
-            height = 27;
-            font-0 = "undefined medium:size=12;2";
-            font-1 = "Iosevka Nerd Font:size=12;3";
-            # https://github.com/polybar/polybar/wiki/Known-Issues#huge-emojis
-            font-2 = "JoyPixels:scale=10;2";
-            modules-right =
-              "temperature cpu memory filesystem eth wlan pulseaudio date";
-          };
-          "module/wlan".interface = "wlp5s0";
-          "module/eth".interface = "enp4s0";
-        };
-      };
+    services.polybar.config = {
+      "module/wlan".interface = "wlp5s0";
+      "module/eth".interface = "enp4s0";
     };
   };
 }
