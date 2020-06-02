@@ -7,7 +7,7 @@ in {
   options.profiles.system.xorg-base.enable =
     mkEnableOption "my system-level Xorg GUI base configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     profiles.system.gui-base.enable = true;
 
     nixpkgs.overlays = [

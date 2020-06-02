@@ -7,7 +7,7 @@ in {
   options.profiles.user.nomacs.enable =
     mkEnableOption "my nomacs configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     home.packages = [ pkgs.nomacs ];
 
     xdg.mimeApps.defaultApplications = let

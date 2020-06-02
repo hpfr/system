@@ -7,7 +7,7 @@ in {
   options.profiles.user.xorg-base.enable =
     mkEnableOption "my user-level Xorg GUI base configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     profiles.user = {
       gui-base.enable = true;
 

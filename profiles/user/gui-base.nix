@@ -7,7 +7,7 @@ in {
   options.profiles.user.gui-base.enable =
     mkEnableOption "my user-level GUI configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     profiles.user = {
       base.enable = true;
 

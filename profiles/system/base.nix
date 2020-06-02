@@ -7,7 +7,7 @@ in {
   options.profiles.system.base.enable =
     mkEnableOption "my system base configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     environment.etc."nixos/overlays-compat/overlays.nix".text =
       builtins.readFile ./../../pkgs/overlays.nix;
 

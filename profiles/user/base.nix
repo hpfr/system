@@ -7,7 +7,7 @@ in {
   options.profiles.user.base.enable =
     mkEnableOption "my user base configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     profiles.user = {
       bash.enable = true;
       readline.enable = true;

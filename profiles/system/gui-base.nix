@@ -7,7 +7,7 @@ in {
   options.profiles.system.gui-base.enable =
     mkEnableOption "my system-level GUI base configuration";
 
-  config = {
+  config = mkIf cfg.enable {
     profiles.system = {
       base.enable = true;
       fonts.enable = true;
