@@ -26,8 +26,7 @@
     home.packages = [ pkgs.kodi-wayland ];
 
     # never lock screen
-    dconf.settings."org/gnome/desktop/session".idle-delay =
-      lib.hm.gvariant.mkUint32 0;
+    dconf.settings."org/gnome/desktop/screensaver".lock-enabled = false;
 
     # autostart steam
     xdg.configFile."autostart/steam.desktop".source =
