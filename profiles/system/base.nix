@@ -56,6 +56,8 @@ in {
     networking = {
       firewall = {
         allowedTCPPorts = [
+          5900 # spice
+          8384 # syncthing interface
           22000 # syncthing transfer
         ];
         allowedUDPPorts = [
