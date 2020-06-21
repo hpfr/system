@@ -8,18 +8,8 @@
   system.stateVersion = "19.03";
 
   boot = {
-    kernelParams = [
-      "amd_iommu=on"
-      # "video=efifb:off"
-      # "video=vesafb:off,efifb:off"
-      # "iommu=1"
-      # below is alternative to modprobe
-      # "rd.driver.pre=vfio-pci"
-      # "vfio-pci.ids=1002:67df,1002:aaf0"
-    ];
+    kernelParams = [ "amd_iommu=on" ];
     kernelPackages = pkgs.linuxPackages_latest;
-    # I shouldn't have to use this?
-    # blacklistedKernelModules = [ "amdgpu" ];
     kernelModules = [
       # required for virtualisation
       "kvm-amd"
@@ -34,27 +24,6 @@
       softdep amdgpu pre: vfio-pci
       options vfio-pci ids=1002:67df,1002:aaf0
     '';
-
-    # # initrd version of modprobe above
-    # initrd.availableKernelModules = [
-    #   # shouldn't have to comment this out
-    #   # "amdgpu"
-    #   "vfio-pci"
-    # ];
-    # initrd.kernelModules = [
-    #   # vfio modules
-    #   "vfio_virqfd"
-    #   "vfio_pci"
-    #   "vfio_iommu_type1"
-    #   "vfio"
-    # ];
-    # initrd.preDeviceCommands = ''
-    #   DEVS="0000:21:00.0 0000:21:00.1"
-    #   for DEV in $DEVS; do
-    #     echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
-    #   done
-    #   modprobe -i vfio-pci
-    # '';
   };
 
   networking = {
