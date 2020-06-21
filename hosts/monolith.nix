@@ -15,19 +15,10 @@
 
   networking = {
     hostName = "monolith";
-    bridges = {
-      br25 = { interfaces = [ "enp25s0" ]; };
-      br26 = { interfaces = [ "enp26s0" ]; };
-    };
+    bridges.br25.interfaces = [ "enp25s0" ];
     interfaces = {
-      # br25.ipv4.addresses = [{
-      #   address = "192.168.1.8";
-      #   prefixLength = 24;
-      # }];
-      br26.ipv4.addresses = [{
-        address = "192.168.1.9";
-        prefixLength = 24;
-      }];
+      enp25s0.useDHCP = false;
+      br25.useDHCP = true;
     };
   };
 
