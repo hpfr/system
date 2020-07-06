@@ -41,8 +41,6 @@ in {
         youtube-dl # video download
         rclone # multiplatform cloud sync
         ffsend # firefox send client
-        # TODO: package
-        # onlykey-cli
 
         # language tools, useful for emacs integration
         shellcheck # check shell scripts for syntax and semantics

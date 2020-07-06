@@ -31,6 +31,10 @@ in {
           patchShebangs $out/bin
         '');
       })
+      (self: super: {
+        python-onlykey =
+          super.python3Packages.callPackage ../../pkgs/python-onlykey { };
+      })
     ];
 
     location.provider = "geoclue2"; # for redshift

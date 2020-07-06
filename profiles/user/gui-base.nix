@@ -60,6 +60,8 @@ in {
         steam
         protontricks # for problematic Steam Play games
         # wine # wine is not an emulator
+
+        python-onlykey # OnlyKey CLI
       ];
 
       # for adwaita-qt
