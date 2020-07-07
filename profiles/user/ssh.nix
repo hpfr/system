@@ -38,6 +38,12 @@ in {
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
         };
+        poole = {
+          hostname = "10.10.10.11";
+          user = "lh";
+          identityFile = "~/.ssh/kpxc-id.pub";
+          identitiesOnly = true;
+        };
       };
     };
   };
