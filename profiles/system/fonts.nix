@@ -105,10 +105,12 @@ in {
       enableDefaultFonts = false;
       fonts = with pkgs; [
         noto-fonts # noto serif
+        noto-fonts-extra # all weights
         lato # sans-serif
         iosevka-term-curly-slab # monospace
         joypixels # emoji
         undefined-medium # pseudo-bitmap
+        noto-fonts-cjk # CJK support
 
         # TODO: https://github.com/ryanoasis/nerd-fonts/issues/479
         # https://github.com/ryanoasis/nerd-fonts/pull/461
