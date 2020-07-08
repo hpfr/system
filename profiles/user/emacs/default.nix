@@ -18,8 +18,22 @@ in {
       '';
     };
 
+    services.emacs = {
+      enable = false;
+      # TODO: make this independent of emacs service upstream
+      client.enable = true; # xdg desktop file
+    };
+
     home = {
-      packages = [ pkgs.gnutls ]; # for circe
+      packages = with pkgs; [
+        # TODO: expose these only to emacs somehow
+        gnutls # circe
+        sqlite # org-roam
+        ripgrep # doom code searching features
+        shellcheck # shell linting
+        nixfmt # opinionated nix formatting
+        jq # json parsing
+      ];
 
       sessionVariables = {
         # add doom commands to path

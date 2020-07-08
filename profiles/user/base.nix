@@ -33,7 +33,7 @@ in {
         zip
         unzip
         wget # file download
-        ripgrep # better grep, needed for doom-emacs features
+        ripgrep # better grep
         fio # disk benchmarking
         pciutils # lspci
         usbutils # lsusb
@@ -42,12 +42,9 @@ in {
         rclone # multiplatform cloud sync
         ffsend # firefox send client
 
-        # language tools, useful for emacs integration
-        shellcheck # check shell scripts for syntax and semantics
-        nixfmt # format nix files
-        jq # json parsing
-        # broken
-        # nix-diff
+        # nix-diff # broken
+        nix-du
+        # nix-tree
 
         # TUI's
         htop # system monitoring
