@@ -50,8 +50,9 @@
       # beefy software suites
       libreoffice
       freecad
-      blender
-      kicad
+      # blender
+      # kicad
+      inkscape
 
       lutris
       chromium # browser games
