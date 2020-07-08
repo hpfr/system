@@ -10,14 +10,7 @@ in {
   config = mkIf cfg.enable {
     profiles.system.gui-base.enable = true;
 
-    nixpkgs.overlays = [
-      (self: super: {
-        xwallpaper = super.callPackage ./../../pkgs/xwallpaper { };
-      })
-    ];
-
     services = {
-      # Enable the X11 windowing system.
       xserver = {
         enable = true;
         layout = "us";

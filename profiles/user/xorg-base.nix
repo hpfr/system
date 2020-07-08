@@ -31,7 +31,6 @@ in {
       libnotify # notify-send command
       libxml2 # xmllint for rofi-emoji
 
-      # nixpkgs overlays not recognized on first build?
       xwallpaper # set wallpaper
 
       i3lock-fancy # screen locker. nothing about i3lock seems to depend on i3
