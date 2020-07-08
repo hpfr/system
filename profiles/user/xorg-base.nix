@@ -11,8 +11,9 @@ in {
     profiles.user = {
       gui-base.enable = true;
 
-      # desktop environment
+      # pseudo desktop environment
       i3.enable = true;
+      autorandr.enable = true;
       rofi.enable = true;
       polybar.enable = true;
       dunst.enable = true;
@@ -103,5 +104,8 @@ in {
       # hide pointer
       unclutter.enable = true;
     };
+
+    programs.autorandr.hooks.postswitch."set-background" =
+      "${pkgs.gui-scripts}/bin/setbg";
   };
 }

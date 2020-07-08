@@ -24,6 +24,8 @@ in {
         };
       };
 
+      autorandr.enable = true;
+
       redshift = {
         enable = true;
         temperature.night = 3000;
