@@ -33,10 +33,7 @@
   ];
 
   services = {
-    xserver = {
-      dpi = 96;
-      videoDrivers = [ "nvidia" ];
-    };
+    xserver.dpi = 96;
     udev.extraRules = ''
       # flash Tiva Launchpad without root permissions
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
