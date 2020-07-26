@@ -23,8 +23,27 @@
     ];
 
     extraModprobeConfig = ''
-      softdep amdgpu pre: vfio-pci
-      options vfio-pci ids=1002:67df,1002:aaf0
+      softdep nouveau pre: vfio-pci
+      softdep i2c_nvidia_gpu pre: vfio-pci
+
+      # 21:00.0, .1, .2, .3 in IOMMU group 13
+      options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb
+    '';
+  };
+
+  # the driver that binds to the USB controller in my passthrough GPU is built
+  # into the kernel, so we have to unbind it and bind the vfio driver manually
+  systemd.services.unbind-rtx-usb = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+
+    script = let device-id = "0000:21:00.2";
+    in ''
+      if test -d '/sys/bus/pci/drivers/xhci_hcd/${device-id}'; then
+        echo -n "${device-id}" > /sys/bus/pci/drivers/xhci_hcd/unbind
+        echo -n "${device-id}" > /sys/bus/pci/drivers/vfio-pci/bind
+      fi
     '';
   };
 
