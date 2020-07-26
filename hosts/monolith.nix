@@ -18,6 +18,8 @@
       "vfio_pci"
       "vfio_iommu_type1"
       "vfio"
+      # fan control (k10temp for CPU automatically loaded)
+      "nct6775"
     ];
 
     extraModprobeConfig = ''
