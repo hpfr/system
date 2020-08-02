@@ -51,7 +51,7 @@ in {
         xournalpp # handwritten notes and PDF markup
 
         # messaging
-        riot-desktop # matrix electron client
+        element-desktop # matrix electron client
         signal-desktop # signal client
         tdesktop # telegram client (FOSS)
 
