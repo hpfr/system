@@ -44,6 +44,10 @@ in {
     };
 
     xdg = {
+      configFile."doom" = {
+        source = ./doom;
+        recursive = true;
+      };
       mimeApps.associations.added."application/pdf" = "emacsclient.desktop";
       dataFile.emacsclient = {
         target = "applications/emacsclient.desktop";
