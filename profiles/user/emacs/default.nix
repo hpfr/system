@@ -30,9 +30,10 @@ in {
         gnutls # circe
         sqlite # org-roam
         ripgrep # doom code searching features
+        jq # json parsing
         shellcheck # shell linting
         nixfmt # opinionated nix formatting
-        jq # json parsing
+        html-tidy # html and xml formatting
       ];
 
       sessionVariables = {
