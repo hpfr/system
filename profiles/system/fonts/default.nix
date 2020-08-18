@@ -118,14 +118,17 @@ in {
 
       ];
 
-      # TODO: try copying this option's functionality into home-manager module
+      # TODO: copy this option's functionality into home-manager module
       fontconfig.defaultFonts = {
         serif = [ "Noto Serif" ];
         sansSerif = [ "Lato" ];
         monospace = [ "Iosevka Term Curly Slab" ];
         emoji = [ "JoyPixels" ];
       };
-    };
 
+      # this shouldn't need to be system-level
+      # https://github.com/NixOS/nixpkgs/issues/86601
+      fontconfig.localConf = builtins.readFile ./60-block-fallbacks.conf;
+    };
   };
 }
