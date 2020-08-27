@@ -125,10 +125,6 @@ in {
         monospace = [ "Iosevka Term Curly Slab" ];
         emoji = [ "JoyPixels" ];
       };
-
-      # this shouldn't need to be system-level
-      # https://github.com/NixOS/nixpkgs/issues/86601
-      fontconfig.localConf = builtins.readFile ./60-block-fallbacks.conf;
     };
   };
 }
