@@ -12,7 +12,7 @@
   networking.hostName = "hal";
 
   nix.extraOptions = ''
-    secret-key-files = /home/lh/cache-priv-key.pem
+    secret-key-files = /home/lh/.ssh/cache-priv-key.pem
   '';
 
   nixpkgs.overlays = [

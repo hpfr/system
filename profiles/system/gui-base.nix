@@ -11,6 +11,7 @@ in {
     profiles.system = {
       base.enable = true;
       fonts.enable = true;
+      remote-builds.enable = true;
     };
 
     nixpkgs.overlays = [
