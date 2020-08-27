@@ -57,7 +57,7 @@
   };
 
   nix.extraOptions = ''
-    secret-key-files = /home/lh/cache-priv-key.pem
+    secret-key-files = /home/lh/.ssh/cache-priv-key.pem
   '';
 
   services.openssh.enable = true;
