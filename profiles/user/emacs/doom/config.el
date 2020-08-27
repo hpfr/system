@@ -102,5 +102,8 @@
 (after! org-super-agenda
   (setq org-super-agenda-header-map nil))
 
+;; use pdf-tools for latex rather than zathura, etc
+(setq +latex-viewers '(pdf-tools))
+
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
