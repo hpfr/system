@@ -44,14 +44,13 @@
     profiles.user.xorg-base.enable = true;
 
     home.packages = with pkgs; [
-      refind # boot into windows without keyboard
       nvtop
 
       # beefy software suites
-      libreoffice
-      freecad
-      # blender
-      # kicad
+      # libreoffice
+      # freecad
+      blender
+      kicad
       inkscape
 
       lutris
