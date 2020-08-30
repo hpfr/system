@@ -31,20 +31,25 @@
     '';
   };
 
-  # the driver that binds to the USB controller in my passthrough GPU is built
-  # into the kernel, so we have to unbind it and bind the vfio driver manually
-  systemd.services.unbind-rtx-usb = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "oneshot";
+  systemd = {
+    # the driver that binds to the USB controller in my passthrough GPU is built
+    # into the kernel, so we have to unbind it and bind the vfio driver manually
+    services.unbind-rtx-usb = {
+      enable = true;
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
 
-    script = let device-id = "0000:21:00.2";
-    in ''
-      if test -d '/sys/bus/pci/drivers/xhci_hcd/${device-id}'; then
-        echo -n "${device-id}" > /sys/bus/pci/drivers/xhci_hcd/unbind
-        echo -n "${device-id}" > /sys/bus/pci/drivers/vfio-pci/bind
-      fi
-    '';
+      script = let device-id = "0000:21:00.2";
+      in ''
+        if test -d '/sys/bus/pci/drivers/xhci_hcd/${device-id}'; then
+          echo -n "${device-id}" > /sys/bus/pci/drivers/xhci_hcd/unbind
+          echo -n "${device-id}" > /sys/bus/pci/drivers/vfio-pci/bind
+        fi
+      '';
+    };
+    # https://askubuntu.com/questions/676007/how-do-i-make-my-systemd-service-run-via-specific-user-and-start-on-boot
+    # https://serverfault.com/questions/846441/loginctl-enable-linger-disable-linger-but-reading-linger-status
+    tmpfiles.rules = [ "f /var/lib/systemd/linger/lh 0644 root root" ];
   };
 
   networking = {
