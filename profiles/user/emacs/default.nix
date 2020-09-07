@@ -34,6 +34,7 @@ in {
         shellcheck # shell linting
         nixfmt # opinionated nix formatting
         html-tidy # html and xml formatting
+        libreoffice # docx to docview
       ];
 
       sessionVariables = {
