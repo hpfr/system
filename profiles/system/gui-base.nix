@@ -99,6 +99,8 @@ in {
         HandlePowerKey=suspend
       '';
 
+      blueman.enable = true;
+
       dbus.packages = with pkgs; [ gnome3.dconf ];
 
       udev.extraRules = ''

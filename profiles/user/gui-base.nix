@@ -33,7 +33,6 @@ in {
         qpdf # pdf manipulation CLi
         adwaita-qt # make qt apps look like gtk apps
 
-        blueman # bluetooth GUI
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
         bookworm # ebook reader
