@@ -136,6 +136,10 @@ in {
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      gtkUsePortal = true;
     };
+
+    programs.ssh.askPassword =
+      "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
   };
 }
