@@ -38,6 +38,7 @@ in {
         pciutils # lspci
         usbutils # lsusb
         rmlint # find and rm duplicate files
+        ssh-audit # audit ssh configuration
         youtube-dl # video download
         rclone # multiplatform cloud sync
         ffsend # firefox send client
