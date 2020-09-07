@@ -104,6 +104,7 @@
  python
  sh
  web
+ yaml
 
  :email
  notmuch
