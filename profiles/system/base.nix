@@ -84,7 +84,11 @@ in {
     # programs.mtr.enable = true;
     # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-    programs.ssh.startAgent = true;
+    programs = {
+      # sets up fish as an available login shell
+      fish.enable = true;
+      ssh.startAgent = true;
+    };
 
     services.openssh.enable = true;
 
