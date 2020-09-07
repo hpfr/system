@@ -105,7 +105,7 @@ in {
       unclutter.enable = true;
     };
 
-    programs.autorandr.hooks.postswitch."set-background" =
-      "${pkgs.gui-scripts}/bin/setbg";
+    programs.autorandr.hooks.postswitch."reset-background" =
+      "${pkgs.gui-scripts}/bin/setbg ~/.config/wall";
   };
 }
