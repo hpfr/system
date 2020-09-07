@@ -79,11 +79,6 @@ in {
     i18n.defaultLocale = "en_US.UTF-8";
     time.timeZone = "America/Chicago";
 
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
-
     programs = {
       # sets up fish as an available login shell
       fish.enable = true;
