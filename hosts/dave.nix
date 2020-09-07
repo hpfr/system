@@ -1,41 +1,22 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./hosts-base.nix
-    ./linux-surface.nix
-    # testing
-    # ../nixos-hardware/microsoft/surface
-  ];
+  imports = [ ./hosts-base.nix ];
 
-  profiles.system = {
-    xorg-base.enable = true;
-    hidpi.enable = true;
-  };
+  profiles.system.gnome.enable = true;
 
   hardware = {
     acpilight.enable = true;
-    # surface wifi doesn't work alongside bluetooth
-    # depends on model, maybe even varies device-to-device
-    bluetooth.enable = false;
+    bluetooth.enable = true;
+    # orientation and ambient light sensors
+    sensor.iio.enable = true;
   };
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "20.09";
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_4_19;
-    # kernelPackages = pkgs.linuxPackages_5_6;
-  };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  console.font = "latarcyrheb-sun32"; # large console font
-
-  networking = {
-    hostName = "dave";
-    networkmanager.wifi = {
-      powersave = false;
-      scanRandMacAddress = false;
-    };
-  };
+  networking.hostName = "dave";
 
   services = {
     xserver = {
@@ -47,18 +28,15 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.acpilight ];
+  environment.systemPackages = with pkgs; [ acpilight libwacom ];
 
   home-manager.users.lh = {
-    profiles.user.xorg-base.enable = true;
+    profiles.user.gnome.enable = true;
 
+    # touch gestures in firefox
     home = {
-      packages = with pkgs; [ onboard ];
       sessionVariables.MOZ_USE_XINPUT2 = 1;
+      packages = [ pkgs.libinput ];
     };
-
-    xsession.pointerCursor.size = 64;
-
-    services.polybar.config."module/wlan".interface = "wlp1s0";
   };
 }
