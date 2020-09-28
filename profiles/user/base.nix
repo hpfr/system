@@ -33,8 +33,12 @@ in {
         zip
         unzip
         wget # file download
+        fd # better find
+        bat # better cat
         ripgrep # better grep
+        file # get filetypes
         fio # disk benchmarking
+        recode # change file encoding in place
         pciutils # lspci
         usbutils # lsusb
         rmlint # find and rm duplicate files
