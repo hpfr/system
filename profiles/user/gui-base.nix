@@ -17,7 +17,7 @@ in {
       ssh.enable = true;
       firefox.enable = true;
       alacritty.enable = true;
-      zathura.enable = true;
+      zathura.enable = false;
       mpv.enable = true;
       nomacs.enable = true;
     };

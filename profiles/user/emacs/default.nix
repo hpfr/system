@@ -12,7 +12,7 @@ in {
         enable = true;
         extraPackages = epkgs: [ epkgs.vterm ];
       };
-      fish.loginShellInit = ''
+      fish.shellInit = ''
         # fish does not perform wordsplitting
         set EDITOR emacsclient -ca emacs
       '';
@@ -45,12 +45,16 @@ in {
       };
     };
 
+    # emacs opens pdf's
+    services.sxhkd.keybindings."super + p" = "$EDITOR";
+
     xdg = {
       configFile."doom" = {
         source = ./doom;
         recursive = true;
       };
       mimeApps.associations.added."application/pdf" = "emacsclient.desktop";
+      mimeApps.defaultApplications."application/pdf" = "emacsclient.desktop";
       dataFile.emacsclient = {
         target = "applications/emacsclient.desktop";
         text = ''
