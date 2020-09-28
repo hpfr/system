@@ -44,6 +44,12 @@ in {
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
         };
+        dave = {
+          hostname = "10.10.10.12";
+          user = "lh";
+          identityFile = "~/.ssh/kpxc-id.pub";
+          identitiesOnly = true;
+        };
       };
     };
   };
