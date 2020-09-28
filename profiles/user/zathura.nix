@@ -10,6 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     home.sessionVariables.READER = "zathura";
+    services.sxhkd.keybindings."super + p" = "zathura";
 
     xdg.mimeApps.defaultApplications."application/pdf" =
       "org.pwmt.zathura.desktop";

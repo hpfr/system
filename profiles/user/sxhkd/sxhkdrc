@@ -10,7 +10,7 @@ super + e
 super + w
 	$BROWSER
 super + p
-	$READER
+	emacsclient -ca emacs
 super + n
 	xournalpp
 super + shift + p
@@ -41,7 +41,6 @@ super + Insert
 
 super + z
 	mpc pause; i3lock-fancy -pt ""; xset dpms force off
-# super + shift + z: logout via exiting window manager (see WM config)
 
 super + x
 	prompt 'Shutdown computer?' 'shutdown -h now'
@@ -61,9 +60,6 @@ Print
 # Pick screenshot type
 shift + Print
 	maimpick
-# # Show keys
-# super + shift + Print
-# 	pkill screenkey || screenkey
 
 # Pause audio
 super + {_,shift +} p

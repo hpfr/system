@@ -21,12 +21,19 @@ in {
       # connect to wifi
       packages = with pkgs; [ networkmanager_dmenu ];
 
-      sessionVariables = {
-        # use this variable in scripts to generalize dmenu, rofi, etc
-        MENU = "rofi -dmenu";
-        # use in scripts called from dmenu or sxhkd
-        SUDO_ASKPASS = "${pkgs.gui-scripts}/bin/menupass";
-      };
+      # use this variable in scripts to generalize dmenu, rofi, etc
+      sessionVariables.MENU = "rofi -dmenu";
+    };
+
+    services.sxhkd.keybindings = {
+      "super + d" = "rofi -show combi";
+      "super + r" = "rofi -show run";
+      "super + shift + w" = "networkmanager_dmenu";
+      "super + shift + d" = "displayselect";
+      "super + grave" = "rofi-emoji";
+      "super + x" = "prompt 'Shutdown computer?' 'shutdown -h now'";
+      "super + shift + x" = "prompt 'Reboot computer?' 'reboot'";
+      "super + shift + r" = "winresize";
     };
 
     programs.fish.loginShellInit = ''

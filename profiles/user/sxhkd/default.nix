@@ -4,34 +4,64 @@ with lib;
 
 let cfg = config.profiles.user.sxhkd;
 in {
+  # TODO: https://github.com/nix-community/home-manager/pull/847#issuecomment-573397045
   options.profiles.user.sxhkd.enable = mkEnableOption "my sxhkd configuration";
 
   config = mkIf cfg.enable {
     services.sxhkd = {
       enable = true;
+      # many keybindings are assigned in modules associated with the command.
+      # use nixos-option, search the repo, or simply view the output sxhkdrc for
+      # full list
+      # also check window manager config for bindings
       keybindings = {
         "super + Return" = "$TERMINAL";
-        "super + d" = "rofi -show combi";
-        "super + r" = "rofi -show run";
         "super + e" = "$EDITOR";
         "super + w" = "$BROWSER";
-        "super + p" = "$READER";
         "super + n" = "xournalpp";
-        # "super + m" = "com.spotify.Client";
+        "super + shift + p" = "keepassxc";
+        "super + m" = "com.spotify.Client";
         "super + i" = "$TERMINAL -e htop";
-        "super + s" = "$TERMINAL -e pulsemixer";
-        "super + shift + w" = "networkmanager_dmenu";
-        "super + shift + d" = "displayselect";
-        "super + shift + g" = "gimp";
+        "super + s" = "pavucontrol";
+        # toggle current dropdown
+        "super + a" = "tdrop -am -w '-6' -x 3 -y 3 current";
+        # fresh terminal dropdown
+        "super + shift + a" = ''
+          tdrop --auto-detect-wm --monitor-aware --width '-6' \
+            --x-offset 3 --y-offset 3 \
+            --program-flags "--title 'Alacritty (Dropdown)'" alacritty
+        '';
 
-        "super + grave" = "rofi-emoji";
         "super + Insert" = "showclip";
-        "super + x" = "prompt 'Shutdown computer?' 'shutdown -h now'";
-        "super + shift + x" = "prompt 'Reboot computer?' 'reboot'";
         "super + z" = "mpc pause; i3lock-fancy -pt ''; xset dpms force off";
+        # logout with super + shift + z
         "super + b" = "polybar-msg cmd toggle";
 
-        "super + shift + r" = "winresize";
+        # Pause audio
+        "super + {_,shift +} p" = "mpc {toggle,pause}";
+        # Changes to next/previous tracks
+        "super + {comma,period}" = "mpc {prev,next}";
+        # Restart track
+        "super + shift + less" = "mpc seek 0%";
+        # Seek foward in song
+        "super + {_,shift +} bracketright" = "mpc seek +{10,120}";
+        # Seek backward in song
+        "super + {_,shift +} bracketleft" = "mpc seek -{10,120}";
+
+        "XF86Launch1" = "xset dpms force off";
+        "XF86AudioMute" = "pamixer --toggle-mute";
+        "{_, control, shift} + XF86AudioLowerVolume" =
+          "pamixer --decrease {5, 1, 10}";
+        "{_, control, shift} + XF86AudioRaiseVolume" =
+          "pamixer --increase {5, 1, 10}";
+        "XF86AudioNext" = "mpc next";
+        "XF86AudioPlay" = "mpc toggle";
+        "XF86AudioPrev" = "mpc prev";
+        "XF86AudioStop" = "mpc toggle";
+        "{_, control, shift} + XF86MonBrightnessDown" =
+          "xbacklight -dec {5, 1, 10}";
+        "{_, control, shift} + XF86MonBrightnessUp" =
+          "xbacklight -inc {5, 1, 10}";
       };
     };
   };
