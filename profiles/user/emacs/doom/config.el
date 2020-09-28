@@ -91,6 +91,21 @@
   (setq org-todo-keywords '((sequence "TODO(t!)" "PROJ(p!)" "|" "DONE(d!)")
                             (sequence "[ ](T!)" "[-](P!)" "[?](M!)" "|" "[X](D!)")
                             (sequence "NEXT(n!)" "WAIT(w@)" "HOLD(h!)" "|" "ABRT(c@)")))
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          (directory . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" . default)
+          ("\\.pdf\\'" . emacs)))
+  (setq org-file-apps-gnu
+        ;; I don't have a mailcap file
+        '((remote . emacs)
+          ("\\.mp4\\'" . "mpv %s")
+          ("\\.mkv\\'" . "mpv %s")
+          (system . "xdg-open %s")
+          (t . "xdg-open %s"))
+        ;; always use UUID's in org headline links
+        org-id-link-to-org-use-id t)
   (setq org-capture-templates
         '(("t" "todo" entry
            (file+headline +org-capture-todo-file "Inbox")
