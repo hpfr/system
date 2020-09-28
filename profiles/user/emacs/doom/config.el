@@ -19,13 +19,60 @@
 ;; Replace selection when inserting text
 (delete-selection-mode 1)
 
-(setq doom-font (font-spec :family "monospace" :size 18)
-      doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Noto Serif" :size 18)
-      doom-big-font (font-spec :family "monospace" :size 28))
+(after! evil
+  (require 'evil-textobj-anyblock)
+  (evil-define-text-object my-evil-textobj-anyblock-inner-quote
+    (count &optional beg end type)
+    "Select the closest outer quote."
+    (let ((evil-textobj-anyblock-blocks
+           '(("'" . "'")
+             ("\"" . "\"")
+             ("`" . "`")
+             ("“" . "”"))))
+      (evil-textobj-anyblock--make-textobj beg end type count nil)))
 
-;; line numbers are unnecessary with easymotion and avy
-(setq display-line-numbers-type nil)
+  (evil-define-text-object my-evil-textobj-anyblock-a-quote
+    (count &optional beg end type)
+    "Select the closest outer quote."
+    (let ((evil-textobj-anyblock-blocks
+           '(("'" . "'")
+             ("\"" . "\"")
+             ("`" . "`")
+             ("“" . "”"))))
+      (evil-textobj-anyblock--make-textobj beg end type count t)))
+
+  (define-key evil-inner-text-objects-map "q"
+    'my-evil-textobj-anyblock-inner-quote)
+  (define-key evil-outer-text-objects-map "q"
+    'my-evil-textobj-anyblock-a-quote))
+
+(let ((doom-dark-themes
+       '(doom-one doom-city-lights doom-challenger-deep doom-dark+ doom-dracula
+                  doom-ephemeral doom-fairy-floss doom-gruvbox doom-henna
+                  doom-horizon doom-laserwave doom-material doom-manegarm
+                  doom-molokai doom-monokai-classic doom-moonlight doom-nord
+                  doom-oceanic-next doom-old-hope doom-opera doom-palenight
+                  doom-peacock doom-rouge doom-snazzy doom-solarized-dark
+                  doom-sourcerer doom-spacegrey doom-tomorrow-night
+                  doom-wilmersdorf doom-nova))
+      (doom-light-themes
+       '(doom-one-light doom-gruvbox-light doom-solarized-light
+                        doom-tomorrow-day doom-opera-light doom-nord-light)))
+  (defun load-random-theme ()
+    "Load a random theme, light during the day"
+    (interactive)
+    (let* ((current-hour (string-to-number (format-time-string "%H")))
+           (current-themes (if (or (>= current-hour 19) (< current-hour 7))
+                               doom-dark-themes doom-light-themes)))
+      (load-theme (nth (random (length current-themes)) current-themes) t))))
+
+(run-at-time "1 hour" 3600 #'load-random-theme)
+
+(setq doom-theme 'doom-one
+      doom-font (font-spec :family "monospace" :size 18)
+      ;; doom-serif-font (font-spec :family "monospace-serif" :size 18)
+      doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "Noto Serif"))
 
 ;; integrate with freedesktop secret service
 (require 'secrets)
