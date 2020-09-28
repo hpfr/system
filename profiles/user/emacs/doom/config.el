@@ -4,6 +4,9 @@
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs
              "/home/lh/repos/system/profiles/user/emacs/doom/")
 
+;; append because first element is "not" which negates the list
+(add-to-list '+format-on-save-enabled-modes 'sh-mode t)
+
 ;; highlight links in comments and strings
 (define-globalized-minor-mode global-goto-address-prog-mode goto-address-prog-mode
   (lambda () (goto-address-prog-mode 1)))
