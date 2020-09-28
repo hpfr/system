@@ -19,13 +19,14 @@
  :completion
  company
  (ivy
-  +fuzzy
+  ;; +fuzzy
   +prescient
   +childframe
   +icons
   )
 
  :ui
+ deft
  doom
  doom-dashboard
  doom-quit
@@ -77,7 +78,7 @@
  (eval +overlay)
  (lookup
   +docsets)
- lsp
+ (lsp +eglot)
  magit
  pdf
  rgb
@@ -85,24 +86,26 @@
 
  :lang
  assembly
- cc
+ (cc +lsp)
  data
  emacs-lisp
- javascript
- (latex +latexmk)
+ (go +lsp)
+ (javascript +lsp)
+ (latex +latexmk +lsp)
  markdown
  nix
  (org
   +dragndrop
   +hugo
+  +noter
   +pandoc
   +pomodoro
   +present
   +roam
   )
  raku
- python
- sh
+ (python +lsp)
+ (sh +fish)
  web
  yaml
 

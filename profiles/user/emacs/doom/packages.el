@@ -7,6 +7,12 @@
 ;; (package! builtin-package :disable t)
 
 (package! org-super-agenda)
-(package! emacs-conflict :recipe (:host github :repo "ibizaman/emacs-conflicts"))
+(package! org-caldav)
+(package! org-vcard)
+(package! nov)
+(package! shrface)
+(package! emacs-conflict :recipe
+  (:host github :repo "ibizaman/emacs-conflicts"))
 (package! vimrc-mode)
 (package! disk-usage)
+(package! yequake)

@@ -31,10 +31,22 @@ in {
         sqlite # org-roam
         ripgrep # doom code searching features
         jq # json parsing
+        libreoffice # docx to docview
+
+        # language linting and formatting
         shellcheck # shell linting
+        shfmt # shell formatting
+        clang-tools # for clang-format
         nixfmt # opinionated nix formatting
         html-tidy # html and xml formatting
-        libreoffice # docx to docview
+
+        # language servers
+        ccls # c
+        lua53Packages.digestif # TeX
+        gopls # go
+        rls # rust
+        python-language-server
+        nodePackages.javascript-typescript-langserver
       ];
 
       sessionVariables = {
