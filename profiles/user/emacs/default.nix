@@ -89,6 +89,5 @@ in {
         '';
       };
     };
-    services.picom.opacityRule = [ "92:class_g = 'Emacs'" ];
   };
 }

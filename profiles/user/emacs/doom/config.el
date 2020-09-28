@@ -12,6 +12,10 @@
   (lambda () (goto-address-prog-mode 1)))
 (global-goto-address-prog-mode 1)
 
+;; transparency for current frame and new frames
+(set-frame-parameter (selected-frame) 'alpha '(85 . 82))
+(add-to-list 'default-frame-alist '(alpha . (85 . 82)))
+
 ;; Replace selection when inserting text
 (delete-selection-mode 1)
 
