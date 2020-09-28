@@ -64,8 +64,10 @@ in {
         python-onlykey # OnlyKey CLI
       ];
 
-      # for adwaita-qt
-      sessionVariables.QT_STYLE_OVERRIDE = "Adwaita-Dark";
+      sessionVariables = {
+        QT_STYLE_OVERRIDE = "Adwaita-Dark"; # for adwaita-qt
+        SUDO_ASKPASS = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+      };
     };
 
     # see application profiles for file associations and defaults

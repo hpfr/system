@@ -10,7 +10,7 @@ in {
     programs = {
       fish = {
         enable = true;
-        loginShellInit = ''
+        interactiveShellInit = ''
           # fish-foreign-env does not handle $()
           set LESS_TERMCAP_mb (tput bold; tput setaf 2)
           set LESS_TERMCAP_md (tput bold; tput setaf 6)
@@ -25,8 +25,7 @@ in {
           set LESS_TERMCAP_ZV (tput rsubm)
           set LESS_TERMCAP_ZO (tput ssupm)
           set LESS_TERMCAP_ZW (tput rsupm)
-        '';
-        interactiveShellInit = ''
+
           fish_vi_key_bindings
           # Emulates vim's cursor shape behavior
           # Set the normal and visual mode cursors to a block
@@ -38,6 +37,12 @@ in {
           # The following variable can be used to configure cursor shape in
           # visual mode, but due to fish_cursor_default, is redundant here
           set fish_cursor_visual block
+
+          # NixOS fish config makes unwanted ls alias that takes precedence over
+          # ls function in ~/.config/fish/functions
+          function ls
+            ${config.programs.fish.functions.ls.body}
+          end
         '';
         shellAbbrs = {
           mkd = "mkdir -pv";

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# https://ncoop.github.io/2017/01/02/enter-passwords-from-dmenu
-caller="$(ps -o comm= -p $(ps -o ppid= -p $$))"
-prompt="${1:-[$caller]}"
-$MENU -p "$prompt" -l -password 
