@@ -139,7 +139,12 @@
   ;; :init
   :config
   (org-super-agenda-mode)
-  (setq org-super-agenda-groups
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %?-12t% s")
+          (todo . " %i ")
+          (tags . " %i ")
+          (search . " %i "))
+        org-super-agenda-groups
         '((:name "Schedule"
            :time-grid t)
           (:name "Today"
@@ -160,6 +165,38 @@
 (after! org-super-agenda
   (setq org-super-agenda-header-map nil))
 
+;; (after! org-pomodoro
+;;   (setq org-pomodoro-manual-break t))
+
+(after! org-roam
+  (setq org-roam-directory org-directory)
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           (function org-roam-capture--get-point) "%?"
+           :file-name "%<%Y-%m-%d-%Hh%Mm%S>-${slug}"
+           :head "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")))
+  (defun my-title-to-slug (title)
+    "Convert TITLE to a filename-suitable slug."
+    (cl-flet* ((nonspacing-mark-p (char)
+                                  (eq 'Mn (get-char-code-property char 'general-category)))
+               (strip-nonspacing-marks (s)
+                                       (apply #'string (seq-remove #'nonspacing-mark-p
+                                                                   (ucs-normalize-NFD-string s))))
+               (cl-replace (title pair)
+                           (replace-regexp-in-string (car pair) (cdr pair) title)))
+      (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ;; convert anything not alphanumeric
+                      ("--*" . "-") ;; remove sequential hyphens
+                      ("^-" . "")   ;; remove starting hyphen
+                      ("-$" . ""))) ;; remove ending hyphen
+             (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+        (downcase slug))))
+  (setq org-roam-title-to-slug-function #'my-title-to-slug))
+
+;; (after! org-noter
+;;   (setq org-noter-always-create-frame nil))
+
+(after! deft
+  (setq deft-directory org-directory))
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
