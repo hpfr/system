@@ -197,8 +197,45 @@
 
 (after! deft
   (setq deft-directory org-directory))
+
+;; nov.el
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
+(use-package! org-caldav
+  :after org
+  :config
+  (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
+        org-caldav-calendars '((:calendar-id "school-1"
+                                :files ("~/box/personal/school.org")
+                                :inbox "~/box/personal/school-inbox.org"))
+        org-caldav-backup-file "~/box/personal/org-caldav-backup.org"
+        org-caldav-save-directory "~/box/personal/")
+  ;; This makes sure to-do items as a category can show up on the calendar
+  (setq org-icalendar-include-todo t)
+  ;; This ensures all org "deadlines" show up as due dates
+  (setq org-icalendar-use-deadline '(todo-due))
+  ;; This ensures "scheduled" org items show up as start times
+  (setq org-icalendar-use-scheduled '(todo-start)))
+
+(use-package! org-vcard
+  :after org)
+
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
+(use-package! nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :init
+  (add-hook 'nov-mode-hook #'shrface-mode)
+  :config
+  (require 'shrface)
+  (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
+  (setq nov-shr-rendering-functions '((img . nov-render-img) (title . nov-render-title)))
+  (setq nov-shr-rendering-functions (append nov-shr-rendering-functions shr-external-rendering-functions)))
+
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
+
+;; org-ify nov
+(use-package! shrface)
+
