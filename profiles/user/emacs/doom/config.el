@@ -24,17 +24,6 @@
 (require 'secrets)
 (setq auth-sources '(default "secrets:Main"))
 
-;; irc configuration
-(after! circe
-  (set-irc-server! "chat.freenode.net"
-                   `(:tls t
-                     :port 7000
-                     :nick "hpfr"
-                     ;; TODO: secrets command works, but circe doesn't
-                     :sasl-username ,(secrets-get-attribute "Main" "Freenode" :UserName)
-                     :sasl-password ,(secrets-get-secret "Main" "Freenode")
-                     :channels ("#nixos" "#home-manager" "#org-mode"))))
-
 ;; org configuration
 (setq org-directory "~/box/personal"
       org-ellipsis " ▼ ")
