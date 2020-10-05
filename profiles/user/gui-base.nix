@@ -32,6 +32,7 @@ in {
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
         adwaita-qt # make qt apps look like gtk apps
+        libnotify # notify-send command
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
