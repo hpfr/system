@@ -26,7 +26,7 @@ in {
       packages = with pkgs; [
         pamixer # pulseaudio CLI (for volume keys)
 
-        texlive.combined.scheme-medium # latex environment
+        texlive.combined.scheme-full # latex environment
         pandoc # convert document formats
 
         imagemagick7 # image editing CLI and GUI
