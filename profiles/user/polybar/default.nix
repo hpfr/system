@@ -32,11 +32,15 @@ in {
 
       extraConfig = builtins.readFile ./default.conf;
 
-      script = ''
+      script = with pkgs; ''
         #!/usr/bin/env sh
+        PATH=$PATH:${coreutils}/bin:${xorg.xrandr}/bin:${gnused}/bin
         pkill polybar >/dev/null
         while pgrep -u $(id -u) -x polybar > /dev/null; do sleep 1; done
-        polybar main &
+        for m in $(xrandr --listactivemonitors | tail -n +2 | \
+          cut -d ' ' -f 3 | sed 's/[*+]//g'); do
+            MONITOR=$m polybar main &
+        done
       '';
     };
   };
