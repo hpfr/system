@@ -65,8 +65,17 @@ in {
         source = ./doom;
         recursive = true;
       };
-      mimeApps.associations.added."application/pdf" = "emacsclient.desktop";
-      mimeApps.defaultApplications."application/pdf" = "emacsclient.desktop";
+      mimeApps = let
+        applyToAll = list:
+          builtins.listToAttrs (map (key: {
+            name = key;
+            value = "emacsclient.desktop";
+          }) list);
+      in {
+        associations.added = applyToAll [ "application/pdf" "inode/directory" ];
+        defaultApplications =
+          applyToAll [ "application/pdf" "inode/directory" ];
+      };
       dataFile.emacsclient = {
         target = "applications/emacsclient.desktop";
         text = ''
