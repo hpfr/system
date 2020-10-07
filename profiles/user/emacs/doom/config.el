@@ -19,6 +19,9 @@
 ;; Replace selection when inserting text
 (delete-selection-mode 1)
 
+;; autosave files
+(setq auto-save-default 1)
+
 (after! evil
   (require 'evil-textobj-anyblock)
   (evil-define-text-object my-evil-textobj-anyblock-inner-quote
