@@ -130,6 +130,9 @@ in {
         ##
       '';
 
+      # Xbox One Wireless adapter
+      hardware.xow.enable = true;
+
       # for proprietary apps like Spotify, Discord, and Slack
       flatpak.enable = true;
     };
