@@ -19,7 +19,7 @@ in {
         "super + e" = "$EDITOR";
         "super + w" = "$BROWSER";
         "super + n" = "xournalpp";
-        "super + shift + p" = "keepassxc";
+        "super + p" = "keepassxc";
         "super + m" = "com.spotify.Client";
         "super + i" = "$TERMINAL -e htop";
         "super + s" = "pavucontrol";
@@ -54,10 +54,6 @@ in {
           "pamixer --decrease {5, 1, 10}";
         "{_, control, shift} + XF86AudioRaiseVolume" =
           "pamixer --increase {5, 1, 10}";
-        "XF86AudioNext" = "mpc next";
-        "XF86AudioPlay" = "mpc toggle";
-        "XF86AudioPrev" = "mpc prev";
-        "XF86AudioStop" = "mpc toggle";
         "{_, control, shift} + XF86MonBrightnessDown" =
           "xbacklight -dec {5, 1, 10}";
         "{_, control, shift} + XF86MonBrightnessUp" =
