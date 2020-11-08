@@ -61,6 +61,7 @@
   +icons)
  electric
  ibuffer
+ undo
  vc
 
  :term
@@ -103,7 +104,7 @@
   +present
   +roam
   )
- raku
+ ;;raku
  (python +lsp)
  (sh +fish)
  web
