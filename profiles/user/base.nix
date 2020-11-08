@@ -16,12 +16,21 @@ in {
       neovim.enable = true;
     };
 
-    # nix-shell, etc
+    # user-level nixpkgs config for nix-shell, home-manager, non-NixOS
+    # installations, etc
     xdg.configFile."nixpkgs/config.nix".text = ''
       {
         allowUnfree = true;
+        joypixels.acceptLicense = true;
+        packageOverrides = pkgs: {
+          nur = import (builtins.fetchTarball
+            "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+              inherit pkgs;
+            };
+        };
       }
     '';
+
     home = {
       packages = with pkgs; [
         # system-related
