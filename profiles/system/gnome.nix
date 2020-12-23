@@ -10,6 +10,14 @@ in {
   config = mkIf cfg.enable {
     profiles.system.wayland-base.enable = true;
     services.xserver.desktopManager.gnome3.enable = true;
-    environment.systemPackages = with pkgs; [ gnomeExtensions.dash-to-dock gnome3.gnome-tweaks ];
+    environment = {
+      systemPackages = with pkgs; [ gnome3.gnome-tweaks ];
+      gnome3.excludePackages = with pkgs.gnome3; [
+        gedit
+        totem
+        gnome-music
+        simple-scan
+      ];
+    };
   };
 }
