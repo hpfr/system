@@ -35,11 +35,12 @@ in {
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
-        bookworm # ebook reader
 
         celluloid # mpv gtk frontend
         safeeyes # reminds user on eye health
         syncthingtray # syncthing tray
+
+        vscodium # for draw.io extension
 
         # virtualization
         libvirt # manage VM's
@@ -49,6 +50,8 @@ in {
 
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
+        calibre # ebook manager
+        # nur.repos.onny.foliate # ebook reader
 
         # messaging
         element-desktop # matrix electron client

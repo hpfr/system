@@ -54,12 +54,15 @@
       inkscape
 
       lutris
-      chromium # browser games
+      chromium # browser testing
 
       # MCU dev
+      # TODO: make into shell.nix
       gcc-arm-embedded
       openocd
       picocom
+
+      multimc # foss minecraft launcher
 
       # closed-source
       quartus-prime-lite

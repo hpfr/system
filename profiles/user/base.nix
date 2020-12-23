@@ -45,6 +45,7 @@ in {
         fd # better find
         bat # better cat
         ripgrep # better grep
+        ripgrep-all # pdf's, etc
         file # get filetypes
         fio # disk benchmarking
         recode # change file encoding in place
