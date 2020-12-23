@@ -23,7 +23,7 @@ in {
     home.packages = with pkgs; [
       sxhkd # wm agnostic keybindings for X
 
-      # TODO package scripts with these dependencies
+      # TODO: package scripts with these dependencies
       xorg.xwininfo # query window information
       xorg.xprop # query window properties
       xorg.xdpyinfo # get info like DPI

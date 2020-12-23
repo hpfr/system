@@ -57,7 +57,6 @@ in {
 
         # gaming
         sc-controller # use steam controller without steam
-        steam
         protontricks # for problematic Steam Play games
         # wine # wine is not an emulator
 

@@ -48,8 +48,10 @@ in {
         package = pkgs.pulseaudioFull; # for bluetooth?
       };
       bluetooth.enable = lib.mkDefault true;
-      opengl.driSupport32Bit = true; # for 32-bit games
-      steam-hardware.enable = true;
+      logitech.wireless = {
+        enable = true;
+        enableGraphical = true;
+      };
     };
 
     # fix for virt-manager USB redirection
@@ -144,7 +146,9 @@ in {
       gtkUsePortal = false;
     };
 
-    programs.ssh.askPassword =
-      "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+    programs = {
+      ssh.askPassword = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+      steam.enable = true;
+    };
   };
 }
