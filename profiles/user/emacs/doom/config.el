@@ -49,154 +49,245 @@
   (define-key evil-outer-text-objects-map "q"
     'my-evil-textobj-anyblock-a-quote))
 
-(let ((doom-dark-themes
-       '(doom-one doom-city-lights doom-challenger-deep doom-dark+ doom-dracula
-                  doom-ephemeral doom-fairy-floss doom-gruvbox doom-henna
-                  doom-horizon doom-laserwave doom-material doom-manegarm
-                  doom-molokai doom-monokai-classic doom-moonlight doom-nord
-                  doom-oceanic-next doom-old-hope doom-opera doom-palenight
-                  doom-peacock doom-rouge doom-snazzy doom-solarized-dark
-                  doom-sourcerer doom-spacegrey doom-tomorrow-night
-                  doom-wilmersdorf doom-nova))
-      (doom-light-themes
-       '(doom-one-light doom-gruvbox-light doom-solarized-light
-                        doom-tomorrow-day doom-opera-light doom-nord-light)))
-  (defun load-random-theme ()
-    "Load a random theme, light during the day"
-    (interactive)
-    (let* ((current-hour (string-to-number (format-time-string "%H")))
-           (current-themes (if (or (>= current-hour 19) (< current-hour 7))
-                               doom-dark-themes doom-light-themes)))
-      (load-theme (nth (random (length current-themes)) current-themes) t))))
+ (let ((doom-dark-themes
+        '(doom-one doom-city-lights doom-challenger-deep doom-dark+ doom-dracula
+                   doom-gruvbox doom-henna doom-horizon
+                   doom-laserwave doom-material doom-molokai doom-monokai-classic
+                   doom-moonlight doom-nord doom-oceanic-next doom-old-hope
+                   doom-opera doom-palenight doom-peacock doom-rouge doom-snazzy
+                   doom-solarized-dark doom-sourcerer doom-spacegrey
+                   doom-tomorrow-night doom-wilmersdorf
+                   ;; doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
+                   ;; doom-acario-light
+                   ))
+       (doom-light-themes
+        '(doom-one-light doom-gruvbox-light doom-solarized-light
+                         doom-tomorrow-day doom-opera-light
+                         ;; doom-nord-light doom-acario-light
+                         )))
+   (defun load-random-theme ()
+     "Load a random theme, light during the day"
+     (interactive)
+     (let* ((current-hour (string-to-number (format-time-string "%H")))
+            (current-themes (if (or (>= current-hour 19) (< current-hour 7))
+                                doom-dark-themes doom-light-themes)))
+       (load-theme (nth (random (length current-themes)) current-themes) t))))
 
-(run-at-time "1 hour" 3600 #'load-random-theme)
+ (run-at-time "1 hour" 3600 #'load-random-theme)
 
-(setq doom-theme 'doom-one
-      doom-font (font-spec :family "monospace" :size 18)
-      ;; doom-serif-font (font-spec :family "monospace-serif" :size 18)
-      doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Noto Serif"))
+ (setq doom-theme 'doom-one
+       doom-font (font-spec :family "monospace" :size 18)
+       ;; doom-serif-font (font-spec :family "monospace-serif" :size 18)
+       doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
+       doom-unicode-font (font-spec :family "Noto Serif"))
 
-;; integrate with freedesktop secret service
-(require 'secrets)
-(setq auth-sources '(default "secrets:Main"))
+ ;; integrate with freedesktop secret service
+ (require 'secrets)
+ (setq auth-sources '(default "secrets:Main"))
 
-;; org configuration
-(setq org-directory "~/box/personal"
-      org-ellipsis " ▼ ")
-(after! org
-  ;; aggressive logging
-  (setq org-log-into-drawer t
-        org-log-redeadline 'time
-        org-log-reschedule 'time
-        org-log-refile 'time
-        org-treat-insert-todo-heading-as-state-change t)
-  (setq org-todo-keywords '((sequence "TODO(t!)" "PROJ(p!)" "|" "DONE(d!)")
-                            (sequence "[ ](T!)" "[-](P!)" "[?](M!)" "|" "[X](D!)")
-                            (sequence "NEXT(n!)" "WAIT(w@)" "HOLD(h!)" "|" "ABRT(c@)")))
-  (setq org-file-apps
-        '((auto-mode . emacs)
-          (directory . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . emacs)))
-  (setq org-file-apps-gnu
-        ;; I don't have a mailcap file
-        '((remote . emacs)
-          ("\\.mp4\\'" . "mpv %s")
-          ("\\.mkv\\'" . "mpv %s")
-          (system . "xdg-open %s")
-          (t . "xdg-open %s"))
-        ;; always use UUID's in org headline links
-        org-id-link-to-org-use-id t)
-  (setq org-capture-templates
-        '(("t" "todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\n%i\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("d" "todo with deadline" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nDEADLINE: %^t\n%i\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("s" "scheduled todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nSCHEDULED: %^t\n%i\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("e" "event" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* %^t %? :event:\n%i\n%^{LOCATION}p" :prepend t :kill-buffer t)
-          ("n" "notes" entry
-           (file+headline +org-capture-notes-file "Inbox")
-           "* %u %?\n%i" :prepend t :kill-buffer t)
-          ("p" "templates for projects")
-          ("pt" "project todo" entry
-           (file+headline +org-capture-project-todo-file "Inbox")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("pn" "project notes" entry
-           (file+headline +org-capture-project-notes-file "Inbox")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("pc" "project changelog" entry
-           (file+headline +org-capture-project-notes-file "Unreleased")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t))))
+ ;; org configuration
+ (setq org-directory "~/box/personal"
+       org-ellipsis " ▼ ")
 
-(use-package! org-super-agenda
-  ;; :commands (org-super-agenda-mode)
-  :after org-agenda
-  ;; :init
-  :config
-  (org-super-agenda-mode)
-  (setq org-agenda-prefix-format
-        '((agenda . " %i %?-12t% s")
-          (todo . " %i ")
-          (tags . " %i ")
-          (search . " %i "))
-        org-super-agenda-groups
-        '((:name "Schedule"
-           :time-grid t)
-          (:name "Today"
-           :scheduled today)
-          (:name "Due today"
-           :deadline today)
-          (:name "Overdue"
-           :deadline past)
-          (:name "Due soon"
-           :deadline future)
-          (:name "Waiting"
-           :todo "WAIT"
-           :order 98)
-          (:name "Scheduled earlier"
-           :scheduled past))))
+ (use-package! org
+   :hook ((before-save . lh/org-set-last-modified))
+   :config
+   ;; https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el#L2822-L2875
+   (defvar lh/org-created-property-name "created"
+     "The name of the org-mode property that stores the creation date of the entry")
 
-;; disable special keybindings on header lines
-(after! org-super-agenda
-  (setq org-super-agenda-header-map nil))
+   (defun lh/org-set-created-property (&optional active name)
+     "Set a property on the entry giving the creation time.
+ By default the property is called CREATED. If given, the ‘NAME’
+ argument will be used instead. If the property already exists, it
+ will not be modified.
+ If the function sets CREATED, it returns its value."
+     (interactive)
+     (let* ((created (or name lh/org-created-property-name))
+            (fmt (if active "<%s>" "[%s]"))
+            (now (format fmt (format-time-string "%Y-%m-%d %a %H:%M"))))
+       (unless (org-entry-get (point) created nil)
+         (org-set-property created now)
+         now)))
 
-;; (after! org-pomodoro
-;;   (setq org-pomodoro-manual-break t))
+   (defun lh/org-find-time-file-property (property &optional anywhere)
+     "Return the position of the time file PROPERTY if it exists.
+ When ANYWHERE is non-nil, search beyond the preamble."
+     (save-excursion
+       (goto-char (point-min))
+       (let ((first-heading
+              (save-excursion
+                (re-search-forward org-outline-regexp-bol nil t))))
+         (when (re-search-forward (format "^#\\+%s:" property)
+                                  (if anywhere nil first-heading)
+                                  t)
+           (point)))))
 
-(after! org-roam
-  (setq org-roam-directory org-directory)
-  (setq org-roam-capture-templates
-        '(("d" "default" plain
-           (function org-roam-capture--get-point) "%?"
-           :file-name "%<%Y-%m-%d-%Hh%Mm%S>-${slug}"
-           :head "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")))
-  (defun my-title-to-slug (title)
-    "Convert TITLE to a filename-suitable slug."
-    (cl-flet* ((nonspacing-mark-p (char)
-                                  (eq 'Mn (get-char-code-property char 'general-category)))
-               (strip-nonspacing-marks (s)
-                                       (apply #'string (seq-remove #'nonspacing-mark-p
-                                                                   (ucs-normalize-NFD-string s))))
-               (cl-replace (title pair)
-                           (replace-regexp-in-string (car pair) (cdr pair) title)))
-      (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ;; convert anything not alphanumeric
-                      ("--*" . "-") ;; remove sequential hyphens
-                      ("^-" . "")   ;; remove starting hyphen
-                      ("-$" . ""))) ;; remove ending hyphen
-             (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-        (downcase slug))))
-  (setq org-roam-title-to-slug-function #'my-title-to-slug))
+   (defun lh/org-has-time-file-property-p (property &optional anywhere)
+     "Return the position of time file PROPERTY if it is defined.
+ As a special case, return -1 if the time file PROPERTY exists but
+ is not defined."
+     (when-let ((pos (lh/org-find-time-file-property property anywhere)))
+       (save-excursion
+         (goto-char pos)
+         (if (and (looking-at-p " ")
+                  (progn (forward-char)
+                         (org-at-timestamp-p 'lax)))
+             pos
+           -1))))
 
-;; (after! org-noter
-;;   (setq org-noter-always-create-frame nil))
+   (defun lh/org-set-time-file-property (property &optional anywhere pos)
+     "Set the time file PROPERTY in the preamble.
+ When ANYWHERE is non-nil, search beyond the preamble.
+ If the position of the file PROPERTY has already been computed,
+ it can be passed in POS."
+     (when-let ((pos (or pos
+                         (lh/org-find-time-file-property property))))
+       (save-excursion
+         (goto-char pos)
+         (if (looking-at-p " ")
+             (forward-char)
+           (insert " "))
+         (delete-region (point) (line-end-position))
+         (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+           (insert now)))))
+
+   (defun lh/org-set-last-modified ()
+     "Update the LAST_MODIFIED file property in the preamble."
+     (when (derived-mode-p 'org-mode)
+       (lh/org-set-time-file-property "last_modified"))))
+
+ (after! org
+   ;; aggressive logging
+   (setq org-log-into-drawer t
+         org-log-redeadline 'time
+         org-log-reschedule 'time
+         org-log-refile 'time
+         org-treat-insert-todo-heading-as-state-change t)
+   (setq org-todo-keywords
+         '((sequence
+            "TODO(t!)" ; a task that needs doing
+            "NEXT(n!)" ; a task that is being worked on
+            "PROJ(p!)" ; a project which usually contains other tasks
+            "WAIT(w@)" ; a task blocked by an external factor
+            "HOLD(h@)" ; a task blocked by me
+            "|"
+            "DONE(d!)"                   ; a task that was completed
+            "ABRT(c@)")                  ; a task that was cancelled
+           (sequence
+            "[ ](T!)"                    ; a task that needs doing
+            "[-](P!)"                    ; an in-progress task
+            "[?](W!)"                    ; a task that is waiting
+            "|"
+            "[X](D!)")))                 ; a completed task
+   (setq org-file-apps
+         '((auto-mode . emacs)
+           (directory . emacs)
+           ("\\.mm\\'" . default)
+           ("\\.x?html?\\'" . default)
+           ("\\.pdf\\'" . emacs)))
+   (setq org-file-apps-gnu
+         ;; I don't have a mailcap file
+         '((remote . emacs)
+           ("\\.mp4\\'" . "mpv %s")
+           ("\\.mkv\\'" . "mpv %s")
+           (system . "xdg-open %s")
+           (t . "xdg-open %s"))
+         ;; always use UUID's in org headline links
+         org-id-link-to-org-use-id t)
+   (setq org-startup-folded 'showall)
+   (setq org-capture-templates
+         '(("t" "todo" entry
+            (file+headline +org-capture-todo-file "Inbox")
+            "* TODO %?\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
+           ("d" "todo with deadline" entry
+            (file+headline +org-capture-todo-file "Inbox")
+            "* TODO %?\nDEADLINE: %^t\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
+           ("s" "scheduled todo" entry
+            (file+headline +org-capture-todo-file "Inbox")
+            "* TODO %?\nSCHEDULED: %^t\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
+           ("e" "event" entry
+            (file "personal-calendar-inbox.org")
+            "* %? :event:\n%^{LOCATION}p\n%^t\n%i" :prepend t :kill-buffer t)
+           ("n" "notes" entry
+            (file+headline +org-capture-notes-file "Inbox")
+            "* %u %?\n%i" :prepend t :kill-buffer t)
+           ("p" "templates for projects")
+           ("pt" "project todo" entry
+            (file+headline +org-capture-project-todo-file "Inbox")
+            "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
+           ("pn" "project notes" entry
+            (file+headline +org-capture-project-notes-file "Inbox")
+            "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
+           ("pc" "project changelog" entry
+            (file+headline +org-capture-project-notes-file "Unreleased")
+            "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t))))
+
+ (use-package! org-super-agenda
+   ;; :commands (org-super-agenda-mode)
+   :after org-agenda
+   ;; :init
+   :config
+   (org-super-agenda-mode)
+   (setq org-agenda-prefix-format
+         '((agenda . " %i %?-12t% s")
+           (todo . " %i ")
+           (tags . " %i ")
+           (search . " %i "))
+         org-super-agenda-groups
+         '((:name "Schedule"
+            :time-grid t)
+           (:name "Today"
+            :scheduled today)
+           (:name "Due today"
+            :deadline today)
+           (:name "Overdue"
+            :deadline past)
+           (:name "Due soon"
+            :deadline future)
+           (:name "Waiting"
+            :todo "WAIT"
+            :order 98)
+           (:name "Scheduled earlier"
+            :scheduled past))))
+
+ ;; disable special keybindings on header lines
+ (after! org-super-agenda
+   (setq org-super-agenda-header-map nil))
+
+ (after! org-pomodoro
+   (setq org-pomodoro-manual-break t))
+
+ (after! org-roam
+   (setq org-roam-directory org-directory
+         org-roam-file-exclude-regexp "^org-caldav-backup.org")
+   (setq org-roam-capture-templates
+         '(("d" "default" plain
+            (function org-roam-capture--get-point) "%?"
+            :file-name "%<%Y-%m-%d-%Hh%Mm%S>-${slug}"
+            :head "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")))
+   (defun my-title-to-slug (title)
+     "Convert TITLE to a filename-suitable slug."
+     (cl-flet* ((nonspacing-mark-p (char)
+                                   (eq 'Mn (get-char-code-property char 'general-category)))
+                (strip-nonspacing-marks (s)
+                                        (apply #'string (seq-remove #'nonspacing-mark-p
+                                                                    (ucs-normalize-NFD-string s))))
+                (cl-replace (title pair)
+                            (replace-regexp-in-string (car pair) (cdr pair) title)))
+       (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ;; convert anything not alphanumeric
+                       ("--*" . "-") ;; remove sequential hyphens
+                       ("^-" . "")   ;; remove starting hyphen
+                       ("-$" . ""))) ;; remove ending hyphen
+              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+         (downcase slug))))
+   (setq org-roam-title-to-slug-function #'my-title-to-slug))
+
+(after! org-noter
+  ;;   (setq org-noter-always-create-frame nil)
+  (map!
+   :map pdf-view-mode-map
+   :n "i" 'org-noter-insert-note))
 
 (after! deft
   (setq deft-directory org-directory))
