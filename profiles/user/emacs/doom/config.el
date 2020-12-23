@@ -2,7 +2,7 @@
 
 ;; TODO: make path more relative
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs
-             "/home/lh/repos/system/profiles/user/emacs/doom/")
+             "~/repos/system/profiles/user/emacs/doom/")
 
 ;; append because first element is "not" which negates the list
 (add-to-list '+format-on-save-enabled-modes 'sh-mode t)
@@ -201,8 +201,13 @@
 (after! deft
   (setq deft-directory org-directory))
 
-;; nov.el
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
+(use-package! calibredb
+  :init (autoload 'calibredb "calibredb")
+  :config
+  (setq calibredb-root-dir "~/box/library"
+        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)
+        calibredb-library-alist '(("~/box/library"))))
 
 (use-package! org-caldav
   :after org
@@ -220,12 +225,16 @@
   ;; This ensures "scheduled" org items show up as start times
   (setq org-icalendar-use-scheduled '(todo-start)))
 
-(use-package! org-vcard
+(use-package! org-chef
   :after org)
+
+;; (use-package! org-vcard
+;;   :after org)
 
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
+;; nov.el
 (use-package! nov
   :mode ("\\.epub\\'" . nov-mode)
   :init
@@ -234,7 +243,8 @@
   (require 'shrface)
   (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
   (setq nov-shr-rendering-functions '((img . nov-render-img) (title . nov-render-title)))
-  (setq nov-shr-rendering-functions (append nov-shr-rendering-functions shr-external-rendering-functions)))
+  (setq nov-shr-rendering-functions (append nov-shr-rendering-functions shr-external-rendering-functions))
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
@@ -242,3 +252,36 @@
 ;; org-ify nov
 (use-package! shrface)
 
+;; TODO: make 'q' consistent across non-textual/popup buffers
+
+(use-package! yequake
+  :config
+  (setq yequake-frames
+        '(("Agenda & scratch" .
+           ((width . 0.75)
+            (height. 0.4)
+            (alpha . 0.95)
+            (buffer-fns . ("*scratch*"))
+            (frame-parameters . ((undecorated . t))))))))
+
+(use-package! eww
+  :init
+  (add-hook 'eww-after-render-hook #'shrface-mode)
+  :config
+  (require 'shrface))
+
+(use-package! pdf-continuous-scroll-mode
+  :disabled
+  :after pdf-view
+  :config
+  (map!
+   :map pdf-view-mode-map
+   :n "C-j" 'pdf-continuous-scroll-forward
+   :n "C-k" 'pdf-continuous-scroll-backward
+   :n "C-S-j" 'pdf-continuous-next-page
+   :n "C-S-k" 'pdf-continuous-previous-page))
+
+(use-package! edwina
+  :disabled
+  :config
+  (edwina-mode 1))

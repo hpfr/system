@@ -32,6 +32,8 @@ in {
         ripgrep # doom code searching features
         jq # json parsing
         libreoffice # docx to docview
+        gdb # gdb mode, lsp gdb
+        nodejs # dap-mode
 
         # language linting and formatting
         shellcheck # shell linting
@@ -51,14 +53,11 @@ in {
 
       sessionVariables = {
         # add doom commands to path
-        PATH = "$PATH:$HOME/.emacs.d/bin/";
+        PATH = "$PATH:$HOME/.config/emacs/bin/";
         # fall back to emacs if no emacs server
         EDITOR = "emacsclient -ca emacs";
       };
     };
-
-    # emacs opens pdf's
-    services.sxhkd.keybindings."super + p" = "$EDITOR";
 
     xdg = {
       configFile."doom" = {

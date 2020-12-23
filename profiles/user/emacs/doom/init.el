@@ -73,12 +73,13 @@
  ;;grammar
 
  :tools
+ (debugger +lsp)
  direnv
  editorconfig
  (eval +overlay)
  (lookup
   +docsets)
- (lsp +eglot)
+ (lsp +peek)
  magit
  pdf
  rgb
