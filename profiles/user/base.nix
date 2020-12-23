@@ -32,6 +32,7 @@ in {
     '';
 
     home = {
+      stateVersion = "21.03";
       packages = with pkgs; [
         # system-related
         # TODO: package as utils only? for relabeling
