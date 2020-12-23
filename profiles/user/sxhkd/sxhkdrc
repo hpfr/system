@@ -54,7 +54,7 @@ super + shift + r
 # Recording
 # Take screenshot
 Print
-	maim $(date '+%F-%H-%M-%S')-screenshot.png
+	maim ~/documents/pictures/"$(date '+%F-%Hh%Mm%S')"-screenshot.png
 # Pick screenshot type
 shift + Print
 	maimpick

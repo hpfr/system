@@ -30,7 +30,7 @@ in {
         pandoc # convert document formats
 
         imagemagick7 # image editing CLI and GUI
-        qpdf # pdf manipulation CLi
+        qpdf # pdf manipulation CLI
         adwaita-qt # make qt apps look like gtk apps
 
         pavucontrol # pulseaudio GUI
@@ -70,8 +70,22 @@ in {
       };
     };
 
-    # see application profiles for file associations and defaults
-    xdg.mimeApps.enable = true;
+    xdg = {
+      enable = true;
+      # see application profiles for file associations and defaults
+      mimeApps.enable = true;
+      userDirs = {
+        enable = true;
+        desktop = "$HOME/desktop";
+        documents = "$HOME/documents";
+        download = "$HOME/downloads";
+        music = "$HOME/documents/music";
+        pictures = "$HOME/documents/pictures";
+        publicShare = "$HOME/documents/public";
+        templates = "$HOME/documents/templates";
+        videos = "$HOME/documents/videos";
+      };
+    };
 
     gtk = {
       enable = true;
