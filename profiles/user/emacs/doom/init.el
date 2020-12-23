@@ -21,9 +21,8 @@
  (ivy
   ;; +fuzzy
   +prescient
-  +childframe
-  +icons
-  )
+  ;; +childframe ; TODO: https://github.com/hlissner/doom-emacs/labels/%3Acompletion%20ivy
+  +icons)
 
  :ui
  deft
