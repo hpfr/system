@@ -1,26 +1,20 @@
 { config, lib, pkgs, ... }:
 
 {
-  # TODO: move into nixos module, set up a nixos option for surface model, use
-  # that to enable IPTS, libwacom and other model-dependent config. right now my
-  # setup should mostly handle switching between 4.19 and 5.6, but it doesn't
-  # handle different surface models at all.
-  hardware = {
-    firmware = lib.optional
-      (lib.versionOlder config.boot.kernelPackages.kernel.version "5.4")
-      pkgs.ipts;
-  };
+  # move into nixos module, set up a nixos option for surface model, use
+  # that to enable IPTS, libwacom and other model-dependent config.
 
   nixpkgs.overlays = [
-    # only use for kernels pre-5.4
-    (self: super: { ipts = super.callPackage ../pkgs/ipts { }; })
+    # post-5.4
+    (self: super: { iptsd = super.callPackage ../pkgs/iptsd { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
     # this avoids huge rebuilds of stuff like qt that depend on libwacom
     (self: super:
       let
-        /* nix-shell -I nixpkgs=channel:nixos-unstable \
+        /* Pin with
+           nix-shell -I nixpkgs=channel:nixos-unstable \
            -p nix-prefetch-github --run \
-           "nix-prefetch-github linux-surface libwacom-surface > libwacom-surface.json"
+           "nix-prefetch-github --rev 'TAG' linux-surface libwacom-surface > libwacom-surface.json"
         */
         libwacomSurface = super.fetchFromGitHub {
           inherit (lib.importJSON ../libwacom-surface.json)
@@ -40,7 +34,6 @@
         libinput-surface =
           super.libinput.override { libwacom = self.libwacom-surface; };
         libwacom-surface = super.libwacom.overrideAttrs (oldAttrs: {
-          # TODO: clean up this godforsaken mess
           patches = oldAttrs.patches or [ ]
             ++ (map (name: "${libwacomSurface}/${name}") (builtins.concatLists
               (builtins.filter builtins.isList
@@ -51,29 +44,32 @@
       })
     (self: super:
       let
-        overlayKernel = version:
+        overlayKernel = versionArg:
           let
-            /* Can do pinning via these files:
+            /* Pin with:
                nix-shell -I nixpkgs=channel:nixos-unstable \
                -p nix-prefetch-github nix-prefetch-scripts --run \
                "nix-prefetch-github linux-surface linux-surface > linux-surface.json; \
-               nix-prefetch-url 'mirror://kernel/linux/kernel/v4.x/linux-4.19.123.tar.xz' > linux-4.19.txt; \
-               nix-prefetch-url 'mirror://kernel/linux/kernel/v5.x/linux-5.6.13.tar.xz' > linux-5.6.txt"
+               nix-prefetch-url 'mirror://kernel/linux/kernel/v5.x/linux-5.9.8.tar.xz' > linux-5.9.txt"
             */
             linuxSurface = super.fetchFromGitHub {
               inherit (lib.importJSON ../linux-surface.json)
                 owner repo rev sha256;
             };
-            fullVersion = with builtins;
-              head (match ".*([[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+).*"
-                (head (match
-                  ".*(KERNEL_VERSION: [[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+).*"
-                  (readFile ("${linuxSurface}/.github/workflows/debian"
-                    + (if version == "4.19" then "_lts" else "") + ".yml")))));
+            hasMinor =
+              if (builtins.length (builtins.splitVersion versionArg)) > 2 then
+                true
+              else
+                false;
+            version = if hasMinor then
+              lib.versions.majorMinor versionArg
+            else
+              versionArg;
+            fullVersion = if hasMinor then versionArg else null;
           in super."linux_${
             builtins.replaceStrings [ "." ] [ "_" ] version
           }".override {
-            argsOverride = {
+            argsOverride = (if fullVersion != null then {
               version = fullVersion;
               modDirVersion = fullVersion;
               extraMeta.branch = version;
@@ -81,75 +77,72 @@
                 url = "mirror://kernel/linux/kernel/v${
                     lib.versions.major fullVersion
                   }.x/linux-${fullVersion}.tar.xz";
-                sha256 = lib.fileContents (../linux- + "${version}.txt");
+                sha256 = lib.fileContents (../linux- + "${fullVersion}.txt");
               };
+            } else
+              { }) // {
 
-              structuredExtraConfig = let
-                # TODO: clean up code
-                origConf = builtins.readFile
-                  "${linuxSurface}/configs/surface-${version}.config";
+                structuredExtraConfig = let
+                  origConf = builtins.readFile
+                    "${linuxSurface}/configs/surface-${version}.config";
 
-                flatten = x:
-                  if builtins.isList x then
-                    builtins.concatMap (y: flatten y) x
-                  else
-                    [ x ];
+                  flatten = x:
+                    if builtins.isList x then
+                      builtins.concatMap (y: flatten y) x
+                    else
+                      [ x ];
 
-                kernelValues = with lib.kernel; {
-                  y = yes;
-                  n = no;
-                  m = module;
-                };
-
-                tokenize = sep: str:
-                  let x = flatten (builtins.split sep str);
-                  in if builtins.length x < 2 then
-                    null
-                  else {
-                    name = builtins.head x;
-                    value = kernelValues."${builtins.head (builtins.tail x)}";
+                  kernelValues = with lib.kernel; {
+                    y = yes;
+                    n = no;
+                    m = module;
                   };
 
-                parseFile = with builtins;
-                  sep: str:
-                  (listToAttrs (map (tokenize sep) (flatten (filter isList
-                    (map (match ".*(CONFIG_.*[mny]$)")
-                      (flatten (split "\n" str)))))));
-              in with lib.kernel;
-              (parseFile "=" origConf) // {
-                # https://github.com/NixOS/nixpkgs/issues/88073
-                SERIAL_DEV_BUS = yes;
-                SERIAL_DEV_CTRL_TTYPORT = yes;
+                  tokenize = sep: str:
+                    let x = flatten (builtins.split sep str);
+                    in if builtins.length x < 2 then
+                      null
+                    else {
+                      name = builtins.head x;
+                      value = kernelValues."${builtins.head (builtins.tail x)}";
+                    };
 
-                # https://github.com/linux-surface/linux-surface/issues/61
-                PINCTRL_INTEL = yes;
-                PINCTRL_SUNRISEPOINT = yes;
-              };
+                  parseFile = with builtins;
+                    sep: str:
+                    (listToAttrs (map (tokenize sep) (filter (str: str != "")
+                      (flatten (map (builtins.split "^CONFIG_") (flatten
+                        (filter isList (map (match "^(CONFIG_.*[mny]).*")
+                          (flatten (split "\n" str))))))))));
+                in with lib.kernel;
+                (parseFile "=" origConf) // {
+                  # https://github.com/NixOS/nixpkgs/issues/88073
+                  SERIAL_DEV_BUS = yes;
+                  SERIAL_DEV_CTRL_TTYPORT = yes;
 
-              # get patches from linux-surface patches directory
-              # convert to attrset format nix expects
-              kernelPatches = let
-                mapDir = f: p:
-                  builtins.attrValues
-                  (builtins.mapAttrs (k: _: f p k) (builtins.readDir p));
-                patch = dir: file: {
-                  name = file;
-                  patch = dir + "/${file}";
+                  # https://github.com/linux-surface/linux-surface/issues/61
+                  PINCTRL_INTEL = yes;
+                  PINCTRL_SUNRISEPOINT = yes;
                 };
-              in mapDir patch "${linuxSurface}/patches/${version}";
-            };
+
+                # get patches from linux-surface patches directory
+                # convert to attrset format nix expects
+                kernelPatches = let
+                  mapDir = f: p:
+                    builtins.attrValues
+                    (builtins.mapAttrs (k: _: f p k) (builtins.readDir p));
+                  patch = dir: file: {
+                    name = file;
+                    patch = dir + "/${file}";
+                  };
+                in mapDir patch "${linuxSurface}/patches/${version}";
+              };
           };
       in {
-        linux_4_19 = overlayKernel "4.19";
-        linux_5_6 = overlayKernel "5.6";
+        # can specify a minor version such as 5.9.11, otherwise nixpkgs minor
+        # version will be used
+        linux_5_9 = overlayKernel "5.9";
       })
   ];
-
-  boot = {
-    # is this necessary?
-    kernelModules =
-      [ "hid" "hid_sensor_hub" "hid_generic" "usbhid" "hid_multitouch" ];
-  };
 
   systemd.services = {
     # not necessary for every model
@@ -167,21 +160,13 @@
           bluetoothctl power off
         fi
 
-        ## Disable bluetooth regardless if devices are connected (see notes below)
+        ## If you have spontaneous wakeups, you may want to disable
+        ## bluetooth completely, regardless if any devices are connected or not.
+        ## Note that you may be required to re-connect your devices after resume
+        ## if you choose this change.
         # if ps cax | grep bluetoothd; then
         #   bluetoothctl power off
         # fi
-
-        ## > Remove IPTS from ME side
-        modprobe -r ipts_surface
-        modprobe -r intel_ipts
-        # modprobe -r mei_hdcp
-        modprobe -r mei_me
-        modprobe -r mei
-        ## > Remove IPTS from i915 side
-        for i in $(find /sys/kernel/debug/dri -name i915_ipts_cleanup); do
-          echo 1 > $i
-        done
       '';
     };
     surface-wake = {
@@ -191,17 +176,6 @@
       serviceConfig.Type = "oneshot";
       path = with pkgs; [ procps kmod bluez ];
       script = ''
-        ## > Load IPTS from i915 side
-        for i in $(find /sys/kernel/debug/dri -name i915_ipts_init); do
-          echo 1 > $i
-        done
-        ## > Load IPTS from ME side
-        modprobe mei
-        modprobe mei_me
-        # modprobe mei_hdcp
-        modprobe intel_ipts
-        modprobe ipts_surface
-
         # Restart bluetooth
         if ps cax | grep bluetoothd; then
           bluetoothctl power on
@@ -220,6 +194,8 @@
     surface-aspm = {
       enable =
         lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.5";
+      description =
+        "Disable power-saving states for stability in Surface models";
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "oneshot";
       # the device ID and states that need to be disabled may change per device
@@ -227,5 +203,46 @@
         echo 0 | tee /sys/bus/pci/drivers/mwifiex_pcie/0000:01:00.0/link/l1_2_aspm
       '';
     };
+
+    surface-iptsd = {
+      enable =
+        lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.4";
+      description = "Intel Precise Touch & Stylus Daemon";
+      documentation = [ "https://github.com/linux-surface/iptsd" ];
+      after = [ "dev-ipts-0.device" ];
+      wants = [ "dev-ipts-0.device" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "simple";
+      path = [ pkgs.iptsd ];
+      script = ''
+        iptsd
+      '';
+    };
   };
+
+  # # not working with meson flag -Dsystemd=true
+  # systemd.packages = [ pkgs.iptsd ];
+  # services.udev.packages = [ pkgs.iptsd ];
+  services.udev.extraRules = ''
+    # iptsd
+    KERNEL=="ipts/*", TAG+="systemd";
+  '';
+
+  environment.etc."ipts.conf".text = ''
+    [Config]
+    # BlockOnPalm = false
+    # TouchThreshold = 10
+    # StabilityThreshold = 0.1
+    #
+    ## The following values are device specific
+    ## and will be loaded from /usr/share/ipts
+    ##
+    ## Only set them if you need to provide custom
+    ## values for new devices that are not yet supported
+    #
+    # InvertX = false
+    # InvertY = false
+    # Width = 0
+    # Height = 0
+  '';
 }

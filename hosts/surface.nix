@@ -22,10 +22,7 @@
 
   system.stateVersion = "19.03";
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_4_19;
-    # kernelPackages = pkgs.linuxPackages_5_6;
-  };
+  boot.kernelPackages = pkgs.linuxPackages_5_9;
 
   console.font = "latarcyrheb-sun32"; # large console font
 
