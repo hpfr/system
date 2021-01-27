@@ -49,11 +49,11 @@ in {
         "super + {_,shift +} bracketleft" = "mpc seek -{10,120}";
 
         "XF86Launch1" = "xset dpms force off";
-        "XF86AudioMute" = "pamixer --toggle-mute";
+        "XF86AudioMute" = "ponymix toggle";
         "{_, control, shift} + XF86AudioLowerVolume" =
-          "pamixer --decrease {5, 1, 10}";
+          "ponymix decrease {5, 1, 10}";
         "{_, control, shift} + XF86AudioRaiseVolume" =
-          "pamixer --increase {5, 1, 10}";
+          "ponymix increase {5, 1, 10}";
         "{_, control, shift} + XF86MonBrightnessDown" =
           "xbacklight -dec {5, 1, 10}";
         "{_, control, shift} + XF86MonBrightnessUp" =

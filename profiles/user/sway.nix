@@ -22,9 +22,33 @@ in {
           keybindings =
             let mod = config.wayland.windowManager.sway.config.modifier;
             in lib.mkOptionDefault {
-              "${mod}+d" = "exec --no-startup-id wofi --show drun";
+              # "${mod}+Shift+q" = "really kill";
 
-              "${mod}+Shift+z" = "exec prompt 'Exit sway?' 'swaymsg exit'";
+              "${mod}+d" = "exec wofi --show drun";
+
+              "${mod}+z" = "exec ${pkgs.swaylock}/bin/swaylock -f";
+              "${mod}+Shift+z" =
+                "exec ${pkgs.gui-scripts}/bin/prompt 'Exit sway?' 'swaymsg exit'";
+              "${mod}+x" =
+                "exec ${pkgs.gui-scripts}/bin/prompt 'Shutdown computer?' 'shutdown -h now'";
+              "${mod}+shift+x" =
+                "exec ${pkgs.gui-scripts}/bin/prompt 'Reboot computer?' 'reboot'";
+
+              "Print" = ''
+                exec ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png'';
+
+              "XF86AudioMicMute" =
+                "exec ${pkgs.ponymix}/bin/ponymix --source toggle";
+              "XF86AudioMute" = "exec ${pkgs.ponymix}/bin/ponymix toggle";
+              "XF86AudioLowerVolume" =
+                "exec ${pkgs.ponymix}/bin/ponymix decrease 5";
+              "XF86AudioRaiseVolume" =
+                "exec ${pkgs.ponymix}/bin/ponymix increase 5";
+
+              "XF86AudioPlay" =
+                "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+              "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+              "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
             };
         }
       ];

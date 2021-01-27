@@ -25,6 +25,9 @@ in {
               "${mod}+Return" = null;
               "${mod}+d" = null;
 
+              "${mod}+Shift+q" =
+                "exec kill -9 $(xdotool getwindowfocus getwindowpid)";
+
               "${mod}+Shift+b" =
                 "floating toggle; sticky toggle; exec --no-startup-id hover left";
               "${mod}+Shift+n" =

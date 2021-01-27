@@ -55,7 +55,6 @@
     "${mod}+Shift+0" = "move container to workspace 0";
 
     "${mod}+q" = "kill";
-    "${mod}+Shift+q" = "exec kill -9 $(xdotool getwindowfocus getwindowpid)";
 
     "${mod}+t" = "split toggle";
     "${mod}+o" = "sticky toggle";

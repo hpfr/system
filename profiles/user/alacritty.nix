@@ -34,5 +34,7 @@ in {
       };
     };
 
+    wayland.windowManager.sway.config.keybindings."${config.wayland.windowManager.sway.config.modifier}+Return" =
+      "exec ${pkgs.alacritty}/alacritty";
   };
 }

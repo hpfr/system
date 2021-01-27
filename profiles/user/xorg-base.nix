@@ -71,6 +71,7 @@ in {
 
     xsession = {
       enable = true;
+      # TODO: make systemd services
       initExtra = ''
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
         setbg ~/.config/wall # set background

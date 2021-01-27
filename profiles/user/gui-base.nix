@@ -24,7 +24,9 @@ in {
 
     home = {
       packages = with pkgs; [
-        pamixer # pulseaudio CLI (for volume keys)
+        ponymix # pulseaudio CLI (for volume keys)
+        playerctl # MPRIS controller (for media keys)
+        libnotify # notify-send command
 
         texlive.combined.scheme-full # latex environment
         pandoc # convert document formats
@@ -32,7 +34,6 @@ in {
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
         adwaita-qt # make qt apps look like gtk apps
-        libnotify # notify-send command
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
