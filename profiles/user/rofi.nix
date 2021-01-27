@@ -10,11 +10,11 @@ in {
     programs.rofi = {
       enable = true;
       theme = "Arc-Dark";
-      extraConfig = ''
-        rofi.modi: window,run,ssh,drun,combi
-        rofi.combi-modi: window,drun
-        rofi.dpi: 1
-      '';
+      extraConfig = {
+        modi = "window,run,ssh,drun,combi";
+        combi-modi = "window,drun";
+        dpi = 1;
+      };
     };
 
     home = {
