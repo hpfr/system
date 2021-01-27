@@ -60,7 +60,10 @@
     secret-key-files = /home/lh/.ssh/cache-priv-key.pem
   '';
 
-  services.openssh.enable = true;
+  services = {
+    fstrim.enable = true;
+    openssh.enable = true;
+  };
 
   virtualisation.libvirtd = {
     enable = true;

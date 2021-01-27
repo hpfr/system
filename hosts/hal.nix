@@ -33,6 +33,7 @@
   ];
 
   services = {
+    fstrim.enable = true;
     xserver.dpi = 96;
     udev.extraRules = ''
       # flash Tiva Launchpad without root permissions

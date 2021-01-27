@@ -35,6 +35,7 @@
   };
 
   services = {
+    fstrim.enable = true;
     xserver = {
       wacom.enable = true;
       libinput = {

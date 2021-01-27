@@ -13,9 +13,12 @@
 
   networking.hostName = "poole";
 
-  services.xserver.displayManager.gdm.autoLogin = {
-    enable = true;
-    user = "lh";
+  services = {
+    fstrim.enable = true;
+    xserver.displayManager.gdm.autoLogin = {
+      enable = true;
+      user = "lh";
+    };
   };
 
   home-manager.users.lh = { config, pkgs, lib, ... }: {
