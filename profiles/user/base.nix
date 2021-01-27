@@ -57,7 +57,6 @@ in {
         ssh-audit # audit ssh configuration
         youtube-dl # video download
         rclone # multiplatform cloud sync
-        ffsend # firefox send client
 
         # nix-diff # broken
         nix-du
