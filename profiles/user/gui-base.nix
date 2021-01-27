@@ -27,6 +27,7 @@ in {
         ponymix # pulseaudio CLI (for volume keys)
         playerctl # MPRIS controller (for media keys)
         libnotify # notify-send command
+        libsecret # secret-tool command
 
         texlive.combined.scheme-full # latex environment
         pandoc # convert document formats
