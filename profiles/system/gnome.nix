@@ -10,6 +10,10 @@ in {
   config = mkIf cfg.enable {
     profiles.system.wayland-base.enable = true;
     services.xserver.desktopManager.gnome3.enable = true;
+
+    # Disable gnome-keyring entirely in favor of KeePassXC
+    services.gnome3.gnome-keyring.enable = lib.mkForce false;
+
     environment = {
       systemPackages = with pkgs; [ gnome3.gnome-tweaks ];
       gnome3.excludePackages = with pkgs.gnome3; [
