@@ -12,93 +12,122 @@ in {
       overlays = [
         (self: super:
           let
-            characterOverrides = {
+            characterDefaults = {
               # applies to all three slopes
-              design = [
-                "v-zero-dotted"
-                "v-asterisk-hexlow"
-                "v-paragraph-low"
-                "v-at-short"
-              ];
+              design = {
+                zero = "dotted";
+                asterisk = "hexlow";
+                paragraph-sign = "low";
+                at = "short";
+              };
 
-              upright = [ "v-g-doublestorey" ];
-              italic = [ ];
-              oblique = [ ];
+              upright = { g = "double-storey"; };
+              italic = { };
+              oblique = { };
             };
-            mkIosevka = { family, design ? [ ], upright ? [ ], italic ? [ ]
-              , oblique ? [ ] }:
+            mkIosevka = { family, spacing, serifs, variants ? { } }:
               super.iosevka.override {
                 set =
                   builtins.replaceStrings [ " " ] [ "-" ] (lib.toLower family);
                 privateBuildPlan = {
                   family = family;
-                  design = design ++ characterOverrides.design;
-                  upright = upright ++ characterOverrides.upright;
-                  italic = italic ++ characterOverrides.italic;
-                  oblique = oblique ++ characterOverrides.oblique;
+                  spacing = spacing;
+                  serifs = serifs;
+                  variants = mkMerge [ variants characterDefaults ];
                 };
               };
           in {
             iosevka = mkIosevka { family = "Iosevka"; };
             iosevka-term = mkIosevka {
               family = "Iosevka Term";
-              design = [ "sp-term" ];
+              spacing = "term";
             };
             iosevka-slab = mkIosevka {
               family = "Iosevka Slab";
-              design = [ "slab" ];
+              serifs = "slab";
             };
             iosevka-term-slab = mkIosevka {
               family = "Iosevka Term Slab";
-              design = [ "sp-term" "slab" ];
+              spacing = "term";
+              serifs = "slab";
             };
             iosevka-curly = mkIosevka {
               family = "Iosevka Curly";
-              design = "ss20";
+              variants.inherits = "ss20";
             };
             iosevka-term-curly = mkIosevka {
               family = "Iosevka Term Curly";
-              design = [ "sp-term" "ss20" ];
+              spacing = "term";
+              variants.inherits = "ss20";
             };
             iosevka-curly-slab = mkIosevka {
               family = "Iosevka Curly Slab";
-              design = [ "slab" "ss20" ];
+              serifs = "slab";
+              variants.inherits = "ss20";
             };
             iosevka-term-curly-slab = mkIosevka {
               family = "Iosevka Term Curly Slab";
-              design = [ "sp-term" "slab" "ss20" ];
+              spacing = "term";
+              serifs = "slab";
+              variants.inherits = "ss20";
             };
             iosevka-etoile = mkIosevka {
               family = "Iosevka Etoile";
-              design = [
-                "type"
-                "slab"
-                "v-at-fourfold"
-                "v-j-serifed"
-                "no-cv-ss"
-                "no-ligation"
-              ];
-              upright = [ "v-i-serifed" "v-l-serifed" ];
-              italic = [ "v-i-italic" "v-l-italic" ];
-              oblique = [ "v-i-serifed" "v-l-serifed" ];
+              spacing = "quasi-proportional";
+              serifs = "slab";
+              no-cv-ss = true;
+              no-ligation = true;
+              variants = {
+                design = {
+                  at = "fourfold";
+                  j = "serifed";
+                };
+                upright = {
+                  i = "serifed";
+                  l = "serifed";
+                };
+                italic = {
+                  i = "italic";
+                  l = "italic";
+                };
+                oblique = {
+                  i = "serifed";
+                  l = "serifed";
+                };
+              };
             };
             iosevka-sparkle = mkIosevka {
               family = "Iosevka Sparkle";
-              design = [
-                "type"
-                "v-at-fourfold"
-                "v-j-narrow-serifed"
-                "no-cv-ss"
-                "no-ligation"
-              ];
-              upright =
-                [ "v-i-serifed" "v-l-serifed" "v-f-serifed" "v-r-serifed" ];
-              italic =
-                [ "v-i-italic" "v-l-italic" "v-f-tailed" "v-r-top-serifed" ];
-              oblique =
-                [ "v-i-serifed" "v-l-serifed" "v-f-serifed" "v-r-serifed" ];
+              spacing = "quasi-proportional";
+              no-cv-ss = true;
+              no-ligation = true;
+              variants = {
+                design = {
+                  at = "fourfold";
+                  j = "narrow-serifed";
+                };
+                upright = {
+                  i = "serifed";
+                  l = "serifed";
+                  f = "serifed";
+                  r = "serifed";
+                };
+                italic = {
+                  i = "italic";
+                  l = "italic";
+                  f = "tailed";
+                  r = "top-serifed";
+                };
+                oblique = {
+                  i = "serifed";
+                  l = "serifed";
+                  f = "serifed";
+                  r = "serifed";
+                };
+              };
             };
           })
+        # TODO: remove nerd font icon usage in favor of emoji
         (self: super: {
           iosevka-nerd-font =
             super.nerdfonts.override { fonts = [ "Iosevka" ]; };
