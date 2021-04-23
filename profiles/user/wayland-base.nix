@@ -9,6 +9,9 @@ in {
   config = mkIf cfg.enable {
     profiles.user.gui-base.enable = true;
 
+    # # numerous QT apps can't handle this
+    # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
+
     programs.firefox.package = pkgs.firefox-wayland;
   };
 }
