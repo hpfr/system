@@ -3,7 +3,10 @@
 {
   imports = [ ./hosts-base.nix ];
 
-  profiles.system.xorg-base.enable = true;
+  # profiles.system.xorg-base.enable = true;
+  # profiles.system.sway.enable = true;
+  profiles.system.gnome.enable = true;
+
   hardware.brillo.enable = true;
 
   system.stateVersion = "19.03";
@@ -43,7 +46,9 @@
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    profiles.user.xorg-base.enable = true;
+    # profiles.user.xorg-base.enable = true;
+    # profiles.user.sway.enable = true;
+    profiles.user.gnome.enable = true;
 
     home.packages = with pkgs; [
       nvtop
