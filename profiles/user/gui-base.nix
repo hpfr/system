@@ -35,7 +35,6 @@ in {
 
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
-        adwaita-qt # make qt apps look like gtk apps
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
@@ -72,7 +71,6 @@ in {
       ];
 
       sessionVariables = {
-        QT_STYLE_OVERRIDE = "Adwaita-Dark"; # for adwaita-qt
         SUDO_ASKPASS = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
         CALIBRE_USE_SYSTEM_THEME = 1;
       };
@@ -120,10 +118,14 @@ in {
     };
 
     # qt apps quit with "No GSettings schemas are installed on the system"
-    # qt = {
-    #   enable = true;
-    #   platformTheme = "gnome"; # use gtk file chooser, etc with qt apps
-    # };
+    qt = {
+      enable = true;
+      platformTheme = "gnome"; # use gtk file chooser, etc with qt apps
+      style = {
+        name = "adwaita-dark";
+        package = pkgs.adwaita-qt;
+      };
+    };
 
     services.network-manager-applet.enable = true;
   };

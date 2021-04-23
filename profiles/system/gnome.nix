@@ -14,6 +14,11 @@ in {
     # Disable gnome-keyring entirely in favor of KeePassXC
     services.gnome3.gnome-keyring.enable = lib.mkForce false;
 
+    qt5 = {
+      style = "adwaita-dark";
+      platformTheme = "gnome";
+    };
+
     environment = {
       systemPackages = with pkgs; [ gnome3.gnome-tweaks ];
       gnome3.excludePackages = with pkgs.gnome3; [
