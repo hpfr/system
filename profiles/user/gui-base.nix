@@ -74,6 +74,7 @@ in {
       sessionVariables = {
         QT_STYLE_OVERRIDE = "Adwaita-Dark"; # for adwaita-qt
         SUDO_ASKPASS = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+        CALIBRE_USE_SYSTEM_THEME = 1;
       };
     };
 

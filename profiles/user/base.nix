@@ -58,6 +58,7 @@ in {
         ssh-audit # audit ssh configuration
         youtube-dl # video download
         rclone # multiplatform cloud sync
+        k2pdfopt # optimize pdf's for mobile devices
 
         # nix-diff # broken
         nix-du

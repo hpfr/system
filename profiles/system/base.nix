@@ -24,8 +24,8 @@ in {
     nixpkgs = {
       config = {
         allowUnfree = true;
-        # lutris and protontricks depend on this
-        permittedInsecurePackages = [ "p7zip-16.02" ];
+        # lutris and protontricks depend on this, k2pdfopt
+        permittedInsecurePackages = [ "p7zip-16.02" "mupdf-1.17.0" ];
       };
       overlays = [
         (self: super: {
