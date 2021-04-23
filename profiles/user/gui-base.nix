@@ -15,11 +15,12 @@ in {
 
       # programs
       ssh.enable = true;
-      firefox.enable = true;
-      alacritty.enable = true;
-      zathura.enable = false;
-      mpv.enable = true;
-      nomacs.enable = true;
+      firefox.enable = true; # web browser
+      alacritty.enable = true; # terminal emulator
+      zathura.enable = false; # pdf viewer
+      mpv.enable = true; # video player
+      nomacs.enable = true; # versatile photo viewer
+      celluloid.enable = true; # mpv gtk frontend
     };
 
     home = {
@@ -39,7 +40,6 @@ in {
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
 
-        celluloid # mpv gtk frontend
         safeeyes # reminds user on eye health
         syncthingtray # syncthing tray
 
