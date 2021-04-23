@@ -15,10 +15,6 @@ in {
     };
 
     nixpkgs.overlays = [
-      # not sure why this isn't the default, KPXC has it as their default
-      (self: super: {
-        keepassxc = super.keepassxc.override { withKeePassNetworking = true; };
-      })
       # TODO: refactor and relocate scripts based on dependencies
       (self: super: {
         gui-scripts = (super.runCommand "gui-scripts" {
