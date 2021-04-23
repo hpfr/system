@@ -106,10 +106,16 @@ in {
 
       git = {
         enable = true;
-        userName = "hpfr";
-        userEmail = "44043764+hpfr@users.noreply.github.com";
-        # I'm not sure if this works
+        package = pkgs.gitAndTools.gitFull;
+        userName = "Liam Hupfer";
+        userEmail = "liam@hpfr.net";
+        delta.enable = true; # better diff highlighting
         extraConfig = {
+          # magit forge
+          github.user = "hpfr";
+          gitlab.user = "hpfr";
+          # sendemail.suppressFrom = true;
+          # I'm not sure if this works
           url."git@github.com:".pushInsteadOf =
             "git://github.com,https://github.com";
         };
