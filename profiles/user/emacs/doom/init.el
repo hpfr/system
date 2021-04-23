@@ -93,6 +93,7 @@
  data
  emacs-lisp
  (go +lsp)
+ (java +lsp)
  (javascript +lsp)
  (latex +latexmk +lsp)
  markdown
@@ -107,7 +108,7 @@
   +roam
   )
  ;;raku
- (python +lsp)
+ (python +lsp +pyright)
  (sh +fish)
  web
  yaml

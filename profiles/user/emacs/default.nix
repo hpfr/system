@@ -41,13 +41,16 @@ in {
         clang-tools # for clang-format
         nixfmt # opinionated nix formatting
         html-tidy # html and xml formatting
+        black # python
 
         # language servers
         ccls # c
         lua53Packages.digestif # TeX
         gopls # go
+        jdk11 # java
         rls # rust
-        python-language-server
+        nodePackages.pyright # python
+        python3Packages.debugpy
         nodePackages.javascript-typescript-langserver
       ];
 
