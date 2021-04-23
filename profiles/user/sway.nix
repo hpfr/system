@@ -49,6 +49,11 @@ in {
                 "exec ${pkgs.playerctl}/bin/playerctl play-pause";
               "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
               "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+
+              "XF86MonBrightnessDown" =
+                "exec ${pkgs.brillo}/bin/brillo -e -U 0.5";
+              "XF86MonBrightnessUp" =
+                "exec ${pkgs.brillo}/bin/brillo -e -A 0.5";
             };
         }
       ];

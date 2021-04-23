@@ -14,7 +14,7 @@
   };
 
   hardware = {
-    acpilight.enable = true;
+    brillo.enable = true;
     # surface wifi doesn't work alongside bluetooth
     # depends on model, maybe even varies device-to-device
     bluetooth.enable = false;
@@ -44,8 +44,6 @@
       };
     };
   };
-
-  environment.systemPackages = [ pkgs.acpilight ];
 
   home-manager.users.lh = {
     profiles.user.xorg-base.enable = true;

@@ -4,6 +4,7 @@
   imports = [ ./hosts-base.nix ];
 
   profiles.system.xorg-base.enable = true;
+  hardware.brillo.enable = true;
 
   system.stateVersion = "19.03";
 

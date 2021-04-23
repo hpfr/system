@@ -90,9 +90,9 @@ XF86AudioMute
 	ponymix increase {5, 1, 10}
 
 {_, control, shift} + XF86MonBrightnessDown
-	xbacklight -dec {5, 1, 10}
+	brillo -e -U {5, 1, 10}
 {_, control, shift} + XF86MonBrightnessUp
-	xbacklight -inc {5, 1, 10}
+	brillo -e -A {5, 1, 10}
 
 # Function keys
 # F2 is restart in i3 right now.

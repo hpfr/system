@@ -6,7 +6,7 @@
   profiles.system.gnome.enable = true;
 
   hardware = {
-    acpilight.enable = true;
+    brillo.enable = true;
     bluetooth.enable = true;
     # orientation and ambient light sensors
     sensor.iio.enable = true;
@@ -29,7 +29,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ acpilight libwacom ];
+  environment.systemPackages = with pkgs; [ libwacom ];
 
   home-manager.users.lh = {
     profiles.user.gnome.enable = true;
