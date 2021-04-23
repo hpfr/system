@@ -50,32 +50,37 @@
     # profiles.user.sway.enable = true;
     profiles.user.gnome.enable = true;
 
-    home.packages = with pkgs; [
-      # TODO: package tuxclocker?
-      radeontop # monitor AMD GPU utilization
-      openrgb # turn off RGB hardware
+    home = {
+      packages = with pkgs; [
+        # TODO: package tuxclocker?
+        radeontop # monitor AMD GPU utilization
+        openrgb # turn off RGB hardware
 
-      # beefy software suites
-      # libreoffice
-      # freecad
-      blender
-      kicad
-      inkscape
+        # beefy software suites
+        # libreoffice
+        # freecad
+        blender
+        kicad
+        inkscape
 
-      lutris
-      chromium # browser testing
+        lutris
+        chromium # browser testing
 
-      # MCU dev
-      # TODO: make into shell.nix
-      gcc-arm-embedded
-      openocd
-      picocom
+        # MCU dev
+        # TODO: make into shell.nix
+        gcc-arm-embedded
+        openocd
+        picocom
 
-      multimc # foss minecraft launcher
+        multimc # foss minecraft launcher
 
-      # closed-source
-      quartus-prime-lite
-    ];
+        # closed-source
+        quartus-prime-lite
+        wootility
+      ];
+      # ignore wooting Xbox device (https://github.com/ValveSoftware/Proton/issues/4579)
+      sessionVariables.SDL_GAMECONTROLLER_IGNORE_DEVICES = "0x03EB/0xFF01";
+    };
 
     xsession.windowManager.i3 = {
       extraConfig = ''
