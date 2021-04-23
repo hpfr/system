@@ -102,7 +102,7 @@ in {
         package = pkgs.gnome3.adwaita-icon-theme;
         name = "Adwaita-icons";
       };
-      font.name = "Sans 10";
+      font.name = "Sans";
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = true;
         gtk-toolbar-style = "GTK_TOOLBAR_ICONS";
