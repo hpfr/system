@@ -91,6 +91,7 @@ in {
         publicShare = "$HOME/documents/public";
         templates = "$HOME/documents/templates";
         videos = "$HOME/documents/videos";
+        createDirectories = true;
       };
     };
 
