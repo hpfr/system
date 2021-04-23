@@ -51,7 +51,9 @@
     profiles.user.gnome.enable = true;
 
     home.packages = with pkgs; [
-      nvtop
+      # TODO: package tuxclocker?
+      radeontop # monitor AMD GPU utilization
+      openrgb # turn off RGB hardware
 
       # beefy software suites
       # libreoffice
