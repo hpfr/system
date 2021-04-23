@@ -137,23 +137,27 @@ in {
     fonts = {
       enableDefaultFonts = false;
       fonts = with pkgs; [
-        noto-fonts # noto serif
+        noto-fonts # no tofu
         noto-fonts-extra # all weights
         lato # sans-serif
+        source-serif-pro
+        source-sans-pro
+        source-code-pro
         iosevka-term-curly-slab # monospace
         joypixels # emoji
         undefined-medium # pseudo-bitmap
-        noto-fonts-cjk # CJK support
-
+        # https://github.com/adobe-fonts/source-han-mono/issues/1
+        source-han-sans # CJK support
+        source-han-serif
+        source-han-mono
         # TODO: https://github.com/ryanoasis/nerd-fonts/issues/479
         # https://github.com/ryanoasis/nerd-fonts/pull/461
         iosevka-nerd-font # icons
-
       ];
 
       # TODO: copy this option's functionality into home-manager module
       fontconfig.defaultFonts = {
-        serif = [ "Noto Serif" ];
+        serif = [ "Source Serif Variable" ];
         sansSerif = [ "Lato" ];
         monospace = [ "Iosevka Term Curly Slab" ];
         emoji = [ "JoyPixels" ];
