@@ -52,6 +52,7 @@ in {
         recode # change file encoding in place
         pciutils # lspci
         usbutils # lsusb
+        ddcutil # change monitor settings
         evtest # debug integrated devices
         rmlint # find and rm duplicate files
         ssh-audit # audit ssh configuration

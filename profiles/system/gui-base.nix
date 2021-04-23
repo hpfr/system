@@ -34,6 +34,10 @@ in {
       })
     ];
 
+    boot.extraModulePackages = with config.boot.kernelPackages;
+      [ ddcci-driver ];
+    boot.kernelModules = [ "i2c_dev" "ddcci" "ddcci_backlight" ];
+
     location.provider = "geoclue2"; # for redshift
 
     # Enable sound.
@@ -102,6 +106,11 @@ in {
       dbus.packages = with pkgs; [ gnome3.dconf ];
 
       udev.extraRules = ''
+        # ddcutil without sudo
+        # Assigns the i2c devices to group i2c, and gives that group RW access:
+        KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+        #, PROGRAM="${pkgs.ddcutil}/bin/ddcutil --bus=%n getvcp 0x10
+
         # UDEV Rules for OnlyKey, https://docs.crp.to/linux.html
         #
         ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{ID_MM_DEVICE_IGNORE}="1"

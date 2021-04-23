@@ -109,6 +109,8 @@ in {
     };
 
     # users.mutableUsers = false;
+    # ddcutil i2c group
+    users.groups.i2c = { };
     # Don't forget to set a password with ‘passwd’.
     users.users.lh = {
       isNormalUser = true;
@@ -120,6 +122,7 @@ in {
         "video"
         "dialout" # serial ports for MCU programming
         "lp" # printing?
+        "i2c" # ddcutil
       ];
     };
 
