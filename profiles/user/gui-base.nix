@@ -62,8 +62,10 @@ in {
         tdesktop # telegram client (FOSS)
 
         # gaming
+        libstrangle # fps limiter
         sc-controller # use steam controller without steam
         protontricks # for problematic Steam Play games
+        moltengamepad # hotplugging controller shim
         # wine # wine is not an emulator
 
         python-onlykey # OnlyKey CLI
