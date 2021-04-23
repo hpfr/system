@@ -38,9 +38,10 @@ in {
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
+        gnome3.gnome-sound-recorder # audio recording
 
         safeeyes # reminds user on eye health
-        syncthingtray # syncthing tray
+        nextcloud-client
 
         vscodium # for draw.io extension
 
@@ -53,6 +54,7 @@ in {
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
         calibre # ebook manager
+        mcomix3 # comic reader
         # nur.repos.onny.foliate # ebook reader
 
         # messaging
