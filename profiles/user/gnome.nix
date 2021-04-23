@@ -22,6 +22,9 @@ in {
       gnome3.dconf-editor
     ];
 
+    # not necessary in a desktop environment
+    services.network-manager-applet.enable = lib.mkForce false;
+
     # declaratively manage gsettings
     dconf = {
       enable = true;
