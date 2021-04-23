@@ -14,7 +14,7 @@ in {
       applyToAll = list:
         builtins.listToAttrs (map (key: {
           name = key;
-          value = "nomacs.desktop";
+          value = "org.nomacs.ImageLounge.desktop";
         }) list);
     in applyToAll [
       "image/gif"
