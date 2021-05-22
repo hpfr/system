@@ -22,10 +22,15 @@ in {
     environment = {
       systemPackages = with pkgs; [ gnome.gnome-tweaks ];
       gnome.excludePackages = with pkgs.gnome; [
-        gedit
-        totem
-        gnome-music
-        simple-scan
+        epiphany # firefox, chromium
+        gedit # emacs for text editing
+        geary # emacs for mail
+        totem # mpv/celluloid for media
+        gnome-music # spotify/mpd+emacs
+        simple-scan # I don't have a scanner
+        gnome-terminal # foot
+        pkgs.gnome-connections # remmina
+        pkgs.gnome-photos # nomacs
       ];
     };
   };
