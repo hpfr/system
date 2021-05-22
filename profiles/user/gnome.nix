@@ -12,14 +12,14 @@ in {
     # Disable gnome-keyring ssh-agent in favor of the default agent
     xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
       ${lib.fileContents
-      "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
+      "${pkgs.gnome.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
       Hidden=true
     '';
     # TODO: add safeeyes once it works on gnome (widget issue)
 
     home.packages = with pkgs; [
       gnomeExtensions.sound-output-device-chooser
-      gnome3.dconf-editor
+      gnome.dconf-editor
     ];
 
     # not necessary in a desktop environment

@@ -9,10 +9,10 @@ in {
 
   config = mkIf cfg.enable {
     profiles.system.wayland-base.enable = true;
-    services.xserver.desktopManager.gnome3.enable = true;
+    services.xserver.desktopManager.gnome.enable = true;
 
     # Disable gnome-keyring entirely in favor of KeePassXC
-    services.gnome3.gnome-keyring.enable = lib.mkForce false;
+    services.gnome.gnome-keyring.enable = lib.mkForce false;
 
     qt5 = {
       style = "adwaita-dark";
@@ -20,8 +20,8 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [ gnome3.gnome-tweaks ];
-      gnome3.excludePackages = with pkgs.gnome3; [
+      systemPackages = with pkgs; [ gnome.gnome-tweaks ];
+      gnome.excludePackages = with pkgs.gnome; [
         gedit
         totem
         gnome-music

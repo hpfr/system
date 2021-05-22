@@ -103,7 +103,7 @@ in {
 
       blueman.enable = true;
 
-      dbus.packages = with pkgs; [ gnome3.dconf ];
+      dbus.packages = with pkgs; [ gnome.dconf ];
 
       udev.extraRules = ''
         # ddcutil without sudo
@@ -152,7 +152,7 @@ in {
     };
 
     programs = {
-      ssh.askPassword = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+      ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
       steam.enable = true;
     };
   };

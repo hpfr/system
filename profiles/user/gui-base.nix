@@ -38,7 +38,7 @@ in {
 
         pavucontrol # pulseaudio GUI
         wpgtk # gtk GUI
-        gnome3.gnome-sound-recorder # audio recording
+        gnome.gnome-sound-recorder # audio recording
 
         safeeyes # reminds user on eye health
         nextcloud-client
@@ -73,7 +73,7 @@ in {
       ];
 
       sessionVariables = {
-        SUDO_ASKPASS = "${pkgs.gnome3.seahorse}/libexec/seahorse/ssh-askpass";
+        SUDO_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
         CALIBRE_USE_SYSTEM_THEME = 1;
       };
     };
@@ -100,7 +100,7 @@ in {
       enable = true;
       theme.name = "Adwaita";
       iconTheme = {
-        package = pkgs.gnome3.adwaita-icon-theme;
+        package = pkgs.gnome.adwaita-icon-theme;
         name = "Adwaita-icons";
       };
       font.name = "Sans";
