@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = " Userspace daemon for Intel Precise Touch & Stylus";
+    description = "Userspace daemon for Intel Precise Touch & Stylus";
     homepage = "https://github.com/linux-surface/iptsd";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ ];
