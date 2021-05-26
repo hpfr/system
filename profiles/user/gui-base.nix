@@ -102,20 +102,11 @@ in {
         package = pkgs.gnome.adwaita-icon-theme;
         name = "Adwaita-icons";
       };
-      font.name = "Sans";
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-        gtk-toolbar-style = "GTK_TOOLBAR_ICONS";
-        gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
-        gtk-button-images = 0;
-        gtk-menu-images = 1;
-        gtk-enable-event-sounds = 1;
-        gtk-enable-input-feedback-sounds = 1;
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintfull";
-        gtk-xft-rgba = "rgb";
+      font = {
+        name = "Sans";
+        size = 10;
       };
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     };
 
     # qt apps quit with "No GSettings schemas are installed on the system"
