@@ -100,6 +100,11 @@ in {
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
 
+      man = {
+        enable = true;
+        generateCaches = true; # M-x man completion
+      };
+
       # cross-shell prompt with many integrations
       starship = {
         enable = true;
