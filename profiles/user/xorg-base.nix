@@ -10,6 +10,7 @@ in {
   config = mkIf cfg.enable {
     profiles.user = {
       gui-base.enable = true;
+      alacritty.enable = true; # terminal emulator
 
       # pseudo desktop environment
       i3.enable = true;

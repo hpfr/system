@@ -13,5 +13,20 @@ in {
     # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
 
     programs.firefox.package = pkgs.firefox-wayland;
+
+    # minimal terminal emulator
+    programs.foot = {
+      enable = true;
+      settings = {
+        main = {
+          term = "xterm-256color";
+          font = "monospace:size=9";
+        };
+        csd = { # client-side decorations (title bar size)
+          size = 32;
+          button-width = 32;
+        };
+      };
+    };
   };
 }
