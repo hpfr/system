@@ -48,7 +48,7 @@ in {
         libvirt # manage VM's
         virtmanager # manage VM's graphically
         remmina # usable RDP client
-        openconnect_pa # cs.wisc.edu VPN
+        openconnect # cs.wisc.edu VPN
 
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
