@@ -37,27 +37,29 @@ in {
         # logout with super + shift + z
         "super + b" = "polybar-msg cmd toggle";
 
+        # # Restart track
+        # "super + shift + less" = "mpc seek 0%";
+        # # Seek foward in song
+        # "super + {_,shift +} bracketright" = "mpc seek +{10,120}";
+        # # Seek backward in song
+        # "super + {_,shift +} bracketleft" = "mpc seek -{10,120}";
+
         # Pause audio
-        "super + {_,shift +} p" = "mpc {toggle,pause}";
+        "{_, super} + XF86AudioPlay" = "playerctl {play-pause, pause}";
         # Changes to next/previous tracks
-        "super + {comma,period}" = "mpc {prev,next}";
-        # Restart track
-        "super + shift + less" = "mpc seek 0%";
-        # Seek foward in song
-        "super + {_,shift +} bracketright" = "mpc seek +{10,120}";
-        # Seek backward in song
-        "super + {_,shift +} bracketleft" = "mpc seek -{10,120}";
+        "XF86AudioPrev" = "playerctl previous";
+        "XF86AudioNext" = "playerctl next";
 
         "XF86Launch1" = "xset dpms force off";
+        "XF86AudioMicMute" = "ponymix --source toggle";
         "XF86AudioMute" = "ponymix toggle";
         "{_, control, shift} + XF86AudioLowerVolume" =
           "ponymix decrease {5, 1, 10}";
         "{_, control, shift} + XF86AudioRaiseVolume" =
           "ponymix increase {5, 1, 10}";
         "{_, control, shift} + XF86MonBrightnessDown" =
-          "xbacklight -dec {5, 1, 10}";
-        "{_, control, shift} + XF86MonBrightnessUp" =
-          "xbacklight -inc {5, 1, 10}";
+          "brillo -e -U {5, 1, 10}";
+        "{_, control, shift} + XF86MonBrightnessUp" = "brillo -e -A {5, 1, 10}";
       };
     };
   };

@@ -34,6 +34,19 @@ in {
       "super + x" = "prompt 'Shutdown computer?' 'shutdown -h now'";
       "super + shift + x" = "prompt 'Reboot computer?' 'reboot'";
       "super + shift + r" = "winresize";
+      # F2 is restart in i3
+      # Change display
+      "super + F3" = "displayselect";
+      # Sleep
+      "super + F4" = "prompt 'Sleep?' 'sudo systemctl suspend'";
+      # Restart/rescan wifi/eth networks
+      "super + F5" = "sudo -A systemctl restart NetworkManager";
+      # Mount a USB drive
+      "super + F9" = "menumount";
+      # Unmount a USB drive
+      "super + F10" = "menuumount";
+      # Network Manager interface
+      "super + F12" = "$TERMINAL -e nmtui";
     };
 
     programs.fish.loginShellInit = ''

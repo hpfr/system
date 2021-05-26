@@ -14,6 +14,7 @@ in {
 
       # pseudo desktop environment
       i3.enable = true;
+      sxhkd.enable = true;
       autorandr.enable = true;
       rofi.enable = true;
       polybar.enable = true;
@@ -22,8 +23,6 @@ in {
     };
 
     home.packages = with pkgs; [
-      sxhkd # wm agnostic keybindings for X
-
       # TODO: package scripts with these dependencies
       xorg.xwininfo # query window information
       xorg.xprop # query window properties
@@ -76,9 +75,7 @@ in {
       initExtra = ''
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
         setbg ~/.config/wall # set background
-        sxhkd &
-        xset r rate 300 50 &	# faster hold key repeat rate
-        # mpd >/dev/null 2>&1 &
+        xset r rate 300 50 & # faster hold key repeat rate
         safeeyes &
         # acts as ssh agent and secret service
         keepassxc &
@@ -89,9 +86,6 @@ in {
         name = "capitaine-cursors";
       };
     };
-
-    # TODO: https://github.com/rycee/home-manager/pull/847
-    xdg.configFile."sxhkd/sxhkdrc".source = ./sxhkd/sxhkdrc;
 
     services = {
       picom = {
