@@ -16,6 +16,6 @@ in {
       recursive = true;
     };
     dconf.settings."org/gnome/desktop/interface".monospace-font-name =
-      "Iosevka Term Curly Slab Medium 10";
+      "Monospace 10"; # without the size it assumes 0 and gnome terminal's font is infinitesimal
   };
 }
