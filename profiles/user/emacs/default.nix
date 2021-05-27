@@ -25,40 +25,45 @@ in {
     };
 
     home = {
-      packages = with pkgs; [
-        # TODO: expose these only to emacs somehow
-        gnutls # circe
-        # TODO: bump nixpkgs tdlib to 1.7.3 for telega
-        tdlib # telega
-        gnumake # telega
-        cmake # telega
-        sqlite # org-roam
-        ripgrep # doom code searching features
-        jq # json parsing
-        libreoffice # docx to docview
-        gdb # gdb mode, lsp gdb
-        nodejs # dap-mode
-        openssl # elpher gemini support
-        python3 # treemacs advanced features, telega
+      packages = with pkgs;
+        [
+          # TODO: expose these only to emacs somehow
+          gnutls # circe
+          # TODO: bump nixpkgs tdlib to 1.7.3 for telega
+          tdlib # telega
+          gnumake # telega
+          cmake # telega
+          sqlite # org-roam
+          ripgrep # doom code searching features
+          jq # json parsing
+          gdb # gdb mode, lsp gdb
+          nodejs # dap-mode
+          openssl # elpher gemini support
+          python3 # treemacs advanced features, telega
 
-        # language linting and formatting
-        shellcheck # shell linting
-        shfmt # shell formatting
-        clang-tools # for clang-format
-        nixfmt # opinionated nix formatting
-        html-tidy # html and xml formatting
-        black # python
+          # language linting and formatting
+          shellcheck # shell linting
+          shfmt # shell formatting
+          clang-tools # for clang-format
+          nixfmt # opinionated nix formatting
+          html-tidy # html and xml formatting
+          black # python
 
-        # language servers
-        ccls # c
-        lua53Packages.digestif # TeX
-        gopls # go
-        jdk11 # java
-        rls # rust
-        nodePackages.pyright # python
-        python3Packages.debugpy
-        nodePackages.javascript-typescript-langserver
-      ];
+          # language servers
+          ccls # c
+          lua53Packages.digestif # TeX
+          gopls # go
+          jdk11 # java
+          rls # rust
+          nodePackages.pyright # python
+          python3Packages.debugpy
+          nodePackages.javascript-typescript-langserver
+        ] ++ (if config.profiles.user.gui-base.enable then
+          [
+            libreoffice # docx to docview
+          ]
+        else
+          [ ]);
 
       sessionVariables = {
         # add doom commands to path
