@@ -93,6 +93,10 @@
 (require 'secrets)
 (setq auth-sources '(default "secrets:Main"))
 
+;;; dired
+(after! dired
+  (setq all-the-icons-dired-monochrome nil))
+
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
