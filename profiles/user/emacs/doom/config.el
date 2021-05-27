@@ -87,6 +87,9 @@
       doom-unicode-font (font-spec :family "sans-serif"))
 
 ;; integrate with freedesktop secret service
+;; TODO: determine why this doesn't completely work.
+;; (secrets-create-item "Main" "test emacs item" "test pw") returns
+;; D-Bus error: "No such method 'CreateItem' in interface 'org.freedesktop.Secret.Collection' at object path '/org/freedesktop/secrets/collection/main' (signature 'a{sv}(oayay)b')"
 (require 'secrets)
 (setq auth-sources '(default "secrets:Main"))
 
