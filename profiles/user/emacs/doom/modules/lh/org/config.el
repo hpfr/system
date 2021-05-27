@@ -141,7 +141,12 @@
   ;; :init
   :config
   (org-super-agenda-mode)
-  (setq org-agenda-prefix-format
+  ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
+  ;; doesn't release until the scheduled time), don't warn me until the
+  ;; scheduled time
+  (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+        org-agenda-skip-scheduled-if-deadline-is-shown t
+        org-agenda-prefix-format
         '((agenda . " %i %?-12t% s")
           (todo . " %i ")
           (tags . " %i ")
