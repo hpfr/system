@@ -98,6 +98,11 @@
 (after! dired
   (setq all-the-icons-dired-monochrome nil))
 
+;;; image
+(setq image-use-external-converter t)   ; view HEIC files from Apple devices
+(add-to-list 'auto-mode-alist '("\\.heic\\'" . image-mode))
+(add-to-list 'image-file-name-extensions "heic")
+
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
