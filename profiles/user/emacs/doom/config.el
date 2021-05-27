@@ -1,8 +1,7 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
-
-;; TODO: make path more relative
-(add-to-list '+emacs-lisp-disable-flycheck-in-dirs
-             "~/repos/system/profiles/user/emacs/doom/")
+(load! "doom-source-dir.el")
+;; doom does this automatically for doomdirs, but home-manager has a different directory
+(add-to-list '+emacs-lisp-disable-flycheck-in-dirs lh/doom-source-dir)
 
 ;; append because first element is "not" which negates the list
 (add-to-list '+format-on-save-enabled-modes 'sh-mode t)

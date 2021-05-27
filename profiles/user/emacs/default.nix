@@ -63,9 +63,14 @@ in {
     };
 
     xdg = {
-      configFile."doom" = {
-        source = ./doom;
-        recursive = true;
+      configFile = {
+        "doom" = {
+          source = ./doom;
+          recursive = true;
+        };
+        "doom/doom-source-dir.el".text = ''
+          (setq lh/doom-source-dir "${toString ./doom}/")
+        '';
       };
       mimeApps = let
         applyToAll = list:
