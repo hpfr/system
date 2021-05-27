@@ -39,7 +39,6 @@ in {
         qpdf # pdf manipulation CLI
 
         pavucontrol # pulseaudio GUI
-        wpgtk # gtk GUI
         gnome.gnome-sound-recorder # audio recording
 
         safeeyes # reminds user on eye health
