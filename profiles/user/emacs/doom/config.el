@@ -106,6 +106,17 @@
 (after! elpher
   (setq-hook! 'elpher-mode-hook gnutls-verify-error nil))
 
+;;; eshell
+(after! eshell
+  (add-to-list 'eshell-modules-list 'eshell-tramp)
+  (set-eshell-alias!
+   "nrs" "sudo nixos-rebuild switch $*"
+   "nrsu" "sudo nix-channel --update; sudo nixos-rebuild switch $*"
+   "nrsl" "sudo nixos-rebuild switch -option builders '' $*"
+   "mkd" "mkdir -pv"
+   "sctl" "sudo systemctl"
+   "uctl" "systemctl --user"))
+
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
 
