@@ -28,6 +28,10 @@ in {
       packages = with pkgs; [
         # TODO: expose these only to emacs somehow
         gnutls # circe
+        # TODO: bump nixpkgs tdlib to 1.7.3 for telega
+        tdlib # telega
+        gnumake # telega
+        cmake # telega
         sqlite # org-roam
         ripgrep # doom code searching features
         jq # json parsing
@@ -35,6 +39,7 @@ in {
         gdb # gdb mode, lsp gdb
         nodejs # dap-mode
         openssl # elpher gemini support
+        python3 # treemacs advanced features, telega
 
         # language linting and formatting
         shellcheck # shell linting
@@ -74,6 +79,9 @@ in {
         '';
         "doom/modules/lh/email/mu4e-load-path.el".text = ''
           (add-to-list 'load-path "${pkgs.mu}/share/emacs/site-lisp/mu4e")
+        '';
+        "doom/telega-server-libs.el".text = ''
+          (setq telega-server-libs-prefix "${pkgs.tdlib}")
         '';
       };
       mimeApps = let
