@@ -5,12 +5,6 @@
 ;; (package! some-package)
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
-
-(package! org-super-agenda)
-(package! org-caldav)
-;; TODO: references .emacs.d instead of variable
-;; (package! org-vcard)
-(package! org-chef)
 (package! nov)
 (package! calibredb)
 (package! shrface)
