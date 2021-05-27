@@ -1,9 +1,7 @@
 (setq org-directory "~/nc/personal"
       org-ellipsis " ▼ ")
 
-(use-package! org
-  :hook ((before-save . lh/org-set-last-modified))
-  :config
+(after! org
   ;; https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el#L2822-L2875
   (defvar lh/org-created-property-name "created"
     "The name of the org-mode property that stores the creation date of the entry")
@@ -67,7 +65,9 @@
   (defun lh/org-set-last-modified ()
     "Update the LAST_MODIFIED file property in the preamble."
     (when (derived-mode-p 'org-mode)
-      (lh/org-set-time-file-property "last_modified"))))
+      (lh/org-set-time-file-property "last_modified")))
+
+  (add-hook 'before-save-hook #'lh/org-set-last-modified))
 
 (after! org
   ;; aggressive logging
