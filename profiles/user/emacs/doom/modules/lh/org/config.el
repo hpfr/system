@@ -227,8 +227,8 @@
 (use-package! org-chef
   :after org)
 
-;; (use-package! org-vcard
-;;   :after org)
+(use-package! org-vcard
+  :after org)
 
 (after! deft
   (setq deft-directory org-directory))
