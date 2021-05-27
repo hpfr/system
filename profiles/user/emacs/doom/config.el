@@ -91,9 +91,6 @@
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
 
-;; org-ify nov
-(use-package! shrface)
-
 ;; TODO: make 'q' consistent across non-textual/popup buffers
 
 (use-package! yequake
@@ -105,12 +102,6 @@
             (alpha . 0.95)
             (buffer-fns . ("*scratch*"))
             (frame-parameters . ((undecorated . t))))))))
-
-(use-package! eww
-  :init
-  (add-hook 'eww-after-render-hook #'shrface-mode)
-  :config
-  (require 'shrface))
 
 (use-package! pdf-continuous-scroll-mode
   :disabled

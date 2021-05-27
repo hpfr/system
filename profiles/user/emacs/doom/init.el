@@ -126,4 +126,6 @@
 
  :lh                                    ; personal modules
  org
- ebooks)
+ ebooks
+ ;; shrface
+ )
