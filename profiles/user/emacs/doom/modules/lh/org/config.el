@@ -208,6 +208,7 @@
    :map pdf-view-mode-map
    :n "i" 'org-noter-insert-note))
 
+;; TODO: this block causes org-mode to load immediately
 (use-package! org-caldav
   :after org
   :config
