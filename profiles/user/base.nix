@@ -50,6 +50,7 @@ in {
         file # get filetypes
         fio # disk benchmarking
         recode # change file encoding in place
+        nmap # network discovery and security auditing
         pciutils # lspci
         usbutils # lsusb
         ddcutil # change monitor settings
