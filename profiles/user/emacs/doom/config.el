@@ -5,6 +5,7 @@
 
 ;; append because first element is "not" which negates the list
 (add-to-list '+format-on-save-enabled-modes 'sh-mode t)
+(add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
 
 ;; highlight links in comments and strings
 (define-globalized-minor-mode global-goto-address-prog-mode goto-address-prog-mode

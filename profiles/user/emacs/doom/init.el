@@ -114,7 +114,7 @@
  yaml
 
  :email
- notmuch
+ (mu4e +org +gmail)
 
  :app
  irc
@@ -126,6 +126,7 @@
 
  :lh                                    ; personal modules
  org
+ email
  ebooks
  ;; shrface
  )

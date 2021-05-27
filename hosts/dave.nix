@@ -32,7 +32,10 @@
   environment.systemPackages = with pkgs; [ libwacom ];
 
   home-manager.users.lh = {
-    profiles.user.gnome.enable = true;
+    profiles.user = {
+      gnome.enable = true;
+      email.enable = true;
+    };
 
     # touch gestures in firefox
     home = {
