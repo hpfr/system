@@ -80,16 +80,25 @@ in {
             value = "emacsclient.desktop";
           }) list);
       in {
-        associations.added = applyToAll [ "application/pdf" "inode/directory" ]
-          // {
-            "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
-            "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
-          };
-        defaultApplications = applyToAll [ "application/pdf" "inode/directory" ]
-          // {
-            "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
-            "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
-          };
+        associations.added = applyToAll [
+          "application/pdf"
+          "inode/directory"
+          "text/x-diff"
+          "application/vnd.ms-powerpoint"
+          "application/epub+zip"
+        ] // {
+          "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
+          "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+        };
+        defaultApplications = applyToAll [
+          "application/pdf"
+          "inode/directory"
+          "text/x-diff"
+          "application/epub+zip"
+        ] // {
+          "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
+          "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+        };
       };
       dataFile.emacsclient = {
         target = "applications/emacsclient.desktop";
