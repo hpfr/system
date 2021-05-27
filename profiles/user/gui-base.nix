@@ -33,6 +33,8 @@ in {
         texlive.combined.scheme-full # latex environment
         pandoc # convert document formats
 
+        onlykey-cli
+
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
 
@@ -68,8 +70,6 @@ in {
         protontricks # for problematic Steam Play games
         moltengamepad # hotplugging controller shim
         # wine # wine is not an emulator
-
-        python-onlykey # OnlyKey CLI
       ];
 
       sessionVariables = {
