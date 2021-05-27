@@ -28,6 +28,7 @@ in {
         playerctl # MPRIS controller (for media keys)
         libnotify # notify-send command
         libsecret # secret-tool command
+        xdg-user-dirs # xdg-user-dir command for finding custom dirs
 
         texlive.combined.scheme-full # latex environment
         pandoc # convert document formats

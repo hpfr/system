@@ -5,7 +5,7 @@
 if [ ! -z "$1" ]; then
     WP_PATH=$(realpath "$1")
 else
-    WALLS="$HOME/box/pictures/wallpapers"
+    WALLS="$(xdg-user-dir PICTURES)/wallpapers"
     # array of wallpaper paths
     WA=("$WALLS"/*)
     echo "Changing wallpaper..."
