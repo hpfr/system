@@ -175,8 +175,9 @@
 
 (after! org-roam
   (setq org-roam-directory org-directory
-        org-roam-file-exclude-regexp "^org-caldav-backup.org")
-  (setq org-roam-capture-templates
+        org-roam-file-exclude-regexp "^org-caldav-backup.org"
+        +org-roam-open-buffer-on-find-file nil
+        org-roam-capture-templates
         '(("d" "default" plain
            (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y-%m-%d-%Hh%Mm%S>-${slug}"
