@@ -34,6 +34,7 @@ in {
         libreoffice # docx to docview
         gdb # gdb mode, lsp gdb
         nodejs # dap-mode
+        openssl # elpher gemini support
 
         # language linting and formatting
         shellcheck # shell linting
@@ -79,9 +80,16 @@ in {
             value = "emacsclient.desktop";
           }) list);
       in {
-        associations.added = applyToAll [ "application/pdf" "inode/directory" ];
-        defaultApplications =
-          applyToAll [ "application/pdf" "inode/directory" ];
+        associations.added = applyToAll [ "application/pdf" "inode/directory" ]
+          // {
+            "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
+            "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+          };
+        defaultApplications = applyToAll [ "application/pdf" "inode/directory" ]
+          // {
+            "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
+            "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+          };
       };
       dataFile.emacsclient = {
         target = "applications/emacsclient.desktop";
@@ -103,6 +111,24 @@ in {
           StartupWMClass=Emacs
           Keywords=Text;Editor;
         '';
+        emacsclient-elpher = {
+          target = "applications/emacsclient-elpher.desktop";
+          text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=Elpher
+            GenericName=Gopher/Gemini browser in Emacs
+            Comment=Open gopher/gemini link in Elpher
+            MimeType=x-scheme-handler/gemini;x-scheme-handler/gopher;
+            Exec=emacsclient -create-frame --alternate-editor="" --no-wait --eval '(progn (x-focus-frame nil) (elpher-go "%u"))'
+            Icon=emacs
+            Type=Application
+            Terminal=false
+            Categories=Network;Gemini;Gopher;
+            StartupWMClass=Emacs
+            NoDisplay=True
+          '';
+        };
       };
     };
   };

@@ -100,6 +100,11 @@
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
+;;;; apps
+;;; elpher
+(after! elpher
+  (setq-hook! 'elpher-mode-hook gnutls-verify-error nil))
+
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
 
