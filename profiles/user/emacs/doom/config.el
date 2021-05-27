@@ -50,21 +50,23 @@
     'my-evil-textobj-anyblock-a-quote))
 
 (let ((doom-dark-themes
-       '(doom-one doom-city-lights doom-challenger-deep doom-dark+ doom-dracula
-                  doom-gruvbox doom-henna doom-horizon
-                  doom-laserwave doom-material doom-molokai doom-monokai-classic
-                  doom-moonlight doom-nord doom-oceanic-next doom-old-hope
-                  doom-opera doom-palenight doom-peacock doom-rouge doom-snazzy
-                  doom-solarized-dark doom-sourcerer doom-spacegrey
-                  doom-tomorrow-night doom-wilmersdorf
-                  ;; doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
-                  ;; doom-acario-light
-                  ))
+       '(doom-tomorrow-night doom-nord doom-one doom-city-lights doom-gruvbox
+                             doom-henna doom-material doom-oceanic-next
+                             doom-spacegrey doom-moonlight doom-challenger-deep
+                             doom-opera doom-peacock doom-rouge doom-molokai
+                             doom-monokai-classic doom-palenight
+                             ;; chopping block
+                             doom-snazzy doom-horizon doom-dark+ doom-solarized-dark doom-old-hope doom-dracula
+                             doom-sourcerer doom-wilmersdorf doom-laserwave
+                             ;; ;; no bueno
+                             ;; doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
+                             ;; doom-acario-light
+                             ))
       (doom-light-themes
-       '(doom-one-light doom-gruvbox-light doom-solarized-light
-                        doom-tomorrow-day doom-opera-light
-                        ;; doom-nord-light doom-acario-light
-                        )))
+       '(doom-gruvbox-light doom-solarized-light
+                            doom-tomorrow-day doom-opera-light doom-one-light
+                            ;; doom-nord-light doom-acario-light
+                            )))
   ;; TODO: improve and hook into base16
   (defun load-random-theme ()
     "Load a random theme, light during the day"
