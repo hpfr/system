@@ -198,6 +198,10 @@
         (downcase slug))))
   (setq org-roam-title-to-slug-function #'my-title-to-slug))
 
+;; I'm ok with longer link titles
+(after! org-cliplink
+  (setq org-cliplink-max-length 120))
+
 (after! org-noter
   ;;   (setq org-noter-always-create-frame nil)
   (map!
