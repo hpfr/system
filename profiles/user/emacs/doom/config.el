@@ -109,6 +109,24 @@
 (setq +latex-viewers '(pdf-tools))
 
 ;;;; apps
+;;; elfeed
+(after! elfeed
+  ;; celluloid connects to MPRIS for playback control
+  (defun celluloid-view (url)
+    "Watch a video from URL in Celluloid"
+    (async-shell-command (format "celluloid --new-window %s" url)))
+
+  (defun elfeed-view-video ()
+    "View feed link video in external program"
+    (interactive "P")
+    (let ((entries (elfeed-search-selected)))
+      (cl-loop for entry in entries
+               do (elfeed-untag entry 'unread)
+               when (elfeed-entry-link entry)
+               do (celluloid-view it))
+      (mapc #'elfeed-search-update-entry entries)
+      (unless (use-region-p) (forward-line)))))
+
 ;;; elpher
 (after! elpher
   (setq-hook! 'elpher-mode-hook gnutls-verify-error nil))

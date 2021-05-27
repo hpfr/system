@@ -230,4 +230,9 @@
 (after! deft
   (setq deft-directory org-directory))
 
+;; TODO: test featurep org and moving this elsewhere
+(after! elfeed
+  (setq rmh-elfeed-org-files
+        (list (expand-file-name  "2021-04-26-12h06m49-elfeed.org" org-directory))))
+
 (load! "private.el")
