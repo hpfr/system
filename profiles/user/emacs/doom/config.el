@@ -64,6 +64,7 @@
                         doom-tomorrow-day doom-opera-light
                         ;; doom-nord-light doom-acario-light
                         )))
+  ;; TODO: improve and hook into base16
   (defun load-random-theme ()
     "Load a random theme, light during the day"
     (interactive)
@@ -72,10 +73,10 @@
                                doom-dark-themes doom-light-themes)))
       (load-theme (nth (random (length current-themes)) current-themes) t))))
 
+(load-random-theme)
 (run-at-time "1 hour" 3600 #'load-random-theme)
 
-(setq doom-theme 'doom-one
-      doom-font (font-spec :family "monospace" :size 18)
+(setq doom-font (font-spec :family "monospace" :size 18)
       ;; doom-serif-font (font-spec :family "monospace-serif" :size 18)
       doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "Noto Serif"))
