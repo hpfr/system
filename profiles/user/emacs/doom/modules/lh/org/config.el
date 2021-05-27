@@ -146,6 +146,8 @@
           (todo . " %i ")
           (tags . " %i ")
           (search . " %i "))
+        ;; disable special keybindings on header lines
+        org-super-agenda-header-map nil
         org-super-agenda-groups
         '((:name "Schedule"
            :time-grid t)
@@ -162,10 +164,6 @@
            :order 98)
           (:name "Scheduled earlier"
            :scheduled past))))
-
-;; disable special keybindings on header lines
-(after! org-super-agenda
-  (setq org-super-agenda-header-map nil))
 
 (after! org-pomodoro
   (setq org-pomodoro-manual-break t))
