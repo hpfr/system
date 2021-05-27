@@ -76,10 +76,15 @@
 (load-random-theme)
 (run-at-time "1 hour" 3600 #'load-random-theme)
 
-(setq doom-font (font-spec :family "monospace" :size 18)
-      ;; doom-serif-font (font-spec :family "monospace-serif" :size 18)
+(setq doom-font (font-spec :family "monospace")
+      ;; TODO: create "monospace-serif" family with fontconfig?
+      doom-serif-font (font-spec :family "Iosevka Term Curly Slab")
       doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Noto Serif"))
+      ;; this list is iterated over, each item is prepended, so order by reverse priority
+      doom-unicode-extra-fonts '("Weather Icons" "github-octicons" "FontAwesome"
+                                 "all-the-icons" "file-icons" "Material Icons"
+                                 "Source Han Mono" "emoji")
+      doom-unicode-font (font-spec :family "sans-serif"))
 
 ;; integrate with freedesktop secret service
 (require 'secrets)
