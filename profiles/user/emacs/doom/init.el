@@ -125,4 +125,5 @@
  (default +bindings +smartparens)
 
  :lh                                    ; personal modules
- org)
+ org
+ ebooks)
