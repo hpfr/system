@@ -9,6 +9,6 @@
 (use-package! calibredb
   :init (autoload 'calibredb "calibredb")
   :config
-  (setq calibredb-root-dir "~/box/library"
+  (setq calibredb-root-dir "~/nc/library"
         calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)
-        calibredb-library-alist '(("~/box/library"))))
+        calibredb-library-alist '(("~/nc/library"))))

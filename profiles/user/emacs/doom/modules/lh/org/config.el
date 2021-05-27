@@ -1,4 +1,4 @@
-(setq org-directory "~/box/personal"
+(setq org-directory "~/nc/personal"
       org-ellipsis " ▼ ")
 
 (use-package! org
@@ -206,10 +206,10 @@
   :config
   (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
         org-caldav-calendars '((:calendar-id "school-1"
-                                :files ("~/box/personal/school.org")
-                                :inbox "~/box/personal/school-inbox.org"))
-        org-caldav-backup-file "~/box/personal/org-caldav-backup.org"
-        org-caldav-save-directory "~/box/personal/")
+                                :files ("~/nc/personal/school.org")
+                                :inbox "~/nc/personal/school-inbox.org"))
+        org-caldav-backup-file "~/nc/personal/org-caldav-backup.org"
+        org-caldav-save-directory "~/nc/personal/")
   ;; This makes sure to-do items as a category can show up on the calendar
   (setq org-icalendar-include-todo t)
   ;; This ensures all org "deadlines" show up as due dates
