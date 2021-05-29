@@ -99,7 +99,7 @@ in {
 
     gtk = {
       enable = true;
-      theme.name = "Adwaita";
+      theme.name = "Adwaita-dark";
       iconTheme = {
         package = pkgs.gnome.adwaita-icon-theme;
         name = "Adwaita-icons";
