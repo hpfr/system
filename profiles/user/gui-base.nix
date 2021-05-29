@@ -56,6 +56,8 @@ in {
         xournalpp # handwritten notes and PDF markup
         calibre # ebook manager
         mcomix3 # comic reader
+        anki # spaced repetition software
+        zotero # research citation manager
         # nur.repos.onny.foliate # ebook reader
 
         # messaging
