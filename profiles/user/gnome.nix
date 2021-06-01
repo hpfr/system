@@ -47,7 +47,19 @@ in {
           # there's no reboot dconf key?
           # reboot = [ "<Super><Shift>x" ];
         };
-        "org/gnome/shell/keybindings".toggle-overview = [ ];
+        "org/gnome/shell/keybindings" = {
+          toggle-overview = [ ];
+          # bound to super+num, which I want for workspace switching
+          switch-to-application-1 = [ ];
+          switch-to-application-2 = [ ];
+          switch-to-application-3 = [ ];
+          switch-to-application-4 = [ ];
+          switch-to-application-5 = [ ];
+          switch-to-application-6 = [ ];
+          switch-to-application-7 = [ ];
+          switch-to-application-8 = [ ];
+          switch-to-application-9 = [ ];
+        };
         "org/gnome/mutter/keybindings" = {
           toggle-tiled-left = [ "<Super>Left" "<Super>h" ];
           toggle-tiled-right = [ "<Super>Right" "<Super>l" ];
