@@ -65,10 +65,10 @@ in {
           toggle-tiled-right = [ "<Super>Right" "<Super>l" ];
         };
         "org/gnome/desktop/wm/keybindings" = {
-          "close" = [ "<Super>q" ];
-          "minimize" = [ "<Super><Control>q" ];
-          "maximize" = [ "<Super>Up" "<Super>k" ];
-          "unmaximize" = [ "<Super>Down" "<Super>j" ];
+          close = [ "<Super>q" ];
+          minimize = [ "<Super><Control>q" ];
+          maximize = [ "<Super>Up" "<Super>k" ];
+          unmaximize = [ "<Super>Down" "<Super>j" ];
           toggle-above = [ "<Super>s" ];
           toggle-on-all-workspaces = [ "<Super><Shift>s" ];
           activate-window-menu = [ "<Super>space" ];
