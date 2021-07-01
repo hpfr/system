@@ -60,9 +60,9 @@
                              doom-monokai-classic doom-palenight
                              ;; chopping block
                              doom-snazzy doom-horizon doom-dark+ doom-solarized-dark doom-old-hope doom-dracula
-                             doom-sourcerer doom-wilmersdorf doom-laserwave
+                             doom-sourcerer doom-wilmersdorf
                              ;; ;; no bueno
-                             ;; doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
+                             ;; doom-laserwave doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
                              ;; doom-acario-light
                              ))
       (doom-light-themes
