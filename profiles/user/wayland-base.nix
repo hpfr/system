@@ -11,6 +11,7 @@ in {
 
     # # numerous QT apps can't handle this
     # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
+    home.packages = [ pkgs.wl-clipboard ];
 
     programs.firefox.package = pkgs.firefox-wayland;
 
