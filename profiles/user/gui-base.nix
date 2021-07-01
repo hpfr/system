@@ -125,6 +125,7 @@ in {
     };
 
     programs = {
+      mangohud.enable = true;
       vscode = {
         enable = true;
         package = pkgs.vscode-fhsWithPackages (ps: with ps; [ ]);
