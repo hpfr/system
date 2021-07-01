@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, secrets, lib, pkgs, ... }:
 
 with lib;
 
@@ -46,6 +46,13 @@ in {
         };
         dave = {
           hostname = "10.10.10.12";
+          user = "lh";
+          identityFile = "~/.ssh/kpxc-id.pub";
+          identitiesOnly = true;
+        };
+        star-child = with secrets.star-child; {
+          hostname = ip;
+          port = sshPort;
           user = "lh";
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
