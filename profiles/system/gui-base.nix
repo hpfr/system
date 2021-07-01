@@ -136,7 +136,10 @@ in {
 
     programs = {
       ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+      corectrl.enable = true;
       steam.enable = true;
     };
+
+    users.users.lh.extraGroups = [ "corectrl" ];
   };
 }
