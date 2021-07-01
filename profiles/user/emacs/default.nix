@@ -33,6 +33,7 @@ in {
           tdlib # telega
           gnumake # telega
           cmake # telega
+          gcc # magit forge https://www.reddit.com/r/emacs/comments/adlmh2/
           sqlite # org-roam
           ripgrep # doom code searching features
           jq # json parsing

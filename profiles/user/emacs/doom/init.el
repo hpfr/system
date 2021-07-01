@@ -82,7 +82,7 @@
  (lookup
   +docsets)
  (lsp +peek)
- magit
+ (magit +forge)
  pdf
  rgb
  ;;upload
