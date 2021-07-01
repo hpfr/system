@@ -3,7 +3,7 @@
 {
   imports = [ ./hosts-base.nix ];
 
-  profiles.system.base.enable = true;
+  profiles.system.local-base.enable = true;
 
   system.stateVersion = "19.03";
 
@@ -54,6 +54,9 @@
       enp25s0.useDHCP = false;
       br25.useDHCP = true;
     };
+    firewall.allowedTCPPorts = [
+      5900 # spice
+    ];
   };
 
   nix.extraOptions = ''
@@ -75,6 +78,6 @@
   users.extraUsers.lh.extraGroups = [ "libvirtd" "kvm" ];
 
   home-manager.users.lh = { config, pkgs, ... }: {
-    profiles.user.base.enable = true;
+    profiles.user.local-base.enable = true;
   };
 }

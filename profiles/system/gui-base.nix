@@ -9,7 +9,7 @@ in {
 
   config = mkIf cfg.enable {
     profiles.system = {
-      base.enable = true;
+      local-base.enable = true;
       fonts.enable = true;
       remote-builds.enable = true;
     };

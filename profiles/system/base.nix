@@ -20,63 +20,21 @@ in {
       autoOptimiseStore = true;
     };
 
-    # steam, etc
-    nixpkgs = {
-      config = {
-        allowUnfree = true;
-        # lutris and protontricks depend on this, k2pdfopt
-        permittedInsecurePackages = [ "p7zip-16.02" "mupdf-1.17.0" ];
-      };
-      overlays = [
-        (self: super: {
-          base-scripts = (super.runCommand "base-scripts" {
-            preferLocalBuild = true;
-            allowSubstitutes = false;
-          } ''
-            for tool in ${./../../bin/tools}"/"*; do
-              install -D -m755 $tool $out/bin/$(basename $tool)
-            done
+    nixpkgs.overlays = [
+      (self: super: {
+        base-scripts = (super.runCommand "base-scripts" {
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        } ''
+          for tool in ${./../../bin/tools}"/"*; do
+            install -D -m755 $tool $out/bin/$(basename $tool)
+          done
 
-            patchShebangs $out/bin
-          '');
-        })
-      ];
-    };
+          patchShebangs $out/bin
+        '');
+      })
+    ];
 
-    boot = {
-      # Use the systemd-boot EFI boot loader.
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
-      # ntfs write support
-      supportedFilesystems = [ "ntfs-3g" ];
-    };
-
-    networking = {
-      firewall = {
-        allowedTCPPorts = [
-          5900 # spice
-          8384 # syncthing interface
-          22000 # syncthing transfer
-        ];
-        allowedUDPPorts = [
-          21027 # syncthing discovery
-        ];
-      };
-
-      networkmanager = {
-        enable = true;
-        # wifi.backend = "iwd";
-      };
-    };
-
-    console = {
-      # font = "Lat2-Terminus16";
-      keyMap = "us";
-    };
-
-    i18n.defaultLocale = "en_US.UTF-8";
     time.timeZone = "America/Chicago";
 
     programs = {
@@ -109,20 +67,13 @@ in {
     };
 
     # users.mutableUsers = false;
-    # ddcutil i2c group
-    users.groups.i2c = { };
     # Don't forget to set a password with ‘passwd’.
     users.users.lh = {
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [
         "wheel" # sudo
-        "networkmanager" # networking
         "input" # uinput? steam controller?
-        "video"
-        "dialout" # serial ports for MCU programming
-        "lp" # printing?
-        "i2c" # ddcutil
       ];
     };
 

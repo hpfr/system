@@ -9,7 +9,7 @@ in {
 
   config = mkIf cfg.enable {
     profiles.user = {
-      base.enable = true;
+      local-base.enable = true;
 
       fontconfig.enable = true;
 

@@ -5,7 +5,7 @@ with lib;
 let cfg = config.profiles.user.base;
 in {
   options.profiles.user.base.enable =
-    mkEnableOption "my user base configuration";
+    mkEnableOption "my user-level base configuration";
 
   config = mkIf cfg.enable {
     profiles.user = {
@@ -16,29 +16,9 @@ in {
       neovim.enable = true;
     };
 
-    # user-level nixpkgs config for nix-shell, home-manager, non-NixOS
-    # installations, etc
-    xdg.configFile."nixpkgs/config.nix".text = ''
-      {
-        allowUnfree = true;
-        joypixels.acceptLicense = true;
-        packageOverrides = pkgs: {
-          nur = import (builtins.fetchTarball
-            "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-              inherit pkgs;
-            };
-        };
-      }
-    '';
-
     home = {
       stateVersion = "21.03";
       packages = with pkgs; [
-        # system-related
-        # TODO: package as utils only? for relabeling
-        # exfat # use exFAT-formatted drives
-        ntfs3g # write to NTFS-formatted drives
-
         # CLI's
         zip
         unzip
@@ -59,7 +39,6 @@ in {
         ssh-audit # audit ssh configuration
         youtube-dl # video download
         rclone # multiplatform cloud sync
-        k2pdfopt # optimize pdf's for mobile devices
 
         # nix-diff # broken
         nix-du
@@ -129,7 +108,5 @@ in {
         };
       };
     };
-
-    services.syncthing.enable = true;
   };
 }
