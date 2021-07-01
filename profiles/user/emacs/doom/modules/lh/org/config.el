@@ -145,7 +145,7 @@
   ;; doesn't release until the scheduled time), don't warn me until the
   ;; scheduled time
   (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-        org-agenda-skip-scheduled-if-deadline-is-shown t
+        org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
         org-agenda-prefix-format
         '((agenda . " %i %?-12t% s")
           (todo . " %i ")
