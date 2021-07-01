@@ -64,6 +64,9 @@ in {
       };
 
       starship.enableFishIntegration = true;
+
+      alacritty.settings.shell.program = "fish";
+      foot.settings.main.shell = "fish";
     };
   };
 }
