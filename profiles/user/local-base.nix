@@ -34,6 +34,7 @@ in {
 
         # CLI's
         k2pdfopt # optimize pdf's for mobile devices
+        quickserve # host files (like reveal.js presentations)
       ];
     };
 
