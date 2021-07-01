@@ -16,8 +16,8 @@ in {
     nixpkgs.config = {
       # steam, etc
       allowUnfree = true;
-      # lutris and protontricks depend on this, k2pdfopt
-      permittedInsecurePackages = [ "p7zip-16.02" "mupdf-1.17.0" ];
+      # k2pdfopt
+      permittedInsecurePackages = [ "mupdf-1.17.0" ];
     };
 
     boot = {
