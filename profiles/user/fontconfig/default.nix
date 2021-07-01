@@ -10,7 +10,6 @@ in {
   config = mkIf cfg.enable {
     fonts.fontconfig.enable = true;
 
-    # TODO: improve home-manager fontconfig module?
     xdg.configFile."fontconfig" = {
       source = ./files;
       recursive = true;
