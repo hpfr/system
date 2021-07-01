@@ -33,7 +33,7 @@ in {
         ntfs3g # write to NTFS-formatted drives
 
         # CLI's
-        k2pdfopt # optimize pdf's for mobile devices
+        # k2pdfopt # optimize pdf's for mobile devices NOTE: broken
         quickserve # host files (like reveal.js presentations)
       ];
     };
