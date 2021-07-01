@@ -53,6 +53,7 @@ in {
         remmina # usable RDP client
         openconnect # cs.wisc.edu VPN
 
+        # applications
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
         calibre # ebook manager
