@@ -16,7 +16,36 @@
     };
   };
 
-  networking.hostName = "star-child";
+  networking = with secrets.wireguard; {
+    hostName = "star-child";
+    nat = {
+      enable = true;
+      externalInterface = "ens3";
+      internalInterfaces = [ "wg0" ];
+    };
+    firewall.interfaces.ens3.allowedUDPPorts = [ listenPort ];
+    wireguard = {
+      interfaces.wg0 = {
+        ips = [ star-child.ip ];
+        listenPort = listenPort;
+        privateKeyFile = "/home/lh/.config/wireguard/private";
+        peers = [
+          {
+            publicKey = star-gate.publicKey;
+            allowedIPs = [ star-gate.ip localSubnet ];
+          }
+          {
+            publicKey = tibia.publicKey;
+            allowedIPs = [ tibia.ip ];
+          }
+          {
+            publicKey = dave.publicKey;
+            allowedIPs = [ dave.ip ];
+          }
+        ];
+      };
+    };
+  };
 
   services.openssh.ports = [ secrets.star-child.sshPort ];
 

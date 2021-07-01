@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, secrets, pkgs, lib, ... }:
 
 {
   imports = [ ./hosts-base.nix ];
@@ -16,7 +16,23 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "dave";
+  networking = with secrets.wireguard; {
+    hostName = "dave";
+    firewall.interfaces.wlo1.allowedUDPPorts = [ listenPort ];
+    wg-quick.interfaces.wg0 = {
+      address = [ dave.ip ];
+      listenPort = listenPort;
+      privateKeyFile = "/home/lh/.config/wireguard/private";
+      dns = [ secrets.star-gate.ip ];
+      peers = [{
+        publicKey = star-child.publicKey;
+        allowedIPs = [ wgSubnet localSubnet ];
+        endpoint = secrets.star-child.ip + ":" + toString listenPort;
+        # deal with NAT
+        persistentKeepalive = 25;
+      }];
+    };
+  };
 
   services = {
     fstrim.enable = true;
