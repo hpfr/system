@@ -40,6 +40,7 @@ in {
 
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
+        piper # mouse configuration via libratbag
 
         safeeyes # reminds user on eye health
         nextcloud-client

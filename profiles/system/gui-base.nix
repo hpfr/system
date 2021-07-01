@@ -120,6 +120,9 @@ in {
       # Xbox One Wireless adapter
       hardware.xow.enable = true;
 
+      # libratbag for mouse configuration
+      ratbagd.enable = true;
+
       # for proprietary apps like Spotify, Discord, and Slack
       flatpak.enable = true;
     };
