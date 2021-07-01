@@ -8,6 +8,11 @@ in {
     mkEnableOption "my system base configuration";
 
   config = mkIf cfg.enable {
+    environment.extraInit = concatMapStringsSep "\n" (user: ''
+      if [ "$(id -un)" = "${user}" ]; then
+        . /etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh
+      fi
+    '') [ "lh" ];
     environment.etc."nixos/overlays-compat/overlays.nix".text =
       builtins.readFile ./../../pkgs/overlays.nix;
 
