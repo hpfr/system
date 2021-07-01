@@ -121,7 +121,7 @@
 
   (defun elfeed-view-video ()
     "View feed link video in external program"
-    (interactive "P")
+    (interactive)
     (let ((entries (elfeed-search-selected)))
       (cl-loop for entry in entries
                do (elfeed-untag entry 'unread)
