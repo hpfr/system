@@ -43,6 +43,13 @@ in {
           "sound-output-device-chooser@kgshank.net"
           "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
         ];
+        "org/gnome/shell".favorite-apps = [
+          "emacsclient.desktop"
+          "firefox.desktop"
+          "foot.desktop"
+          "org.keepassxc.KeePassXC.desktop"
+          "com.nextcloud.desktopclient.nextcloud.desktop"
+        ];
         # keybindings
         "org/gnome/settings-daemon/plugins/media-keys" = {
           screensaver = [ "<Super>z" ];
