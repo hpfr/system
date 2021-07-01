@@ -44,7 +44,8 @@ in {
         safeeyes # reminds user on eye health
         nextcloud-client
 
-        vscodium # for draw.io extension
+        # vscodium # for draw.io extension
+        drawio
 
         # virtualization
         libvirt # manage VM's
@@ -118,6 +119,13 @@ in {
       style = {
         name = "adwaita-dark";
         package = pkgs.adwaita-qt;
+      };
+    };
+
+    programs = {
+      vscode = {
+        enable = true;
+        package = pkgs.vscode-fhsWithPackages (ps: with ps; [ ]);
       };
     };
 
