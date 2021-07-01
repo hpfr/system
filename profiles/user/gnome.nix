@@ -39,6 +39,10 @@ in {
         "org/gnome/desktop/interface".clock-show-weekday = true;
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
+        "org/gnome/shell".enabled-extensions = [
+          "sound-output-device-chooser@kgshank.net"
+          "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
+        ];
         # keybindings
         "org/gnome/settings-daemon/plugins/media-keys" = {
           screensaver = [ "<Super>z" ];
