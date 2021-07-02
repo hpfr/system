@@ -4,7 +4,7 @@
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs lh/doom-source-dir)
 
 ;; append because first element is "not" which negates the list
-(add-to-list '+format-on-save-enabled-modes 'sh-mode t)
+(add-to-list '+format-on-save-enabled-modes 'sh-mode t) ; weird bash formatting
 (add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
 
 ;; highlight links in comments and strings
