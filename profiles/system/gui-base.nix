@@ -36,7 +36,6 @@ in {
 
     location.provider = "geoclue2"; # for redshift
 
-    # Enable sound.
     sound.enable = true;
     hardware = {
       pulseaudio = {
