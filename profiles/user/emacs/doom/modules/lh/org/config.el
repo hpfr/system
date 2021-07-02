@@ -237,4 +237,16 @@
   (setq rmh-elfeed-org-files
         (list (expand-file-name  "2021-04-26-12h06m49-elfeed.org" org-directory))))
 
+(after! org-re-reveal
+  (setq org-re-reveal-theme "night"
+        org-re-reveal-transition "fade"
+        org-re-reveal-plugins '(markdown notes search zoom chalkboard)
+        org-re-reveal-progress 'nil
+        org-re-reveal-head-preamble (concat "
+<link rel=\"stylesheet\" href=\"" org-re-reveal-root "../revealjs-plugins-rajgoel/chalkboard/style.css\">
+<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.15.3/css/all.css\">
+"))
+
+  (add-to-list 'org-re-reveal-plugin-config '(chalkboard "RevealChalkboard" "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
+
 (load! "private.el")
