@@ -22,6 +22,9 @@
 ;; autosave files
 (setq auto-save-default 1)
 
+;; show weekend at week's end
+(setq calendar-week-start-day 1)
+
 (after! evil
   (require 'evil-textobj-anyblock)
   (evil-define-text-object my-evil-textobj-anyblock-inner-quote
