@@ -15,6 +15,21 @@
 ;; (setq mu4e-mu-home "~/.cache/mu-lists/"
 ;;       mu4e-get-mail-command "mbsync --config ~/repos/system/profiles/user/email/mbsync-lists.conf -a")
 
+;; this must be available on startup for the desktop entry when emacs is not running
+(defun mu4e-compose-from-mailto (mailto-string)
+  (require 'mu4e)
+  (unless mu4e~server-props (mu4e t) (sleep-for 0.1))
+  (let* ((mailto (rfc2368-parse-mailto-url mailto-string))
+         (to (cdr (assoc "To" mailto)))
+         (subject (or (cdr (assoc "Subject" mailto)) ""))
+         (body (cdr (assoc "Body" mailto)))
+         (org-msg-greeting-fmt (if (assoc "Body" mailto)
+                                   (replace-regexp-in-string "%" "%%"
+                                                             (cdr (assoc "Body" mailto)))
+                                 org-msg-greeting-fmt))
+         (headers (-filter (lambda (spec) (not (-contains-p '("To" "Subject" "Body") (car spec)))) mailto)))
+    (mu4e~compose-mail to subject headers)))
+
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
@@ -98,20 +113,6 @@ Prevents a series of redisplays from being called (when set to an appropriate va
           (mu4e~proc-index nil t)
         (when new-request
           (run-at-time (* 1.1 mu4e-reindex-request-min-seperation) nil
-                       #'mu4e-reindex-maybe)))))
-
-  (defun mu4e-compose-from-mailto (mailto-string)
-    (require 'mu4e)
-    (unless mu4e~server-props (mu4e t) (sleep-for 0.1))
-    (let* ((mailto (rfc2368-parse-mailto-url mailto-string))
-           (to (cdr (assoc "To" mailto)))
-           (subject (or (cdr (assoc "Subject" mailto)) ""))
-           (body (cdr (assoc "Body" mailto)))
-           (org-msg-greeting-fmt (if (assoc "Body" mailto)
-                                     (replace-regexp-in-string "%" "%%"
-                                                               (cdr (assoc "Body" mailto)))
-                                   org-msg-greeting-fmt))
-           (headers (-filter (lambda (spec) (not (-contains-p '("To" "Subject" "Body") (car spec)))) mailto)))
-      (mu4e~compose-mail to subject headers))))
+                       #'mu4e-reindex-maybe))))))
 
 (load! "private.el")

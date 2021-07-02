@@ -105,8 +105,8 @@ in {
           "application/epub+zip"
         ] // {
           "x-scheme-handler/mailto" = "emacsclient-mail.desktop";
-          "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
-          "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+          "x-scheme-handler/gopher" = "emacsclient-gemini.desktop";
+          "x-scheme-handler/gemini" = "emacsclient-gemini.desktop";
         };
         defaultApplications = applyToAll [
           "application/pdf"
@@ -115,8 +115,8 @@ in {
           "application/epub+zip"
         ] // {
           "x-scheme-handler/mailto" = "emacsclient-mail.desktop";
-          "x-scheme-handler/gopher" = "emacsclient-elpher.desktop";
-          "x-scheme-handler/gemini" = "emacsclient-elpher.desktop";
+          "x-scheme-handler/gopher" = "emacsclient-gemini.desktop";
+          "x-scheme-handler/gemini" = "emacsclient-gemini.desktop";
         };
       };
       dataFile = {
@@ -132,49 +132,54 @@ in {
             # The -n option is necessary to actually get a new frame for some reason
             # from terminal you don't need it but you do from openers like firefox
             # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
-            Exec=emacsclient -cna 'emacs' %F
+            Exec=emacsclient --create-frame --alternate-editor emacs --no-wait %F
             Icon=emacs
-            Type=Application
             Terminal=false
             Categories=Development;TextEditor;
             StartupWMClass=Emacs
             Keywords=Text;Editor;
           '';
         };
-        emacsclient-mail = {
+        emacsclient-mail = let
+          execScript = pkgs.writeShellScript "emacsclient-mail.sh" ''
+            set -euo pipefail
+            emacsclient --create-frame --alternate-editor 'emacs --eval' --no-wait --eval "(progn (x-focus-frame nil) (mu4e-compose-from-mailto \"$1\"))"
+          '';
+        in {
           target = "applications/emacsclient-mail.desktop";
           text = ''
             [Desktop Entry]
             Type=Application
-            Name=Compose message in Emacs
-            GenericName=Compose a new message with Mu4e in Emacs
-            Comment=Open mu4e compose window
+            Name=Mu4e
+            GenericName=Email client
+            Comment=Compose email
             MimeType=x-scheme-handler/mailto;
-            Exec=emacsclient -create-frame --alternate-editor="" --no-wait --eval '(progn (x-focus-frame nil) (mu4e-compose-from-mailto "%u"))'
+            Exec=${execScript} %u
             Icon=emacs
-            Type=Application
             Terminal=false
             Categories=Network;Email;
-            StartupWMClass=Emacs
-            NoDisplay=True
+            NoDisplay=true
           '';
         };
-        emacsclient-elpher = {
-          target = "applications/emacsclient-elpher.desktop";
+        emacsclient-gemini = let
+          execScript = pkgs.writeShellScript "emacsclient-gemini.sh" ''
+            set -euo pipefail
+            emacsclient --create-frame --alternate-editor 'emacs --eval' --no-wait --eval "(progn (x-focus-frame nil) (require 'elpher) (elpher-go \"$1\"))"
+          '';
+        in {
+          target = "applications/emacsclient-gemini.desktop";
           text = ''
             [Desktop Entry]
             Type=Application
             Name=Elpher
             GenericName=Gopher/Gemini browser in Emacs
-            Comment=Open gopher/gemini link in Elpher
+            Comment=View gopher/gemini sites
             MimeType=x-scheme-handler/gemini;x-scheme-handler/gopher;
-            Exec=emacsclient -create-frame --alternate-editor="" --no-wait --eval '(progn (x-focus-frame nil) (elpher-go "%u"))'
+            Exec=${execScript} %u
             Icon=emacs
-            Type=Application
             Terminal=false
-            Categories=Network;Gemini;Gopher;
-            StartupWMClass=Emacs
-            NoDisplay=True
+            Categories=Network;X-Gemini;X-Gopher;
+            NoDisplay=true
           '';
         };
       };
