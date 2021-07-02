@@ -130,3 +130,5 @@
  ebooks
  ;; shrface
  )
+
+(setq evil-respect-visual-line-mode t)
