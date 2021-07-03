@@ -164,6 +164,8 @@
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
 
+(set-docsets! 'python-mode :add "Matplotlib")
+
 ;; TODO: make 'q' consistent across non-textual/popup buffers
 
 (use-package! yequake
