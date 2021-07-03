@@ -89,10 +89,10 @@
       ;; doom-unicode-font "sans-serif"
       doom-symbol-fallback-font-families nil
       ;; TODO: this doesn't work, need the following hook
-      doom-emoji-fallback-font-families '("Joypixels"))
+      doom-emoji-fallback-font-families '("JoyPixels"))
 
 ;; TODO: why doesn't "emoji" from fontconfig work?
-(add-hook! 'after-setting-font-hook (set-fontset-font t 'unicode "Joypixels"))
+(add-hook! 'after-setting-font-hook (set-fontset-font t 'unicode "JoyPixels"))
 
 ;; integrate with freedesktop secret service
 ;; TODO: determine why this doesn't completely work.
