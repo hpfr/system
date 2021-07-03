@@ -164,6 +164,11 @@
 ;; find syncthing conflicts
 (use-package! emacs-conflict)
 
+;; (setq lsp-java-format-settings-url "file:///home/lh/repos/system/profiles/user/emacs/doom/lib/eclipse-style-four-spaces.xml"
+;;       lsp-java-format-settings-profile "Wisc")
+;; (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
+;;       lsp-java-format-settings-profile "GoogleStyle")
+
 (set-docsets! 'python-mode :add "Matplotlib")
 
 ;; TODO: make 'q' consistent across non-textual/popup buffers
