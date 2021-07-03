@@ -92,6 +92,7 @@
  :lang
  assembly
  (cc +lsp)
+ (csharp +lsp +dotnet)
  data
  emacs-lisp
  (go +lsp)

@@ -50,7 +50,7 @@ in {
           html-tidy # html and xml formatting
           black # python
 
-          # language servers
+          # language servers TODO direnv
           ccls # c
           lua53Packages.digestif # TeX
           gopls # go
