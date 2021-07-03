@@ -52,35 +52,45 @@
   (define-key evil-outer-text-objects-map "q"
     'my-evil-textobj-anyblock-a-quote))
 
-(let ((doom-dark-themes
-       '(doom-tomorrow-night doom-nord doom-one doom-city-lights doom-gruvbox
-                             doom-henna doom-material doom-oceanic-next
-                             doom-spacegrey doom-moonlight doom-challenger-deep
-                             doom-opera doom-peacock doom-rouge doom-molokai
-                             doom-monokai-classic doom-palenight
-                             ;; chopping block
-                             doom-snazzy doom-horizon doom-dark+ doom-solarized-dark doom-old-hope doom-dracula
-                             doom-sourcerer doom-wilmersdorf
-                             ;; ;; no bueno
-                             ;; doom-laserwave doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
-                             ;; doom-acario-light
-                             ))
-      (doom-light-themes
-       '(doom-gruvbox-light doom-solarized-light
-                            doom-tomorrow-day doom-opera-light doom-one-light
-                            ;; doom-nord-light doom-acario-light
-                            )))
-  ;; TODO: improve and hook into base16
-  (defun load-random-theme ()
-    "Load a random theme, light during the day"
-    (interactive)
-    (let* ((current-hour (string-to-number (format-time-string "%H")))
-           (current-themes (if (or (>= current-hour 19) (< current-hour 7))
-                               doom-dark-themes doom-light-themes)))
-      (load-theme (nth (random (length current-themes)) current-themes) t))))
+(defun lh/load-random-theme ()
+  "Load a random theme, light during the day"
+  (interactive)
+  (let* ((doom-dark-themes
+          '(doom-tomorrow-night doom-nord doom-one doom-city-lights doom-gruvbox
+                                doom-henna doom-material doom-oceanic-next
+                                doom-spacegrey doom-moonlight doom-challenger-deep
+                                doom-opera doom-peacock doom-rouge doom-molokai
+                                doom-monokai-classic doom-palenight
+                                ;; chopping block
+                                doom-snazzy doom-horizon doom-dark+ doom-solarized-dark doom-old-hope doom-dracula
+                                doom-sourcerer doom-wilmersdorf
+                                ;; ;; no bueno
+                                ;; doom-laserwave doom-ephemeral doom-nova doom-fairy-floss doom-manegarm
+                                ;; doom-acario-light
+                                ))
+         (doom-light-themes
+          '(doom-gruvbox-light doom-solarized-light
+                               doom-tomorrow-day doom-opera-light doom-one-light
+                               ;; doom-nord-light doom-acario-light
+                               ))
+         (current-hour (string-to-number (format-time-string "%H")))
+         (current-themes (if (or (>= current-hour 19) (< current-hour 7))
+                             doom-dark-themes doom-light-themes)))
+    (load-theme (nth (random (length current-themes)) current-themes) t)))
 
-(load-random-theme)
-(run-at-time "1 hour" 3600 #'load-random-theme)
+(lh/load-random-theme)
+;; load a new random theme at 7:00 and 19:00
+;; run-at-time runs immediately if the current time of day is past the specified
+;; time, so we need some logic to avoid this wastefully loading themes
+;; repeatedly on startup
+(let ((current-hour (string-to-number (format-time-string "%H"))))
+  (if (< current-hour 7)
+      (run-at-time "07:00" 43200 #'lh/load-random-theme)
+    (if (< current-hour 19)
+        (run-at-time "19:00" 43200 #'lh/load-random-theme)
+      ;; when it's past 19:00, run the run-at-time once we're into the next day
+      ;; before 07:00 to avoid it running immediately
+      (run-at-time "6 hour" nil (lambda () (run-at-time "07:00" 43200 #'lh/load-random-theme))))))
 
 (setq doom-font "monospace"
       ;; TODO: create "monospace-serif" family with fontconfig?
