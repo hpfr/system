@@ -29,8 +29,6 @@
  doom
  doom-dashboard
  doom-quit
- (emoji +unicode)
- unicode
  fill-column
  hl-todo
  modeline

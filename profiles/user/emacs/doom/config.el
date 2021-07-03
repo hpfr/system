@@ -82,15 +82,17 @@
 (load-random-theme)
 (run-at-time "1 hour" 3600 #'load-random-theme)
 
-(setq doom-font (font-spec :family "monospace")
+(setq doom-font "monospace"
       ;; TODO: create "monospace-serif" family with fontconfig?
-      doom-serif-font (font-spec :family "Iosevka Term Curly Slab")
-      doom-variable-pitch-font (font-spec :family "sans-serif") ; inherits `doom-font''s :size
-      ;; this list is iterated over, each item is prepended, so order by reverse priority
-      doom-unicode-extra-fonts '("Weather Icons" "github-octicons" "FontAwesome"
-                                 "all-the-icons" "file-icons" "Material Icons"
-                                 "Source Han Mono" "emoji")
-      doom-unicode-font (font-spec :family "sans-serif"))
+      doom-serif-font "Iosevka Term Curly Slab"
+      doom-variable-pitch-font "sans-serif" ; inherits `doom-font''s :size
+      ;; doom-unicode-font "sans-serif"
+      doom-symbol-fallback-font-families nil
+      ;; TODO: this doesn't work, need the following hook
+      doom-emoji-fallback-font-families '("Joypixels"))
+
+;; TODO: why doesn't "emoji" from fontconfig work?
+(add-hook! 'after-setting-font-hook (set-fontset-font t 'unicode "Joypixels"))
 
 ;; integrate with freedesktop secret service
 ;; TODO: determine why this doesn't completely work.
