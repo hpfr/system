@@ -10,6 +10,7 @@ in {
   config = mkIf cfg.enable {
     profiles.system = {
       local-base.enable = true;
+      # pipewire.enable = true;
       fonts.enable = true;
       remote-builds.enable = true;
     };
