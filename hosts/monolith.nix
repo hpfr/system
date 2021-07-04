@@ -14,14 +14,25 @@
       "pcie_acs_override=downstream,multifunction"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelPatches = [{
-      name = "acs";
-      patch = pkgs.fetchpatch {
-        url =
-          "https://gitlab.com/Queuecumber/linux-acs-override/raw/master/workspaces/5.10.4/acso.patch";
-        sha256 = "0qjb66ydbqqypyvhhlq8zwry8zcd8609y8d4a0nidhq1g6cp9vcw";
-      };
-    }];
+    kernelPatches = [
+      {
+        name = "acs";
+        patch = pkgs.fetchpatch {
+          url =
+            "https://gitlab.com/Queuecumber/linux-acs-override/raw/master/workspaces/5.10.4/acso.patch";
+          sha256 = "0qjb66ydbqqypyvhhlq8zwry8zcd8609y8d4a0nidhq1g6cp9vcw";
+        };
+      }
+      {
+        name = "config";
+        patch = null;
+
+        extraConfig = ''
+          KALLSYMS_ALL y
+        '';
+      }
+    ];
+    extraModulePackages = with config.boot.kernelPackages; [ vendor-reset ];
     kernelModules = [
       # required for virtualisation
       "kvm-amd"
@@ -32,6 +43,8 @@
       "vfio"
       # fan control (k10temp for CPU automatically loaded)
       "nct6775"
+      # needs CONFIG_KALLSYMS_ALL y
+      "vendor-reset"
     ];
 
     extraModprobeConfig = ''
