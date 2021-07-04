@@ -111,6 +111,14 @@
 (require 'secrets)
 (setq auth-sources '(default "secrets:Main"))
 
+;;; tramp
+(after! tramp
+  ;; tramp sets tramp-default-remote-path via `getconf PATH` which doesn't seem
+  ;; to work on NixOS, only returning /run/current-system/sw/bin:/bin:/usr/bin
+  ;; this means magit, rg, etc don't work. this fixes the issue
+  ;; https://www.gnu.org/software/tramp/#Remote-programs
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 ;; with fish as my login shell, this might be necessary if people use
 ;; non-fish-supported POSIX or bash features in commands called by
 ;; `shell-command`
