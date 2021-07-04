@@ -111,6 +111,14 @@
 (require 'secrets)
 (setq auth-sources '(default "secrets:Main"))
 
+;; with fish as my login shell, this might be necessary if people use
+;; non-fish-supported POSIX or bash features in commands called by
+;; `shell-command`
+(setq shell-file-name "/run/current-system/sw/bin/bash")
+;; but override back to fish in an interactive context
+(after! vterm
+  (setq vterm-shell "/etc/profiles/per-user/lh/bin/fish"))
+
 ;;; dired
 (after! dired
   (setq all-the-icons-dired-monochrome nil))
