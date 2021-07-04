@@ -12,6 +12,9 @@
       "amd_iommu=on"
       # maximum breakup of IOMMU groups with ACS patch
       "pcie_acs_override=downstream,multifunction"
+      # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#%22BAR_3:_cannot_reserve_[mem]%22_error_in_dmesg_after_starting_VM
+      "video=efifb:off"
+      "pci=realloc"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelPatches = [
