@@ -8,8 +8,20 @@
   system.stateVersion = "19.03";
 
   boot = {
-    kernelParams = [ "amd_iommu=on" ];
+    kernelParams = [
+      "amd_iommu=on"
+      # maximum breakup of IOMMU groups with ACS patch
+      "pcie_acs_override=downstream,multifunction"
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches = [{
+      name = "acs";
+      patch = pkgs.fetchpatch {
+        url =
+          "https://gitlab.com/Queuecumber/linux-acs-override/raw/master/workspaces/5.10.4/acso.patch";
+        sha256 = "0qjb66ydbqqypyvhhlq8zwry8zcd8609y8d4a0nidhq1g6cp9vcw";
+      };
+    }];
     kernelModules = [
       # required for virtualisation
       "kvm-amd"
