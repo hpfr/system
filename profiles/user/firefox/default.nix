@@ -42,20 +42,49 @@ in {
           settings = {
             "general.warnOnAboutConfig" = false;
             "browser.aboutConfig.showWarning" = false;
+
+            # TODO: have to set this for every language?
+            # use sans serif rather than serif for default proportional font
+            "font.default.x-western" = "sans-serif";
             # use system emoji font
             "font.name-list.emoji" = "emoji";
+            # don't allow webpages to choose fonts beyond serif, sans, mono
+            "browser.display.use_document_fonts" = 0;
+
             "extensions.pocket.enabled" = false;
+
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
             # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
             "browser.in-content.dark-mode" = true;
             "ui.systemUsesDarkTheme" = 1;
-            # the below option forces dark UI elements like text boxes but can
-            # break with bad webpages that set text to black
+            # # the below option forces dark UI elements like text boxes but can
+            # # break with bad webpages that set text to black
             # "widget.content.allow-gtk-dark-theme" = true;
             # don't sync whether add-ons are enabled to change them per device
             "services.sync.addons.ignoreUserEnabledChanges" = true;
+
             # open popups in new tabs, not new windows with no UI
             "browser.link.open_newwindow.restriction" = 0;
+            "browser.tabs.warnOnClose" = false;
+
+            "browser.ctrlTab.sortByRecentlyUsed" = true;
+
+            # shorcuts
+            "browser.newtabpage.activity-stream.feeds.topsites" = false;
+            "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" =
+              "";
+            "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+            # recommended by pocket
+            "browser.newtabpage.activity-stream.feeds.section.topstories" =
+              false;
+            "browser.newtabpage.activity-stream.showSponsored" = false;
+            # recent activity
+            "browser.newtabpage.activity-stream.feeds.section.highlights" =
+              false;
+            # snippets
+            "browser.newtabpage.activity-stream.feeds.snippets" = false;
+
             # not officially supported yet on Nvidia proprietary drivers
             # but I haven't noticed bugs and it's much faster:
             # https://testdrive-archive.azurewebsites.net/Performance/Chalkboard/
@@ -63,6 +92,7 @@ in {
             "gfx.webrender.enable" = true;
             # may improve perf?
             # "gfx.use-glx-texture-from-pixmap" = true;
+
             "extensions.formautofill.addresses.enabled" = false;
           };
           userChrome = builtins.readFile ./userchrome.css;
