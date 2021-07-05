@@ -32,7 +32,7 @@ in {
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
         };
-        hal = {
+        moon-watcher = {
           hostname = "10.10.10.8";
           user = "lh";
           identityFile = "~/.ssh/kpxc-id.pub";

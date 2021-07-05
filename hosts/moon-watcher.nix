@@ -7,13 +7,16 @@
   # profiles.system.sway.enable = true;
   profiles.system.gnome.enable = true;
 
-  hardware.brillo.enable = true;
+  hardware = {
+    brillo.enable = true;
+    bluetooth.enable = false;
+  };
 
   system.stateVersion = "19.03";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "hal";
+  networking.hostName = "moon-watcher";
 
   nix.extraOptions = ''
     secret-key-files = /home/lh/.ssh/cache-priv-key.pem
@@ -43,6 +46,7 @@
       # flash Tiva Launchpad without root permissions
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
     '';
+    qemuGuest.enable = true;
   };
 
   home-manager.users.lh = { config, pkgs, ... }: {
