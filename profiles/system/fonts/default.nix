@@ -16,6 +16,15 @@ in {
           iosevka-nerd-font =
             super.nerdfonts.override { fonts = [ "Iosevka" ]; };
         })
+        (self: super: {
+          lato = super.lato.overrideAttrs (oldAttrs: {
+            postFetch = ''
+              mkdir -p $out/share/fonts
+              unzip -j $downloadedFile \*.ttf -x \*Hairline\*.ttf -d $out/share/fonts/lato
+            '';
+            outputHash = "109pywbskq0f830ahrpgh4l56a0g9anzz0f12db2zhqlfi5gcbbw";
+          });
+        })
       ];
     };
     fonts = {
