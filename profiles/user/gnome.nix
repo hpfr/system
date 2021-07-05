@@ -11,7 +11,7 @@ in {
 
     # Disable gnome-keyring ssh-agent in favor of the default agent
     xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
-      ${lib.fileContents
+      ${fileContents
       "${pkgs.gnome.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
       Hidden=true
     '';

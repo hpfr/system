@@ -99,6 +99,20 @@ in {
         videos = "$HOME/documents/videos";
         createDirectories = true;
       };
+      configFile."autostart/org.keepassxc.KeePassXC.desktop".text = ''
+        ${fileContents
+        "${pkgs.keepassxc}/share/applications/org.keepassxc.KeePassXC.desktop"}
+      '';
+      # need time to unlock keepassxc database
+      configFile."autostart/com.nextcloud.desktopclient.nextcloud.desktop".text =
+        builtins.replaceStrings [''
+          Exec=nextcloud
+        ''] [''
+          Exec=sh -c "sleep 60 && nextcloud"
+        ''] ''
+          ${fileContents
+          "${pkgs.nextcloud-client}/share/applications/com.nextcloud.desktopclient.nextcloud.desktop"}
+        '';
     };
 
     gtk = {
