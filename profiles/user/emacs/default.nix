@@ -119,26 +119,42 @@ in {
           "x-scheme-handler/gemini" = "emacsclient-gemini.desktop";
         };
       };
-      dataFile = {
+      # these are output to /etc/profiles/per-user/lh/share/applications
+      desktopEntries = {
         emacsclient = {
-          target = "applications/emacsclient.desktop";
-          text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Emacsclient
-            GenericName=Text Editor
-            Comment=Edit text
-            MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-            # The -n option is necessary to actually get a new frame for some reason
-            # from terminal you don't need it but you do from openers like firefox
-            # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
-            Exec=emacsclient --create-frame --alternate-editor emacs --no-wait %F
-            Icon=emacs
-            Terminal=false
-            Categories=Development;TextEditor;
-            StartupWMClass=Emacs
-            Keywords=Text;Editor;
-          '';
+          type = "Application";
+          name = "Emacsclient";
+          genericName = "Text Editor";
+          comment = "Edit text";
+          mimeType = [
+            "text/english"
+            "text/plain"
+            "text/x-makefile"
+            "text/x-c++hdr"
+            "text/x-c++src"
+            "text/x-chdr"
+            "text/x-csrc"
+            "text/x-java"
+            "text/x-moc"
+            "text/x-pascal"
+            "text/x-tcl"
+            "text/x-tex"
+            "application/x-shellscript"
+            "text/x-c"
+            "text/x-c++"
+          ];
+          # the --no-wait option is necessary to actually get a new frame for
+          # some reason. from terminal you don't need it but you do from openers
+          # like firefox
+          # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
+          exec =
+            "emacsclient --create-frame --alternate-editor emacs --no-wait %F";
+          icon = "emacs";
+          categories = [ "Development" "TextEditor" ];
+          settings = {
+            StartupWMClass = "Emacs";
+            Keywords = "Text;Editor;";
+          };
         };
         emacsclient-mail = let
           execScript = pkgs.writeShellScript "emacsclient-mail.sh" ''
@@ -146,20 +162,14 @@ in {
             emacsclient --create-frame --alternate-editor 'emacs --eval' --no-wait --eval "(progn (x-focus-frame nil) (mu4e-compose-from-mailto \"$1\"))"
           '';
         in {
-          target = "applications/emacsclient-mail.desktop";
-          text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Mu4e
-            GenericName=Email client
-            Comment=Compose email
-            MimeType=x-scheme-handler/mailto;
-            Exec=${execScript} %u
-            Icon=emacs
-            Terminal=false
-            Categories=Network;Email;
-            NoDisplay=true
-          '';
+          type = "Application";
+          name = "Mu4e";
+          genericName = "Email client";
+          comment = "Compose email";
+          mimeType = [ "x-scheme-handler/mailto" ];
+          exec = "${execScript} %u";
+          categories = [ "Network" "Email" ];
+          settings.NoDisplay = "true";
         };
         emacsclient-gemini = let
           execScript = pkgs.writeShellScript "emacsclient-gemini.sh" ''
@@ -167,20 +177,14 @@ in {
             emacsclient --create-frame --alternate-editor 'emacs --eval' --no-wait --eval "(progn (x-focus-frame nil) (require 'elpher) (elpher-go \"$1\"))"
           '';
         in {
-          target = "applications/emacsclient-gemini.desktop";
-          text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Elpher
-            GenericName=Gopher/Gemini browser in Emacs
-            Comment=View gopher/gemini sites
-            MimeType=x-scheme-handler/gemini;x-scheme-handler/gopher;
-            Exec=${execScript} %u
-            Icon=emacs
-            Terminal=false
-            Categories=Network;X-Gemini;X-Gopher;
-            NoDisplay=true
-          '';
+          type = "Application";
+          name = "Elpher";
+          genericName = "Gopher/Gemini browser";
+          comment = "View Gopher/Gemini sites";
+          mimeType = [ "x-scheme-handler/gemini" "x-scheme-handler/gopher" ];
+          exec = "${execScript} %u";
+          categories = [ "Network" "X-Gemini" "X-Gopher" ];
+          settings.NoDisplay = "true";
         };
       };
     };
