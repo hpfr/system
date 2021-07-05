@@ -35,6 +35,7 @@ in {
         pandoc # convert document formats
 
         onlykey-cli
+        libimobiledevice # iOS device utils
 
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
