@@ -5,7 +5,7 @@
 (package! disk-usage)
 (when (package! ement :recipe (:host github :repo "alphapapa/ement.el") :disable t)
   (package! plz :recipe (:host github :repo "alphapapa/plz.el")))
-(package! telega)
+(package! telega :recipe (:branch "releases"))
 (package! elpher)
 (package! yequake)
 (package! pdf-continuous-scroll-mode :recipe
