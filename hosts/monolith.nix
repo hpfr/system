@@ -8,46 +8,12 @@
   system.stateVersion = "19.03";
 
   boot = {
-    kernelParams = [
-      "amd_iommu=on"
-      # maximum breakup of IOMMU groups with ACS patch
-      "pcie_acs_override=downstream,multifunction"
-      # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#%22BAR_3:_cannot_reserve_[mem]%22_error_in_dmesg_after_starting_VM
-      "video=efifb:off"
-      "pci=realloc"
-    ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelPatches = [
-      {
-        name = "acs";
-        patch = pkgs.fetchpatch {
-          url =
-            "https://gitlab.com/Queuecumber/linux-acs-override/raw/master/workspaces/5.10.4/acso.patch";
-          sha256 = "0qjb66ydbqqypyvhhlq8zwry8zcd8609y8d4a0nidhq1g6cp9vcw";
-        };
-      }
-      {
-        name = "config";
-        patch = null;
-
-        extraConfig = ''
-          KALLSYMS_ALL y
-        '';
-      }
-    ];
-    extraModulePackages = with config.boot.kernelPackages; [ vendor-reset ];
     kernelModules = [
       # required for virtualisation
       "kvm-amd"
-      # vfio modules
-      "vfio_virqfd"
-      "vfio_pci"
-      "vfio_iommu_type1"
-      "vfio"
       # fan control (k10temp for CPU automatically loaded)
       "nct6775"
-      # needs CONFIG_KALLSYMS_ALL y
-      "vendor-reset"
     ];
 
     extraModprobeConfig = ''
@@ -137,11 +103,25 @@
     openssh.enable = true;
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemuOvmf = true;
-    onBoot = "ignore";
-    onShutdown = "shutdown";
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemuOvmf = true;
+      onBoot = "ignore";
+      onShutdown = "shutdown";
+    };
+    vfio = {
+      enable = true;
+      IOMMUType = "amd";
+      applyACSPatch = true;
+      # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#%22BAR_3:_cannot_reserve_[mem]%22_error_in_dmesg_after_starting_VM
+      disableEFIFB = true;
+      # reallocPCI = true;
+      # can help with Windows BSOD issues
+      ignoreMSRs = true;
+      # rx 580 reset on shutdown
+      enableVendorReset = true;
+    };
   };
 
   users.extraUsers.lh.extraGroups = [ "libvirtd" "kvm" ];
