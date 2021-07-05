@@ -115,4 +115,13 @@ Prevents a series of redisplays from being called (when set to an appropriate va
           (run-at-time (* 1.1 mu4e-reindex-request-min-seperation) nil
                        #'mu4e-reindex-maybe))))))
 
+(after! org-msg
+;; Use org-msg to reply even with plaintext emails, but only export to plaintext
+;; in that case. that way we can take advantage of table syntax, etc
+  (setq org-msg-default-alternatives '((new . (utf-8 html))
+                                       (reply-to-html . (utf-8 html))
+                                       (reply-to-text . (utf-8)))
+        ;; no top-posting with HTML emails
+        org-msg-posting-style nil))
+
 (load! "private.el")
