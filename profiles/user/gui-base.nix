@@ -60,10 +60,10 @@ in {
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
         calibre # ebook manager
+        foliate # ebook reader
         mcomix3 # comic reader
         anki # spaced repetition software
         zotero # research citation manager
-        # nur.repos.onny.foliate # ebook reader
 
         # messaging
         element-desktop # matrix electron client
