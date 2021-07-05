@@ -66,7 +66,7 @@
         # beefy software suites
         # libreoffice
         # freecad
-        blender
+        # blender
         kicad
         inkscape
 
