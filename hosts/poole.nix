@@ -27,9 +27,5 @@
 
     # never lock screen
     dconf.settings."org/gnome/desktop/screensaver".lock-enabled = false;
-
-    # autostart steam
-    xdg.configFile."autostart/steam.desktop".source =
-      "${pkgs.steam}/share/applications/steam.desktop";
   };
 }
