@@ -15,7 +15,7 @@
 
   services = {
     fstrim.enable = true;
-    xserver.displayManager.gdm.autoLogin = {
+    xserver.displayManager.autoLogin = {
       enable = true;
       user = "lh";
     };
