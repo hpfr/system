@@ -44,7 +44,10 @@ in {
 
     programs = {
       # sets up fish as an available login shell
-      fish.enable = true;
+      fish = {
+        enable = true;
+        useBabelfish = true;
+      };
       ssh.startAgent = true;
     };
 
