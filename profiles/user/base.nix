@@ -71,7 +71,13 @@ in {
       # cross-shell prompt with many integrations
       starship = {
         enable = true;
-        settings.character.symbol = "🧮";
+        settings = {
+          add_newline = false;
+          character = {
+            success_symbol = "🧮";
+            error_symbol = "[❌](bold red)";
+          };
+        };
       };
 
       git = {
