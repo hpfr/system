@@ -60,6 +60,8 @@ in {
           grep.body = "command grep --color=auto $argv";
           diff.body = "command diff --color $argv";
           pgrep.body = "command pgrep --list-name --ignore-case $argv";
+          # remove welcome message
+          fish_greeting = "";
         };
       };
 
