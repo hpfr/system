@@ -66,9 +66,8 @@ in {
         else
           [ ]);
 
+      sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
       sessionVariables = {
-        # add doom commands to path
-        PATH = "$PATH:$HOME/.config/emacs/bin/";
         # fall back to emacs if no emacs server
         EDITOR = "emacsclient -ca emacs";
       };
