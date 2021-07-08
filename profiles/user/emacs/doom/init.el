@@ -136,4 +136,5 @@
  ;; shrface
  )
 
-(setq evil-respect-visual-line-mode t)
+(setq use-package-inject-hooks t
+      evil-respect-visual-line-mode t)

@@ -115,9 +115,12 @@ Prevents a series of redisplays from being called (when set to an appropriate va
           (run-at-time (* 1.1 mu4e-reindex-request-min-seperation) nil
                        #'mu4e-reindex-maybe))))))
 
-(after! org-msg
-;; Use org-msg to reply even with plaintext emails, but only export to plaintext
-;; in that case. that way we can take advantage of table syntax, etc
+;; can't use after! due to mu4e module using use-package block's :after
+;; https://github.com/jwiegley/use-package/issues/829
+(use-package-hook! org-msg
+  :post-config
+  ;; Use org-msg to reply even with plaintext emails, but only export to plaintext
+  ;; in that case. that way we can take advantage of table syntax, etc
   (setq org-msg-default-alternatives '((new . (utf-8 html))
                                        (reply-to-html . (utf-8 html))
                                        (reply-to-text . (utf-8)))
