@@ -75,7 +75,7 @@ in {
           add_newline = false;
           character = {
             success_symbol = "🧮";
-            error_symbol = "[❌](bold red)";
+            error_symbol = "[✘](bold red)";
           };
         };
       };
