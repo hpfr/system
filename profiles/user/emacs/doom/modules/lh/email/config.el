@@ -56,6 +56,7 @@
         mu4e-index-cleanup t
         mu4e-index-lazy-check nil
         mu4e-headers-full-search nil ;; toggle with Q
+        gnus-treat-display-smileys nil
         +mu4e-personal-addresses '("liam@hpfr.net")
         mu4e-bookmarks '((:name "Unread messages"
                           :query "flag:unread and not flag:trashed" :key ?u)
