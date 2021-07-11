@@ -78,11 +78,11 @@
         org-treat-insert-todo-heading-as-state-change t)
   (setq org-todo-keywords
         '((sequence
-           "TODO(t!)" ; a task that needs doing
-           "NEXT(n!)" ; a task that is being worked on
-           "PROJ(p!)" ; a project which usually contains other tasks
-           "WAIT(w@)" ; a task blocked by an external factor
-           "HOLD(h@)" ; a task blocked by me
+           "TODO(t!)"             ; a task that needs doing
+           "NEXT(n!)"             ; a task that is being worked on
+           "PROJ(p!)"             ; a project which usually contains other tasks
+           "WAIT(w@)"             ; a task blocked by an external factor
+           "HOLD(h@)"             ; a task blocked by me
            "|"
            "DONE(d!)"                   ; a task that was completed
            "ABRT(c@)")                  ; a task that was cancelled
