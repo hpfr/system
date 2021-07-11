@@ -107,33 +107,83 @@
           (t . "xdg-open %s"))
         ;; always use UUID's in org headline links
         org-id-link-to-org-use-id t)
-  (setq org-startup-folded 'showall)
-  (setq org-capture-templates
-        '(("t" "todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
-          ("d" "todo with deadline" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nDEADLINE: %^t\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
-          ("s" "scheduled todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nSCHEDULED: %^t\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:\n%i" :prepend t :kill-buffer t)
-          ("e" "event" entry
-           (file "personal-calendar-inbox.org")
-           "* %? :event:\n%^{LOCATION}p\n%^t\n%i" :prepend t :kill-buffer t)
-          ("n" "notes" entry
-           (file+headline +org-capture-notes-file "Inbox")
-           "* %u %?\n%i" :prepend t :kill-buffer t)
-          ("p" "templates for projects")
-          ("pt" "project todo" entry
-           (file+headline +org-capture-project-todo-file "Inbox")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("pn" "project notes" entry
-           (file+headline +org-capture-project-notes-file "Inbox")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t)
-          ("pc" "project changelog" entry
-           (file+headline +org-capture-project-notes-file "Unreleased")
-           "* TODO %?\n%i\n%a\n:LOGBOOK:\n- State \"TODO\"       from              %U\n:END:" :prepend t :kill-buffer t))))
+  (setq org-startup-folded 'showall))
+
+(use-package! doct
+  :commands (doct doct-add-to))
+
+(after! org-capture
+  (setq doct-default-entry-type 'entry
+        org-capture-templates
+        (doct
+         '((:group "standard todo's" :prepend t :kill-buffer t
+            :file +org-capture-todo-file :headline "Inbox"
+            :template ("* %{todo-state} %?"
+                       ":LOGBOOK:"
+                       "- State \"%{todo-state}\"       from              %U"
+                       ":END:"
+                       "%i")
+            :children
+            (("todo" :keys "t"
+              :todo-state "TODO")
+             ("upcoming todo" :keys "u"
+              :todo-state "NEXT")))
+
+           ("event" :keys "e" :prepend t :kill-buffer t
+            :file "personal-calendar-inbox.org"
+            :template ("* %?"
+                       "%^{LOCATION}p"
+                       "%^t"
+                       "%i"))
+           ("notes" :keys "n" :prepend t :kill-buffer t
+            :file +org-capture-notes-file :headline "Inbox"
+            :template ("* %u %?"
+                       "%i"))
+           ("email" :keys "m" :prepend t :kill-buffer t
+            :file +org-capture-todo-file :headline "Inbox"
+            :contexts (:in-mode "mu4e-\\(view\\|headers\\)-mode")
+            :template ("* TODO %?"
+                       ":LOGBOOK:"
+                       "- State \"TODO\"       from              %U"
+                       ":END:"
+                       "- %a"
+                       "%i"))
+
+           ("project-local" :keys "p" :prepend t :kill-buffer t
+            :file +org-capture-project-todo-file :headline "Inbox"
+            :template ("* %U %?"
+                       "- %a"
+                       "%i")
+            :children
+            (("project-local todo" :keys "t"
+              :template ("* TODO %?"
+                         ":LOGBOOK:"
+                         "- State \"TODO\"       from              %U"
+                         ":END:"
+                         "- %a"
+                         "%i"))
+             ("project-local notes" :keys "n"
+              :file +org-capture-project-notes-file)
+             ("project-local changelog" :keys "c"
+              :file +org-capture-project-changelog-file :headline "Unreleased")))
+
+           ("centralized project templates" :keys "o" :prepend t :kill-buffer t
+            :file +org-capture-central-project-todo-file :headline "Inbox"
+            :template ("* %U %?"
+                       "- %a"
+                       "%i")
+            :children
+            (("project-local todo" :keys "t"
+              :template ("* TODO %?"
+                         ":LOGBOOK:"
+                         "- State \"TODO\"       from              %U"
+                         ":END:"
+                         "- %a"
+                         "%i"))
+             ("project-local notes" :keys "n"
+              :file +org-capture-central-project-notes-file)
+             ("project-local changelog" :keys "c"
+              :file +org-capture-central-project-changelog-file :headline "Unreleased")))))))
 
 (use-package! org-super-agenda
   ;; :commands (org-super-agenda-mode)
