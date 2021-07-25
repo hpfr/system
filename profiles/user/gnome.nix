@@ -19,6 +19,7 @@ in {
 
     home.packages = with pkgs; [
       gnomeExtensions.sound-output-device-chooser
+      gnomeExtensions.emoji-selector
       gnome.dconf-editor
     ];
 
@@ -41,6 +42,7 @@ in {
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
         "org/gnome/shell".enabled-extensions = [
           "sound-output-device-chooser@kgshank.net"
+          "emoji-selector@maestroschan.fr"
           "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
         ];
         "org/gnome/shell".favorite-apps = [
