@@ -34,8 +34,10 @@ in {
         texlive.combined.scheme-full # latex environment
         pandoc # convert document formats
 
+        # hardware
         onlykey-cli
         libimobiledevice # iOS device utils
+        sc-controller # use steam controller without steam
 
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
@@ -72,7 +74,6 @@ in {
 
         # gaming
         libstrangle # fps limiter
-        sc-controller # use steam controller without steam
         protontricks # for problematic Steam Play games
         moltengamepad # hotplugging controller shim
         # wine # wine is not an emulator
