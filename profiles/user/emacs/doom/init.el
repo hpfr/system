@@ -36,7 +36,7 @@
  (popup
   +defaults)
  ;;tabs
- treemacs
+ (treemacs +lsp)
  unicode
  vc-gutter
  vi-tilde-fringe
