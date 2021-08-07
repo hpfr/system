@@ -1,10 +1,7 @@
 self: super:
 with super.lib;
 let
-  # Using the nixos plumbing that's used to evaluate the config...
-  eval = import <nixpkgs/nixos/lib/eval-config.nix>;
-  # Evaluate the config,
-  paths = (eval { modules = [ (import <nixos-config>) ]; })
-  # then get the `nixpkgs.overlays` option.
-    .config.nixpkgs.overlays;
-in foldl' (flip extends) (_: super) paths self
+  # Load the system config and get the `nixpkgs.overlays` option
+  overlays = (import <nixpkgs/nixos> { }).config.nixpkgs.overlays;
+  # Apply all overlays to the input of the current "main" overlay
+in foldl' (flip extends) (_: super) overlays self
