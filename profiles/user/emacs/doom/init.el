@@ -21,11 +21,7 @@
 
  :completion
  company
- (ivy
-  ;; +fuzzy
-  +prescient
-  ;; +childframe ; TODO: https://github.com/hlissner/doom-emacs/labels/%3Acompletion%20ivy
-  +icons)
+ (vertico +icons)
 
  :ui
  deft
