@@ -17,7 +17,9 @@ in {
     };
 
     home = {
-      stateVersion = "21.03";
+      username = "lh";
+      homeDirectory = "/home/${config.home.username}";
+      stateVersion = "21.05";
       packages = with pkgs; [
         # CLI's
         zip
