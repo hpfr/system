@@ -11,7 +11,10 @@ in {
 
     # # numerous QT apps can't handle this
     # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
-    home.sessionVariables.MOZ_DBUS_REMOTE = 1;
+    home.sessionVariables = {
+      MOZ_DBUS_REMOTE = 1;
+      TERMINAL = "foot";
+    };
     home.packages = [ pkgs.wl-clipboard ];
 
     programs.firefox.package = pkgs.firefox-wayland;
