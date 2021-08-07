@@ -51,6 +51,8 @@ in {
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           sctl = "sudo systemctl";
           uctl = "systemctl --user";
+          protontricks =
+            "flatpak run --command=protontricks com.valvesoftware.Steam";
         };
         functions = {
           ls.body = ''

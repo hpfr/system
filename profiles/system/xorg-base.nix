@@ -10,6 +10,17 @@ in {
   config = mkIf cfg.enable {
     profiles.system.gui-base.enable = true;
 
+    networking.firewall = {
+      allowedTCPPorts = [
+        # barrier
+        24800
+      ];
+      allowedUDPPorts = [
+        # barrier?
+        24800
+      ];
+    };
+
     services = {
       xserver = {
         enable = true;

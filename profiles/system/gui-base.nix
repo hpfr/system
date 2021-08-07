@@ -56,42 +56,6 @@ in {
     # packages that use polkit must be at system level
     environment.systemPackages = with pkgs; [ spice-gtk ];
 
-    networking.firewall = {
-      allowedTCPPorts = [
-        # steam in-home streaming
-        27036
-        27037
-        # barrier
-        24800
-      ];
-      allowedTCPPortRanges = [{
-        # steam login and download
-        from = 27015;
-        to = 27030;
-      }];
-      allowedUDPPorts = [
-        # steam in-home streaming
-        27031
-        27036
-        # steam client?
-        4380
-        # barrier?
-        24800
-      ];
-      allowedUDPPortRanges = [
-        # steam login and download
-        {
-          from = 27015;
-          to = 27030;
-        }
-        # steam game traffic
-        {
-          from = 27000;
-          to = 27100;
-        }
-      ];
-    };
-
     services = {
       logind.extraConfig = ''
         HandlePowerKey=suspend
@@ -137,7 +101,12 @@ in {
     programs = {
       ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
       corectrl.enable = true;
-      steam.enable = true;
+      steam = {
+        # TODO: allow opening firewall without enabling steam
+        enable = true;
+        remotePlay.openFirewall = true;
+      };
+      gamemode.enable = true;
     };
 
     users = {

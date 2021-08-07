@@ -74,7 +74,6 @@ in {
 
         # gaming
         libstrangle # fps limiter
-        protontricks # for problematic Steam Play games
         moltengamepad # hotplugging controller shim
         # wine # wine is not an emulator
       ];
