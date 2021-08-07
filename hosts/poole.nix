@@ -7,7 +7,7 @@
 
   # nixpkgs.config.kodi.enableSteamLauncher = true;
 
-  system.stateVersion = "19.09";
+  system.stateVersion = "21.05";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -20,7 +20,7 @@
     bluetooth.enable = false;
   };
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "21.05";
 
   boot.kernelPackages = pkgs.linuxPackages_5_9;
 
