@@ -144,7 +144,7 @@ in {
       mangohud.enable = true;
       vscode = {
         enable = true;
-        package = pkgs.vscode-fhsWithPackages (ps: with ps; [ ]);
+        package = pkgs.vscode-fhsWithPackages (ps: with ps; [ dotnet-sdk_5 ]);
       };
     };
 
