@@ -44,5 +44,8 @@ in {
       "lp" # printing?
       "i2c" # ddcutil
     ];
+
+    # persistent ssh from iOS
+    programs.mosh.enable = true;
   };
 }
