@@ -59,12 +59,8 @@ in {
           nodePackages.pyright # python
           python3Packages.debugpy
           nodePackages.javascript-typescript-langserver
-        ] ++ (if config.profiles.user.gui-base.enable then
-          [
-            libreoffice # docx to docview
-          ]
-        else
-          [ ]);
+          # docx to docview
+        ] ++ optional config.profiles.user.gui-base.enable libreoffice;
 
       sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
       sessionVariables = {

@@ -75,8 +75,8 @@
         org-log-redeadline 'time
         org-log-reschedule 'time
         org-log-refile 'time
-        org-treat-insert-todo-heading-as-state-change t)
-  (setq org-todo-keywords
+        org-treat-insert-todo-heading-as-state-change t
+        org-todo-keywords
         '((sequence
            "TODO(t!)"             ; a task that needs doing
            "NEXT(n!)"             ; a task that is being worked on
@@ -91,14 +91,14 @@
            "[-](P!)"                    ; an in-progress task
            "[?](W!)"                    ; a task that is waiting
            "|"
-           "[X](D!)")))                 ; a completed task
-  (setq org-file-apps
+           "[X](D!)"))                  ; a completed task
+        org-file-apps
         '((auto-mode . emacs)
           (directory . emacs)
           ("\\.mm\\'" . default)
           ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . emacs)))
-  (setq org-file-apps-gnu
+          ("\\.pdf\\'" . emacs))
+        org-file-apps-gnu
         ;; I don't have a mailcap file
         '((remote . emacs)
           ("\\.mp4\\'" . "mpv %s")
