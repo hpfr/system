@@ -120,8 +120,8 @@ in {
       enable = true;
       theme.name = "Adwaita-dark";
       iconTheme = {
-        package = pkgs.gnome.adwaita-icon-theme;
-        name = "Adwaita-icons";
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus-Dark";
       };
       font = {
         name = "Sans";
