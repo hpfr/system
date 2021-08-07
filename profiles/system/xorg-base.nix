@@ -23,11 +23,6 @@ in {
 
     services = {
       xserver = {
-        enable = true;
-        layout = "us";
-        libinput.enable = true;
-        displayManager.lightdm.enable = true;
-        desktopManager.xterm.enable = false;
         # TODO: test how much of this is necessary with home-manager
         windowManager.i3 = {
           enable = true;

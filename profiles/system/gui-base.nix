@@ -61,6 +61,13 @@ in {
         HandlePowerKey=suspend
       '';
 
+      xserver = {
+        enable = true;
+        layout = "us";
+        libinput.enable = true;
+        displayManager.gdm.enable = true;
+      };
+
       blueman.enable = true;
 
       dbus.packages = with pkgs; [ gnome.dconf ];
