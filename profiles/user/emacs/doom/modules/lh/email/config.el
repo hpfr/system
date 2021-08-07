@@ -9,7 +9,8 @@
                       (user-mail-address . "liam@hpfr.net")
                       (smtpmail-smtp-user . "liam@hpfr.net")
                       (mu4e-compose-signature . "—Liam")
-                      (org-msg-signature . "\n\n#+begin_signature\n—Liam\n#+end_signature")))
+                      (org-msg-signature . "\n\n#+begin_signature\n—Liam\n#+end_signature"))
+                    t)
 
 ;; for public-inbox maildirs
 ;; (setq mu4e-mu-home "~/.cache/mu-lists/"
@@ -33,7 +34,8 @@
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
-  (setq mu4e-context-policy 'ask
+  (setq mu4e-context-policy 'pick-first
+        mu4e-compose-context-policy 'ask
         mu4e-compose-signature nil
         sendmail-program "/etc/profiles/per-user/lh/bin/msmtp"
         send-mail-function #'smtpmail-send-it
@@ -57,7 +59,6 @@
         mu4e-index-lazy-check nil
         mu4e-headers-full-search nil ;; toggle with Q
         gnus-treat-display-smileys nil
-        +mu4e-personal-addresses '("liam@hpfr.net")
         mu4e-bookmarks '((:name "Unread messages"
                           :query "flag:unread and not flag:trashed" :key ?u)
                          (:name "Today's messages" :query "date:today..now" :key ?t)
@@ -116,16 +117,8 @@ Prevents a series of redisplays from being called (when set to an appropriate va
           (run-at-time (* 1.1 mu4e-reindex-request-min-seperation) nil
                        #'mu4e-reindex-maybe))))))
 
-;; can't use after! due to mu4e module using use-package block's :after
-;; https://github.com/jwiegley/use-package/issues/829
-(use-package-hook! org-msg
-  :post-config
-  ;; Use org-msg to reply even with plaintext emails, but only export to plaintext
-  ;; in that case. that way we can take advantage of table syntax, etc
-  (setq org-msg-default-alternatives '((new . (utf-8 html))
-                                       (reply-to-html . (utf-8 html))
-                                       (reply-to-text . (utf-8)))
-        ;; no top-posting with HTML emails
-        org-msg-posting-style nil))
+(after! org-msg
+  ;; no top-posting with HTML emails
+  (setq org-msg-posting-style nil))
 
 (load! "private.el")
