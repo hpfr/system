@@ -37,6 +37,7 @@ in {
         evtest # debug integrated devices
         rmlint # find and rm duplicate files
         ssh-audit # audit ssh configuration
+        exiftool # work with photo exif data
         youtube-dl # video download
         rclone # multiplatform cloud sync
 
