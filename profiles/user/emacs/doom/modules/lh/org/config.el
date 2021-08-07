@@ -106,8 +106,10 @@
           (system . "xdg-open %s")
           (t . "xdg-open %s"))
         ;; always use UUID's in org headline links
-        org-id-link-to-org-use-id t)
-  (setq org-startup-folded 'showall))
+        org-id-link-to-org-use-id t
+        org-startup-folded 'showall
+        ;; no shouting
+        org-attach-auto-tag "attach"))
 
 (use-package! doct
   :commands (doct doct-add-to))
