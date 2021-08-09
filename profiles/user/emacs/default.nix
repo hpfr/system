@@ -44,20 +44,9 @@ in {
           # language linting and formatting
           shellcheck # shell linting
           shfmt # shell formatting
-          clang-tools # for clang-format
           nixfmt # opinionated nix formatting
           html-tidy # html and xml formatting
-          black # python
 
-          # language servers TODO direnv
-          ccls # c
-          lua53Packages.digestif # TeX
-          gopls # go
-          jdk11 # java
-          rls # rust
-          nodePackages.pyright # python
-          python3Packages.debugpy
-          nodePackages.javascript-typescript-langserver
           # docx to docview
         ] ++ optional config.profiles.user.gui-base.enable libreoffice;
 
