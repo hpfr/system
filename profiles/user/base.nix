@@ -38,6 +38,7 @@ in {
         ddcutil # change monitor settings
         evtest # debug integrated devices
         rmlint # find and rm duplicate files
+        trash-cli # manage XDG trash
         ssh-audit # audit ssh configuration
         exiftool # work with photo exif data
         youtube-dl # video download
