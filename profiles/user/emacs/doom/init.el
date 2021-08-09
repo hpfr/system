@@ -104,7 +104,7 @@
   +pandoc
   +pomodoro
   +present
-  +roam
+  +roam2
   )
  ;;raku
  (python +lsp +pyright)
