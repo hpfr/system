@@ -30,18 +30,64 @@ in {
           imapnotify = {
             enable = true;
             boxes = [ "INBOX" "Archive" "Drafts" "Junk" "Sent" "Trash" ];
-            onNotify = ''
-              mailbox="%s"; ${pkgs.isync}/bin/mbsync --pull hpfr:"$mailbox"
-            '';
-            onNotifyPost = ''
-              mailbox="%s"; if ${pkgs.mu}/bin/mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; if [ "$mailbox" == "INBOX" ]; then ${pkgs.libnotify}/bin/notify-send "hpfr: You've got mail"; fi; else touch /tmp/mu_reindex_now; fi
-            '';
+            onNotify = let
+              onNotifyScript = pkgs.writeShellScript "hpfr-notify.sh" ''
+                set -euo pipefail
+                mailbox="$1"
+                if [ "$mailbox" == "INBOX" ]; then
+                  ${pkgs.isync}/bin/mbsync --pull hpfr-inbox
+                else
+                  ${pkgs.isync}/bin/mbsync --pull hpfr-unchanged:"$mailbox"
+                fi
+              '';
+            in "${onNotifyScript} '%s'";
+            onNotifyPost = let
+              onNotifyPostScript =
+                pkgs.writeShellScript "hpfr-notify-post.sh" ''
+                  set -euo pipefail
+                  mailbox="$1"
+                  if ${pkgs.mu}/bin/mu index --lazy-check; then
+                    test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now
+                    if [ "$mailbox" == "INBOX" ]; then
+                      ${pkgs.libnotify}/bin/notify-send "hpfr: You've got mail"
+                    fi
+                  else
+                    touch /tmp/mu_reindex_now
+                  fi
+                '';
+            in "${onNotifyPostScript} '%s'";
           };
           mbsync = {
             enable = true;
             create = "maildir";
             expunge = "both";
             extraConfig.channel.CopyArrivalDate = "yes";
+            groups.hpfr.channels = {
+              unchanged = {
+                patterns = [
+                  "%"
+                  # renames
+                  "!INBOX"
+                  "!Inbox"
+                ];
+                extraConfig = {
+                  Create = "Near";
+                  Expunge = "both";
+                  CopyArrivalDate = "yes";
+                  SyncState = "*";
+                };
+              };
+              inbox = {
+                farPattern = "INBOX";
+                nearPattern = "Inbox";
+                extraConfig = {
+                  Create = "Near";
+                  Expunge = "both";
+                  CopyArrivalDate = "yes";
+                  SyncState = "*";
+                };
+              };
+            };
           };
           msmtp.enable = true;
         };
