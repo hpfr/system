@@ -9,9 +9,6 @@
         :disable t)
   (package! plz
     :recipe (:host github :repo "alphapapa/plz.el")))
-(package! telega
-  :recipe (:branch "releases")
-  :disable (not (member system-name personal-hosts)))
 (package! elpher)
 (package! yequake
   :disable (not (member system-name gui-capable-hosts)))

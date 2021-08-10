@@ -162,10 +162,6 @@
 (after! elpher
   (setq-hook! 'elpher-mode-hook gnutls-verify-error nil))
 
-;;; telega
-(load! "telega-server-libs.el")
-(use-package! telega)
-
 ;;; eshell
 (after! eshell
   (add-to-list 'eshell-modules-list 'eshell-tramp)
