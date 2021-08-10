@@ -82,7 +82,7 @@
         multimc # foss minecraft launcher
 
         # closed-source
-        quartus-prime-lite
+        # quartus-prime-lite
         wootility
       ];
       # ignore wooting Xbox device (https://github.com/ValveSoftware/Proton/issues/4579)
