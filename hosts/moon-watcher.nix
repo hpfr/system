@@ -70,7 +70,6 @@
         kicad
         inkscape
 
-        lutris
         chromium # browser testing
 
         # MCU dev
