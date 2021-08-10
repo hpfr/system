@@ -117,7 +117,11 @@
   ;; to work on NixOS, only returning /run/current-system/sw/bin:/bin:/usr/bin
   ;; this means magit, rg, etc don't work. this fixes the issue
   ;; https://www.gnu.org/software/tramp/#Remote-programs
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+  ;; tramp stores .tramp_history in the home directory by default
+  (when-let ((data-home (getenv "XDG_DATA_HOME")))
+    (setq tramp-histfile-override (concat data-home "/tramp_history"))))
 
 ;; with fish as my login shell, this might be necessary if people use
 ;; non-fish-supported POSIX or bash features in commands called by
