@@ -42,6 +42,8 @@ in {
 
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
+        zbar # QR decode
+        qrencode
 
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
