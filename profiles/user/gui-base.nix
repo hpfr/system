@@ -72,7 +72,6 @@ in {
 
         # messaging
         element-desktop # matrix electron client
-        signal-desktop # signal client
         tdesktop # telegram client (FOSS)
 
         # gaming
