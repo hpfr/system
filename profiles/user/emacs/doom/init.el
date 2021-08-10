@@ -94,7 +94,7 @@
  (go +lsp)
  (java +lsp)
  (javascript +lsp)
- (latex +latexmk +lsp)
+ (latex +lsp)
  markdown
  nix
  (org

@@ -109,7 +109,9 @@
         org-id-link-to-org-use-id t
         org-startup-folded 'showall
         ;; no shouting
-        org-attach-auto-tag "attach"))
+        org-attach-auto-tag "attach"
+        ;; export
+        org-latex-pdf-process '("tectonic --outdir=%o %f")))
 
 (use-package! doct
   :commands (doct doct-add-to))
