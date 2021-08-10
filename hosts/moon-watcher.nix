@@ -83,10 +83,7 @@
 
         # closed-source
         # quartus-prime-lite
-        wootility
       ];
-      # ignore wooting Xbox device (https://github.com/ValveSoftware/Proton/issues/4579)
-      sessionVariables.SDL_GAMECONTROLLER_IGNORE_DEVICES = "0x03EB/0xFF01";
     };
 
     xsession.windowManager.i3 = {
