@@ -52,7 +52,6 @@ in {
         safeeyes # reminds user on eye health
         nextcloud-client
 
-        # vscodium # for draw.io extension
         drawio
 
         # virtualization
@@ -77,7 +76,6 @@ in {
         # gaming
         libstrangle # fps limiter
         moltengamepad # hotplugging controller shim
-        # wine # wine is not an emulator
       ];
 
       sessionVariables = {
@@ -132,7 +130,6 @@ in {
       gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     };
 
-    # qt apps quit with "No GSettings schemas are installed on the system"
     qt = {
       enable = true;
       platformTheme = "gnome"; # use gtk file chooser, etc with qt apps
