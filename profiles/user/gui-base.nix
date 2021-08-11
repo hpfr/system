@@ -70,7 +70,6 @@ in {
         zotero # research citation manager
 
         # messaging
-        element-desktop # matrix electron client
         tdesktop # telegram client (FOSS)
 
         # gaming
