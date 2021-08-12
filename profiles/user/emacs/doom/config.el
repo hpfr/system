@@ -194,6 +194,7 @@
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))
 (put 'lsp-csharp-solution-file 'safe-local-variable 'stringp)
+(set-docsets! 'csharp-mode :add "NET Framework")
 
 ;;; java
 ;; (setq lsp-java-format-settings-url "file:///home/lh/repos/system/profiles/user/emacs/doom/lib/eclipse-style-four-spaces.xml"
