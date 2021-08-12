@@ -138,13 +138,7 @@ in {
       };
     };
 
-    programs = {
-      mangohud.enable = true;
-      vscode = {
-        enable = true;
-        package = pkgs.vscode-fhsWithPackages (ps: with ps; [ dotnet-sdk_5 ]);
-      };
-    };
+    programs.mangohud.enable = true;
 
     services.network-manager-applet.enable = true;
   };
