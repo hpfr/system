@@ -30,6 +30,7 @@ in {
           # TODO: expose these only to emacs somehow
           gnutls # circe
           gcc # roam, magit forge https://www.reddit.com/r/emacs/comments/adlmh2/
+          sqlite # dash docsets
           ripgrep # doom code searching features
           jq # json parsing
           gdb # gdb mode, lsp gdb
