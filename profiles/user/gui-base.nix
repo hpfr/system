@@ -89,7 +89,7 @@ in {
       mimeApps.enable = true;
       userDirs = {
         enable = true;
-        desktop = "$HOME/desktop";
+        desktop = "$HOME/documents/desktop";
         documents = "$HOME/documents";
         download = "$HOME/downloads";
         music = "$HOME/documents/music";
