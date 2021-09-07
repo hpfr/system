@@ -200,6 +200,11 @@
   ;; scheduled time
   (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
         org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
+        ;; these items will appear in the standard agenda view and have already
+        ;; been prioritized
+        org-agenda-todo-ignore-deadlines 'near
+        org-agenda-todo-ignore-scheduled 'all
+        ;; org-agenda-todo-ignore-with-date t
         org-agenda-prefix-format
         '((agenda . " %i %?-12t% s")
           (todo . " %i ")
