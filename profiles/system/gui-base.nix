@@ -94,6 +94,9 @@ in {
       # libratbag for mouse configuration
       ratbagd.enable = true;
 
+      # usbmuxd for libimobiledevice
+      usbmuxd.enable = true;
+
       # for proprietary apps like Spotify, Discord, and Slack
       flatpak.enable = true;
     };
