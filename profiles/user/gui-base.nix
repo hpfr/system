@@ -60,6 +60,8 @@ in {
         virtmanager # manage VM's graphically
         remmina # usable RDP client
         openconnect # cs.wisc.edu VPN
+        wine # windows translation layer
+        winetricks
 
         # applications
         keepassxc # password manager
