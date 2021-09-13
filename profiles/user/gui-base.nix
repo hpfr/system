@@ -31,6 +31,7 @@ in {
         xdg-user-dirs # xdg-user-dir command for finding custom dirs
         desktop-file-utils # validate desktop files and update db
 
+        texlive.combined.scheme-medium # for dvipng for latex preview
         tectonic # new and improved latex environment
         biber # biblatex backend
         pandoc # convert document formats
