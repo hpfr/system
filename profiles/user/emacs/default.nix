@@ -39,6 +39,7 @@ in {
           python3 # treemacs advanced features
 
           # language linting and formatting
+          (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
           shellcheck # shell linting
           shfmt # shell formatting
           nixfmt # opinionated nix formatting
@@ -46,6 +47,10 @@ in {
 
           # docx to docview
         ] ++ optional config.profiles.user.gui-base.enable libreoffice;
+
+      file.".aspell.conf".text = ''
+        variety w_accents
+      '';
 
       sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
       sessionVariables = {

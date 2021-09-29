@@ -181,6 +181,12 @@
 (use-package! emacs-conflict)
 
 ;;; languages
+;;; english
+(after! spell-fu
+  ;; aspell config is ignored by emacs ispell library
+  (setq ispell-dictionary "en_US-w_accents"
+        ispell-personal-dictionary (expand-file-name "~/.aspell.en.pws")))
+
 ;;; latex
 (add-to-list 'safe-local-eval-forms '(setq lsp-clients-texlab-executable (executable-find "texlab")))
 (after! latex

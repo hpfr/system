@@ -68,7 +68,7 @@
 
  :checkers
  syntax
- ;;spell
+ spell
  ;;grammar
 
  :tools
