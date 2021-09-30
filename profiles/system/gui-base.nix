@@ -50,11 +50,8 @@ in {
       };
     };
 
-    # fix for virt-manager USB redirection
-    security.wrappers.spice-client-glib-usb-acl-helper.source =
-      "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
-    # packages that use polkit must be at system level
-    environment.systemPackages = with pkgs; [ spice-gtk ];
+    # passthrough USB devices to VM's over SPICE
+    virtualisation.spiceUSBRedirection.enable = true;
 
     services = {
       logind.extraConfig = ''
