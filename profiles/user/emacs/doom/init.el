@@ -69,7 +69,7 @@
  :checkers
  syntax
  spell
- ;;grammar
+ grammar
 
  :tools
  (debugger +lsp)

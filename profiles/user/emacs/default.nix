@@ -40,6 +40,8 @@ in {
 
           # language linting and formatting
           (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+          languagetool # grammar
+          jdk # languagetool
           shellcheck # shell linting
           shfmt # shell formatting
           nixfmt # opinionated nix formatting
@@ -70,6 +72,10 @@ in {
         '';
         "doom/modules/lh/email/mu4e-load-path.el".text = ''
           (add-to-list 'load-path "${pkgs.mu}/share/emacs/site-lisp/mu4e")
+        '';
+        "doom/languagetool-server-jar.el".text = ''
+          (after! langtool
+            (setq langtool-language-tool-server-jar "${pkgs.languagetool}/share/languagetool-server.jar"))
         '';
       };
       mimeApps = let
