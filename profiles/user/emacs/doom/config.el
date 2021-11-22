@@ -135,6 +135,21 @@
 (after! dired
   (setq all-the-icons-dired-monochrome nil))
 
+;;; dashboard
+;; shortcuts inspired by tecosaur
+(map! :map +doom-dashboard-mode-map
+      :ne "f" #'find-file
+      :ne "r" #'consult-recent-file
+      :ne "s" (cmd! (doom-project-browse (expand-file-name "~/repos/system/")))
+      :ne "e" (cmd! (doom-project-browse (expand-file-name "~/repos/system/profiles/user/emacs/doom/")))
+      ;; :ne "c" (cmd! (find-file (expand-file-name "config.org" doom-private-dir)))
+      ;; :ne "." (cmd! (doom-project-find-file "~/.config/")) ; . for dotfiles
+      :ne "b" #'+vertico/switch-workspace-buffer
+      :ne "B" #'consult-buffer
+      :ne "q" #'save-buffers-kill-terminal)
+;; hide shortcuts, I know them
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
 ;;; image
 (setq image-use-external-converter t)   ; view HEIC files from Apple devices
 (add-to-list 'auto-mode-alist '("\\.heic\\'" . image-mode))
