@@ -143,6 +143,10 @@
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
 
+;;; personal
+(setq user-full-name "Liam Hupfer"
+      user-mail-address "liam@hpfr.net")
+
 ;;;; apps
 ;;; elfeed
 (after! elfeed
