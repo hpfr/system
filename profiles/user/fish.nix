@@ -52,7 +52,7 @@ in {
           sctl = "sudo systemctl";
           uctl = "systemctl --user";
           protontricks =
-            "flatpak run --command=protontricks com.valvesoftware.Steam";
+            "flatpak run com.github.Matoking.protontricks";
         };
         functions = {
           ls.body = ''
