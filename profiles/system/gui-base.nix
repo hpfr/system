@@ -101,7 +101,8 @@ in {
     # for Flatpak
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = optional (!config.profiles.system.gnome.enable)
+        pkgs.xdg-desktop-portal-gtk;
       gtkUsePortal = false;
     };
 
