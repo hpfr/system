@@ -37,6 +37,7 @@ in {
         usbutils # lsusb
         ddcutil # change monitor settings
         evtest # debug integrated devices
+        diffoscope # advanced file diff tool
         rmlint # find and rm duplicate files
         trash-cli # manage XDG trash
         ssh-audit # audit ssh configuration
