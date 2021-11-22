@@ -189,45 +189,50 @@
              ("project-local changelog" :keys "c"
               :file +org-capture-central-project-changelog-file :headline "Unreleased")))))))
 
+;;; agenda
 (use-package! org-super-agenda
-  ;; :commands (org-super-agenda-mode)
-  :after org-agenda
-  ;; :init
-  :config
-  (org-super-agenda-mode)
-  ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
-  ;; doesn't release until the scheduled time), don't warn me until the
-  ;; scheduled time
-  (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-        org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
-        ;; these items will appear in the standard agenda view and have already
-        ;; been prioritized
-        org-agenda-todo-ignore-deadlines 'near
-        org-agenda-todo-ignore-scheduled 'all
-        ;; org-agenda-todo-ignore-with-date t
-        org-agenda-prefix-format
-        '((agenda . " %i %?-12t% s")
-          (todo . " %i ")
-          (tags . " %i ")
-          (search . " %i "))
-        ;; disable special keybindings on header lines
-        org-super-agenda-header-map nil
-        org-super-agenda-groups
-        '((:name "Schedule"
-           :time-grid t)
-          (:name "Today"
-           :scheduled today)
-          (:name "Due today"
-           :deadline today)
-          (:name "Overdue"
-           :deadline past)
-          (:name "Due soon"
-           :deadline future)
-          (:name "Waiting"
-           :todo "WAIT"
-           :order 98)
-          (:name "Scheduled earlier"
-           :scheduled past))))
+  :commands (org-super-agenda-mode))
+
+(after! org-agenda
+  (setq
+   ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
+   ;; doesn't release until the scheduled time), don't warn me until the
+   ;; scheduled time
+   org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+   org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
+   ;; these items will appear in the standard agenda view and have already
+   ;; been prioritized
+   org-agenda-todo-ignore-deadlines 'near
+   org-agenda-todo-ignore-scheduled 'all
+   ;; org-agenda-todo-ignore-with-date t
+   org-agenda-prefix-format
+   '((agenda . " %i %?-12t% s")
+     (todo . " %i ")
+     (tags . " %i ")
+     (search . " %i ")))
+
+  (org-super-agenda-mode))
+
+(after! org-super-agenda
+  (setq
+   ;; disable special keybindings on header lines
+   org-super-agenda-header-map nil
+   org-super-agenda-groups
+   '((:name "Schedule"
+      :time-grid t)
+     (:name "Today"
+      :scheduled today)
+     (:name "Due today"
+      :deadline today)
+     (:name "Overdue"
+      :deadline past)
+     (:name "Due soon"
+      :deadline future)
+     (:name "Waiting"
+      :todo "WAIT"
+      :order 98)
+     (:name "Scheduled earlier"
+      :scheduled past))))
 
 (after! org-pomodoro
   (setq org-pomodoro-manual-break t))
@@ -290,7 +295,6 @@
    :map pdf-view-mode-map
    :n "i" 'org-noter-insert-note))
 
-;; TODO: this block causes org-mode to load immediately
 (use-package! org-caldav
   :after org
   :config
