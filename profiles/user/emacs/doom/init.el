@@ -58,7 +58,7 @@
  (dired
   +icons)
  electric
- ibuffer
+ (ibuffer +icons)
  undo
  vc
 
