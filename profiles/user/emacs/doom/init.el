@@ -34,8 +34,8 @@
  nav-flash
  ophints
  (popup
-  +defaults)
- ;;tabs
+  +defaults
+  +all)
  (treemacs +lsp)
  unicode
  vc-gutter
