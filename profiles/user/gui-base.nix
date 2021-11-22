@@ -20,6 +20,7 @@ in {
       mpv.enable = true; # video player
       nomacs.enable = true; # versatile photo viewer
       celluloid.enable = true; # mpv gtk frontend
+      remmina.enable = true; # remote machine connections
     };
 
     home = {
@@ -58,7 +59,6 @@ in {
         # virtualization
         libvirt # manage VM's
         virtmanager # manage VM's graphically
-        remmina # usable RDP client
         openconnect # cs.wisc.edu VPN
         wine # windows translation layer
         winetricks
