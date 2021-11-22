@@ -42,8 +42,11 @@ in {
         libimobiledevice # iOS device utils
         sc-controller # use steam controller without steam
 
+        # documents
         imagemagick7 # image editing CLI and GUI
         qpdf # pdf manipulation CLI
+        diff-pdf # pdf comparison
+        ocrmypdf # OCR tool wrapping tesseract
         zbar # QR decode
         qrencode
 
