@@ -245,7 +245,12 @@
                  ;; %(mode) not supported yet? same with %(file-line-error)
                  '("Tectonic" "tectonic %S %(extraopts) %t" TeX-run-command nil
                    (plain-tex-mode latex-mode doctex-mode) :help "Run Tectonic")
-                 TeX-command-list)))
+                 TeX-command-list))
+  (setq reftex-default-bibliography '("~/nc/research/main.bib")))
+(after! citar
+  (setq! citar-bibliography '("~/nc/research/main.bib")
+         citar-library-paths '("~/nc/research/documents/")
+         citar-notes-paths '("~/nc/personal/research/")))
 
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))

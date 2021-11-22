@@ -73,6 +73,7 @@
  grammar
 
  :tools
+ biblio
  (debugger +lsp)
  direnv
  editorconfig
