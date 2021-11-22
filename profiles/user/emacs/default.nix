@@ -40,6 +40,7 @@ in {
 
           # language linting and formatting
           (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+          sdcv # dictionary lookup
           languagetool # grammar
           jdk # languagetool
           shellcheck # shell linting

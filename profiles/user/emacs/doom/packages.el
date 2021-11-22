@@ -2,6 +2,7 @@
 (package! emacs-conflict :recipe
   (:host github :repo "ibizaman/emacs-conflicts"))
 (package! vimrc-mode)
+(package! lexic)
 (package! disk-usage)
 (package! ztree :pin "f05677f9696e573c8c607e8876fb4a0cccbc491f")
 (when (package! ement

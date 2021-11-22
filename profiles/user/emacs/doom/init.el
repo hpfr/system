@@ -77,6 +77,7 @@
  editorconfig
  (eval +overlay)
  (lookup
+  +dictionary
   +docsets)
  (lsp +peek)
  (magit +forge)
