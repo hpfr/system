@@ -53,6 +53,7 @@
  multiple-cursors
  rotate-text
  snippets
+ ;; word-wrap
 
  :emacs
  (dired
@@ -81,10 +82,11 @@
   +docsets)
  (lsp +peek)
  (magit +forge)
+ ;; make
  (:when (member system-name gui-capable-hosts)
   pdf)
  rgb
- ;;upload
+ ;; upload
 
  :lang
  assembly
@@ -113,11 +115,15 @@
  web
  yaml
 
+ ;; :os
+ ;; tty
+
  :email
  (:when (member system-name personal-hosts)
   (mu4e +org +gmail))
 
  :app
+ ;; everywhere
  irc
  (:when (member system-name personal-hosts)
   (rss +org))
