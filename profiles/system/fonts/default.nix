@@ -47,6 +47,7 @@ in {
         # TODO: https://github.com/ryanoasis/nerd-fonts/issues/479
         # https://github.com/ryanoasis/nerd-fonts/pull/461
         iosevka-nerd-font # icons
+        cm_unicode
       ];
 
       # TODO: copy this option's functionality into home-manager module
