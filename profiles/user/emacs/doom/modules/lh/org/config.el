@@ -116,6 +116,15 @@
 (after! ox-latex
   (setq org-latex-pdf-process '("tectonic --outdir=%o %f")))
 
+;; hide individual blocks with #+hide: t on the line preceding #+begin_...
+(add-hook! 'org-mode-hook
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^#\\+begin_\\(src\\|quote\\)" nil t)
+      (and (save-excursion
+             (goto-char (line-beginning-position 0))
+             (looking-at-p "\\s-*#\\+hide: t\n"))
+           (org-hide-block-toggle t)))))
 
 (use-package! doct
   :commands (doct doct-add-to))
