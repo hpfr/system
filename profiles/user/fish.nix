@@ -51,8 +51,7 @@ in {
           nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
           sctl = "sudo systemctl";
           uctl = "systemctl --user";
-          protontricks =
-            "flatpak run com.github.Matoking.protontricks";
+          protontricks = "flatpak run com.github.Matoking.protontricks";
         };
         functions = {
           ls.body = ''
