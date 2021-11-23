@@ -34,11 +34,11 @@ in {
               onNotifyScript = pkgs.writeShellScript "hpfr-notify.sh" ''
                 set -euo pipefail
                 mailbox="$1"
-                if [ "$mailbox" == "INBOX" ]; then
-                  ${pkgs.isync}/bin/mbsync --pull hpfr-inbox
-                else
-                  ${pkgs.isync}/bin/mbsync --pull hpfr-unchanged:"$mailbox"
-                fi
+
+                case "$mailbox" in
+                  "INBOX") ${pkgs.isync}/bin/mbsync --pull hpfr-inbox;;
+                  *) ${pkgs.isync}/bin/mbsync --pull hpfr-unchanged:"$mailbox";;
+                esac
               '';
             in "${onNotifyScript} '%s'";
             onNotifyPost = let
