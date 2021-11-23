@@ -66,7 +66,7 @@ in {
         virtmanager # manage VM's graphically
         openconnect # cs.wisc.edu VPN
         wineWowPackages.stable # windows translation layer, 32 and 64 bit
-        (winetricks.override { wine = wineWowPackages.stable; })
+        winetricks
 
         # applications
         keepassxc # password manager
