@@ -171,15 +171,6 @@
             :file +org-capture-notes-file
             :template ("* %?"
                        "%i"))
-           ("email" :keys "m" :prepend t :kill-buffer t
-            :file +org-capture-todo-file :headline "Inbox"
-            :contexts (:in-mode "mu4e-\\(view\\|headers\\)-mode")
-            :template ("* TODO %?"
-                       ":LOGBOOK:"
-                       "- State \"TODO\"       from              %U"
-                       ":END:"
-                       "- %a"
-                       "%i"))
 
            ("project-local" :keys "p" :prepend t :kill-buffer t
             :file +org-capture-project-todo-file :headline "Inbox"

@@ -28,6 +28,7 @@
          (headers (-filter (lambda (spec) (not (-contains-p '("To" "Subject" "Body") (car spec)))) mailto)))
     (mu4e~compose-mail to subject headers)))
 
+(setq +mu4e-capture-template nil)
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
@@ -62,6 +63,22 @@
                          (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
                          (:name "Messages with images" :query "mime:image/*" :key ?p)
                          (:name "Flagged messages" :query "flag:flagged" :key ?f)))
+
+  (when (featurep! :lang org)
+    (setq org-capture-templates
+          (doct-add-to org-capture-templates
+                       '(("email" :keys "m" :prepend t :kill-buffer t
+                          :file "inbox.org"
+                          :contexts (:in-mode "mu4e-\\(view\\|headers\\)-mode")
+                          :template ("* TODO %?"
+                                     ":LOGBOOK:"
+                                     "- State \"TODO\"       from              %U"
+                                     ":END:"
+                                     "- %a"
+                                     "%i"))))))
+
+  (map! :map mu4e-headers-mode-map
+        :vne "l" (lambda () (interactive) (org-capture nil "m")))
 
   (defvar mu4e-reindex-request-file "/tmp/mu_reindex_now"
     "Location of the reindex request, signaled by existence")
