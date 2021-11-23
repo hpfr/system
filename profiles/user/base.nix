@@ -24,6 +24,8 @@ in {
         # CLI's
         zip
         unzip
+        unar # unified extractor
+        libarchive # unified extractor
         wget # file download
         fd # better find
         bat # better cat
