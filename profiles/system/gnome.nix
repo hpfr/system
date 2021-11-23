@@ -19,6 +19,11 @@ in {
       platformTheme = "gnome";
     };
 
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.gnomeExtensions.gsconnect;
+    };
+
     environment = {
       systemPackages = with pkgs; [ gnome.gnome-tweaks ];
       gnome.excludePackages = with pkgs.gnome; [

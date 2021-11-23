@@ -21,6 +21,7 @@ in {
       gnomeExtensions.sound-output-device-chooser
       gnomeExtensions.emoji-selector
       gnome.dconf-editor
+      gnome.nautilus-python # gsconnect nautilus integration
     ];
 
     # not necessary in a desktop environment
@@ -44,6 +45,7 @@ in {
           "sound-output-device-chooser@kgshank.net"
           "emoji-selector@maestroschan.fr"
           "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
+          "gsconnect@andyholmes.github.io"
         ];
         "org/gnome/shell".favorite-apps = [
           "emacsclient.desktop"
