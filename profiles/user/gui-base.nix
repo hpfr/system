@@ -54,6 +54,7 @@ in {
         gnome.gnome-sound-recorder # audio recording
         songrec # shazam client
         piper # mouse configuration via libratbag
+        dragon-drop # drag and drop from the terminal (and emacs)
 
         safeeyes # reminds user on eye health
         nextcloud-client

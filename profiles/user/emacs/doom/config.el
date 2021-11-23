@@ -134,6 +134,13 @@
 ;;; dired
 (after! dired
   (setq all-the-icons-dired-monochrome nil))
+;; use dired as a drag and drop source (dired already works as a sink)
+(use-package! dired-dragon
+  :after dired
+  :config
+  (map! :map dired-mode-map
+        :localleader
+        :desc "Drag and drop files" "d" #'dired-dragon))
 
 ;;; dashboard
 ;; shortcuts inspired by tecosaur
