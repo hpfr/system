@@ -52,6 +52,7 @@ in {
 
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
+        songrec # shazam client
         piper # mouse configuration via libratbag
 
         safeeyes # reminds user on eye health
