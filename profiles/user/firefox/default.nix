@@ -55,12 +55,6 @@ in {
 
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
-            # https://reddit.com/r/firefox/comments/bcph6f/dark_about_pages_now_available_in_nightly/
-            "browser.in-content.dark-mode" = true;
-            "ui.systemUsesDarkTheme" = 1;
-            # # the below option forces dark UI elements like text boxes but can
-            # # break with bad webpages that set text to black
-            # "widget.content.allow-gtk-dark-theme" = true;
             # don't sync whether add-ons are enabled to change them per device
             "services.sync.addons.ignoreUserEnabledChanges" = true;
 
