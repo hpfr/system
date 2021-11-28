@@ -85,7 +85,9 @@ in {
           maximize = [ "<Super>Up" "<Super>k" ];
           unmaximize = [ "<Super>Down" "<Super>j" ];
           toggle-fullscreen = [ "<Super>f" ];
+          # this one has two names?
           toggle-above = [ "<Super>s" ];
+          # always-on-top = [ "<Super>s" ];
           toggle-on-all-workspaces = [ "<Super><Shift>s" ];
           activate-window-menu = [ "<Super>space" ];
           switch-input-source = [ "XF86Keyboard" ];
