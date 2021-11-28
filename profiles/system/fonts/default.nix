@@ -38,23 +38,25 @@ in {
         source-code-pro
         iosevka-term # monospace
         iosevka-term-curly-slab # monospace serif for emacs
+        julia-mono # monospaced unicode
         joypixels # emoji
         undefined-medium # pseudo-bitmap
         # https://github.com/adobe-fonts/source-han-mono/issues/1
         source-han-sans # CJK support
         source-han-serif
         source-han-mono
-        # TODO: https://github.com/ryanoasis/nerd-fonts/issues/479
-        # https://github.com/ryanoasis/nerd-fonts/pull/461
-        iosevka-nerd-font # icons
+        # computer modern but unicode
         cm_unicode
       ];
 
       # TODO: copy this option's functionality into home-manager module
+      # TODO: figure out Noto fallbacks
+      # https://docs.fedoraproject.org/en-US/packaging-guidelines/FontsPolicy/
+      # https://src.fedoraproject.org/rpms/google-noto-fonts/c/6ec5a0916978c1565534038d084a88a9913f1837?branch=rawhide
       fontconfig.defaultFonts = {
-        serif = [ "Source Serif Variable" ];
-        sansSerif = [ "Lato" ];
-        monospace = [ "Iosevka Term" ];
+        serif = [ "Source Serif 4 Variable" "Noto Serif" "Source Han Serif" ];
+        sansSerif = [ "Lato" "Noto Sans" "Source Han Sans" ];
+        monospace = [ "Iosevka Term" "Source Han Mono" "JuliaMono" ];
         emoji = [ "JoyPixels" ];
       };
     };

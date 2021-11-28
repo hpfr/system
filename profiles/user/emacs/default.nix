@@ -47,9 +47,12 @@ in {
           shfmt # shell formatting
           nixfmt # opinionated nix formatting
           html-tidy # html and xml formatting
-
+        ] ++ optionals config.profiles.user.gui-base.enable [
           # docx to docview
-        ] ++ optional config.profiles.user.gui-base.enable libreoffice;
+          libreoffice
+          # TODO: replace with symbols nerd font
+          emacs-all-the-icons-fonts
+        ];
 
       file.".aspell.conf".text = ''
         variety w_accents
