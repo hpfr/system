@@ -65,6 +65,9 @@ in {
         displayManager.gdm.enable = true;
       };
 
+      # support for color profiles
+      colord.enable = true;
+
       blueman.enable = true;
 
       dbus.packages = with pkgs; [ gnome.dconf ];
