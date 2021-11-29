@@ -12,7 +12,7 @@ in {
       waybar.enable = true;
     };
 
-    home.packages = with pkgs; [ wofi ];
+    home.packages = with pkgs; [ wofi wdisplays ];
 
     wayland.windowManager.sway = {
       enable = true;
