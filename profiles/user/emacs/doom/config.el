@@ -196,11 +196,11 @@
 (after! eshell
   (add-to-list 'eshell-modules-list 'eshell-tramp)
   (set-eshell-alias!
-   "nrs" "sudo nixos-rebuild switch $*"
-   "nrsu" "sudo nix-channel --update; sudo nixos-rebuild switch $*"
-   "nrsl" "sudo nixos-rebuild switch -option builders '' $*"
+   "nrs" "doas nixos-rebuild switch $*"
+   "nrsu" "doas nix-channel --update; doas nixos-rebuild switch $*"
+   "nrsl" "doas nixos-rebuild switch --option builders '' $*"
    "mkd" "mkdir -pv"
-   "sctl" "sudo systemctl"
+   "sctl" "doas systemctl"
    "uctl" "systemctl --user"))
 
 ;; find syncthing conflicts

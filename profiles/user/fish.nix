@@ -46,10 +46,10 @@ in {
         '';
         shellAbbrs = {
           mkd = "mkdir -pv";
-          nrs = "sudo nixos-rebuild switch";
-          nrsl = "sudo nixos-rebuild switch -option builders ''";
-          nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
-          sctl = "sudo systemctl";
+          nrs = "doas nixos-rebuild switch";
+          nrsl = "doas nixos-rebuild switch --option builders ''";
+          nrsu = "doas nix-channel --update; doas nixos-rebuild switch";
+          sctl = "doas systemctl";
           uctl = "systemctl --user";
           protontricks = "flatpak run com.github.Matoking.protontricks";
         };

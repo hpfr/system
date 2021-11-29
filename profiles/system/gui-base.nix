@@ -73,7 +73,7 @@ in {
       dbus.packages = with pkgs; [ gnome.dconf ];
 
       udev.extraRules = ''
-        # ddcutil without sudo
+        # ddcutil without root
         # Assigns the i2c devices to group i2c, and gives that group RW access:
         KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
         #, PROGRAM="${pkgs.ddcutil}/bin/ddcutil --bus=%n getvcp 0x10

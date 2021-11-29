@@ -48,6 +48,16 @@ in {
       ssh.startAgent = true;
     };
 
+    # simple sudo alternative
+    security.doas = {
+      enable = true;
+      extraRules = [{
+        groups = [ "wheel" ];
+        persist = true;
+        keepEnv = true;
+      }];
+    };
+
     services.openssh = {
       enable = true;
       passwordAuthentication = false;
@@ -77,7 +87,7 @@ in {
       isNormalUser = true;
       shell = pkgs.fish;
       extraGroups = [
-        "wheel" # sudo
+        "wheel" # root privileges
         "input" # uinput? steam controller?
       ];
     };

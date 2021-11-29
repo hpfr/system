@@ -22,9 +22,9 @@ in {
       ];
       shellAliases = {
         mkd = "mkdir -pv";
-        nrs = "sudo nixos-rebuild switch";
-        nrsl = "sudo nixos-rebuild switch -option builders ''";
-        nrsu = "sudo nix-channel --update; sudo nixos-rebuild switch";
+        nrs = "doas nixos-rebuild switch";
+        nrsl = "doas nixos-rebuild switch --option builders ''";
+        nrsu = "doas nix-channel --update; doas nixos-rebuild switch";
         ls = "ls -hN --color=auto --group-directories-first";
         grep = "grep --color=auto";
         diff = "diff --color";
