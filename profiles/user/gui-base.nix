@@ -75,7 +75,6 @@ in {
         foliate # ebook reader
         mcomix3 # comic reader
         unrar # to open cbr's in mcomix3
-        anki # spaced repetition software
         zotero # research citation manager
 
         # messaging
