@@ -9,6 +9,12 @@ in {
   config = mkIf cfg.enable {
     profiles.user.wayland-base.enable = true;
 
+    # glib has gsettings
+    systemd.user.services.bgcron.Service.Environment = "PATH=${
+        with pkgs;
+        lib.makeBinPath [ coreutils libnotify glib xdg-user-dirs ]
+      }";
+
     # Disable gnome-keyring ssh-agent in favor of the default agent
     xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
       ${fileContents

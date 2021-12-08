@@ -9,6 +9,11 @@ in {
   config = mkIf cfg.enable {
     profiles.user.gui-base.enable = true;
 
+    systemd.user.services.bgcron.Service.Environment = mkDefault "PATH=${
+        with pkgs;
+        lib.makeBinPath [ coreutils libnotify swaybg xdg-user-dirs ]
+      }";
+
     # # numerous QT apps can't handle this
     # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
     home.sessionVariables = {

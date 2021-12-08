@@ -44,30 +44,10 @@ in {
       gui-scripts
     ];
 
-    systemd.user = {
-      timers.bgcron = {
-        Unit.After = [ "graphical.target" ];
-        Timer = {
-          OnCalendar = "daily";
-          Unit = "bgcron.service";
-          Persistent = true;
-        };
-        Install.WantedBy = [ "timers.target" ];
-      };
-      services.bgcron = {
-        Unit = {
-          After = [ "graphical.target" ];
-          Wants = [ "bgcron.timer" ];
-        };
-        Service = {
-          Environment = "PATH=${
-              with pkgs;
-              lib.makeBinPath [ coreutils libnotify xwallpaper ]
-            }";
-          ExecStart = "${pkgs.gui-scripts}/bin/setbg";
-        };
-      };
-    };
+    systemd.user.services.bgcron.Service.Environment = "PATH=${
+        with pkgs;
+        lib.makeBinPath [ coreutils libnotify xwallpaper xdg-user-dirs ]
+      }";
 
     xsession = {
       enable = true;

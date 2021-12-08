@@ -91,6 +91,25 @@ in {
       };
     };
 
+    systemd.user = {
+      timers.bgcron = {
+        Unit.After = [ "graphical.target" ];
+        Timer = {
+          OnCalendar = "daily";
+          Unit = "bgcron.service";
+          Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
+      };
+      services.bgcron = {
+        Unit = {
+          After = [ "graphical.target" ];
+          Wants = [ "bgcron.timer" ];
+        };
+        Service.ExecStart = "${pkgs.gui-scripts}/bin/setbg";
+      };
+    };
+
     xdg = {
       enable = true;
       # see application profiles for file associations and defaults

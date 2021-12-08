@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Sets the background. If given an argument, will set file as background. If
+# not, set random background
+# Creates a symlink from the argument to ~/.config/wall to easily get image details
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    case "$XDG_CURRENT_DESKTOP" in
+
+        GNOME)
+            COMMAND='gsettings set org.gnome.desktop.background picture-uri file:///'
+            ;;
+        KDE)
+            exit
+            ;;
+        *)
+            COMMAND='swaybg '
+            ;;
+    esac
+elif [ -n "$DISPLAY" ]; then
+    COMMAND='xwallpaper --zoom '
+
+# can't see env vars from systemd service
+elif [ -n "$(command -v gsettings)" ]; then
+    COMMAND='gsettings set org.gnome.desktop.background picture-uri file:///'
+elif [ -n "$(command -v swaybg)" ]; then
+    COMMAND='swaybg '
+elif [ -n "$(command -v xwallpaper)" ]; then
+    COMMAND='xwallpaper --zoom '
+else
+    exit
+fi
+if [ -n "$1" ]; then
+    WP_PATH=$(realpath "$1")
+else
+    WALLS="$(xdg-user-dir PICTURES)/wallpapers"
+    # array of wallpaper paths
+    WA=("$WALLS"/*)
+    echo "Changing wallpaper..."
+    COUNT=${#WA[@]}
+    echo "Wallpaper count: $COUNT"
+
+    RAND=$((RANDOM % COUNT))
+    echo "Selected wallpaper $RAND"
+
+    WP_PATH=${WA[$RAND]}
+    echo "Wallpaper file path: $WP_PATH"
+fi
+# set the background
+${COMMAND}"$WP_PATH"
+ln -s --force $WP_PATH ~/.config/wall
+notify-send -i "$WP_PATH" "Wallpaper changed."
