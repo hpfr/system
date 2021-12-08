@@ -25,6 +25,16 @@ in {
             outputHash = "109pywbskq0f830ahrpgh4l56a0g9anzz0f12db2zhqlfi5gcbbw";
           });
         })
+        # ignore redundant ttf's, as well as variable ttf's which break latex usage
+        (self: super: {
+          stix-two = super.stix-two.overrideAttrs (oldAttrs: {
+            postFetch = ''
+              mkdir -p $out/share/fonts
+              unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+            '';
+            outputHash = "sha256-9AZUQReu9bqhUJV33JIsCYrpfnBcGb9PqkpJeNVFSjc=";
+          });
+        })
       ];
     };
     fonts = {
@@ -36,6 +46,8 @@ in {
         source-serif-pro
         source-sans-pro
         source-code-pro
+        stix-two
+        libertinus
         iosevka-term # monospace
         iosevka-term-curly-slab # monospace serif for emacs
         julia-mono # monospaced unicode
@@ -47,6 +59,7 @@ in {
         source-han-mono
         # computer modern but unicode
         cm_unicode
+        gyre-fonts # times new roman-, arial-, courier-likes
       ];
 
       # TODO: copy this option's functionality into home-manager module
