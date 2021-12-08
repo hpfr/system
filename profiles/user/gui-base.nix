@@ -32,7 +32,14 @@ in {
         xdg-user-dirs # xdg-user-dir command for finding custom dirs
         desktop-file-utils # validate desktop files and update db
 
-        texlive.combined.scheme-medium # for dvipng for latex preview
+        (texlive.combine {
+          inherit (texlive)
+            collection-basic collection-latex collection-latexrecommended
+            collection-xetex dvipng dvisvgm latexmk synctex
+            # mla.cls
+            enumitem preprint newtx titlesec xstring csquotes hanging biblatex
+            enotez fontaxes biblatex-mla translations;
+        })
         tectonic # new and improved latex environment
         biber # biblatex backend
         pandoc # convert document formats
