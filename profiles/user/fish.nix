@@ -11,13 +11,19 @@ in {
       fish = {
         enable = true;
         interactiveShellInit = ''
+          # less colors
+          # https://unix.stackexchange.com/questions/119/colors-in-man-pages/147#147
+          # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
           # fish-foreign-env does not handle $()
-          set LESS_TERMCAP_mb (tput bold; tput setaf 2)
-          set LESS_TERMCAP_md (tput bold; tput setaf 6)
+          # keep tput in interactive commands, otherwise it can break things using
+          # non-interactive shells like remote builds. colors don't matter in
+          # non-interactive shells anyway
+          set LESS_TERMCAP_mb (tput bold; tput setaf 2) # green
+          set LESS_TERMCAP_md (tput bold; tput setaf 6) # cyan
           set LESS_TERMCAP_me (tput sgr0)
-          set LESS_TERMCAP_so (tput bold; tput setaf 3; tput setab 4)
+          set LESS_TERMCAP_so (tput bold; tput setaf 3; tput setab 4) # yellow on blue
           set LESS_TERMCAP_se (tput rmso; tput sgr0)
-          set LESS_TERMCAP_us (tput smul; tput bold; tput setaf 7)
+          set LESS_TERMCAP_us (tput smul; tput bold; tput setaf 7) # white
           set LESS_TERMCAP_ue (tput rmul; tput sgr0)
           set LESS_TERMCAP_mr (tput rev)
           set LESS_TERMCAP_mh (tput dim)
