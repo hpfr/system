@@ -58,6 +58,7 @@ in {
           sctl = "doas systemctl";
           uctl = "systemctl --user";
           protontricks = "flatpak run com.github.Matoking.protontricks";
+          binloc = "realpath -e (command -v";
         };
         functions = {
           ls.body = ''
