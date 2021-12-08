@@ -8,13 +8,17 @@ in {
     mkEnableOption "my system base configuration";
 
   config = mkIf cfg.enable {
-    environment.extraInit = concatMapStringsSep "\n" (user: ''
-      if [ "$(id -un)" = "${user}" ]; then
-        . /etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh
-      fi
-    '') [ "lh" ];
-    environment.etc."nixos/overlays-compat/overlays.nix".text =
-      builtins.readFile ./../../pkgs/overlays.nix;
+    environment = {
+      extraInit = concatMapStringsSep "\n" (user: ''
+        if [ "$(id -un)" = "${user}" ]; then
+          . /etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh
+        fi
+      '') [ "lh" ];
+      etc."nixos/overlays-compat/overlays.nix".text =
+        builtins.readFile ./../../pkgs/overlays.nix;
+
+      defaultPackages = [ ];
+    };
 
     nix = {
       # required for remote builders
