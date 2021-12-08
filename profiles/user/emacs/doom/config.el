@@ -276,6 +276,10 @@
 ;;; misc
 ;; TODO: make 'q' consistent across non-textual/popup buffers
 
+(use-package! tldr
+  :config
+  (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
+
 (use-package! yequake
   :config
   (setq yequake-frames

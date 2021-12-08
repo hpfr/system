@@ -5,6 +5,7 @@
 (package! lexic)
 (package! disk-usage)
 (package! ztree :pin "f05677f9696e573c8c607e8876fb4a0cccbc491f")
+(package! tldr)
 (package! dired-dragon                  ; drag and drop
   :recipe (:host github :repo "jeetelongname/dired-dragon"))
 (when (package! ement                   ; matrix
