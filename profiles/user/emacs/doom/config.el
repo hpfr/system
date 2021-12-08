@@ -247,6 +247,8 @@
 ;;; latex
 (add-to-list 'safe-local-eval-forms '(setq lsp-clients-texlab-executable (executable-find "texlab")))
 (after! latex
+  (setq TeX-open-quote "“"
+        TeX-close-quote "”")
   (setq-default TeX-command-list
                 (cons
                  ;; %(mode) not supported yet? same with %(file-line-error)
