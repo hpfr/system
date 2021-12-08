@@ -20,9 +20,8 @@ in {
       MOZ_DBUS_REMOTE = 1;
       TERMINAL = "foot";
     };
-    home.packages = [ pkgs.wl-clipboard ];
 
-    programs.firefox.package = pkgs.firefox-wayland;
+    home.packages = [ pkgs.wl-clipboard ];
 
     # minimal terminal emulator
     programs.foot = {

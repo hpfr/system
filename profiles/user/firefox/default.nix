@@ -36,6 +36,22 @@ in {
 
     programs.firefox = {
       enable = true;
+      package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+        forceWayland = config.profiles.user.wayland-base.enable;
+        extraPolicies = {
+          DisablePocket = true;
+          DontCheckDefaultBrowser = true;
+          DisableSetDesktopBackground = true;
+          FirefoxHome.Pocket = false;
+          OfferToSaveLogins = false;
+          PasswordManagerEnabled = false;
+          PromptForDownloadLocation = true;
+          SearchBar = "unified";
+        };
+        extraNativeMessagingHosts = [ pkgs.tridactyl-native ]
+          ++ optional config.profiles.user.gnome.enable
+          pkgs.gnomeExtensions.gsconnect;
+      };
       profiles = {
         default = {
           name = "default";
@@ -50,8 +66,6 @@ in {
             "font.name-list.emoji" = "emoji";
             # don't allow webpages to choose fonts beyond serif, sans, mono
             "browser.display.use_document_fonts" = 0;
-
-            "extensions.pocket.enabled" = false;
 
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
