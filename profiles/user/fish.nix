@@ -33,16 +33,12 @@ in {
           set LESS_TERMCAP_ZW (tput rsupm)
 
           fish_vi_key_bindings
-          # Emulates vim's cursor shape behavior
-          # Set the normal and visual mode cursors to a block
-          set fish_cursor_default block
-          # Set the insert mode cursor to a line
+
+
+          # vim-like cursors
+          set fish_cursor_default block # normal and visual mode
           set fish_cursor_insert line
-          # Set the replace mode cursor to an underscore
           set fish_cursor_replace_one underscore
-          # The following variable can be used to configure cursor shape in
-          # visual mode, but due to fish_cursor_default, is redundant here
-          set fish_cursor_visual block
 
           # NixOS fish config makes unwanted ls alias that takes precedence over
           # ls function in ~/.config/fish/functions
