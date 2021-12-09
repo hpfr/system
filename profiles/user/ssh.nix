@@ -13,16 +13,13 @@ in {
         cs = {
           hostname = "best-linux.cs.wisc.edu";
           user = "hupfer";
-          # # home-manager hasn't implemented yet
-          # setEnv  = { "TERM" = "xterm-256color" };
-          # # CSL doesn't support key auth :(
-          # identityFile = "~/.ssh/kpxc-id.pub";
-          # identitiesOnly = true;
+          extraOptions.SetEnv = "TERM=xterm-256color";
+          # CSL doesn't support key auth
         };
         engr = {
           hostname = "best-tux.cae.wisc.edu";
           user = "liam";
-          # setEnv  = { "TERM" = "xterm-256color" };
+          extraOptions.SetEnv = "TERM=xterm-256color";
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
         };
