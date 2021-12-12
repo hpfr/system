@@ -171,7 +171,10 @@ in {
       };
     };
 
-    programs.mangohud.enable = true;
+    programs = {
+      git.extraConfig.credential.helper = "libsecret";
+      mangohud.enable = true;
+    };
 
     services.network-manager-applet.enable = true;
   };
