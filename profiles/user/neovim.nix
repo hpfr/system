@@ -4,28 +4,26 @@ with lib;
 
 let cfg = config.profiles.user.neovim;
 in {
-  options.profiles.user.neovim.enable = mkEnableOption "my neovim configuration";
+  options.profiles.user.neovim.enable =
+    mkEnableOption "my neovim configuration";
   config = mkIf cfg.enable {
     programs.neovim = {
       enable = true;
       extraConfig = ''
-        set bg=light
         set go=a
         set mouse=a
-        set nohlsearch
         set clipboard=unnamed,unnamedplus
 
         " some basics
-        nnoremap c "_c
         set nocompatible
-        filetype plugin on
+        filetype indent plugin on
         syntax on
         set encoding=utf-8
         set number relativenumber
         " enable autocompletion
         set wildmode=longest,list,full
-        " disable automatic commenting on newline
-        autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+        " don't mess with long lines
+        set formatoptions=qrn1lj
 
         " alias replace all to S
         nnoremap S :%s//g<Left><Left>
