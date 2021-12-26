@@ -94,8 +94,8 @@ in {
           "application/pdf"
           "inode/directory"
           "text/x-diff"
-          "application/vnd.ms-powerpoint"
           "application/epub+zip"
+          "application/vnd.ms-powerpoint"
         ] // {
           "x-scheme-handler/mailto" = "emacsclient-mail.desktop";
           "x-scheme-handler/gopher" = "emacsclient-gemini.desktop";
@@ -106,6 +106,23 @@ in {
           "inode/directory"
           "text/x-diff"
           "application/epub+zip"
+
+          # override the original Emacs desktop entry
+          "text/english"
+          "text/plain"
+          "text/x-makefile"
+          "text/x-c++hdr"
+          "text/x-c++src"
+          "text/x-chdr"
+          "text/x-csrc"
+          "text/x-java"
+          "text/x-moc"
+          "text/x-pascal"
+          "text/x-tcl"
+          "text/x-tex"
+          "application/x-shellscript"
+          "text/x-c"
+          "text/x-c++"
         ] // {
           "x-scheme-handler/mailto" = "emacsclient-mail.desktop";
           "x-scheme-handler/gopher" = "emacsclient-gemini.desktop";
