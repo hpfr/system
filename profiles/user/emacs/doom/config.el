@@ -377,10 +377,19 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                    (plain-tex-mode latex-mode doctex-mode) :help "Run Tectonic")
                  TeX-command-list))
   (setq reftex-default-bibliography '("~/nc/research/main.bib")))
+
 (after! citar
   (setq! citar-bibliography '("~/nc/research/main.bib")
          citar-library-paths '("~/nc/research/documents/")
          citar-notes-paths '("~/nc/personal/research/")))
+
+(use-package! laas
+  :hook (LaTeX-mode . laas-mode)
+  :config
+  (defun laas-tex-fold-maybe ()
+    (unless (equal "/" aas-transient-snippet-key)
+      (+latex-fold-last-macro-a)))
+  (add-hook 'aas-post-snippet-expand-hook #'laas-tex-fold-maybe))
 
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))
