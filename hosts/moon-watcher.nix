@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ./hosts-base.nix ];
@@ -40,6 +40,7 @@
   ];
 
   services = {
+    clight.enable = lib.mkForce false;
     fstrim.enable = true;
     xserver.dpi = 96;
     udev.extraRules = ''

@@ -67,6 +67,8 @@ in {
 
       # support for color profiles
       colord.enable = true;
+      # brightness control via ambient lighting
+      clight.enable = true;
 
       blueman.enable = true;
 
