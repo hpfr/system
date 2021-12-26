@@ -92,17 +92,32 @@
       ;; before 07:00 to avoid it running immediately
       (run-at-time "6 hour" nil (lambda () (run-at-time "07:00" 43200 #'lh/load-random-theme))))))
 
-(setq doom-font "monospace"
+;; fonts
+      ;; need floating-point size, otherwise will be treated as px instead of pt
+(setq doom-font "monospace-12"
       ;; TODO: create "monospace-serif" family with fontconfig?
-      doom-serif-font "Iosevka Term Curly Slab"
-      doom-variable-pitch-font "sans-serif" ; inherits `doom-font''s :size
+      doom-serif-font "Iosevka Term Curly Slab-12"
+      doom-variable-pitch-font "sans-serif-12"
       ;; doom-unicode-font "sans-serif"
       doom-symbol-fallback-font-families nil
-      ;; TODO: this doesn't work, need the following hook
+      ;; TODO: could set-fontset-font accept Fontconfig strings like face
+      ;; functions do?
       doom-emoji-fallback-font-families '("JoyPixels"))
-
-;; TODO: why doesn't "emoji" from fontconfig work?
-(add-hook! 'after-setting-font-hook (set-fontset-font t 'unicode "JoyPixels"))
+;; this is the only tofu I get with `view-hello-file'. not sure why it doesn't
+;; work out of the box like the dozens of other scripts
+(set-fontset-font t 'egyptian "Noto Sans Egyptian Hieroglyphs")
+;; match monospace better. how can I change this for variable pitch face
+;; can most of this be done in fontconfig? fall back from Iosevka to Julia Mono
+;; to Source Han Mono and only then to sans-serif depending on script
+(set-fontset-font t 'cjk-misc "Source Han Mono")
+(set-fontset-font t 'han "Source Han Mono")
+(set-fontset-font t 'kana "Source Han Mono")
+(set-fontset-font t 'hangul "Source Han Mono")
+(set-fontset-font t 'greek "monospace")
+;; Iosevka doesn't have complete phonetic or Cyrillic coverage, but good enough
+(set-fontset-font t 'phonetic "monospace")
+(set-fontset-font t 'cyrillic "monospace")
+(set-fontset-font t 'georgian "JuliaMono")
 
 ;; integrate with freedesktop secret service
 ;; TODO: determine why this doesn't completely work.
