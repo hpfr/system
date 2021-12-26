@@ -70,6 +70,8 @@ in {
       # brightness control via ambient lighting
       clight.enable = true;
 
+      cpupower-gui.enable = true; # manage CPU performance
+
       blueman.enable = true;
 
       dbus.packages = with pkgs; [ gnome.dconf ];
