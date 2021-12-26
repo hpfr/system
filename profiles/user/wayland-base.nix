@@ -27,7 +27,7 @@ in {
     programs.foot = {
       enable = true;
       settings = {
-        main.font = "monospace:size=9";
+        main.font = "monospace:size=11";
         csd = { # client-side decorations (title bar size)
           size = 32;
           button-width = 32;

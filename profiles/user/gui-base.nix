@@ -156,10 +156,6 @@ in {
         package = pkgs.papirus-icon-theme;
         name = "Papirus-Dark";
       };
-      font = {
-        name = "Sans";
-        size = 10;
-      };
     };
 
     qt = {

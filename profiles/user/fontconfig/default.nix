@@ -14,7 +14,17 @@ in {
       source = ./files;
       recursive = true;
     };
-    dconf.settings."org/gnome/desktop/interface".monospace-font-name =
-      "Monospace 10"; # without the size it assumes 0 and gnome terminal's font is infinitesimal
+    # also sets dconf
+    gtk.font = {
+      name = "Sans";
+      size = 11;
+    };
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        monospace-font-name = "Monospace 11";
+        document-font-name = "Sans 11";
+      };
+      "org/gnome/desktop/wm/preferences".titlebar-uses-system-font = true;
+    };
   };
 }
