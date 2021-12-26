@@ -35,7 +35,7 @@ in {
         simple-scan # I don't have a scanner
         gnome-terminal # foot
         pkgs.gnome-connections # remmina
-        pkgs.gnome-photos # nomacs
+        pkgs.gnome-photos # gthumb actually lets you browse directories
       ];
     };
   };

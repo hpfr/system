@@ -18,7 +18,7 @@ in {
       firefox.enable = true; # web browser
       zathura.enable = false; # pdf viewer
       mpv.enable = true; # video player
-      nomacs.enable = true; # versatile photo viewer
+      gthumb.enable = true; # versatile photo viewer
       celluloid.enable = true; # mpv gtk frontend
       remmina.enable = true; # remote machine connections
     };
