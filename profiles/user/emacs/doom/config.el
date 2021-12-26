@@ -152,7 +152,92 @@
 
 ;;; dired
 (after! dired
-  (setq all-the-icons-dired-monochrome nil))
+  (setq all-the-icons-dired-monochrome nil)
+
+  ;; TODO: get feedback on ergonomics of using file at point vs using it for
+  ;; default in read-file-name
+  (defun my/dired-ediff-dwim ()
+    "Ediff files or directories in dired.
+
+If two files are marked in the current directory, they will be diffed. If only one
+is, the marked file in the other dired window's directory or the file at point
+will be used. If only one file is marked and it's in the other directory, it
+will be diffed with the file at point. If no files are marked, the file at point
+will be diffed with a file input interactively.
+
+To minimize confusion, the files will be diffed initially with the newer file on
+the right. Refer to `ediff-swap-buffers' to swap them."
+    (interactive)
+    (let* ((files (dired-get-marked-files))
+           (other-win (get-window-with-predicate
+                       (lambda (window)
+                         (with-current-buffer (window-buffer window)
+                           (and (not (eq window (selected-window)))
+                                (eq major-mode 'dired-mode))))))
+           (other-buffer (and other-win (window-buffer other-win)))
+           (other-files (and other-buffer
+                             (with-current-buffer other-buffer
+                               (dired-get-marked-files))))
+           ;; if no files are marked, dired-get-marked-files falls back to the
+           ;; current line, which we want to ignore for the other window
+           (other-marked-files
+            (if (and (= (length other-files) 1)
+                     (with-current-buffer other-buffer
+                       (save-excursion
+                         (goto-char (point-min))
+                         (not (re-search-forward (dired-marker-regexp) nil t)))))
+                nil other-files)))
+      (if (> (length files) 2)
+          (error "No more than 2 files should be marked.")
+        (let* ((file1
+                (or (car files)
+                    (dired-get-filename)
+                    (read-file-name
+                     "File: "
+                     (dired-dwim-target-directory))))
+               (file1-dir (file-directory-p file1))
+               (file2
+                (or (cadr files)
+                    (if (> (length other-marked-files) 1)
+                        (error "No more than one file in another window should be marked.")
+                      (or (car other-marked-files)
+                          ;; use filename at point unless there were no
+                          ;; marks so that was already set to file1
+                          (if (string= file1 (dired-get-filename))
+                              ;; prompt based on the type of file1
+                              (let ((read-file-function
+                                     (if file1-dir
+                                         #'read-directory-name
+                                       #'read-file-name)))
+                                (funcall read-file-function
+                                         "File: "
+                                         (dired-dwim-target-directory)))
+                            (dired-get-filename))))))
+               (file2-dir (file-directory-p file2))
+               (ediff-function
+                (if (and file1-dir file2-dir)
+                    (lambda (dir1 dir2)
+                      (let ((default-regexp (eval ediff-default-filtering-regexp)))
+                        (ediff-directories
+                         dir1 dir2
+	                 (read-string
+	                  (if (stringp default-regexp)
+		              (format "Filter filenames through regular expression (default %s): "
+			              default-regexp)
+	                    "Filter filenames through regular expression: ")
+	                  nil
+	                  'ediff-filtering-regexp-history
+	                  (eval ediff-default-filtering-regexp)))))
+                  #'ediff-files)))
+          (if (not (eq file1-dir file2-dir))
+              (error "Cannot compare a file with a directory.")
+            (apply ediff-function (if (file-newer-than-file-p file1 file2)
+                                      (list file2 file1)
+                                    (list file1 file2))))))))
+  (map! :map dired-mode-map
+        :desc "Ediff files"
+        :ng "e" #'my/dired-ediff-dwim))
+
 ;; use dired as a drag and drop source (dired already works as a sink)
 (use-package! dired-dragon
   :after dired
