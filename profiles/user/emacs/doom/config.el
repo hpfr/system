@@ -121,12 +121,16 @@
 
 ;; integrate with freedesktop secret service
 ;; TODO: determine why this doesn't completely work.
-;; (secrets-create-item "Main" "test emacs item" "test pw") returns
-;; D-Bus error: "No such method 'CreateItem' in interface 'org.freedesktop.Secret.Collection' at object path '/org/freedesktop/secrets/collection/main' (signature 'a{sv}(oayay)b')"
+;; TODO: defer or load on command? necessary for launching circe
 (require 'secrets)
-(setq auth-sources '(default "secrets:Main"))
+(secrets-close-session)
+(setq auth-sources '(
+                     ;; "secrets:session"
+                     default            ; for keepassxc, this is whatever database is active (focused)
+                     "secrets:Main"))
 
 ;;; tramp
+;; TODO: tramp hangs after I approve from Duo for CS lab machines
 (after! tramp
   ;; tramp sets tramp-default-remote-path via `getconf PATH` which doesn't seem
   ;; to work on NixOS, only returning /run/current-system/sw/bin:/bin:/usr/bin
@@ -185,6 +189,23 @@
       user-mail-address "liam@hpfr.net")
 
 ;;;; apps
+;;; magit
+(after! magit
+  (setq forge-owned-accounts '(("hpfr"))))
+
+;;; circe
+(after! circe
+  (setq circe-default-part-message ""
+        circe-default-quit-message "")
+  (set-irc-server! "irc.libera.chat"
+    `(:tls t
+      :port 6697
+      :nick "lh"
+      :sasl-username ,(secrets-get-attribute "Main" "Libera Chat" :UserName)
+      :sasl-password ,(secrets-get-secret "Main" "Libera Chat")
+      ;; :channels ("#nixos" "#home-manager" "#org-mode" "#doomemacs")
+      )))
+
 ;;; elfeed
 (after! elfeed
   ;; celluloid connects to MPRIS for playback control
