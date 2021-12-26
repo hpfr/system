@@ -226,7 +226,7 @@
 (after! spell-fu
   ;; aspell config is ignored by emacs ispell library
   (setq ispell-dictionary "en_US-w_accents"
-        ispell-personal-dictionary (expand-file-name "~/.aspell.en.pws")))
+        ispell-personal-dictionary (expand-file-name "~/nc/personal/config/aspell/en.pws")))
 (after! langtool
   (setq langtool-bin "languagetool-commandline"))
 (load! "languagetool-server-jar.el")

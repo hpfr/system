@@ -57,6 +57,8 @@ in {
 
       file.".aspell.conf".text = ''
         variety w_accents
+        personal nc/personal/config/aspell/en.pws
+        repl nc/personal/config/aspell/en.prepl
       '';
 
       sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
