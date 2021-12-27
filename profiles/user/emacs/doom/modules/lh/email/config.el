@@ -35,6 +35,8 @@
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
+  (add-hook 'gnus-article-mode-hook #'doom-disable-hl-line-h)
+  (add-hook 'mu4e-view-mode-hook #'doom-disable-hl-line-h)
   (setq mu4e-context-policy 'pick-first
         mu4e-compose-context-policy 'ask
         mu4e-compose-signature nil
