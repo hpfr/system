@@ -254,6 +254,9 @@
   (setq org-roam-directory org-directory
         org-roam-file-exclude-regexp "^org-caldav-backup.org"
         +org-roam-open-buffer-on-find-file nil
+        org-roam-db-node-include-function
+        (lambda ()
+          (not (org-entry-get (point) "ROAM_EXCLUDE" 'selective)))
         org-roam-capture-templates
         '(("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
