@@ -26,7 +26,8 @@
 (package! anki
   :recipe (:host github :repo "chenyanming/anki.el")
   :disable t)
-(package! elpher)
+(package! elpher)                       ; gopher
+(package! debbugs)                      ; gnu bug tracker interface
 (package! yequake
   :disable (not (member (system-name) gui-capable-hosts)))
 (package! pdf-continuous-scroll-mode
