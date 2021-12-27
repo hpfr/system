@@ -5,22 +5,23 @@
   (defun +nov-mode-setup ()
     (face-remap-add-relative 'variable-pitch
                              :family "sans"
-                             :height 1.4
+                             :height 1.2
                              ;; :width 'semi-expanded
                              )
-    (face-remap-add-relative 'default :height 1.3)
+    (face-remap-add-relative 'default :height 1.2)
     (setq-local line-spacing 0.2
                 next-screen-context-lines 4
                 shr-use-colors nil)
     (require 'visual-fill-column nil t)
     (setq-local
-     ;; visual-fill-column-center-text t
+     visual-fill-column-center-text t
      visual-fill-column-width 82
      nov-text-width 80)
     (visual-fill-column-mode 1)
     (hl-line-mode -1))
   (add-hook 'nov-mode-hook #'+nov-mode-setup)
   :config
+  (add-to-list '+lookup-definition-functions #'+lookup/dictionary-definition)
   (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
   ;; FIXME: setting this locally on mode init happens after the first render
   (setq nov-text-width 80)
