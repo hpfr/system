@@ -412,6 +412,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   :config
   (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
 
+;; TODO: debug. Wayland issue?
 (use-package! yequake
   :config
   (setq yequake-frames
