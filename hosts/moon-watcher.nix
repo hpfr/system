@@ -86,6 +86,12 @@
       ];
     };
 
+    wayland.windowManager.sway.config.startup = [{
+      command = ''
+        ${pkgs.sway}/bin/swaymsg "output DP-3 pos 0 0 mode 2560x1440@144Hz"
+      '';
+    }];
+
     xsession.windowManager.i3 = {
       extraConfig = ''
         workspace 0 output DP-3
