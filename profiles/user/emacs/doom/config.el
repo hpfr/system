@@ -7,11 +7,6 @@
 (add-to-list '+format-on-save-enabled-modes 'sh-mode t) ; weird bash formatting
 (add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
 
-;; highlight links in comments and strings
-(define-globalized-minor-mode global-goto-address-prog-mode goto-address-prog-mode
-  (lambda () (goto-address-prog-mode 1)))
-(global-goto-address-prog-mode 1)
-
 ;; transparency for current frame and new frames
 (set-frame-parameter (selected-frame) 'alpha '(85 . 82))
 (add-to-list 'default-frame-alist '(alpha . (85 . 82)))
