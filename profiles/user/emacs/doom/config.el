@@ -277,14 +277,24 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (after! circe
   (setq circe-default-part-message ""
         circe-default-quit-message "")
-  (set-irc-server! "irc.libera.chat"
-    `(:tls t
+  (set-irc-server! "chat.sr.ht soju"
+    `(:host "chat.sr.ht"
       :port 6697
+      :tls t
       :nick "lh"
-      :sasl-username ,(secrets-get-attribute "Main" "Libera Chat" :UserName)
-      :sasl-password ,(secrets-get-secret "Main" "Libera Chat")
-      ;; :channels ("#nixos" "#home-manager" "#org-mode" "#doomemacs")
-      )))
+      :sasl-username
+      ,(concat (secrets-get-attribute "Main" "chat.sr.ht" :UserName)
+               "@" (system-name))
+      :sasl-password ,(secrets-get-secret "Main" "chat.sr.ht")))
+  (set-irc-server! "Libera Chat"
+    `(:host "chat.sr.ht"
+      :port 6697
+      :tls t
+      :nick "lh"
+      :sasl-username
+      ,(concat (secrets-get-attribute "Main" "chat.sr.ht" :UserName)
+               "/libera@" (system-name))
+      :sasl-password ,(secrets-get-secret "Main" "chat.sr.ht"))))
 
 ;;; elfeed
 (after! elfeed

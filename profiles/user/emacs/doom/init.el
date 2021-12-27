@@ -129,8 +129,8 @@
 
  :app
  ;; everywhere
- irc
  (:when (member system-name personal-hosts)
+  irc
   (rss +org))
 
  :config
