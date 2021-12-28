@@ -40,6 +40,7 @@
   ];
 
   services = {
+    cpupower-gui.enable = lib.mkForce false; # virtual machine
     clight.enable = lib.mkForce false;
     fstrim.enable = true;
     xserver.dpi = 96;
