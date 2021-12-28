@@ -115,14 +115,14 @@
 (set-fontset-font t 'georgian "JuliaMono")
 
 ;; integrate with freedesktop secret service
-;; TODO: determine why this doesn't completely work.
-;; TODO: defer or load on command? necessary for launching circe
+(add-load-path! "backport")
 (require 'secrets)
-(secrets-close-session)
-(setq auth-sources '(
-                     ;; "secrets:session"
-                     default            ; for keepassxc, this is whatever database is active (focused)
-                     "secrets:Main"))
+;; default to saving secrets to the system keyring, but able to move them to
+;; cross-system Main database if they aren't system-specific
+(setq auth-sources `(,(concat "secrets:" (system-name) "-keyring")
+                     "secrets:Main"
+                     ;; for keepassxc, this is whatever database is active (focused)
+                     default))
 
 ;;; tramp
 ;; TODO: tramp hangs after I approve from Duo for CS lab machines
