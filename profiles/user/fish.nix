@@ -39,12 +39,6 @@ in {
           set fish_cursor_default block # normal and visual mode
           set fish_cursor_insert line
           set fish_cursor_replace_one underscore
-
-          # NixOS fish config makes unwanted ls alias that takes precedence over
-          # ls function in ~/.config/fish/functions
-          function ls
-            ${config.programs.fish.functions.ls.body}
-          end
         '';
         shellAbbrs = {
           mkd = "mkdir -pv";
@@ -61,6 +55,8 @@ in {
             command ls --human-readable --literal --color=auto \
             --group-directories-first $argv
           '';
+          # uses the above function since command is not used
+          l.body = "ls --format long --almost-all $argv";
           grep.body = "command grep --color=auto $argv";
           diff.body = "command diff --color $argv";
           pgrep.body = "command pgrep --list-name --ignore-case $argv";

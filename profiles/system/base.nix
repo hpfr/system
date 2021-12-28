@@ -18,6 +18,7 @@ in {
         builtins.readFile ./../../pkgs/overlays.nix;
 
       defaultPackages = [ ];
+      shellAliases = lib.mkForce { };
     };
 
     nix = {
