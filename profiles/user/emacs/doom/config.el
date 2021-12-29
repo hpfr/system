@@ -88,7 +88,7 @@
       (run-at-time "6 hour" nil (lambda () (run-at-time "07:00" 43200 #'lh/load-random-theme))))))
 
 ;; fonts
-      ;; need floating-point size, otherwise will be treated as px instead of pt
+;; need floating-point size, otherwise will be treated as px instead of pt
 (setq doom-font "monospace-12"
       ;; TODO: create "monospace-serif" family with fontconfig?
       doom-serif-font "Iosevka Term Curly Slab-12"
