@@ -84,7 +84,7 @@
  (lsp +peek)
  (magit +forge)
  ;; make
- (:when (member system-name gui-capable-hosts)
+ (:when (member (system-name) gui-capable-hosts)
   pdf)
  rgb
  ;; upload
@@ -124,12 +124,12 @@
  ;; tty
 
  :email
- (:when (member system-name personal-hosts)
+ (:when (member (system-name) personal-hosts)
   (mu4e +org +gmail))
 
  :app
  ;; everywhere
- (:when (member system-name personal-hosts)
+ (:when (member (system-name) personal-hosts)
   irc
   (rss +org))
 
@@ -138,7 +138,7 @@
  (default +bindings +smartparens)
 
  :lh                                    ; personal modules
- (:when (member system-name personal-hosts)
+ (:when (member (system-name) personal-hosts)
   org
   email
   ebooks)
