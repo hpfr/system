@@ -57,6 +57,8 @@ in {
         htop # system monitoring
 
         base-scripts
+
+        foot.terminfo
       ];
       sessionVariables = {
         # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
