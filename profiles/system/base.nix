@@ -99,6 +99,15 @@ in {
       ];
     };
 
+    documentation.man = {
+      # completion for apropos and emacs
+      generateCaches = true;
+      # mandoc is faster
+      # TODO: https://news.ycombinator.com/item?id=15775886
+      man-db.enable = false;
+      mandoc.enable = true;
+    };
+
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
