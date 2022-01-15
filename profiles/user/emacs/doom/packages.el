@@ -5,8 +5,8 @@
 (package! cook-mode
   :recipe (:host github
             :repo "cooklang/cook-mode"))
-(package! aas :pin "b1a436922ba06ab9e1a5cc222f1a4f25a7697231")
-(package! laas :pin "fa32c7affc1d232e5ab63b7c7a8a29461a465536")
+(package! aas)
+(package! laas)
 (package! lexic)
 (package! disk-usage)
 (package! daemons)
