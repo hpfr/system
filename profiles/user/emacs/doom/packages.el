@@ -9,6 +9,7 @@
 (package! laas :pin "fa32c7affc1d232e5ab63b7c7a8a29461a465536")
 (package! lexic)
 (package! disk-usage)
+(package! daemons)
 (package! ztree :pin "f05677f9696e573c8c607e8876fb4a0cccbc491f")
 (package! tldr)
 (package! dired-dragon                  ; drag and drop
