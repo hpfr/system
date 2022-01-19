@@ -110,7 +110,9 @@
         org-use-property-inheritance '("ROAM_EXCLUDE")
         org-startup-folded 'showall
         ;; no shouting
-        org-attach-auto-tag "attach"))
+        org-attach-auto-tag "attach")
+  ;; tag for optimizing agenda files doesn't need to be inherited
+  (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
 ;; export
 (after! ox-latex
@@ -334,6 +336,78 @@ Refer to `org-agenda-prefix-format' for more information."
                         ("-$" . "")))                   ; remove ending hyphen
                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
           (downcase slug))))))
+
+;; dynamic agenda files with roam
+;; good stopgap until roam agenda features come out
+(after! (org-agenda org-roam)
+  ;; if todo's are missing, run:
+  ;; (dolist (file (org-roam-list-files))
+  ;;   (message "processing %s" file)
+  ;;   (with-current-buffer (or (find-buffer-visiting file)
+  ;;                            (find-file-noselect file))
+  ;;     (vulpea-has-todo-update-tag)
+  ;;     (save-buffer)))
+  (defun vulpea-has-todo-p ()
+    "Return non-nil if current buffer has any todo entry.
+TODO entries marked as done are ignored, meaning the this
+function returns nil if current buffer contains only completed
+tasks."
+    (seq-find                           ; (3)
+     (lambda (type)
+       (eq type 'todo))
+     (org-element-map                         ; (2)
+         (org-element-parse-buffer 'headline) ; (1)
+         'headline
+       (lambda (h)
+         (org-element-property :todo-type h)))))
+
+  (defun vulpea-has-todo-update-tag ()
+    "Update HAS-TODO tag in the current buffer."
+    (when (and (not (active-minibuffer-window))
+               (org-roam-file-p))
+      (save-excursion
+        (goto-char (point-min))
+        (let* ((tags (vulpea-buffer-tags-get))
+               (original-tags tags))
+          (if (vulpea-has-todo-p)
+              (setq tags (cons "has-todo" tags))
+            (setq tags (remove "has-todo" tags)))
+
+          ;; cleanup duplicates
+          (setq tags (seq-uniq tags))
+
+          ;; update tags if changed
+          (when (or (seq-difference tags original-tags)
+                    (seq-difference original-tags tags))
+            (apply #'vulpea-buffer-tags-set tags))))))
+
+  (defun vulpea-buffer-p ()
+    "Return non-nil if the currently visited buffer is a note."
+    (and buffer-file-name
+         (string-prefix-p
+          (expand-file-name (file-name-as-directory org-roam-directory))
+          (file-name-directory buffer-file-name))))
+
+  (defun vulpea-has-todo-files ()
+    "Return a list of note files containing 'has-todo' tag." ;
+    (seq-uniq
+     (seq-map
+      #'car
+      (org-roam-db-query
+       [:select [nodes:file]
+        :from tags
+        :left-join nodes
+        :on (= tags:node-id nodes:id)
+        :where (like tag (quote "%\"has-todo\"%"))]))))
+
+  (defun vulpea-agenda-files-update (&rest _)
+    "Update the value of `org-agenda-files'."
+    (setq org-agenda-files (vulpea-has-todo-files)))
+
+  (add-hook 'find-file-hook #'vulpea-has-todo-update-tag)
+  (add-hook 'before-save-hook #'vulpea-has-todo-update-tag)
+
+  (advice-add 'org-agenda :before #'vulpea-agenda-files-update))
 
 ;; I'm ok with longer link titles
 (after! org-cliplink
