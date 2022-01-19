@@ -207,6 +207,40 @@
   :commands (org-super-agenda-mode))
 
 (after! org-agenda
+  ;; TODO: do this properly?
+  (require 'vulpea)
+
+  ;; better agenda todo prefix
+  (defun vulpea-agenda-category (&optional len)
+    "Get category of item at point for agenda.
+Category is defined by one of the following items:
+- CATEGORY property
+- TITLE keyword
+- TITLE property
+- filename without directory and extension
+When LEN is a number, resulting string is padded right with
+spaces and then truncated with ... on the right if result is
+longer than LEN.
+Usage example:
+  (setq org-agenda-prefix-format
+        '((agenda . \" %(vulpea-agenda-category) %?-12t %12s\")))
+Refer to `org-agenda-prefix-format' for more information."
+    (let* ((file-name (when buffer-file-name
+                        (file-name-sans-extension
+                         (file-name-nondirectory buffer-file-name))))
+           (title (vulpea-buffer-prop-get "title"))
+           (category (org-get-category))
+           (result
+            (or (if (and
+                     title
+                     (string-equal category file-name))
+                    title
+                  category)
+                "")))
+      (if (numberp len)
+          (s-truncate len (s-pad-right len " " result) "…")
+        result)))
+
   (setq
    ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
    ;; doesn't release until the scheduled time), don't warn me until the
@@ -219,10 +253,10 @@
    org-agenda-todo-ignore-scheduled 'all
    ;; org-agenda-todo-ignore-with-date t
    org-agenda-prefix-format
-   '((agenda . " %i %?-12t% s")
-     (todo . " %i ")
-     (tags . " %i ")
-     (search . " %i ")))
+   '((agenda . " %i %-12(vulpea-agenda-category 12)%?-12t% s")
+     (todo . " %i %-12(vulpea-agenda-category 12) ")
+     (tags . " %i %-12(vulpea-agenda-category 12) ")
+     (search . " %i %-12(vulpea-agenda-category 12) ")))
 
   (org-super-agenda-mode))
 
