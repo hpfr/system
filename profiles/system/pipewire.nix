@@ -14,8 +14,11 @@ in {
     services.pipewire = {
       enable = true;
       alsa.enable = true;
+      alsa.support32Bit = true;
       jack.enable = true;
       pulse.enable = true;
+      wireplumber.enable = true;
+      media-session.enable = false;
       config = {
         pipewire."context.properties"."default.clock.rate" = "192000";
         pipewire-pulse."stream.properties"."resample.quality" = 15;
@@ -30,5 +33,8 @@ in {
 
     # aplay
     sound.enable = true;
+
+    # gui patchbay
+    environment.systemPackages = [ pkgs.helvum ];
   };
 }
