@@ -438,9 +438,6 @@ tasks."
 (use-package! org-vcard
   :after org)
 
-(after! deft
-  (setq deft-directory org-directory))
-
 ;; TODO: test featurep org and moving this elsewhere
 (after! elfeed
   (setq rmh-elfeed-org-files

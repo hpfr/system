@@ -24,7 +24,6 @@
  (vertico +icons)
 
  :ui
- deft
  doom
  doom-dashboard
  doom-quit
