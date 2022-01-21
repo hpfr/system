@@ -32,6 +32,7 @@ in {
           size = 32;
           button-width = 32;
         };
+        colors.alpha = 0.9;
       };
     };
   };
