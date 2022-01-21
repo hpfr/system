@@ -316,6 +316,7 @@ Refer to `org-agenda-prefix-format' for more information."
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
                               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")
            :unnarrowed t)))
+  ;; TODO: isn't loading
   (cl-defmethod org-roam-node-slug ((node org-roam-node))
     (let ((title (org-roam-node-title node))
           (slug-trim-chars '(;; Combining Diacritical Marks https://www.unicode.org/charts/PDF/U0300.pdf
