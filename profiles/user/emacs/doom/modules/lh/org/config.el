@@ -147,7 +147,9 @@
 (use-package! doct
   :commands (doct doct-add-to))
 
-(after! org-capture
+;; for some reason the capture templates only apply when all three packages are
+;; explicitly included in this after
+(after! (org org-capture org-roam)
   (setq doct-default-entry-type 'entry
         org-capture-templates
         (doct
