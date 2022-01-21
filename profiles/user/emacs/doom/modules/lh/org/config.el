@@ -110,7 +110,17 @@
         org-use-property-inheritance '("ROAM_EXCLUDE")
         org-startup-folded 'showall
         ;; no shouting
-        org-attach-auto-tag "attach")
+        org-attach-auto-tag "attach"
+        ;; default maxlevel is 3. headings don't get very deep usually, so
+        ;; negligible impact, but can be nice to have
+        org-refile-targets '((nil :maxlevel . 9)
+                             (org-agenda-files :maxlevel . 9))
+        ;; ignore done tasks when refiling. org-done-keywords is buffer-local to
+        ;; Org, so this works when refile calls it
+        org-refile-target-verify-function
+        (lambda () (not (member (nth 2 (org-heading-components))
+                                org-done-keywords)))
+        org-refile-allow-creating-parent-nodes 'confirm)
   ;; tag for optimizing agenda files doesn't need to be inherited
   (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
