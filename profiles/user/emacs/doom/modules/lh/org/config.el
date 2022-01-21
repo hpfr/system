@@ -124,6 +124,12 @@
   ;; tag for optimizing agenda files doesn't need to be inherited
   (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
+(use-package! org-edna
+  ;; defer seems to prevent it from loading?
+  :after org
+  :config
+  (org-edna-mode))
+
 ;; export
 (after! ox-latex
   (setq org-latex-pdf-process '("tectonic --outdir=%o %f")))

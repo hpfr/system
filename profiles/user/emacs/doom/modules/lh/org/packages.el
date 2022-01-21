@@ -1,4 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
+(package! org-edna)
 (package! org-super-agenda)
 (package! doct)
 (package! org-caldav)
