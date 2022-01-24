@@ -145,13 +145,13 @@
            (org-hide-block-toggle t)))))
 
 (use-package! doct
-  :commands (doct doct-add-to))
+  :commands (doct doct-add-to)
+  :config
+  (setq doct-default-entry-type 'entry))
 
-;; for some reason the capture templates only apply when all three packages are
-;; explicitly included in this after
-(after! (org org-capture org-roam)
-  (setq doct-default-entry-type 'entry
-        org-capture-templates
+;; org-capture can load before org if you call it too early
+(after! org
+  (setq org-capture-templates
         (doct
          '((:group "standard todo's" :prepend t :kill-buffer t
             :file +org-capture-todo-file :headline "Inbox"
