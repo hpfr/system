@@ -315,8 +315,10 @@ Refer to `org-agenda-prefix-format' for more information."
         '(("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
                               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")
-           :unnarrowed t)))
-  ;; TODO: isn't loading
+           :unnarrowed t))))
+
+;; use hyphens instead of underscores in roam filenames
+(after! org-roam-node
   (cl-defmethod org-roam-node-slug ((node org-roam-node))
     (let ((title (org-roam-node-title node))
           (slug-trim-chars '(;; Combining Diacritical Marks https://www.unicode.org/charts/PDF/U0300.pdf
