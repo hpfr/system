@@ -145,6 +145,15 @@
 (after! vterm
   (setq vterm-shell "/etc/profiles/per-user/lh/bin/fish"))
 
+(after! projectile
+  ;; TODO: dir-locals aren't loaded before workspace is created
+  (setq projectile-project-name-function
+        (lambda (project-root) (if (string= (directory-file-name project-root)
+                                            "~/.config/emacs")
+                                   "doom"
+                                 (file-name-nondirectory (directory-file-name project-root)))))
+  (put 'projectile-project-name 'safe-local-variable 'stringp))
+
 ;;; dired
 (after! dired
   (setq all-the-icons-dired-monochrome nil)
