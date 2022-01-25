@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (setq org-directory "~/nc/personal"
       org-ellipsis " ▼ ")
 

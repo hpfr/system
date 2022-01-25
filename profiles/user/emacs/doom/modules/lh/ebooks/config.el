@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; nov
 (use-package! nov
   :mode ("\\.epub\\'" . nov-mode)

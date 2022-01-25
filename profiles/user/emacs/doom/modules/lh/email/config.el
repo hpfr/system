@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (load! "mu4e-load-path.el")             ; the nix store load path is evaluated on system rebuild
 
 (set-email-account! "hpfr"

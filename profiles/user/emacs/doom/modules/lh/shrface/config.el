@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package! shrface
   :init
   (add-hook 'eww-after-render-hook #'shrface-mode)

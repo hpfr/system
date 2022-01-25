@@ -1,4 +1,4 @@
-;;; .doom.d/config.el -*- lexical-binding: t; -*-
+;;; -*- lexical-binding: t; -*-
 (load! "doom-source-dir.el")
 ;; doom does this automatically for doomdirs, but home-manager has a different directory
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs lh/doom-source-dir)
