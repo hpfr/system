@@ -81,7 +81,6 @@
         '((sequence
            "TODO(t!)"             ; a task that needs doing
            "NEXT(n!)"             ; a task that is being worked on
-           "PROJ(p!)"             ; a project which usually contains other tasks
            "WAIT(w@)"             ; a task blocked by an external factor
            "HOLD(h@)"             ; a task blocked by me
            "|"
