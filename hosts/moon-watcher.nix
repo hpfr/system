@@ -80,8 +80,6 @@
         openocd
         picocom
 
-        multimc # foss minecraft launcher
-
         # closed-source
         # quartus-prime-lite
       ];
