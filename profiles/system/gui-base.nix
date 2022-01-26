@@ -101,7 +101,7 @@ in {
 
       blueman.enable = true;
 
-      dbus.packages = with pkgs; [ gnome.dconf ];
+      dbus.packages = [ pkgs.dconf ];
 
       udev.extraRules = ''
         # ddcutil without root
