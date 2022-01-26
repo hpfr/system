@@ -66,5 +66,13 @@ in {
 
     # persistent ssh from iOS
     programs.mosh.enable = true;
+
+    # fast locate implementation with daily updatedb
+    services.locate = {
+      enable = true;
+      locate = pkgs.plocate;
+      # not supported by plocate
+      localuser = null;
+    };
   };
 }
