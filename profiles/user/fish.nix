@@ -33,7 +33,10 @@ in {
           set LESS_TERMCAP_ZW (tput rsupm)
 
           fish_vi_key_bindings
-
+          # M-s prepends doas instead of sudo to last command
+          bind \es 'fish_commandline_prepend doas; commandline -f repaint'
+          bind -M insert \es 'fish_commandline_prepend doas'
+          bind -M visual \es 'fish_commandline_prepend doas; commandline -f repaint'
 
           # vim-like cursors
           set fish_cursor_default block # normal and visual mode
