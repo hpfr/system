@@ -66,7 +66,7 @@ in {
     services.openssh = {
       enable = true;
       passwordAuthentication = false;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
       permitRootLogin = "no";
       kexAlgorithms = [
         "curve25519-sha256"
