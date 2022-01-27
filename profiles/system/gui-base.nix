@@ -85,6 +85,8 @@ in {
         HandlePowerKey=suspend
       '';
 
+      earlyoom.enable = true;
+
       xserver = {
         enable = true;
         layout = "us";
