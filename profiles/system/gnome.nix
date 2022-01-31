@@ -25,7 +25,10 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [ gnome.gnome-tweaks ];
+      systemPackages = with pkgs; [
+        gnome.gnome-tweaks
+        gnome.nautilus-python # gsconnect nautilus integration
+      ];
       gnome.excludePackages = with pkgs.gnome; [
         epiphany # firefox, chromium
         gedit # emacs for text editing

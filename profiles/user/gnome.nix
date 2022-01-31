@@ -115,7 +115,6 @@ in {
       gnomeExtensions.sound-output-device-chooser
       gnomeExtensions.emoji-selector
       gnome.dconf-editor
-      gnome.nautilus-python # gsconnect nautilus integration
     ];
 
     # not necessary in a desktop environment
