@@ -9,10 +9,15 @@ in {
 
   config = mkIf cfg.enable {
     profiles.system.wayland-base.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    services = {
+      xserver.desktopManager.gnome.enable = true;
 
-    # Disable gnome-keyring entirely in favor of KeePassXC
-    services.gnome.gnome-keyring.enable = lib.mkForce false;
+      gnome = {
+        # Disable gnome-keyring entirely in favor of KeePassXC
+        gnome-keyring.enable = lib.mkForce false;
+        gnome-remote-desktop.enable = true;
+      };
+    };
 
     # TODO: remove when this happens https://github.com/NixOS/nixpkgs/pull/163075
     hardware.pulseaudio.enable = false;
@@ -40,7 +45,6 @@ in {
         gnome-music # spotify/mpd+emacs
         simple-scan # I don't have a scanner
         gnome-terminal # foot
-        pkgs.gnome-connections # remmina
         pkgs.gnome-photos # gthumb actually lets you browse directories
       ];
     };
