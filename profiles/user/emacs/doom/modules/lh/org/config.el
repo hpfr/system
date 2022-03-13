@@ -352,7 +352,6 @@ Refer to `org-agenda-prefix-format' for more information."
 (after! org-roam
   (setq org-roam-directory org-directory
         org-roam-file-exclude-regexp "^org-caldav-backup.org"
-        +org-roam-open-buffer-on-find-file nil
         org-roam-db-node-include-function
         (lambda ()
           (not (org-entry-get (point) "ROAM_EXCLUDE" 'selective)))
