@@ -111,11 +111,15 @@ in {
       };
     };
 
-    home.packages = with pkgs; [
-      gnomeExtensions.sound-output-device-chooser
-      gnomeExtensions.emoji-selector
-      gnome.dconf-editor
-    ];
+    home.packages = with pkgs.gnome;
+      with pkgs.gnomeExtensions; [
+        dconf-editor
+
+        sound-output-device-chooser
+        emoji-selector
+        just-perfection
+        random-wallpaper
+      ];
 
     # not necessary in a desktop environment
     services.network-manager-applet.enable = lib.mkForce false;
