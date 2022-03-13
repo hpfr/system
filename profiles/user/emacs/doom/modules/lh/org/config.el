@@ -120,7 +120,25 @@
         org-refile-target-verify-function
         (lambda () (not (member (nth 2 (org-heading-components))
                                 org-done-keywords)))
-        org-refile-allow-creating-parent-nodes 'confirm)
+        org-refile-allow-creating-parent-nodes 'confirm
+        org-format-latex-header "\\documentclass{my-article}
+\\usepackage[usenames]{color}
+\[NO-PACKAGES]
+\[NO-DEFAULT-PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}")
   ;; tag for optimizing agenda files doesn't need to be inherited
   (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
@@ -130,6 +148,10 @@
   :after org
   :config
   (org-edna-mode))
+
+;; better latex preview
+(use-package! org-auctex
+  :hook (org-mode . org-auctex-mode))
 
 ;; export
 (after! ox

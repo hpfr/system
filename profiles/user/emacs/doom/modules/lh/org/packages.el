@@ -11,3 +11,4 @@
 ;; convenient org and roam extensions by d12frosted, can probably be removed in
 ;; favor of my own implementations in future, since I don't use much
 (package! vulpea)
+(package! org-auctex :recipe (:host github :repo "karthink/org-auctex"))
