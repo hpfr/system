@@ -1,12 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  # move into nixos module, set up a nixos option for surface model, use
-  # that to enable IPTS, libwacom and other model-dependent config.
-
   nixpkgs.overlays = [
-    # post-5.4
-    (self: super: { iptsd = super.callPackage ../pkgs/iptsd { }; })
     # Limit patched libwacom to Xorg. Everything still works afaict
     # this avoids huge rebuilds of stuff like qt that depend on libwacom
     (self: super:
@@ -41,106 +36,6 @@
                   (lib.filterAttrs (k: v: v == "regular")
                     (builtins.readDir "${libwacomSurface}/")))))));
         });
-      })
-    (self: super:
-      let
-        overlayKernel = versionArg:
-          let
-            /* Pin with:
-               nix-shell -I nixpkgs=channel:nixos-unstable \
-               -p nix-prefetch-github nix-prefetch-scripts --run \
-               "nix-prefetch-github linux-surface linux-surface > linux-surface.json; \
-               nix-prefetch-url 'mirror://kernel/linux/kernel/v5.x/linux-5.9.8.tar.xz' > linux-5.9.txt"
-            */
-            linuxSurface = super.fetchFromGitHub {
-              inherit (lib.importJSON ../linux-surface.json)
-                owner repo rev sha256;
-            };
-            hasMinor =
-              if (builtins.length (builtins.splitVersion versionArg)) > 2 then
-                true
-              else
-                false;
-            version = if hasMinor then
-              lib.versions.majorMinor versionArg
-            else
-              versionArg;
-            fullVersion = if hasMinor then versionArg else null;
-          in super."linux_${
-            builtins.replaceStrings [ "." ] [ "_" ] version
-          }".override {
-            argsOverride = (if fullVersion != null then {
-              version = fullVersion;
-              modDirVersion = fullVersion;
-              extraMeta.branch = version;
-              src = super.fetchurl {
-                url = "mirror://kernel/linux/kernel/v${
-                    lib.versions.major fullVersion
-                  }.x/linux-${fullVersion}.tar.xz";
-                sha256 = lib.fileContents (../linux- + "${fullVersion}.txt");
-              };
-            } else
-              { }) // {
-
-                structuredExtraConfig = let
-                  origConf = builtins.readFile
-                    "${linuxSurface}/configs/surface-${version}.config";
-
-                  flatten = x:
-                    if builtins.isList x then
-                      builtins.concatMap (y: flatten y) x
-                    else
-                      [ x ];
-
-                  kernelValues = with lib.kernel; {
-                    y = yes;
-                    n = no;
-                    m = module;
-                  };
-
-                  tokenize = sep: str:
-                    let x = flatten (builtins.split sep str);
-                    in if builtins.length x < 2 then
-                      null
-                    else {
-                      name = builtins.head x;
-                      value = kernelValues."${builtins.head (builtins.tail x)}";
-                    };
-
-                  parseFile = with builtins;
-                    sep: str:
-                    (listToAttrs (map (tokenize sep) (filter (str: str != "")
-                      (flatten (map (builtins.split "^CONFIG_") (flatten
-                        (filter isList (map (match "^(CONFIG_.*[mny]).*")
-                          (flatten (split "\n" str))))))))));
-                in with lib.kernel;
-                (parseFile "=" origConf) // {
-                  # https://github.com/NixOS/nixpkgs/issues/88073
-                  SERIAL_DEV_BUS = yes;
-                  SERIAL_DEV_CTRL_TTYPORT = yes;
-
-                  # https://github.com/linux-surface/linux-surface/issues/61
-                  PINCTRL_INTEL = yes;
-                  PINCTRL_SUNRISEPOINT = yes;
-                };
-
-                # get patches from linux-surface patches directory
-                # convert to attrset format nix expects
-                kernelPatches = let
-                  mapDir = f: p:
-                    builtins.attrValues
-                    (builtins.mapAttrs (k: _: f p k) (builtins.readDir p));
-                  patch = dir: file: {
-                    name = file;
-                    patch = dir + "/${file}";
-                  };
-                in mapDir patch "${linuxSurface}/patches/${version}";
-              };
-          };
-      in {
-        # can specify a minor version such as 5.9.11, otherwise nixpkgs minor
-        # version will be used
-        linux_5_9 = overlayKernel "5.9";
       })
   ];
 
@@ -203,46 +98,5 @@
         echo 0 | tee /sys/bus/pci/drivers/mwifiex_pcie/0000:01:00.0/link/l1_2_aspm
       '';
     };
-
-    surface-iptsd = {
-      enable =
-        lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.4";
-      description = "Intel Precise Touch & Stylus Daemon";
-      documentation = [ "https://github.com/linux-surface/iptsd" ];
-      after = [ "dev-ipts-0.device" ];
-      wants = [ "dev-ipts-0.device" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "simple";
-      path = [ pkgs.iptsd ];
-      script = ''
-        iptsd
-      '';
-    };
   };
-
-  # # not working with meson flag -Dsystemd=true
-  # systemd.packages = [ pkgs.iptsd ];
-  # services.udev.packages = [ pkgs.iptsd ];
-  services.udev.extraRules = ''
-    # iptsd
-    KERNEL=="ipts/*", TAG+="systemd";
-  '';
-
-  environment.etc."ipts.conf".text = ''
-    [Config]
-    # BlockOnPalm = false
-    # TouchThreshold = 10
-    # StabilityThreshold = 0.1
-    #
-    ## The following values are device specific
-    ## and will be loaded from /usr/share/ipts
-    ##
-    ## Only set them if you need to provide custom
-    ## values for new devices that are not yet supported
-    #
-    # InvertX = false
-    # InvertY = false
-    # Width = 0
-    # Height = 0
-  '';
 }
