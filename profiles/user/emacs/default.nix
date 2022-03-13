@@ -55,11 +55,15 @@ in {
           emacs-all-the-icons-fonts
         ];
 
-      file.".aspell.conf".text = ''
-        variety w_accents
-        personal nc/personal/config/aspell/en.pws
-        repl nc/personal/config/aspell/en.prepl
-      '';
+      file = {
+        ".aspell.conf".text = ''
+          variety w_accents
+          personal nc/config/aspell/en.pws
+          repl nc/config/aspell/en.prepl
+        '';
+        # sane-default class for latex documents and Org export
+        "texmf/tex/latex/my-article/my-article.cls".source = ./my-article.cls;
+      };
 
       sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
       sessionVariables = {

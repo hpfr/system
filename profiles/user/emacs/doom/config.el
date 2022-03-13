@@ -381,6 +381,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;; latex
 (add-to-list 'safe-local-eval-forms '(setq lsp-clients-texlab-executable (executable-find "texlab")))
+(set-file-template! "\\.tex$" :mode 'latex-mode)
+
 (after! latex
   (setq TeX-open-quote "“"
         TeX-close-quote "”")

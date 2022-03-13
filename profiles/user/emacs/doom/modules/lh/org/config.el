@@ -149,8 +149,35 @@
   (org-edna-mode))
 
 ;; export
+(after! ox
+  (setq org-export-with-toc nil))
 (after! ox-latex
-  (setq org-latex-pdf-process '("tectonic --outdir=%o %f")))
+  (let ((article-sections '(("\\section{%s}" . "\\section*{%s}")
+                            ("\\subsection{%s}" . "\\subsection*{%s}")
+                            ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                            ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                            ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+    (setcdr (assoc "article" org-latex-classes)
+            `("\\documentclass{my-article}\n[NO-DEFAULT-PACKAGES][NO-PACKAGES]\n\\KOMAoptions{paper=letter,DIV=11}\n\\recalctypearea\n[EXTRA]"
+              ,@article-sections)))
+  (setq org-latex-compiler "lualatex"
+        org-latex-tables-booktabs t
+        ;; TODO turn off hypersetup metadata if pdfx is used, because it handles that data
+        org-latex-hyperref-template
+        "\\hypersetup{
+ pdfauthor={%a},
+ pdftitle={%t},
+ pdfkeywords={%k},
+ pdfsubject={%d},
+ pdfcreator={%c},
+ pdflang={%L},
+ breaklinks=true,
+ colorlinks=true,
+ linkcolor=link,
+ urlcolor=url,
+ citecolor=cite
+}
+\\urlstyle{same}\n"))
 
 ;; hide individual blocks with #+hide: t on the line preceding #+begin_...
 (add-hook! 'org-mode-hook

@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: LaTeX template
+# group: file templates
+# --
+\documentclass{my-article}
+
+\KOMAoptions{paper=letter,DIV=11}
+\recalctypearea
+
+\title{${3:`(s-titleized-words (file-name-base (or buffer-file-name "new buffer")))`}}
+\author{${4:`(user-full-name)`}}
+\date{${5:`(format-time-string "%Y-%m-%d")`}}
+
+\begin{document}
+
+\maketitle
+
+$0
+
+\end{document}
