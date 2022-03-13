@@ -405,14 +405,25 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 (after! latex
   (setq TeX-open-quote "“"
-        TeX-close-quote "”")
-  (setq-default TeX-command-list
+        TeX-close-quote "”"
+        TeX-fold-type-list '(env macro))
+  (setq reftex-default-bibliography '("~/nc/research/main.bib"))
+  ;; for buffer-local
+  (setq-default TeX-engine 'luatex
+                TeX-command-list
                 (cons
                  ;; %(mode) not supported yet? same with %(file-line-error)
                  '("Tectonic" "tectonic %S %(extraopts) %t" TeX-run-command nil
                    (plain-tex-mode latex-mode doctex-mode) :help "Run Tectonic")
                  TeX-command-list))
-  (setq reftex-default-bibliography '("~/nc/research/main.bib")))
+
+  ;; folding
+  (add-hook 'LaTeX-mode-hook #'outline-minor-mode)
+  (map!
+   :map LaTeX-mode-map
+   :n "<tab>" 'outline-cycle
+   :n "<backtab>" 'outline-cycle-buffer)
+  )
 
 (after! cdlatex
   (map! :map cdlatex-mode-map
