@@ -15,6 +15,7 @@
 (package! tldr)
 (package! dired-dragon                  ; drag and drop
   :recipe (:host github :repo "jeetelongname/dired-dragon"))
+(package! 0x0)
 (when (package! ement                   ; matrix
         :recipe (:host github :repo "alphapapa/ement.el"))
   (package! plz
