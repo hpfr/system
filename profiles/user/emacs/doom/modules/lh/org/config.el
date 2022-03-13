@@ -3,74 +3,6 @@
       org-ellipsis " ▼ ")
 
 (after! org
-  ;; https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el#L2822-L2875
-  (defvar lh/org-created-property-name "created"
-    "The name of the org-mode property that stores the creation date of the entry")
-
-  (defun lh/org-set-created-property (&optional active name)
-    "Set a property on the entry giving the creation time.
- By default the property is called CREATED. If given, the ‘NAME’
- argument will be used instead. If the property already exists, it
- will not be modified.
- If the function sets CREATED, it returns its value."
-    (interactive)
-    (let* ((created (or name lh/org-created-property-name))
-           (fmt (if active "<%s>" "[%s]"))
-           (now (format fmt (format-time-string "%Y-%m-%d %a %H:%M"))))
-      (unless (org-entry-get (point) created nil)
-        (org-set-property created now)
-        now)))
-
-  (defun lh/org-find-time-file-property (property &optional anywhere)
-    "Return the position of the time file PROPERTY if it exists.
- When ANYWHERE is non-nil, search beyond the preamble."
-    (save-excursion
-      (goto-char (point-min))
-      (let ((first-heading
-             (save-excursion
-               (re-search-forward org-outline-regexp-bol nil t))))
-        (when (re-search-forward (format "^#\\+%s:" property)
-                                 (if anywhere nil first-heading)
-                                 t)
-          (point)))))
-
-  (defun lh/org-has-time-file-property-p (property &optional anywhere)
-    "Return the position of time file PROPERTY if it is defined.
- As a special case, return -1 if the time file PROPERTY exists but
- is not defined."
-    (when-let ((pos (lh/org-find-time-file-property property anywhere)))
-      (save-excursion
-        (goto-char pos)
-        (if (and (looking-at-p " ")
-                 (progn (forward-char)
-                        (org-at-timestamp-p 'lax)))
-            pos
-          -1))))
-
-  (defun lh/org-set-time-file-property (property &optional anywhere pos)
-    "Set the time file PROPERTY in the preamble.
- When ANYWHERE is non-nil, search beyond the preamble.
- If the position of the file PROPERTY has already been computed,
- it can be passed in POS."
-    (when-let ((pos (or pos
-                        (lh/org-find-time-file-property property))))
-      (save-excursion
-        (goto-char pos)
-        (if (looking-at-p " ")
-            (forward-char)
-          (insert " "))
-        (delete-region (point) (line-end-position))
-        (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
-          (insert now)))))
-
-  (defun lh/org-set-last-modified ()
-    "Update the LAST_MODIFIED file property in the preamble."
-    (when (derived-mode-p 'org-mode)
-      (lh/org-set-time-file-property "last_modified")))
-
-  (add-hook 'before-save-hook #'lh/org-set-last-modified))
-
-(after! org
   ;; aggressive logging
   (setq org-log-into-drawer t
         org-log-redeadline 'time
@@ -364,8 +296,14 @@ Refer to `org-agenda-prefix-format' for more information."
         org-roam-capture-templates
         '(("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
-                              "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n")
+                              "#+title: ${title}\n\n")
            :unnarrowed t))))
+
+;; this works based on what node your cursor is in when you save, which is not great
+;; ideally, there would be a package that could parse Git revision history for modifications within nodes
+(use-package! org-roam-timestamps
+  :after org-roam
+  :config (org-roam-timestamps-mode))
 
 ;; use hyphens instead of underscores in roam filenames
 (after! org-roam-node
