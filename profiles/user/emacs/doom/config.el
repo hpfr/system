@@ -414,18 +414,75 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                  TeX-command-list))
   (setq reftex-default-bibliography '("~/nc/research/main.bib")))
 
+(after! cdlatex
+  (map! :map cdlatex-mode-map
+        :i "<tab>" 'cdlatex-tab))
+
 (after! citar
   (setq! citar-bibliography '("~/nc/research/main.bib")
          citar-library-paths '("~/nc/research/documents/")
          citar-notes-paths '("~/nc/personal/research/")))
 
+
 (use-package! laas
-  :hook (LaTeX-mode . laas-mode)
+  :hook ((LaTeX-mode org-mode) . laas-mode)
   :config
-  (defun laas-tex-fold-maybe ()
-    (unless (equal "/" aas-transient-snippet-key)
-      (+latex-fold-last-macro-a)))
-  (add-hook 'aas-post-snippet-expand-hook #'laas-tex-fold-maybe))
+  (aas-set-snippets 'laas-mode
+    :cond #'laas-mathp
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    ";;O" "Ω"
+    ";;;O" "\\mho"
+
+    "CC" "ℂ"
+    "FF" "𝔽"
+    "HH" "ℍ"
+    "NN" "ℕ"
+    "PP" "ℙ"
+    "QQ" "ℚ"
+    "RR" "ℝ"
+    "ZZ" "ℤ"
+    "..." "…"
+    "..c" "⋯"
+
+    "comp" "^c")
+
+  (setq laas-use-unicode t)
+
+  (after! cdlatex (map! :map cdlatex-mode-map
+                        "`" nil
+                        "'" nil
+                        "_" nil
+                        "^" nil))
+  (after! org (map! :map org-cdlatex-mode-map
+                    "`" nil
+                    "'" nil
+                    "_" nil
+                    "^" nil)))
+
+(use-package! lazytab
+  :hook ((LaTeX-mode
+          ;; org-mode ; doesn't work
+          ) . lazytab-mode)
+  :config
+  (add-to-list 'cdlatex-command-alist '("smat" "Insert smallmatrix env"
+                                       "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
+                                       lazytab-position-cursor-and-edit
+                                       nil nil t))
+  (add-to-list 'cdlatex-command-alist '("bmat" "Insert bmatrix env"
+                                       "\\begin{bmatrix} ? \\end{bmatrix}"
+                                       lazytab-position-cursor-and-edit
+                                       nil nil t))
+  (add-to-list 'cdlatex-command-alist '("pmat" "Insert pmatrix env"
+                                       "\\begin{pmatrix} ? \\end{pmatrix}"
+                                       lazytab-position-cursor-and-edit
+                                       nil nil t))
+  (add-to-list 'cdlatex-command-alist '("tbl" "Insert table"
+                                        "\\begin{table}\n\\centering ? \\caption{}\n\\end{table}\n"
+                                       lazytab-position-cursor-and-edit
+                                       nil t nil)))
 
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))

@@ -70,22 +70,6 @@
 
   (add-hook 'before-save-hook #'lh/org-set-last-modified))
 
-(defun my/cdlatex-input-tex ()
-  (interactive)
-  (require 'cdlatex nil t)
-  (let ((cim current-input-method))
-    (unless (equal cim "TeX")
-      (activate-input-method "TeX"))
-    (cl-letf (((symbol-function 'texmathp)
-               (lambda () t))
-              ((symbol-function 'insert)
-               (lambda (symbol)
-                 (setq unread-input-method-events
-                       (nconc (quail-input-string-to-events symbol)
-                              (list 0))))))
-      (cdlatex-math-symbol))
-    (run-at-time 0 nil (lambda () (activate-input-method cim)))))
-
 (after! org
   ;; aggressive logging
   (setq org-log-into-drawer t
@@ -138,9 +122,8 @@
                                 org-done-keywords)))
         org-refile-allow-creating-parent-nodes 'confirm)
   ;; tag for optimizing agenda files doesn't need to be inherited
-  (add-to-list 'org-tags-exclude-from-inheritance "has-todo")
+  (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
-  (map! :map org-mode-map :i "`" #'my/cdlatex-input-tex))
 
 (use-package! org-edna
   ;; defer seems to prevent it from loading?

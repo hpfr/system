@@ -7,6 +7,7 @@
             :repo "cooklang/cook-mode"))
 (package! aas)
 (package! laas)
+(package! lazytab :recipe (:host github :repo "karthink/lazytab"))
 (package! lexic)
 (package! disk-usage)
 (package! daemons)
