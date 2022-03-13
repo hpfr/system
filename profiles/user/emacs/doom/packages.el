@@ -14,7 +14,8 @@
 (package! ztree :pin "f05677f9696e573c8c607e8876fb4a0cccbc491f")
 (package! tldr)
 (package! dired-dragon                  ; drag and drop
-  :recipe (:host github :repo "jeetelongname/dired-dragon"))
+  :recipe (:host github :repo "jeetelongname/dired-dragon")
+  :disable t)
 (package! 0x0)
 (when (package! ement                   ; matrix
         :recipe (:host github :repo "alphapapa/ement.el"))
