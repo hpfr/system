@@ -20,6 +20,10 @@
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
 
+(use-package! which-key
+  :init
+  (setq which-key-idle-delay 3.0))
+
 (after! evil
   (require 'evil-textobj-anyblock)
   (evil-define-text-object my-evil-textobj-anyblock-inner-quote
