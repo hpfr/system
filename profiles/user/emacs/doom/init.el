@@ -141,7 +141,7 @@
   org
   email
   ebooks)
- ;; shrface
+ shrface
  )
 
 (setq use-package-inject-hooks t
