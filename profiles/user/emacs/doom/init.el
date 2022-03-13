@@ -27,7 +27,6 @@
  doom
  doom-dashboard
  doom-quit
- fill-column
  hl-todo
  modeline
  nav-flash
