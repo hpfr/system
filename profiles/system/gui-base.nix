@@ -75,6 +75,8 @@ in {
         enable = true;
         enableGraphical = true;
       };
+      # Xbox One wireless adapter
+      xone.enable = true;
     };
 
     # passthrough USB devices to VM's over SPICE
@@ -120,9 +122,6 @@ in {
         KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0660", GROUP:="onlykey", RUN+="${pkgs.onlykey-cli}/bin/onlykey-cli settime"
         #
       '';
-
-      # Xbox One Wireless adapter
-      hardware.xow.enable = true;
 
       # libratbag for mouse configuration
       ratbagd.enable = true;
