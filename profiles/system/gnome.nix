@@ -14,6 +14,9 @@ in {
     # Disable gnome-keyring entirely in favor of KeePassXC
     services.gnome.gnome-keyring.enable = lib.mkForce false;
 
+    # TODO: remove when this happens https://github.com/NixOS/nixpkgs/pull/163075
+    hardware.pulseaudio.enable = false;
+
     qt5 = {
       style = "adwaita-dark";
       platformTheme = "gnome";

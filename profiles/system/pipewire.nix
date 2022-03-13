@@ -7,8 +7,6 @@ in {
     mkEnableOption "my pipewire configuration";
 
   config = mkIf cfg.enable {
-    hardware.pulseaudio.enable = lib.mkForce false;
-
     security.rtkit.enable = true;
 
     services.pipewire = {
@@ -17,8 +15,6 @@ in {
       alsa.support32Bit = true;
       jack.enable = true;
       pulse.enable = true;
-      wireplumber.enable = true;
-      media-session.enable = false;
       config = {
         pipewire."context.properties"."default.clock.rate" = "192000";
         pipewire-pulse."stream.properties"."resample.quality" = 15;

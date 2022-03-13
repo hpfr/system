@@ -66,10 +66,6 @@ in {
 
     sound.enable = true;
     hardware = {
-      pulseaudio = {
-        enable = true;
-        package = pkgs.pulseaudioFull; # for bluetooth?
-      };
       bluetooth.enable = lib.mkDefault true;
       logitech.wireless = {
         enable = true;
