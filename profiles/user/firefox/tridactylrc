@@ -59,8 +59,10 @@ bind yy clipboard yankshort
 " Stupid workaround to let hint -; be used with composite which steals semi-colons
 command hint_focus hint -;
 
+" toggle comment view for common link aggregators
+bind ;c hint -Jc summary,[class*="expand"],[class*="togg"],[aria-label="Collapse"],[class="comment_folder"]
 " Open right click menu on links
-bind ;C composite hint_focus; !s xdotool key Menu
+" bind ;C composite hint_focus; !s xdotool key Menu
 
 " Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
 set hintdelay 100
@@ -82,3 +84,4 @@ blacklistadd https://www.nitrotype.com/race
 blacklistadd https://config.qmk.fm
 blacklistadd https://www.keybr.com
 blacklistadd https://my.vultr.com/subs/vps/novnc
+blacklistadd https://docs.google.com
