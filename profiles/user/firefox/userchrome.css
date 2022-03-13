@@ -1,106 +1,76 @@
-/* https://github.com/nearcatch/firefox_css/blob/master/chr10-urlbar_security.css */
-#urlbar {
-    z-index: 2 !important;
+/* Page action menu */
+/* ignore folding page actions into ⋯ at low window width since we're removing
+ * the MAC action anyway, leaving only the bookmark action */
+#pageActionButton[multiple-children] {
+    visibility: collapse !important;
 }
-#urlbar-background {
-    z-index: -2 !important;
+#pageActionSeparator,
+#pageActionButton[multiple-children] ~ .urlbar-page-action {
+    display: -moz-box !important;
 }
-#identity-box {
-    --focus-offset: 16px;
-}
-:root:not([uidensity="compact"]) #identity-box {
-    --focus-offset: 15px;
-}
-#identity-box::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: calc(100% + var(--focus-offset));
-    top: 0;
-    left: 0;
-    /* background: repeating-linear-gradient(135deg, var(--sec-color,#0000) 0px 10px, var(--sec-color2,var(--sec-color,#0000)) 10px 20px); */
-    background: var(--sec-color,#0000);
-    opacity: .4;
-    transition: background 100ms linear;
-    z-index: -1;
-    pointer-events: none;
-    touch-action: none;
-}
-#urlbar[focused] #identity-box::after {
-    left: calc(var(--focus-offset) * -1);
-}
-#urlbar-input,
-#identity-icon-labels {
-    /* text-shadow: 0px 0px 3px #000 !important; */
+/* Always open in container urlbar button. action is rarely used and can be
+ * reached from addon menu */
+/* https://stackoverflow.com/a/3695826 */
+#pageAction-urlbar-_testpilot-containers {
+    visibility: collapse !important;
 }
 
-/* GREY: about:devtools */
-#urlbar[pageproxystate='valid'] #identity-box.unknownIdentity::after {--sec-color:grey;}
-/* BLUE: about:config */
-#urlbar[pageproxystate='valid'] #identity-box.chromeUI::after {--sec-color:dodgerblue;}
-/* TEAL: moz-extension:// */
-#urlbar[pageproxystate='valid'] #identity-box.extensionPage::after {--sec-color:teal;}
-/* GREEN: Don't know example */
-#urlbar[pageproxystate='valid'] #identity-box.verifiedIdentity:after {--sec-color:seagreen;}
-/* GREEN: https://extended-validation.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.verifiedDomain:after {--sec-color:seagreen;}
-/* YELLOW/GREEN: https://mixed.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContent:after {--sec-color:goldenrod;--sec-color2:seagreen;}
-/* YELLOW/GREEN: https://very.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContentLoadedActiveBlocked:after {--sec-color:goldenrod;--sec-color2:seagreen;}
-/* YELLOW/GREEN: https://mixed-script.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedActiveBlocked:after {--sec-color:goldenrod;--sec-color2:seagreen;}
-/* YELLOW/RED: https://self-signed.badssl.com/ - warning page */
-#urlbar[pageproxystate='valid'] #identity-box.certErrorPage:after {--sec-color:goldenrod;--sec-color2:firebrick;}
-/* YELLOW/RED: https://self-signed.badssl.com/ - post-override page */
-#urlbar[pageproxystate='valid'] #identity-box.certUserOverridden:after {--sec-color:goldenrod;--sec-color2:firebrick;}
-/* YELLOW: Don't know example */
-#urlbar[pageproxystate='valid'] #identity-box.weakCipher:after {--sec-color:goldenrod;}
-/* RED/YELLOW: https://mixed-script.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedActiveContent:after {--sec-color:firebrick;--sec-color2:goldenrod;}
-/* RED: http://http-login.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {--sec-color:firebrick;}
-/* RED: http://www.httpvshttps.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.notSecure::after {--sec-color:firebrick;}
+/* https://www.reddit.com/r/FirefoxCSS/comments/t5v70p */
+/* still hide in fullscreen */
+:root:not([sizemode="normal"]) .titlebar-spacer[type="pre-tabs"] {
+    display: -moz-box !important;
+}
+
+/* Always show all tabs dropdown, since it doesn't show up early enough for my
+ * tastes */
+#alltabs-button { display: initial !important; }
 
 /* Remove menu items */
-/*Hamburger Menu*/
-#appMenu-tp-button,
-#appMenu-tp-separator,
-#appMenu-new-window-button,
-#appMenu-private-window-button,
-#appMenuRestoreLastSession + toolbarseparator,
-#appMenu-zoom-controls,
-#appMenu-zoom-controls + toolbarseparator,
-#appMenu-edit-controls,
-#appMenu-edit-controls + toolbarseparator,
-#appMenu-library-button,
-#appMenu-logins-button,
-#appMenu-addons-button,
-#appMenu-preferences-button,
-#appMenu-customize-button,
-#appMenu-open-file-button,
-#appMenu-save-file-button,
-#appMenu-print-button,
-#appMenu-print-button + toolbarseparator,
-#appMenu-find-button,
-/* Developer Subview */
-toolbarbutton[class="subviewbutton"][label="Inspector"],
-toolbarbutton[class="subviewbutton"][label="Web Console"],
-toolbarbutton[class="subviewbutton"][label="Debugger"],
-toolbarbutton[class="subviewbutton"][label="Style Editor"],
-toolbarbutton[class="subviewbutton"][label="Performance"],
-toolbarbutton[class="subviewbutton"][label="Network"],
-toolbarbutton[class="subviewbutton"][label="Storage Inspector"],
-toolbarbutton[class="subviewbutton"][label="Accessibility"],
-toolbarbutton[class="subviewbutton"][label="Accessibility"] + menuseparator,
-toolbarbutton[class="subviewbutton"][label="Get More Tools"] + menuseparator,
-#PanelUI-developerItems > toolbarbutton[class="subviewbutton"][label="Work Offline"],
-/* Page Action Panel */
-/* #pageActionButton, /1* Removes button to open page action panel entirely *1/ */
-/* #pageAction-panel-bookmark, /1* this and below removes superfluous items in panel if it is used *1/ */
-/* #pageAction-panel-bookmarkSeparator, */
-#pageAction-panel-copyURL,
-#pageAction-panel-emailLink {
+/* https://web.archive.org/web/20220218181624/https://www.reddit.com/r/FirefoxCSS/comments/svol27/a_big_list_of_contextual_items_for_hiding/ */
+/* can right click or hold on the back button */
+#forward-button,
+/* app menu */
+/* there is a dedicated button in the tab bar */
+/* but I'm swapping the tab bar for the dropdown */
+/* #appMenu-new-tab-button2, */
+/* I disable this feature, not sure why this is still present */
+#appMenu-passwords-button,
+/* widget overflow menu */
+/* can be accessed via right click and app menu more tools */
+#widget-overflow-mainView > toolbarseparator,
+#overflowMenu-customize-button,
+/* Context menu */
+/* low-traffic, keyboard shortcut and menu option */
+#context-savepage,
+/* don't really need select all there, it's in the Edit menu */
+#context-selectall,
+/* low-traffic, keyboard shortcut and menu option */
+#context-take-screenshot,
+#context-sep-screenshots,
+/* low-traffic, keyboard shortcut and menu option */
+#context-viewsource,
+/* low-traffic, can be accessed via standard inspect option */
+#context-inspect-a11y,
+/* it uses the link description as the title, I don't think I'll ever want to
+ * blindly bookmark like this */
+#context-bookmarklink,
+/* can just open in new tab and drag to new window */
+#context-openlink,
+/* can just click on the tab and click the star */
+#context_bookmarkTab,
+/* I never close left, right, or other tabs */
+#context_closeTabOptions,
+/* can just drag */
+#context_moveTabOptions,
+/* I disable this, why is it here */
+#manage-saved-logins,
+#passwordmgr-items-separator,
+/* these are useless */
+#context-print-selection,
+#context-viewpartialsource-selection,
+/* just pastes the link into an email, extremely low-traffic */
+#context-sendimage,
+#context-sendvideo,
+#context-sendaudio {
     display: none !important;
 }
