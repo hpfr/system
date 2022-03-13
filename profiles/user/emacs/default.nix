@@ -53,7 +53,8 @@ in {
           libreoffice
           # TODO: replace with symbols nerd font
           emacs-all-the-icons-fonts
-        ];
+          # promnesia
+        ] ++ (with python3Packages; [ pip ]);
 
       file = {
         ".aspell.conf".text = ''
@@ -65,10 +66,37 @@ in {
         "texmf/tex/latex/my-article/my-article.cls".source = ./my-article.cls;
       };
 
-      sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
+      # need the first for pip
+      sessionPath = [ "$HOME/.local/bin" "${config.xdg.configHome}/emacs/bin" ];
       sessionVariables = {
         # fall back to emacs if no emacs server
         EDITOR = "emacsclient -ca emacs";
+      };
+    };
+
+    systemd.user = {
+      timers.promnesia-index = {
+        Unit.After = [ "graphical.target" ];
+        Timer = {
+          OnCalendar = "hourly";
+          Unit = "promnesia-index.service";
+          Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
+      };
+      services = {
+        promnesia-index = {
+          Unit = {
+            After = [ "graphical.target" ];
+            Wants = [ "promnesia-index.timer" ];
+          };
+          Service.ExecStart = "/home/lh/.local/bin/promnesia index";
+        };
+        promnesia-serve = {
+          Unit.After = [ "graphical.target" ];
+          Install.WantedBy = [ "graphical.target" ];
+          Service.ExecStart = "/home/lh/.local/bin/promnesia serve";
+        };
       };
     };
 
@@ -91,6 +119,31 @@ in {
         "doom/languagetool-server-jar.el".text = ''
           (after! langtool
             (setq langtool-language-tool-server-jar "${pkgs.languagetool}/share/languagetool-server.jar"))
+        '';
+
+        # https://github.com/karlicoss/promnesia/blob/master/doc/config.py
+        "promnesia/config.py".text = ''
+          from promnesia.common import Source
+          from promnesia.sources import auto
+
+          ''''
+          List of sources to use.
+
+          You can specify your own, add more sources, etc.
+          See https://github.com/karlicoss/promnesia#setup for more information
+          ''''
+          SOURCES = [
+              Source(
+                  auto.index,
+                  '~/nc/personal',
+                  name='notes'
+              ),
+              Source(
+                  auto.index,
+                  '~/nc/bookmarks.org',
+                  name='bookmarks dump'
+              )
+          ]
         '';
       };
       mimeApps = let
@@ -214,7 +267,18 @@ in {
           mimeType = [ "text/plain" ];
           exec = "org-capture";
           categories = [ "Utility" "TextTools" "ProjectManagement" ];
-          # settings.NoDisplay = "true";
+        };
+        # https://github.com/karlicoss/open-in-editor
+        emacsclient-promnesia = {
+          type = "Application";
+          name = "Promnesia Editor";
+          genericName = "Promnesia editor:// scheme handler";
+          comment = "View Promnesia-indexed files";
+          mimeType = [ "x-scheme-handler/editor" ];
+          exec =
+            "python ${config.home.homeDirectory}/repos/open-in-editor/open_in_editor.py --editor emacs %u";
+          categories = [ "Utility" "TextTools" ];
+          settings.NoDisplay = "true";
         };
       };
     };
