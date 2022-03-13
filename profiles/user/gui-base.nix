@@ -164,7 +164,28 @@ in {
         extraPackages = tpkgs: {
           inherit (tpkgs)
             collection-basic collection-latex collection-latexrecommended
-            collection-xetex dvipng dvisvgm latexmk synctex
+            collection-xetex collection-luatex dvipng dvisvgm latexmk synctex
+            fontsetup newcomputermodern
+            # archival and deps
+            pdfx xmpincl
+            # org export
+            wrapfig ulem capt-of
+            # auctex preview (pdfcrop includes pdf2dsc)
+            preview pdfcrop
+            # koma
+            xpatch
+            # kaobook
+            xifthen ifmtarg options imakeidx hyphenat needspace placeins
+            marginnote sidenotes changepage chngcntr footmisc footnotebackref
+            tikzpagenodes ifoddpage multirow floatrow etoc libertinus-fonts
+            mdframed zref subfiles todonotes algorithm2e relsize ccicons
+            glossaries mfirstuc xfor datatool nomencl abstract
+
+            biblatex-apa biblatex-ieee
+
+            # building inputnormalization
+            l3build
+
             # mla.cls
             enumitem preprint newtx titlesec xstring csquotes hanging biblatex
             enotez fontaxes biblatex-mla translations;

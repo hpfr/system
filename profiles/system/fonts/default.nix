@@ -48,6 +48,7 @@ in {
         source-code-pro
         stix-two
         libertinus
+        liberation_ttf # kaobook
         iosevka-term # monospace
         iosevka-term-curly-slab # monospace serif for emacs
         julia-mono # monospaced unicode
@@ -57,9 +58,6 @@ in {
         source-han-sans # CJK support
         source-han-serif
         source-han-mono
-        # computer modern but unicode
-        cm_unicode
-        gyre-fonts # times new roman-, arial-, courier-likes
       ];
 
       # TODO: copy this option's functionality into home-manager module
