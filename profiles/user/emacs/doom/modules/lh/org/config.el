@@ -79,10 +79,10 @@
         org-treat-insert-todo-heading-as-state-change t
         org-todo-keywords
         '((sequence
-           "TODO(t!)"             ; a task that needs doing
-           "NEXT(n!)"             ; a task that is being worked on
-           "WAIT(w@)"             ; a task blocked by an external factor
-           "HOLD(h@)"             ; a task blocked by me
+           "TODO(t!)"                   ; a task that needs doing
+           "NEXT(n!)"                   ; a task that is being worked on
+           "WAIT(w@)"                   ; a task blocked by an external factor
+           "HOLD(h@)"                   ; a task blocked by me
            "|"
            "DONE(d!)"                   ; a task that was completed
            "ABRT(c@)")                  ; a task that was cancelled
@@ -199,6 +199,7 @@
   :config
   (setq doct-default-entry-type 'entry))
 
+;;; capture
 ;; org-capture can load before org if you call it too early
 (after! org
   (setq org-capture-templates
