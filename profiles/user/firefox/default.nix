@@ -40,9 +40,11 @@ in {
         forceWayland = config.profiles.user.wayland-base.enable;
         extraPolicies = {
           DisablePocket = true;
+          DisableTelemetry = true;
           DontCheckDefaultBrowser = true;
           DisableSetDesktopBackground = true;
           FirefoxHome.Pocket = false;
+          NewTabPage = false;
           OfferToSaveLogins = false;
           PasswordManagerEnabled = false;
           PromptForDownloadLocation = true;
@@ -58,6 +60,23 @@ in {
           settings = {
             "general.warnOnAboutConfig" = false;
             "browser.aboutConfig.showWarning" = false;
+            "browser.shell.checkDefaultBrowser" = false;
+            # recommended add-ons
+            "extensions.getAddons.showPane" = false;
+            "extensions.htmlaboutaddons.recommendations.enabled" = false;
+            "browser.discovery.enabled" = false;
+
+            # restore previous session
+            "browser.startup.page" = 3;
+            # clear third-party cookies on close
+            "network.cookie.thirdparty.sessionOnly" = true;
+            "network.cookie.thirdparty.nonsecureSessionOnly" = true;
+
+            # containers
+            "privacy.userContext.enabled" = true;
+            "privacy.userContext.ui.enabled" = true;
+
+            "browser.contentblocking.category" = "strict";
 
             # TODO: have to set this for every language?
             # use sans serif rather than serif for default proportional font
@@ -78,7 +97,11 @@ in {
 
             "browser.ctrlTab.sortByRecentlyUsed" = true;
 
-            # shorcuts
+            # blank page allows tridactyl
+            # windows and homepage
+            "browser.startup" = "about.blank";
+
+            # shortcuts
             "browser.newtabpage.activity-stream.feeds.topsites" = false;
             "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" =
               "";
@@ -93,15 +116,13 @@ in {
             # snippets
             "browser.newtabpage.activity-stream.feeds.snippets" = false;
 
-            # not officially supported yet on Nvidia proprietary drivers
-            # but I haven't noticed bugs and it's much faster:
-            # https://testdrive-archive.azurewebsites.net/Performance/Chalkboard/
-            "gfx.webrender.all" = true;
-            "gfx.webrender.enable" = true;
-            # may improve perf?
-            # "gfx.use-glx-texture-from-pixmap" = true;
-
             "extensions.formautofill.addresses.enabled" = false;
+            "extensions.formautofill.creditCards.available" = false;
+            "extensions.formautofill.creditCards.enabled" = false;
+
+            # a malicious extension with perms for all sites can already steal everything non-mozilla
+            "extensions.webextensions.restrictedDomains" = "";
+            "privacy.resistFingerprinting.block_mozAddonManager" = true;
           };
           userChrome = builtins.readFile ./userchrome.css;
         };
