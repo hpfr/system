@@ -202,6 +202,16 @@ in {
           categories = [ "Network" "X-Gemini" "X-Gopher" ];
           settings.NoDisplay = "true";
         };
+        emacsclient-capture = {
+          type = "Application";
+          name = "Capture";
+          genericName = "org-capture interface";
+          comment = "Capture tasks";
+          mimeType = [ "text/plain" ];
+          exec = "org-capture";
+          categories = [ "Utility" "TextTools" "ProjectManagement" ];
+          # settings.NoDisplay = "true";
+        };
       };
     };
   };

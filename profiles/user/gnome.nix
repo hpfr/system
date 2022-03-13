@@ -159,6 +159,12 @@ in {
           # there's no reboot dconf key?
           # reboot = [ "<Super><Shift>x" ];
         };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+          {
+            binding = "<Super>c";
+            command = "org-capture";
+            name = "org-capture";
+          };
         "org/gnome/shell/keybindings" = {
           toggle-overview = [ ];
           # bound to super+num, which I want for workspace switching
