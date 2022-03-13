@@ -281,7 +281,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;;; apps
 ;;; magit
-(after! magit
+(after! magit-branch
+  (setq magit-branch-read-upstream-first 'fallback))
+(after! forge-list
   (setq forge-owned-accounts '(("hpfr"))))
 
 ;;; circe
