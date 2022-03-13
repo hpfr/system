@@ -427,9 +427,6 @@ tasks."
 (use-package! org-chef
   :after org)
 
-(use-package! org-vcard
-  :after org)
-
 ;; TODO: test featurep org and moving this elsewhere
 (after! elfeed
   (setq rmh-elfeed-org-files
