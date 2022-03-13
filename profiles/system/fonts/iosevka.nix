@@ -38,7 +38,7 @@ let
       eight = "crossing-asymmetric";
       nine = "closed-contour";
       asterisk = "penta-low";
-      paragraph-sign = "low";
+      pilcrow = "low";
       number-sign = "slanted";
       dollar = "open";
     };
