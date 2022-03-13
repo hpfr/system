@@ -18,6 +18,10 @@
         :recipe (:host github :repo "alphapapa/ement.el"))
   (package! plz
     :recipe (:host github :repo "alphapapa/plz.el")))
+(package! anki-editor)
+(package! anki
+  :recipe (:host github :repo "chenyanming/anki.el")
+  :disable t)
 (package! elpher)
 (package! yequake
   :disable (not (member (system-name) gui-capable-hosts)))

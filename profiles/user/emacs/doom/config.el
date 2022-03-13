@@ -313,6 +313,18 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                "/libera@" (system-name))
       :sasl-password ,(secrets-get-secret "Main" "chat.sr.ht"))))
 
+;;; anki
+(use-package! anki-editor
+  :after org)
+(use-package! anki
+  :defer t
+  :init
+  (autoload 'anki "anki")
+  (autoload 'anki-browser "anki")
+  (autoload 'anki-list-decks "anki")
+  :config
+  (setq anki-collection-dir (expand-file-name "~/.var/app/net.ankiweb.Anki/data/Anki2/User 1")))
+
 ;;; elfeed
 (after! elfeed
   ;; celluloid connects to MPRIS for playback control
