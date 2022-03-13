@@ -74,6 +74,11 @@
   ;; tag for optimizing agenda files doesn't need to be inherited
   (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
 
+(after! oc
+  ;; TODO biblio module should set from citar-bibliography
+  (setq org-cite-global-bibliography '("~/nc/research/main.bib")
+        org-cite-export-processors '((latex biblatex "ieee")
+                                     (t csl))))
 
 (use-package! org-edna
   ;; defer seems to prevent it from loading?
