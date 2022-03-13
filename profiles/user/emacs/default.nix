@@ -74,6 +74,10 @@ in {
 
     xdg = {
       configFile = {
+        "latexmk/latexmkrc".text = ''
+          $emulate_aux = 1;
+          $aux_dir = '.latexmk-build';
+        '';
         "doom" = {
           source = ./doom;
           recursive = true;
