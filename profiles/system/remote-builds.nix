@@ -27,14 +27,16 @@ in {
         # otherwise local gets all dependencies and sends them to builder
         builders-use-substitutes = true
       '';
-      # builder as remote substituter
-      # enable with --option trusted-substituters "ssh-ng://host"
-      trustedBinaryCaches = builtins.filter
-        (str: (builtins.match ".*${config.networking.hostName}$" str) == null)
-        [ "ssh-ng://monolith" ];
-      binaryCachePublicKeys = builtins.filter
-        (str: (builtins.match "^${config.networking.hostName}.*" str) == null)
-        [ "monolith:qYcj/A6mRSPaaFn9sYYieWVY+0ZRPb2KavAJwYzTeJQ=" ];
+      settings = {
+        # builder as remote substituter
+        # enable with --option trusted-substituters "ssh-ng://host"
+        trusted-substituters = builtins.filter
+          (str: (builtins.match ".*${config.networking.hostName}$" str) == null)
+          [ "ssh-ng://monolith" ];
+        trusted-public-keys = builtins.filter
+          (str: (builtins.match "^${config.networking.hostName}.*" str) == null)
+          [ "monolith:qYcj/A6mRSPaaFn9sYYieWVY+0ZRPb2KavAJwYzTeJQ=" ];
+      };
     };
   };
 }

@@ -22,12 +22,14 @@ in {
     };
 
     nix = {
-      # required for remote builders
-      trustedUsers = [ "root" "@wheel" ];
       nixPath = options.nix.nixPath.default
         ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
-      # conserve disk space by hardlinking identical store files
-      autoOptimiseStore = true;
+      settings = {
+        # required for remote builders
+        trusted-users = [ "root" "@wheel" ];
+        # conserve disk space by hardlinking identical store files
+        auto-optimise-store = true;
+      };
     };
 
     nixpkgs.overlays = [
