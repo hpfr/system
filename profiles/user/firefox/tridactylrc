@@ -1,35 +1,6 @@
 " -*- mode: vimrc -*-
 
-" WARNING: This file defines and runs a command called fixamo_quiet. If you
-" also have a malicious addon that operates on `<all_urls>` installed this
-" will allow it to steal your firefox account credentials!
-"
-" With those credentials, an attacker can read anything in your sync account,
-" publish addons to the AMO, etc, etc.
-"
-" Without this command a malicious addon can steal credentials from any site
-" that you visit that is not in the restrictedDomains list.
-"
-" You should comment out the fixamo lines unless you are entirely sure that
-" they are what you want.
-"
-" The advantage of running the command is that you can use the tridactyl
-" interface on addons.mozilla.org and other restricted sites.
-
-" Provided only as an example.
-" Do not install/run without reading through as you may be surprised by some
-" of the settings.
-
-" May require the latest beta builds.
-
-" Move this to $XDG_CONFIG_DIR/tridactyl/tridactylrc (that's
-" ~/.config/tridactyl/tridactylrc to mere mortals) or ~/.tridactylrc and
-" install the native messenger (:installnative in Tridactyl). Run :source to
-" get it in the browser, or just restart.
-
-" NB: If you want "vim-like" behaviour where removing a line from
-" here makes the setting disappear, uncomment the line below.
-
+" don't persist interactive changes, this config is the source of truth
 sanitise tridactyllocal tridactylsync
 
 set editorcmd $EDITOR
