@@ -9,7 +9,11 @@ in {
   '';
 
   config = mkIf cfg.enable {
-    home.sessionVariables.BROWSER = "firefox";
+    home.sessionVariables = {
+      BROWSER = "firefox";
+      MOZ_DBUS_REMOTE =
+        if config.profiles.user.wayland-base.enable then 1 else 0;
+    };
 
     xdg = {
       # vim keybindings extension
