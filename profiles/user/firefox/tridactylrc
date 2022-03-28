@@ -14,6 +14,9 @@ colors dark
 bind J tabnext
 bind K tabprev
 
+" make tab completion based on last visited to match the Firefox setting
+set tabsort mru
+
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
 
