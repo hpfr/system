@@ -86,6 +86,12 @@
   :config
   (org-edna-mode))
 
+(use-package! org-transclusion
+  :after org
+  :init
+  (map! :map org-mode-map
+        :localleader "X" #'org-transclusion-mode))
+
 ;; better latex preview
 (use-package! org-auctex
   :hook (org-mode . org-auctex-mode))
