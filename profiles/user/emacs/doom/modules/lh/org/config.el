@@ -37,8 +37,7 @@
           ("\\.mkv\\'" . "mpv %s")
           (system . "xdg-open %s")
           (t . "xdg-open %s"))
-        ;; always use UUID's in org headline links
-        org-id-link-to-org-use-id t
+        org-id-link-to-org-use-id 'create-if-interactive
         org-use-property-inheritance '("ROAM_EXCLUDE")
         org-startup-folded 'showall
         ;; no shouting
