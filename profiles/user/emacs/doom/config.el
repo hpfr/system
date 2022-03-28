@@ -274,10 +274,14 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 ;; hide shortcuts, I know them
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-;;; image
-(setq image-use-external-converter t)   ; view HEIC files from Apple devices
-(add-to-list 'auto-mode-alist '("\\.heic\\'" . image-mode))
-(add-to-list 'image-file-name-extensions "heic")
+;; view HEIC files from Apple devices
+(after! files
+  (add-to-list 'auto-mode-alist
+               `(,(rx "." (or "heic" "HEIC") string-end) . image-mode)))
+(after! image
+  (setq image-use-external-converter t))
+(after! image-file
+  (add-to-list 'image-file-name-extensions "heic"))
 
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
