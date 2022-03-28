@@ -147,27 +147,27 @@
   (setq org-capture-templates
         (doct
          '((:group "standard todo's" :prepend t :kill-buffer t
-            :file +org-capture-todo-file :headline "Inbox"
+            :file "inbox.org"
             :template ("* %{todo-state} %?"
                        ":LOGBOOK:"
                        "- State \"%{todo-state}\"       from              %U"
                        ":END:"
                        "%i")
             :children
-            (("todo" :keys "t"
+            (("task" :keys "t"
               :todo-state "TODO")
-             ("upcoming todo" :keys "u"
+             ("upcoming task" :keys "u"
               :todo-state "NEXT")))
 
            ("event" :keys "e" :prepend t :kill-buffer t
-            :file "personal-calendar-inbox.org"
+            :file "events/inbox.org"
             :template ("* %?"
                        "%^{LOCATION}p"
                        "%^t"
                        "%i"))
            ("notes" :keys "n" :prepend t :kill-buffer t
-            :file +org-capture-notes-file :headline "Inbox"
-            :template ("* %u %?"
+            :file +org-capture-notes-file
+            :template ("* %?"
                        "%i"))
            ("email" :keys "m" :prepend t :kill-buffer t
             :file +org-capture-todo-file :headline "Inbox"
