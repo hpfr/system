@@ -195,25 +195,7 @@
              ("project-local notes" :keys "n"
               :file +org-capture-project-notes-file)
              ("project-local changelog" :keys "c"
-              :file +org-capture-project-changelog-file :headline "Unreleased")))
-
-           ("centralized project templates" :keys "o" :prepend t :kill-buffer t
-            :file +org-capture-central-project-todo-file :headline "Inbox"
-            :template ("* %U %?"
-                       "- %a"
-                       "%i")
-            :children
-            (("project-local todo" :keys "t"
-              :template ("* TODO %?"
-                         ":LOGBOOK:"
-                         "- State \"TODO\"       from              %U"
-                         ":END:"
-                         "- %a"
-                         "%i"))
-             ("project-local notes" :keys "n"
-              :file +org-capture-central-project-notes-file)
-             ("project-local changelog" :keys "c"
-              :file +org-capture-central-project-changelog-file :headline "Unreleased")))))))
+              :file +org-capture-project-changelog-file :headline "Unreleased")))))))
 
 ;;; agenda
 (use-package! org-super-agenda
