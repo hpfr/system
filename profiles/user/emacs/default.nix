@@ -31,6 +31,7 @@ in {
           # TODO: expose these only to emacs somehow
           gnutls # circe
           gcc # roam, magit forge https://www.reddit.com/r/emacs/comments/adlmh2/
+          perl # magit features like rebase remove commit
           sqlite # dash docsets
           ripgrep # doom code searching features
           jq # json parsing
