@@ -25,16 +25,16 @@
            "|"
            "[X](D!)"))                  ; a completed task
         org-file-apps
-        '((auto-mode . emacs)
+        `((auto-mode . emacs)
           (directory . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . emacs))
+          (,(rx ".mm" eos) . default)
+          (,(rx "." (? "x") "htm" (? "l") eos) . default)
+          (,(rx ".pdf" eos) . emacs))
         org-file-apps-gnu
         ;; I don't have a mailcap file
-        '((remote . emacs)
-          ("\\.mp4\\'" . "mpv %s")
-          ("\\.mkv\\'" . "mpv %s")
+        `((remote . emacs)
+          (,(rx ".mp4" eos) . "mpv %s")
+          (,(rx ".mkv" eos) . "mpv %s")
           (system . "xdg-open %s")
           (t . "xdg-open %s"))
         org-id-link-to-org-use-id 'create-if-interactive
@@ -125,15 +125,17 @@
  citecolor=cite
 }
 \\urlstyle{same}\n"))
+;; (after! ox-html
+;;   (setq org-html-head "<link rel=\"stylesheet\" href=\"https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css\">"))
 
 ;; hide individual blocks with #+hide: t on the line preceding #+begin_...
 (add-hook! 'org-mode-hook
   (save-excursion
     (goto-char (point-min))
-    (while (re-search-forward "^#\\+begin_\\(src\\|quote\\)" nil t)
+    (while (re-search-forward (rx bol "#+begin_" (or "src" "quote")) nil t)
       (and (save-excursion
              (goto-char (line-beginning-position 0))
-             (looking-at-p "\\s-*#\\+hide: t\n"))
+             (looking-at-p (rx (* whitespace) "#+hide: t\n")))
            (org-hide-block-toggle t)))))
 
 (use-package! doct
@@ -282,7 +284,7 @@ Refer to `org-agenda-prefix-format' for more information."
 (after! org-roam
   (setq org-roam-directory org-directory
         org-roam-file-exclude-regexp
-        (concat "^" org-roam-directory "/\\(.attach\\|events\\|school-events\\)/")
+        (rx bol (literal org-roam-directory) "/" (or ".attach" "events" "school-events") "/")
         org-roam-db-node-include-function
         (lambda ()
           (not (or (org-entry-get (point) "ROAM_EXCLUDE" 'selective)
