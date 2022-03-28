@@ -24,6 +24,9 @@
   :init
   (setq which-key-idle-delay 3.0))
 
+(after! orderless
+  (setq orderless-component-separator #'orderless-escapable-split-on-space))
+
 (after! evil
   (require 'evil-textobj-anyblock)
   (evil-define-text-object my-evil-textobj-anyblock-inner-quote
