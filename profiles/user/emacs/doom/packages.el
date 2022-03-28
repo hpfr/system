@@ -8,6 +8,7 @@
 (package! aas)
 (package! laas)
 (package! lazytab :recipe (:host github :repo "karthink/lazytab"))
+(package! git-auto-commit-mode)
 (package! lexic)
 (package! disk-usage)
 (package! daemons)

@@ -290,8 +290,15 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 ;;; magit
 (after! magit-branch
   (setq magit-branch-read-upstream-first 'fallback))
+
 (after! forge-list
   (setq forge-owned-accounts '(("hpfr"))))
+
+(use-package! git-auto-commit-mode
+  :defer t
+  :config
+  (setq gac-ask-for-summary-p t
+        gac-default-message "Update [git-auto-commit-mode]"))
 
 ;;; circe
 (after! circe
