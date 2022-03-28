@@ -303,7 +303,9 @@ Refer to `org-agenda-prefix-format' for more information."
         (concat "^" org-roam-directory "/\\(.attach\\|events\\|school-events\\)/")
         org-roam-db-node-include-function
         (lambda ()
-          (not (org-entry-get (point) "ROAM_EXCLUDE" 'selective)))
+          (not (or (org-entry-get (point) "ROAM_EXCLUDE" 'selective)
+                   (and (member (or org-attach-auto-tag "ATTACH") (org-get-tags))
+                        (member (org-get-heading t t t) '("Attachments" "Resources"))))))
         org-roam-capture-templates
         '(("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
