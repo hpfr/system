@@ -398,6 +398,13 @@ tasks."
 
   (advice-add 'org-agenda :before #'vulpea-agenda-files-update))
 
+(use-package! consult-org-roam
+  :after (consult org-roam)
+  :config
+  (setq consult-org-roam-grep-func #'consult-ripgrep)
+  (map! :map org-mode-map
+        :localleader "m b" #'consult-org-roam-backlinks))
+
 ;; I'm ok with longer link titles
 (after! org-cliplink
   (setq org-cliplink-max-length 120))

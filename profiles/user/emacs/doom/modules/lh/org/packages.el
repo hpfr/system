@@ -12,3 +12,4 @@
 ;; favor of my own implementations in future, since I don't use much
 (package! vulpea)
 (package! org-auctex :recipe (:host github :repo "karthink/org-auctex"))
+(package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
