@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
-(setq org-directory "~/nc/personal"
+(setq org-directory (expand-file-name "~/nc/personal")
       org-ellipsis " ▼ ")
 
 (after! org
@@ -299,7 +299,8 @@ Refer to `org-agenda-prefix-format' for more information."
 
 (after! org-roam
   (setq org-roam-directory org-directory
-        org-roam-file-exclude-regexp "^org-caldav-backup.org"
+        org-roam-file-exclude-regexp
+        (concat "^" org-roam-directory "/\\(.attach\\|events\\|school-events\\)/")
         org-roam-db-node-include-function
         (lambda ()
           (not (org-entry-get (point) "ROAM_EXCLUDE" 'selective)))
@@ -399,7 +400,14 @@ tasks."
 
   (defun vulpea-agenda-files-update (&rest _)
     "Update the value of `org-agenda-files'."
-    (setq org-agenda-files (vulpea-has-todo-files)))
+    (setq org-agenda-files (vulpea-has-todo-files))
+    (dolist (calendar org-caldav-calendars)
+      (appendq! org-agenda-files
+                (nth 1 (memq :files calendar))
+                (list (nth 1 (memq :inbox calendar)))))
+    ;; event files may have todo's so remove duplicates
+    (setq org-agenda-files (delete-dups
+                            (mapcar #'expand-file-name org-agenda-files))))
 
   (add-hook 'find-file-hook #'vulpea-has-todo-update-tag)
   (add-hook 'before-save-hook #'vulpea-has-todo-update-tag)
@@ -421,13 +429,24 @@ tasks."
   :config
   (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
         org-caldav-backup-file (concat doom-local-dir "org-caldav/backup.org")
-        org-caldav-save-directory (concat doom-local-dir "org-caldav/"))
-  ;; This makes sure to-do items as a category can show up on the calendar
-  (setq org-icalendar-include-todo t)
-  ;; This ensures all org "deadlines" show up as due dates
-  (setq org-icalendar-use-deadline '(todo-due))
-  ;; This ensures "scheduled" org items show up as start times
-  (setq org-icalendar-use-scheduled '(todo-start)))
+        org-caldav-save-directory (concat doom-local-dir "org-caldav/")
+        ;; This makes sure to-do items as a category can show up on the calendar
+        org-icalendar-include-todo t
+        ;; This ensures all org "deadlines" show up as due dates
+        org-icalendar-use-deadline '(todo-due)
+        ;; This ensures "scheduled" org items show up as start times
+        org-icalendar-use-scheduled '(todo-start)
+        org-caldav-calendars
+        `((:calendar-id "school-1"
+           :files
+           ,(delete (concat org-directory "/school-events/inbox.org")
+                    (directory-files (concat org-directory "/school-events") t "^[^.]"))
+           :inbox ,(concat org-directory "/school-events/inbox.org"))
+          (:calendar-id "personal-1"
+           :files
+           ,(delete (concat org-directory "/events/inbox.org")
+                    (directory-files (concat org-directory "/events") t "^[^.]"))
+           :inbox ,(concat org-directory "/events/inbox.org")))))
 
 (use-package! org-chef
   :after org)
@@ -448,5 +467,3 @@ tasks."
 "))
 
   (add-to-list 'org-re-reveal-plugin-config '(chalkboard "RevealChalkboard" "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
-
-(load! "private.el")
