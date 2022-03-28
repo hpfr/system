@@ -405,6 +405,14 @@ tasks."
   (map! :map org-mode-map
         :localleader "m b" #'consult-org-roam-backlinks))
 
+;; org-roam-ui dependency
+(use-package! websocket
+  :after org-roam
+  :defer t)
+(use-package! org-roam-ui
+  :after (org-roam websocket)
+  :defer t)
+
 ;; I'm ok with longer link titles
 (after! org-cliplink
   (setq org-cliplink-max-length 120))

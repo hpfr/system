@@ -13,3 +13,6 @@
 (package! vulpea)
 (package! org-auctex :recipe (:host github :repo "karthink/org-auctex"))
 (package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
+(when (package! org-roam-ui :recipe
+        (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+  (package! websocket))
