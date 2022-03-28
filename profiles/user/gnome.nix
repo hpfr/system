@@ -7,7 +7,13 @@ in {
   options.profiles.user.gnome.enable =
     mkEnableOption "my user-level GNOME configuration";
   config = mkIf cfg.enable {
-    profiles.user.wayland-base.enable = true;
+    profiles.user = {
+      wayland-base.enable = true;
+      # gnome console
+      foot.enable = false;
+    };
+
+    home.sessionVariables.TERMINAL = "kgx";
 
     # glib has gsettings
     systemd.user.services.bgcron.Service.Environment = "PATH=${

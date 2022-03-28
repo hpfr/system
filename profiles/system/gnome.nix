@@ -44,7 +44,7 @@ in {
         totem # mpv/celluloid for media
         gnome-music # spotify/mpd+emacs
         simple-scan # I don't have a scanner
-        gnome-terminal # foot
+        gnome-terminal # gnome console
         pkgs.gnome-photos # gthumb actually lets you browse directories
       ];
     };

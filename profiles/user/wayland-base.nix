@@ -7,7 +7,10 @@ in {
   options.profiles.user.wayland-base.enable =
     mkEnableOption "my user-level Wayland base configuration";
   config = mkIf cfg.enable {
-    profiles.user.gui-base.enable = true;
+    profiles.user = {
+      gui-base.enable = true;
+      foot.enable = lib.mkDefault true;
+    };
 
     systemd.user.services.bgcron.Service.Environment = mkDefault "PATH=${
         with pkgs;
@@ -16,24 +19,8 @@ in {
 
     # # numerous QT apps can't handle this
     # home.sessionVariables.QT_QPA_PLATFORM = "wayland";
-    home.sessionVariables = {
-      MOZ_DBUS_REMOTE = 1;
-      TERMINAL = "foot";
-    };
+    home.sessionVariables.MOZ_DBUS_REMOTE = 1;
 
     home.packages = [ pkgs.wl-clipboard ];
-
-    # minimal terminal emulator
-    programs.foot = {
-      enable = true;
-      settings = {
-        main.font = "monospace:size=11";
-        csd = { # client-side decorations (title bar size)
-          size = 32;
-          button-width = 32;
-        };
-        colors.alpha = 0.9;
-      };
-    };
   };
 }
