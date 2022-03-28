@@ -43,8 +43,8 @@ in {
         noto-fonts # no tofu
         noto-fonts-extra # all weights
         lato # sans-serif
-        source-serif-pro
-        source-sans-pro
+        source-serif
+        source-sans
         source-code-pro
         stix-two
         libertinus
