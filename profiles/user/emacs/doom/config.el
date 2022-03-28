@@ -233,14 +233,14 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                       (let ((default-regexp (eval ediff-default-filtering-regexp)))
                         (ediff-directories
                          dir1 dir2
-	                 (read-string
-	                  (if (stringp default-regexp)
-		              (format "Filter filenames through regular expression (default %s): "
-			              default-regexp)
-	                    "Filter filenames through regular expression: ")
-	                  nil
-	                  'ediff-filtering-regexp-history
-	                  (eval ediff-default-filtering-regexp)))))
+                         (read-string
+                          (if (stringp default-regexp)
+                              (format "Filter filenames through regular expression (default %s): "
+                                      default-regexp)
+                            "Filter filenames through regular expression: ")
+                          nil
+                          'ediff-filtering-regexp-history
+                          (eval ediff-default-filtering-regexp)))))
                   #'ediff-files)))
           (if (not (eq file1-dir file2-dir))
               (error "Cannot compare a file with a directory.")
@@ -482,21 +482,21 @@ the right. Refer to `ediff-swap-buffers' to swap them."
           ) . lazytab-mode)
   :config
   (add-to-list 'cdlatex-command-alist '("smat" "Insert smallmatrix env"
-                                       "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
-                                       lazytab-position-cursor-and-edit
-                                       nil nil t))
+                                        "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
+                                        lazytab-position-cursor-and-edit
+                                        nil nil t))
   (add-to-list 'cdlatex-command-alist '("bmat" "Insert bmatrix env"
-                                       "\\begin{bmatrix} ? \\end{bmatrix}"
-                                       lazytab-position-cursor-and-edit
-                                       nil nil t))
+                                        "\\begin{bmatrix} ? \\end{bmatrix}"
+                                        lazytab-position-cursor-and-edit
+                                        nil nil t))
   (add-to-list 'cdlatex-command-alist '("pmat" "Insert pmatrix env"
-                                       "\\begin{pmatrix} ? \\end{pmatrix}"
-                                       lazytab-position-cursor-and-edit
-                                       nil nil t))
+                                        "\\begin{pmatrix} ? \\end{pmatrix}"
+                                        lazytab-position-cursor-and-edit
+                                        nil nil t))
   (add-to-list 'cdlatex-command-alist '("tbl" "Insert table"
                                         "\\begin{table}\n\\centering ? \\caption{}\n\\end{table}\n"
-                                       lazytab-position-cursor-and-edit
-                                       nil t nil)))
+                                        lazytab-position-cursor-and-edit
+                                        nil t nil)))
 
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))
