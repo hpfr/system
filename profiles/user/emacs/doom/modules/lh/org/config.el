@@ -70,8 +70,26 @@
 \\addtolength{\\textheight}{-3cm}
 \\setlength{\\topmargin}{1.5cm}
 \\addtolength{\\topmargin}{-2.54cm}")
+
   ;; tag for optimizing agenda files doesn't need to be inherited
-  (add-to-list 'org-tags-exclude-from-inheritance "has-todo"))
+  (add-to-list 'org-tags-exclude-from-inheritance "has-todo")
+
+  (defun my/org-fold-done--on-change ()
+    "Make the current task appear folded by default if it is complete"
+    (when (member org-state org-done-keywords)
+      (org-set-property "VISIBILITY" "folded")))
+
+  (define-minor-mode my/org-fold-done-mode
+    "Make completed tasks appear folded by default"
+    :global t
+    :group 'my/org-fold-done
+    :lighter " org-fold-done"
+    :init-value nil
+    (if my/org-fold-done-mode
+        (add-hook 'org-after-todo-state-change-hook #'my/org-fold-done--on-change)
+      (remove-hook 'org-after-todo-state-change-hook #'my/org-fold-done--on-change)))
+
+  (my/org-fold-done-mode))
 
 (after! oc
   ;; TODO biblio module should set from citar-bibliography
