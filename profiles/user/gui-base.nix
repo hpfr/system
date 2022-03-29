@@ -88,7 +88,7 @@ in {
 
     systemd.user = {
       timers.bgcron = {
-        Unit.After = [ "graphical.target" ];
+        Unit.After = [ "graphical-session.target" ];
         Timer = {
           OnCalendar = "daily";
           Unit = "bgcron.service";
@@ -98,7 +98,7 @@ in {
       };
       services.bgcron = {
         Unit = {
-          After = [ "graphical.target" ];
+          After = [ "graphical-session.target" ];
           Wants = [ "bgcron.timer" ];
         };
         Service.ExecStart = "${pkgs.gui-scripts}/bin/setbg";

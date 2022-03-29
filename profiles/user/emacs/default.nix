@@ -77,7 +77,7 @@ in {
 
     systemd.user = {
       timers.promnesia-index = {
-        Unit.After = [ "graphical.target" ];
+        Unit.After = [ "graphical-session.target" ];
         Timer = {
           OnCalendar = "hourly";
           Unit = "promnesia-index.service";
@@ -88,14 +88,14 @@ in {
       services = {
         promnesia-index = {
           Unit = {
-            After = [ "graphical.target" ];
+            After = [ "graphical-session.target" ];
             Wants = [ "promnesia-index.timer" ];
           };
           Service.ExecStart = "/home/lh/.local/bin/promnesia index";
         };
         promnesia-serve = {
-          Unit.After = [ "graphical.target" ];
-          Install.WantedBy = [ "graphical.target" ];
+          Unit.After = [ "graphical-session.target" ];
+          Install.WantedBy = [ "graphical-session.target" ];
           Service.ExecStart = "/home/lh/.local/bin/promnesia serve";
         };
       };
