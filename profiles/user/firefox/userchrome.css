@@ -25,6 +25,17 @@
  * tastes */
 #alltabs-button { display: initial !important; }
 
+/* Make tabs fill available space. Using "none" breaks the feature that locks
+ * tab size when rapidly closing tabs, so use the viewport width */
+.tabbrowser-tab[fadein]:not([pinned]):not([style^="max-width"]) {
+    max-width: 100vw !important;
+}
+
+/* center url in bar */
+#urlbar:not([focused]) .urlbar-input-box {
+    text-align: center;
+}
+
 /* Remove menu items */
 /* https://web.archive.org/web/20220218181624/https://www.reddit.com/r/FirefoxCSS/comments/svol27/a_big_list_of_contextual_items_for_hiding/ */
 /* can right click or hold on the back button */
