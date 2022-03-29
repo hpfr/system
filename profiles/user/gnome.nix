@@ -135,6 +135,7 @@ in {
       enable = true;
       # https://rycee.gitlab.io/home-manager/options.html#opt-dconf.settings
       settings = {
+        "org/gnome/gnome-session".logout-prompt = false;
         # workspaces span displays
         "org/gnome/mutter" = {
           workspaces-only-on-primary = false;
