@@ -33,6 +33,7 @@ in {
         # scc # more repo metrics, blocked by sc-controller for now
         ripgrep # better grep
         ripgrep-all # pdf's, etc
+        cocogitto # lint commits
         file # get filetypes
         fio # disk benchmarking
         recode # change file encoding in place
