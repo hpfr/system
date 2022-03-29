@@ -66,7 +66,7 @@ in {
       # https://src.fedoraproject.org/rpms/google-noto-fonts/c/6ec5a0916978c1565534038d084a88a9913f1837?branch=rawhide
       fontconfig.defaultFonts = {
         serif = [ "Source Serif 4 Variable" "Noto Serif" "Source Han Serif" ];
-        sansSerif = [ "Lato" "Noto Sans" "Source Han Sans" ];
+        sansSerif = [ "Lato" "Source Sans 3 VF" "Noto Sans" "Source Han Sans" ];
         monospace = [ "Iosevka Term" "Source Han Mono" "JuliaMono" ];
         emoji = [ "JoyPixels" ];
       };
