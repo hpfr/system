@@ -20,7 +20,11 @@ elif [ -n "$DISPLAY" ]; then
 
 # can't see env vars from systemd service
 elif [ -n "$(command -v gsettings)" ]; then
-    COMMAND='gsettings set org.gnome.desktop.background picture-uri file:///'
+    if [ $(gsettings get org.gnome.desktop.interface color-scheme) = "'prefer-dark'" ]; then
+        COMMAND='gsettings set org.gnome.desktop.background picture-uri-dark file:///'
+    else
+        COMMAND='gsettings set org.gnome.desktop.background picture-uri file:///'
+    fi
 elif [ -n "$(command -v swaybg)" ]; then
     COMMAND='swaybg '
 elif [ -n "$(command -v xwallpaper)" ]; then
