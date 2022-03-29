@@ -14,6 +14,11 @@ colors dark
 bind J tabnext
 bind K tabprev
 
+" default bookmark storage to the Mobile Bookmarks folder since the default
+" can't be changed on iOS. replace slashes in title to prevent tridactyl seeing
+" them as path separators
+bind a composite js document.location.href + ' /Mobile Bookmarks/' + document.title.replace(new RegExp('/','g'), '／') | fillcmdline_notrail bmark
+
 " make tab completion based on last visited to match the Firefox setting
 set tabsort mru
 
