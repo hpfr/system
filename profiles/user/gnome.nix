@@ -141,7 +141,10 @@ in {
           dynamic-workspaces = false;
         };
         "org/gnome/desktop/wm/preferences".num-workspaces = 4;
-        "org/gnome/desktop/interface".clock-show-weekday = true;
+        "org/gnome/desktop/interface" = {
+          clock-show-weekday = true;
+          color-scheme = "prefer-dark";
+        };
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
         "org/gnome/shell".enabled-extensions = [
