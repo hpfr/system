@@ -1,16 +1,13 @@
 " -*- mode: vimrc -*-
 
 " don't persist interactive changes, this config is the source of truth
-sanitise tridactyllocal tridactylsync
+sanitize tridactyllocal tridactylsync
 
 set editorcmd $EDITOR
 
 colors dark
 
-"
 " Binds
-"
-
 bind J tabnext
 bind K tabprev
 
@@ -38,29 +35,14 @@ bind gD composite tabduplicate | tabdetach
 " Make yy use canonical / short links on the 5 websites that support them
 bind yy clipboard yankshort
 
-" Stupid workaround to let hint -; be used with composite which steals semi-colons
+" workaround to let hint -; be used with composite which uses semicolons as syntax
 command hint_focus hint -;
 
 " toggle comment view for common link aggregators
-bind ;c hint -Jc summary,[class*="expand"],[class*="togg"],[aria-label="Collapse"],[class="comment_folder"]
-" Open right click menu on links
-" bind ;C composite hint_focus; !s xdotool key Menu
+bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
 
-" Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
-set hintdelay 100
 
-" Add helper commands that Mozillians think make Firefox irredeemably
-" insecure. For details, read the comment at the top of this file.
-" command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
-" command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
 
-" Make Tridactyl work on more sites at the expense of some security. For
-" details, read the comment at the top of this file.
-" set csp clobber
-" fixamo_quiet
-
-" Make quickmarks for the sane Tridactyl issue view
-quickmark t https://github.com/tridactyl/tridactyl/issues?utf8=%E2%9C%93&q=sort%3Aupdated-desc+
 
 blacklistadd https://www.nitrotype.com/race
 blacklistadd https://config.qmk.fm
