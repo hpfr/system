@@ -43,8 +43,28 @@ bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse
 
 " site-specific
 
+set searchurls.wk https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=
+set searchurls.wb https://web.archive.org/web/*/
+set searchurls.hn https://hn.algolia.com/?q=
+set searchurls.rd https://old.reddit.com/search?q=
+set searchurls.yt https://www.youtube.com/results?search_query=
+set searchurls.gen https://genius.com/search?q=
+set searchurls.man https://www.mankier.com/?q=
+set searchurls.nxo https://search.nixos.org/options?channel=unstable&query=
+set searchurls.nxp https://search.nixos.org/packages?channel=unstable&query=
+set searchurls.nxpr https://nixpk.gs/pr-tracker.html?pr=
+
+" shortcuts to search for the current page's URL on link aggregators and the
+" wayback machine
+command canon_fallback js document.querySelector("link[rel='canonical']")?.getAttribute("href") || document.location.href
+bind gsw composite canon_fallback | open wb
+bind gsh composite canon_fallback | tabopen hn
+bind gsr composite canon_fallback | tabopen rd
+
 seturl ^moz-extension://b2a9b85a-18a4-419b-9e51-22e80fca4c2a/static/docs/modules/_src_excmds_.html gotoselector h1,h2,h3
 
+" Nixpkgs PR tracker straight from PR
+bindurl ^https?://github.com/NixOS/nixpkgs/pull/\d gop composite js document.location.pathname.split('/')[4] | open nxpr
 
 blacklistadd https://www.nitrotype.com/race
 blacklistadd https://config.qmk.fm
