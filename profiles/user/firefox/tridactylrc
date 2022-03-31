@@ -12,6 +12,7 @@ colors midnight
 " Binds
 bind J tabnext
 bind K tabprev
+bind gb fillcmdline bmarks
 
 " open links in new tabs in foreground rather than background
 bind F hint -t
