@@ -35,6 +35,7 @@
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
+  (add-hook! '(message-mode-hook org-msg-edit-mode-hook) 'messages-are-flowing-use-and-mark-hard-newlines)
   (setq mu4e-context-policy 'pick-first
         mu4e-compose-context-policy 'ask
         mu4e-compose-signature nil
@@ -60,6 +61,10 @@
         mu4e-index-lazy-check nil
         mu4e-headers-full-search nil ;; toggle with Q
         gnus-treat-display-smileys nil
+        ;; mu4e's format=flowed seems to be based on a misunderstanding of how
+        ;; mml-generate-mime-1 flows f=f messages
+        ;; TODO: figure out use-hard-newlines and evil with OrgMsg
+        mml-enable-flowed t
         mu4e-bookmarks '((:name "Unread messages"
                           :query "flag:unread and not flag:trashed" :key ?u)
                          (:name "Today's messages" :query "date:today..now" :key ?t)
