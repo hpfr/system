@@ -32,9 +32,6 @@ unbind --mode=ex <C-c>
 bind gd tabdetach
 bind gD composite tabduplicate | tabdetach
 
-" Make yy use canonical / short links on the 5 websites that support them
-bind yy clipboard yankshort
-
 " workaround to let hint -; be used with composite which uses semicolons as syntax
 command hint_focus hint -;
 
