@@ -38,7 +38,9 @@ command hint_focus hint -;
 " toggle comment view for common link aggregators
 bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
 
+" site-specific
 
+seturl ^moz-extension://b2a9b85a-18a4-419b-9e51-22e80fca4c2a/static/docs/modules/_src_excmds_.html gotoselector h1,h2,h3
 
 
 blacklistadd https://www.nitrotype.com/race
