@@ -1,7 +1,9 @@
 " -*- mode: vimrc -*-
 
-" don't persist interactive changes, this config is the source of truth
-sanitize tridactyllocal tridactylsync
+" " don't persist interactive changes, this config is the source of truth
+" " this is asynchronous and can potentially clobber following settings, so I
+" " guess I'll just have to remember to run it occasionally on close
+" sanitize tridactyllocal
 
 set editorcmd $EDITOR
 
