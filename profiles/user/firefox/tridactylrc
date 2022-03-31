@@ -5,7 +5,7 @@ sanitize tridactyllocal tridactylsync
 
 set editorcmd $EDITOR
 
-colors dark
+colors midnight
 
 " Binds
 bind J tabnext
