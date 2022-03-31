@@ -56,6 +56,18 @@ in {
           PasswordManagerEnabled = false;
           PromptForDownloadLocation = true;
           SearchBar = "unified";
+          Bookmarks = optional config.services.syncthing.enable {
+            Title = "Syncthing";
+            URL = "http://localhost:8384";
+            Favicon = "https://syncthing.net/img/favicon.png";
+            Placement = "toolbar";
+          } ++ optional config.profiles.user.emacs.enable {
+            Title = "org-roam-ui";
+            URL = "http://localhost:35901";
+            Favicon =
+              "https://orgmode.org/resources/img/favicons/favicon-32x32.png";
+            Placement = "toolbar";
+          };
         };
         extraNativeMessagingHosts = [ pkgs.tridactyl-native ]
           ++ optional config.profiles.user.gnome.enable
