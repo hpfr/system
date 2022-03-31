@@ -66,8 +66,4 @@ seturl ^moz-extension://b2a9b85a-18a4-419b-9e51-22e80fca4c2a/static/docs/modules
 " Nixpkgs PR tracker straight from PR
 bindurl ^https?://github.com/NixOS/nixpkgs/pull/\d gop composite js document.location.pathname.split('/')[4] | open nxpr
 
-blacklistadd https://www.nitrotype.com/race
-blacklistadd https://config.qmk.fm
-blacklistadd https://www.keybr.com
-blacklistadd https://my.vultr.com/subs/vps/novnc
-blacklistadd https://docs.google.com
+source $XDG_CONFIG_HOME/tridactyl/privaterc

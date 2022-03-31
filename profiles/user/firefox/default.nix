@@ -17,7 +17,10 @@ in {
 
     xdg = {
       # vim keybindings extension
-      configFile."tridactyl/tridactylrc".source = ./tridactylrc;
+      configFile = {
+        "tridactyl/tridactylrc".source = ./tridactylrc;
+        "tridactyl/privaterc".source = ./tridactylrc-private;
+      };
       mimeApps = let
         applyToAll = list:
           builtins.listToAttrs (map (key: {
