@@ -54,6 +54,11 @@
   (define-key evil-outer-text-objects-map "q"
     'my-evil-textobj-anyblock-a-quote))
 
+(after! magit-section
+  (map! :map magit-section-mode-map
+        "C-n" #'magit-section-forward
+        "C-p" #'magit-section-backward))
+
 (defun lh/load-random-theme ()
   "Load a random theme, light during the day"
   (interactive)
