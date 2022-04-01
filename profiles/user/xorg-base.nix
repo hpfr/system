@@ -23,16 +23,7 @@ in {
     };
 
     home.packages = with pkgs; [
-      # TODO: package scripts with these dependencies
-      xorg.xwininfo # query window information
-      xorg.xprop # query window properties
-      xorg.xdpyinfo # get info like DPI
-      xdotool # manage windows in scripts
-      xclip # manage clipboard in scripts
       libnotify # notify-send command
-      libxml2 # xmllint for rofi-emoji
-
-      xwallpaper # set wallpaper
 
       i3lock-fancy # screen locker. nothing about i3lock seems to depend on i3
       arandr # monitor layout GUI

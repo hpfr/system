@@ -45,16 +45,7 @@ in {
             super.isync.override { cyrus_sasl = cyrus_sasl_with_xoauth2; };
         })
       (self: super: {
-        gui-scripts = (super.runCommand "gui-scripts" {
-          preferLocalBuild = true;
-          allowSubstitutes = false;
-        } ''
-          shopt -s globstar
-          for tool in ${./../../bin/gui}"/"**; do
-            [ -f $tool ] && install -D -m755 $tool $out/bin/$(basename $tool)
-          done
-          patchShebangs $out/bin
-        '');
+        gui-scripts = super.callPackage ../../bin/gui { withGnome = true; };
       })
     ];
 
