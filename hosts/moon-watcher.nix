@@ -10,6 +10,12 @@
   hardware = {
     brillo.enable = true;
     bluetooth.enable = false;
+    nvidia = {
+      package = import ./nvfbc-unlock.nix
+        config.boot.kernelPackages.nvidiaPackages.stable;
+      # https://wiki.archlinux.org/title/wayland#Nvidia_driver
+      modesetting.enable = true;
+    };
   };
 
   system.stateVersion = "21.05";
@@ -43,7 +49,11 @@
     cpupower-gui.enable = lib.mkForce false; # virtual machine
     clight.enable = lib.mkForce false;
     fstrim.enable = true;
-    xserver.dpi = 96;
+    xserver = {
+      dpi = 96;
+      videoDrivers = [ "nvidia" ];
+      displayManager.gdm.nvidiaWayland = true;
+    };
     udev.extraRules = ''
       # flash Tiva Launchpad without root permissions
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
@@ -90,6 +100,14 @@
         ${pkgs.sway}/bin/swaymsg "output DP-3 pos 0 0 mode 2560x1440@144Hz"
       '';
     }];
+
+    dconf.settings."org/gnome/mutter".experimental-features =
+      [ "kms-modifiers" ];
+
+    programs.obs-studio = {
+      enable = true;
+      plugins = [ pkgs.obs-studio-plugins.obs-nvfbc ];
+    };
 
     xsession.windowManager.i3 = {
       extraConfig = ''
