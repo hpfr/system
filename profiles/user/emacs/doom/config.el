@@ -513,6 +513,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                                         lazytab-position-cursor-and-edit
                                         nil t nil)))
 
+;;; nix
+(set-file-template! "/shell\\.nix$" :trigger "__python-shell.nix" :when (lambda (file) (directory-files default-directory nil ".py$" t)) :mode 'nix-mode)
+
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))
 (put 'lsp-csharp-solution-file 'safe-local-variable 'stringp)
