@@ -139,6 +139,7 @@ in {
 
     programs = {
       ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+      seahorse.enable = true;
       corectrl.enable = true;
       steam = {
         # TODO: allow opening firewall without enabling steam
