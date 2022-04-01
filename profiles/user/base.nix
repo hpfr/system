@@ -53,6 +53,7 @@ in {
         nix-diff
         nix-du
         nix-tree
+        nixos-option
 
         # TUI's
         htop # system monitoring
