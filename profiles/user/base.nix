@@ -49,9 +49,9 @@ in {
         youtube-dl # video download
         rclone # multiplatform cloud sync
 
-        # nix-diff # broken
+        nix-diff
         nix-du
-        # nix-tree
+        nix-tree
 
         # TUI's
         htop # system monitoring
