@@ -121,6 +121,10 @@
 (set-fontset-font t 'cyrillic "monospace")
 (set-fontset-font t 'georgian "JuliaMono")
 
+(use-package! emojify
+  :init
+  (setq emojify-display-style 'unicode))
+
 (global-display-fill-column-indicator-mode)
 
 ;; integrate with freedesktop secret service

@@ -27,6 +27,7 @@
  doom
  doom-dashboard
  doom-quit
+ (emoji +unicode)
  hl-todo
  modeline
  nav-flash
