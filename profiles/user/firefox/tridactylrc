@@ -13,7 +13,8 @@ colors midnight
 bind J tabnext
 bind K tabprev
 bind gb fillcmdline bmarks
-
+" I don't use the home command this overwrites
+bind gh fillcmdline goto
 " open links in new tabs in foreground rather than background
 bind F hint -t
 
