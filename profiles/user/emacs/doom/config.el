@@ -11,12 +11,6 @@
 (set-frame-parameter (selected-frame) 'alpha '(85 . 82))
 (add-to-list 'default-frame-alist '(alpha . (85 . 82)))
 
-;; Replace selection when inserting text
-(delete-selection-mode 1)
-
-;; autosave files
-(setq auto-save-default 1)
-
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
 
@@ -564,4 +558,4 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (use-package! edwina
   :disabled
   :config
-  (edwina-mode 1))
+  (edwina-mode))
