@@ -62,11 +62,10 @@ in {
 
         foot.terminfo
       ];
-      sessionVariables = {
-        # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
-        LESS =
-          "--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-2";
-      };
+
+      # https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+      sessionVariables.LESS =
+        "--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-2";
     };
 
     # restart obsolete services on rebuild
