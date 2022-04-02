@@ -144,6 +144,10 @@ in {
         package = pkgs.papirus-icon-theme;
         name = "Papirus-Dark";
       };
+      cursorTheme = {
+        package = pkgs.capitaine-cursors;
+        name = "capitaine-cursors";
+      };
     };
 
     qt = {
