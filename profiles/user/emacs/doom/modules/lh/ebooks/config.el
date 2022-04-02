@@ -13,19 +13,20 @@
     (setq-local line-spacing 0.2
                 next-screen-context-lines 4
                 shr-use-colors nil)
+    (visual-line-mode 1)
     (require 'visual-fill-column nil t)
     (setq-local
      visual-fill-column-center-text t
-     visual-fill-column-width 82
-     nov-text-width 80)
+     ;; FIXME first render on file open doesn't resize images to match?
+     visual-fill-column-width 82)
     (visual-fill-column-mode 1)
     (hl-line-mode -1))
   (add-hook 'nov-mode-hook #'+nov-mode-setup)
   :config
+  ;; let visual-line-mode handle wrapping
+  (setq nov-text-width t)
   (add-to-list '+lookup-definition-functions #'+lookup/dictionary-definition)
   (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
-  ;; FIXME: setting this locally on mode init happens after the first render
-  (setq nov-text-width 80)
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;;; calibredb
