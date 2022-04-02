@@ -29,6 +29,10 @@
     (mu4e~compose-mail to subject headers)))
 
 (setq +mu4e-capture-template nil)
+
+(after! mm-decode
+  (setq mm-discouraged-alternatives '("text/html" "text/richtext")))
+
 (after! mu4e
   (require 'mu4e-icalendar)
   (mu4e-icalendar-setup)
