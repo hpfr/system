@@ -7,9 +7,9 @@
 (add-to-list '+format-on-save-enabled-modes 'sh-mode t) ; weird bash formatting
 (add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
 
-;; transparency for current frame and new frames
-(set-frame-parameter (selected-frame) 'alpha '(85 . 82))
-(add-to-list 'default-frame-alist '(alpha . (85 . 82)))
+;; opacity for current frame and new frames
+(set-frame-parameter (selected-frame) 'alpha '(88 . 82))
+(add-to-list 'default-frame-alist '(alpha . (88 . 82)))
 
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
