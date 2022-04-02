@@ -13,10 +13,6 @@
                       (org-msg-signature . "\n\n#+begin_signature\n—Liam\n#+end_signature"))
                     t)
 
-;; for public-inbox maildirs
-;; (setq mu4e-mu-home "~/.cache/mu-lists/"
-;;       mu4e-get-mail-command "mbsync --config ~/repos/system/profiles/user/email/mbsync-lists.conf -a")
-
 ;; this must be available on startup for the desktop entry when emacs is not running
 (defun mu4e-compose-from-mailto (mailto-string)
   (require 'mu4e)
