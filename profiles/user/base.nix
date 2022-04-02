@@ -104,6 +104,7 @@ in {
         userEmail = "liam@hpfr.net";
         delta.enable = true; # better diff highlighting
         extraConfig = {
+          pull.rebase = true;
           # magit forge
           github.user = "hpfr";
           gitlab.user = "hpfr";
