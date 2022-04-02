@@ -124,6 +124,13 @@
   :init
   (setq emojify-display-style 'unicode))
 
+(after! visual-fill-column
+  ;; account for fringe, margin, and some org-indent
+  (setq-default visual-fill-column-width 90
+                visual-fill-column-center-text t
+                ;; git gutter with text
+                visual-fill-column-fringes-outside-margins nil))
+
 (after! display-fill-column-indicator
   (setq global-display-fill-column-indicator-modes
         '((not special-mode text-mode) t))
