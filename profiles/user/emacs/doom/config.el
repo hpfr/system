@@ -124,7 +124,16 @@
   :init
   (setq emojify-display-style 'unicode))
 
-(global-display-fill-column-indicator-mode)
+(after! display-fill-column-indicator
+  (setq global-display-fill-column-indicator-modes
+        '((not special-mode text-mode) t))
+  ;; HACK: overwrite the definition because they used a hard-coded predicate
+  ;; instead of the variable
+  (define-globalized-minor-mode global-display-fill-column-indicator-mode
+    display-fill-column-indicator-mode display-fill-column-indicator--turn-on
+    :predicate global-display-fill-column-indicator-modes)
+
+  (global-display-fill-column-indicator-mode))
 
 ;; integrate with freedesktop secret service
 (add-load-path! "backport")
