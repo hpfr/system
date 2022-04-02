@@ -5,11 +5,18 @@
 " " guess I'll just have to remember to run it occasionally on close
 " sanitize tridactyllocal
 
-set editorcmd $EDITOR
+" workaround to let hint -; be used with composite which uses semicolons as syntax
+command hint_focus hint -;
 
 colors midnight
 
-" Binds
+set editorcmd $EDITOR
+
+" make tab completion based on last visited to match the Firefox setting
+set tabsort mru
+
+" binds
+
 bind J tabnext
 bind K tabprev
 bind gb fillcmdline bmarks
@@ -17,6 +24,9 @@ bind gb fillcmdline bmarks
 bind gh fillcmdline goto
 " open links in new tabs in foreground rather than background
 bind F hint -t
+" handy multiwindow/multitasking binds
+bind gd tabdetach
+bind gD composite tabduplicate | tabdetach
 
 " default bookmark storage to the Mobile Bookmarks folder since the default
 " can't be changed on iOS. replace slashes in title to prevent tridactyl seeing
@@ -24,24 +34,13 @@ bind F hint -t
 command mobile_bmark_path js -d€ JS_ARGS[2] + ' /Mobile Bookmarks/' + (JS_ARGS[1] == 't' ? document.title.replace(new RegExp('/','g'), '／') : '')€
 bind a composite get_current_url | mobile_bmark_path t | fillcmdline_notrail bmark
 
-" make tab completion based on last visited to match the Firefox setting
-set tabsort mru
+" toggle summary elements (and comment view for common link aggregators)
+bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
 
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
-
 " Allow Ctrl-c to copy in the commandline
 unbind --mode=ex <C-c>
-
-" Handy multiwindow/multitasking binds
-bind gd tabdetach
-bind gD composite tabduplicate | tabdetach
-
-" workaround to let hint -; be used with composite which uses semicolons as syntax
-command hint_focus hint -;
-
-" toggle comment view for common link aggregators
-bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
 
 " site-specific
 
