@@ -2,7 +2,7 @@
 
 " " don't persist interactive changes, this config is the source of truth
 " " this is asynchronous and can potentially clobber following settings, so I
-" " guess I'll just have to remember to run it occasionally on close
+" " have it running on close with ZZ as a decent workaround
 " sanitize tridactyllocal
 
 " workaround to let hint -; be used with composite which uses semicolons as syntax
@@ -36,6 +36,9 @@ bind a composite get_current_url | mobile_bmark_path t | fillcmdline_notrail bma
 
 " toggle summary elements (and comment view for common link aggregators)
 bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
+
+" tridactyl's qall kills windows sequentially, so the session won't restore correctly
+bind ZZ composite sanitize tridactyllocal; jsb browser.runtime.sendNativeMessage('tridactyl',{cmd: 'ppid'}).then(x=>x.content) | exclaim_quiet kill
 
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
