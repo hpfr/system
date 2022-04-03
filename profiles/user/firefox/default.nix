@@ -31,12 +31,15 @@ in {
         associations.added =
           applyToAll [ "x-scheme-handler/chrome" "application/pdf" ];
         defaultApplications = applyToAll [
-          "application/xhtml+xml"
-          # needed for default browser check
-          "text/html"
           "x-scheme-handler/http"
           "x-scheme-handler/https"
-          "x-scheme-handler/ftp"
+          "text/html"
+          "application/x-extension-htm"
+          "application/x-extension-html"
+          "application/x-extension-shtml"
+          "application/xhtml+xml"
+          "application/x-extension-xhtml"
+          "application/x-extension-xht"
         ];
       };
     };
