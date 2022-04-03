@@ -295,8 +295,13 @@ the right. Refer to `ediff-swap-buffers' to swap them."
       :ne "b" #'+vertico/switch-workspace-buffer
       :ne "B" #'consult-buffer
       :ne "q" #'save-buffers-kill-terminal)
-;; hide shortcuts, I know them
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+;; hide unnecessary widgets and cursor, and set a gnu splash
+(remove-hook! '+doom-dashboard-functions
+  #'doom-dashboard-widget-shortmenu
+  #'doom-dashboard-widget-footer)
+(add-hook! '+doom-dashboard-mode-hook (hide-mode-line-mode 1) (hl-line-mode -1))
+(setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor '(nil))
+(setq fancy-splash-image "~/nc/config/heckert-gnu.svg")
 
 ;; view HEIC files from Apple devices
 (after! files
