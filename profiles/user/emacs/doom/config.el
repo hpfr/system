@@ -173,14 +173,15 @@
 (after! vterm
   (setq vterm-shell "/etc/profiles/per-user/lh/bin/fish"))
 
+;; force Doom project name to "doom" so "emacs" is available for upstream source
+;; TODO: dir-locals aren't loaded before workspace is created
+(put 'projectile-project-name 'safe-local-variable 'stringp)
 (after! projectile
-  ;; TODO: dir-locals aren't loaded before workspace is created
   (setq projectile-project-name-function
-        (lambda (project-root) (if (string= (directory-file-name project-root)
-                                            "~/.config/emacs")
+        (lambda (project-root) (if (string= (expand-file-name project-root)
+                                            doom-emacs-dir)
                                    "doom"
-                                 (file-name-nondirectory (directory-file-name project-root)))))
-  (put 'projectile-project-name 'safe-local-variable 'stringp))
+                                 (projectile-default-project-name project-root)))))
 
 ;;; dired
 (after! dired
