@@ -173,6 +173,10 @@
 (after! vterm
   (setq vterm-shell "/etc/profiles/per-user/lh/bin/fish"))
 
+;;; workspaces
+;; I like keeping the main workspace around for miscellaneous files even when I
+;; immediately open a project
+(setq +workspaces-on-switch-project-behavior t)
 ;; force Doom project name to "doom" so "emacs" is available for upstream source
 ;; TODO: dir-locals aren't loaded before workspace is created
 (put 'projectile-project-name 'safe-local-variable 'stringp)
