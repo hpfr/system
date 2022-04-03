@@ -1,57 +1,11 @@
-#+TITLE:   NixOS System
-#+DATE:    May 31, 2020
-#+STARTUP: inlineimages nofold
+#+title: system
 
-* Table of Contents :TOC_3:noexport:
-- [[#overview][Overview]]
-- [[#features][Features]]
-- [[#installation][Installation]]
+#+begin_quote
+A system is a group of interacting or interrelated entities that act according to a set of rules to form a unified whole. A system, surrounded and influenced by its environment, is described by its spatiotemporal boundaries, structure, and purpose and expressed in its functioning.
 
-* Overview
-#+BEGIN_QUOTE
-A system is a group of interacting or interrelated entities that form a unified
-whole. A system is described by its spatial and temporal boundaries, surrounded
-and influenced by its environment, described by its structure and purpose and
-expressed in its functioning. ―[[https://en.wikipedia.org/wiki/System][Wikipedia, The Free Encyclopedia]]
-#+END_QUOTE
+―[[https://en.wikipedia.org/wiki/System][Wikipedia]], the free encyclopedia
+#+end_quote
 
-This is my NixOS configuration, encompassing my dotfiles as well as the
-machine-level configuration of the computers I own. NixOS is a Linux
-distribution based on the Nix package manager focusing on reproducible builds
-and environments. I'm not too experienced with Nix, so my configurations aren't
-as [[https://grahamc.com/blog/erase-your-darlings][robust]] as I intend them to be.
+This repository houses my system configuration, comprising the configs of software I use as well as the OS-level configs of the computers I operate. To manage it all, I use [[https://nixos.org/][NixOS]], a Linux distribution based on the Nix package manager focusing on reproducible builds and environments.
 
-Like any dotfiles, they aren't really designed to be used as-is. I've made them
-public because NixOS configurations aren't very common and so I could more
-easily get advice from other users. I intend to document this repo more
-thoroughly, and I may move to a literate configuration eventually. If you have a
-suggestion, feel free to let me know!
-
-* Features
-- Declarative: Changing intuitive variables create the more complex
-  configs necessary for a functioning system; easily toggle between different
-  services, configurations, and packages
-- Reproducible: As a result of Nix and NixOS, these simple text files produce
-  the same result—a customized NixOS installation and home environment—on any
-  standard NixOS installation
-- Multi-host: I can easily manage the configurations of all my NixOS machines.
-- Distributed builds: I can build the patched kernel for my laptop
-  (https://github.com/linux-surface/linux-surface) on my much more performant
-  desktop with Nix's remote builds
-- and more!
-
-* Installation
-1. [[https://nixos.org/nixos/download.html][Install NixOS]]
-   - A simple configuration.nix from ~nixos-generate-config~ including git,
-     internet access, and a user account should be enough
-2. Clone this repo to the desired location
-   #+BEGIN_SRC sh
-git clone https://github.com/hpfr/dotfiles ~/repos/dotfiles
-   #+END_SRC
-3. Set up channels, symlink the desired host-specific Nix expression to the
-   system-wide configuration and rebuild:
-   #+BEGIN_SRC sh
-sudo rm /etc/nixos/configuration.nix
-sudo ln -s ~/repos/dotfiles/$HOSTNAME.nix /etc/nixos/configuration.nix
-sudo nixos-rebuild switch
-   #+END_SRC
+Like just about any other dotfiles repo, this one isn't really designed to be used as-is. Unfortunately, I still maintain a private runbook documenting imperative setup I haven't fully exorcised, and portions of configurations reference data I don't publish. I've made the rest public because NixOS configurations weren't very common when I got started and so I could more easily get advice from other users. If you have a question or suggestion, feel free to reach out.
