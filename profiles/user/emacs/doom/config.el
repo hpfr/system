@@ -163,7 +163,7 @@
 
   ;; tramp stores .tramp_history in the home directory by default
   (when-let ((data-home (getenv "XDG_DATA_HOME")))
-    (setq tramp-histfile-override (concat data-home "/tramp_history"))))
+    (setq tramp-histfile-override (expand-file-name "tramp_history" data-home))))
 
 ;; with fish as my login shell, this might be necessary if people use
 ;; non-fish-supported POSIX or bash features in commands called by

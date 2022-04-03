@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
-(setq org-directory (expand-file-name "~/nc/personal")
+(setq org-directory (expand-file-name "~/nc/personal/")
       org-ellipsis " ▼ ")
 
 (after! org
@@ -439,8 +439,8 @@ tasks."
   :after org-agenda
   :config
   (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
-        org-caldav-backup-file (concat doom-local-dir "org-caldav/backup.org")
-        org-caldav-save-directory (concat doom-local-dir "org-caldav/")
+        org-caldav-backup-file (expand-file-name "org-caldav/backup.org" doom-local-dir)
+        org-caldav-save-directory (expand-file-name "org-caldav/" doom-local-dir)
         ;; This makes sure to-do items as a category can show up on the calendar
         org-icalendar-include-todo t
         ;; This ensures all org "deadlines" show up as due dates
@@ -448,16 +448,16 @@ tasks."
         ;; This ensures "scheduled" org items show up as start times
         org-icalendar-use-scheduled '(todo-start)
         org-caldav-calendars
-        `((:calendar-id "school-1"
-           :files
-           ,(delete (concat org-directory "/school-events/inbox.org")
-                    (directory-files (concat org-directory "/school-events") t "^[^.]"))
-           :inbox ,(concat org-directory "/school-events/inbox.org"))
-          (:calendar-id "personal-1"
-           :files
-           ,(delete (concat org-directory "/events/inbox.org")
-                    (directory-files (concat org-directory "/events") t "^[^.]"))
-           :inbox ,(concat org-directory "/events/inbox.org")))))
+      `((:calendar-id "school-1"
+         :files
+         ,(delete (expand-file-name "school-events/inbox.org" org-directory)
+                  (directory-files (expand-file-name "school-events" org-directory) t "^[^.]"))
+         :inbox ,(expand-file-name "school-events/inbox.org" org-directory))
+        (:calendar-id "personal-1"
+         :files
+         ,(delete (expand-file-name "events/inbox.org" org-directory)
+                  (directory-files (expand-file-name "events" org-directory) t "^[^.]"))
+         :inbox ,(expand-file-name "events/inbox.org" org-directory)))))
 
 (use-package! org-chef
   :defer t)

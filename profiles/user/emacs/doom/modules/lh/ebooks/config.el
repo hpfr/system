@@ -26,7 +26,7 @@
   ;; let visual-line-mode handle wrapping
   (setq nov-text-width t)
   (add-to-list '+lookup-definition-functions #'+lookup/dictionary-definition)
-  (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
+  (setq nov-save-place-file (expand-file-name "nov-places" doom-cache-dir))
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;;; calibredb
