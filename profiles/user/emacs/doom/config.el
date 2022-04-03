@@ -561,17 +561,6 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   :config
   (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
 
-;; TODO: debug. Wayland issue?
-(use-package! yequake
-  :config
-  (setq yequake-frames
-        '(("Agenda & scratch" .
-           ((width . 0.75)
-            (height. 0.4)
-            (alpha . 0.95)
-            (buffer-fns . ("*scratch*"))
-            (frame-parameters . ((undecorated . t))))))))
-
 (use-package! pdf-continuous-scroll-mode
   :disabled
   :after pdf-view

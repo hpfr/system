@@ -27,8 +27,6 @@
   :recipe (:host github :repo "chenyanming/anki.el")
   :disable t)
 (package! elpher)
-(package! yequake
-  :disable (not (member (system-name) gui-capable-hosts)))
 (package! pdf-continuous-scroll-mode
   :recipe (:host github :repo "dalanicolai/pdf-continuous-scroll-mode.el")
   :disable (not (member (system-name) gui-capable-hosts)))
