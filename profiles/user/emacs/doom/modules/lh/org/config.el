@@ -116,6 +116,11 @@
 ;; export
 (after! ox
   (setq org-export-with-toc nil))
+
+(after! ox-html
+  (setq org-html-doctype "html5"
+        org-html-html5-fancy t))
+
 (after! ox-latex
   (let ((article-sections '(("\\section{%s}" . "\\section*{%s}")
                             ("\\subsection{%s}" . "\\subsection*{%s}")
