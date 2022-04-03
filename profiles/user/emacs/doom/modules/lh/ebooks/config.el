@@ -3,7 +3,7 @@
 (use-package! nov
   :mode ("\\.epub\\'" . nov-mode)
   :init
-  (defun +nov-mode-setup ()
+  (defun +nov-mode-setup-h ()
     (face-remap-add-relative 'variable-pitch
                              :family "sans"
                              :height 1.2
@@ -21,7 +21,7 @@
      visual-fill-column-width 82)
     (visual-fill-column-mode 1)
     (hl-line-mode -1))
-  (add-hook 'nov-mode-hook #'+nov-mode-setup)
+  :hook (nov-mode . +nov-mode-setup-h)
   :config
   ;; let visual-line-mode handle wrapping
   (setq nov-text-width t)
@@ -31,11 +31,12 @@
 
 ;;; calibredb
 (use-package! calibredb
-  :init (autoload 'calibredb "calibredb")
+  :defer t
+  :init
+  (setq calibredb-root-dir "~/nc/library/"
+        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
   :config
-  (setq calibredb-root-dir "~/nc/library"
-        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)
-        calibredb-library-alist '((calibredb-root-dir)))
+  (setq calibredb-library-alist '((calibredb-root-dir)))
   (map! :map calibredb-show-mode-map
         :ne "?" #'calibredb-entry-dispatch
         :ne "o" #'calibredb-find-file

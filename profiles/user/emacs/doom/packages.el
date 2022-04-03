@@ -32,4 +32,4 @@
 (package! pdf-continuous-scroll-mode
   :recipe (:host github :repo "dalanicolai/pdf-continuous-scroll-mode.el")
   :disable (not (member (system-name) gui-capable-hosts)))
-(package! edwina)
+(package! edwina :disable t)

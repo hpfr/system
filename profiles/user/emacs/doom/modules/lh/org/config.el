@@ -162,7 +162,7 @@
            (org-hide-block-toggle t)))))
 
 (use-package! doct
-  :commands (doct doct-add-to)
+  :defer t
   :config
   (setq doct-default-entry-type 'entry))
 
@@ -214,13 +214,11 @@
               :file +org-capture-project-changelog-file :headline "Unreleased")))))))
 
 ;;; agenda
-(use-package! org-super-agenda
-  :commands (org-super-agenda-mode))
+;; for helper functions used below
+(use-package! vulpea-buffer
+  :after org-agenda)
 
 (after! org-agenda
-  ;; TODO: do this properly?
-  (require 'vulpea)
-
   ;; better agenda todo prefix
   (defun vulpea-agenda-category (&optional len)
     "Get category of item at point for agenda.
@@ -271,7 +269,9 @@ Refer to `org-agenda-prefix-format' for more information."
 
   (org-super-agenda-mode))
 
-(after! org-super-agenda
+(use-package! org-super-agenda
+  :defer t
+  :config
   (setq
    ;; disable special keybindings on header lines
    org-super-agenda-header-map nil
@@ -421,12 +421,7 @@ tasks."
   (map! :map org-mode-map
         :localleader "m b" #'consult-org-roam-backlinks))
 
-;; org-roam-ui dependency
-(use-package! websocket
-  :after org-roam
-  :defer t)
 (use-package! org-roam-ui
-  :after (org-roam websocket)
   :defer t)
 
 ;; I'm ok with longer link titles
@@ -440,7 +435,8 @@ tasks."
    :n "i" 'org-noter-insert-note))
 
 (use-package! org-caldav
-  :after org
+  ;; agenda needs to ignore files in org-caldav-calendars
+  :after org-agenda
   :config
   (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
         org-caldav-backup-file (concat doom-local-dir "org-caldav/backup.org")
@@ -464,10 +460,9 @@ tasks."
            :inbox ,(concat org-directory "/events/inbox.org")))))
 
 (use-package! org-chef
-  :after org)
+  :defer t)
 
-;; TODO: test featurep org and moving this elsewhere
-(after! elfeed
+(after! elfeed-org
   (setq rmh-elfeed-org-files
         (list (expand-file-name  "2021-04-26-12h06m49-elfeed.org" org-directory))))
 

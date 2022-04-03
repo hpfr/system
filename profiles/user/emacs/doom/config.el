@@ -414,7 +414,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (setq langtool-bin "languagetool-commandline"))
 (load! "languagetool-server-jar.el")
 (use-package! lexic
-  :commands lexic-search lexic-list-dictionary
+  :defer t
   :config
   (map! :map lexic-mode-map
         :n "q" #'lexic-return-from-lexic
@@ -555,7 +555,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 ;;; misc
 ;; TODO: make 'q' consistent across non-textual/popup buffers
 
+;; TODO: fix popups
 (use-package! tldr
+  :defer t
   :config
   (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
 
@@ -582,6 +584,5 @@ the right. Refer to `ediff-swap-buffers' to swap them."
    :n "C-S-k" 'pdf-continuous-previous-page))
 
 (use-package! edwina
-  :disabled
   :config
   (edwina-mode))
