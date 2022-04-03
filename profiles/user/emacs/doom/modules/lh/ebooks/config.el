@@ -1,8 +1,20 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; nov
-(use-package! nov
-  :mode ("\\.epub\\'" . nov-mode)
-  :init
+(add-to-list 'auto-mode-alist `(,(rx ".epub" eos) . nov-mode))
+(add-hook 'nov-mode-hook #'+nov-mode-setup-h)
+;; necessary for first render
+(require 'shrface)
+(setq nov-save-place-file (expand-file-name "nov-places" doom-cache-dir)
+      nov-text-width t
+      nov-shr-rendering-functions
+      (append '((img . nov-render-img)
+                (title . nov-render-title))
+              shr-external-rendering-functions))
+(set-lookup-handlers! 'nov-mode
+  ;; defaults for prose are text-mode only
+  :definition #'+lookup/dictionary-definition
+  :references #'+lookup/synonyms)
+(after! nov
   (defun +nov-mode-setup-h ()
     (face-remap-add-relative 'variable-pitch
                              :family "sans"
@@ -20,22 +32,13 @@
      ;; FIXME first render on file open doesn't resize images to match?
      visual-fill-column-width 82)
     (visual-fill-column-mode 1)
-    (hl-line-mode -1))
-  :hook (nov-mode . +nov-mode-setup-h)
-  :config
-  ;; let visual-line-mode handle wrapping
-  (setq nov-text-width t)
-  (add-to-list '+lookup-definition-functions #'+lookup/dictionary-definition)
-  (setq nov-save-place-file (expand-file-name "nov-places" doom-cache-dir))
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+    (hl-line-mode -1)
+    (shrface-mode 1)))
 
 ;;; calibredb
-(use-package! calibredb
-  :defer t
-  :init
-  (setq calibredb-root-dir "~/nc/library/"
-        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
-  :config
+(setq calibredb-root-dir "~/nc/library/"
+      calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
+(after! calibredb
   (setq calibredb-library-alist '((calibredb-root-dir)))
   (map! :map calibredb-show-mode-map
         :ne "?" #'calibredb-entry-dispatch

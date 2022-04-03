@@ -1,4 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
+(package! shrface)
 (package! emacs-conflict :recipe
   (:host github :repo "ibizaman/emacs-conflicts"))
 (package! vimrc-mode)
@@ -29,5 +30,5 @@
 (package! elpher)
 (package! pdf-continuous-scroll-mode
   :recipe (:host github :repo "dalanicolai/pdf-continuous-scroll-mode.el")
-  :disable (not (member (system-name) gui-capable-hosts)))
+  :disable t)
 (package! edwina :disable t)

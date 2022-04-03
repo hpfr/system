@@ -14,9 +14,7 @@
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
 
-(use-package! which-key
-  :init
-  (setq which-key-idle-delay 3.0))
+(setq which-key-idle-delay 3.0)
 
 (after! orderless
   (setq orderless-component-separator #'orderless-escapable-split-on-space))
@@ -120,9 +118,7 @@
 (set-fontset-font t 'cyrillic "monospace")
 (set-fontset-font t 'georgian "JuliaMono")
 
-(use-package! emojify
-  :init
-  (setq emojify-display-style 'unicode))
+(setq emojify-display-style 'unicode)
 
 (after! visual-fill-column
   ;; account for fringe, margin, and some org-indent
@@ -141,6 +137,15 @@
     :predicate global-display-fill-column-indicator-modes)
 
   (global-display-fill-column-indicator-mode))
+
+;;; shrface
+(add-hook 'eww-after-render-hook #'shrface-mode)
+(after! eww (require 'shrface))
+(after! shrface
+  (shrface-basic)
+  (shrface-trial)
+  (shrface-default-keybindings) ; setup default keybindings
+  (setq shrface-href-versatile t))
 
 ;; integrate with freedesktop secret service
 (add-load-path! "backport")
@@ -327,9 +332,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (after! forge-list
   (setq forge-owned-accounts '(("hpfr"))))
 
-(use-package! git-auto-commit-mode
-  :defer t
-  :config
+(after! git-auto-commit-mode
   (setq gac-ask-for-summary-p t
         gac-default-message "Update [git-auto-commit-mode]"))
 
@@ -357,16 +360,15 @@ the right. Refer to `ediff-swap-buffers' to swap them."
       :sasl-password ,(secrets-get-secret "Main" "chat.sr.ht"))))
 
 ;;; anki
-(use-package! anki-editor
-  :after org)
-(use-package! anki
-  :defer t
-  :init
-  (autoload 'anki "anki")
-  (autoload 'anki-browser "anki")
-  (autoload 'anki-list-decks "anki")
-  :config
-  (setq anki-collection-dir (expand-file-name "~/.var/app/net.ankiweb.Anki/data/Anki2/User 1")))
+(after! org
+  (require 'anki-editor))
+(add-hook 'anki-mode-hook #'shrface-mode)
+(add-hook 'anki-card-mode-hook #'shrface-mode)
+(after! anki
+  (setq anki-collection-dir
+        (expand-file-name "~/.var/app/net.ankiweb.Anki/data/Anki2/User 1")
+        anki-shr-rendering-functions
+        (append anki-shr-rendering-functions shr-external-rendering-functions)))
 
 ;;; elfeed
 (after! elfeed
@@ -401,8 +403,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
    "sctl" "doas systemctl"
    "uctl" "systemctl --user"))
 
-;; find syncthing conflicts
-(use-package! emacs-conflict)
+;; no autoloads
+(require 'emacs-conflict)
 
 ;;; languages
 ;;; english
@@ -413,9 +415,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (after! langtool
   (setq langtool-bin "languagetool-commandline"))
 (load! "languagetool-server-jar.el")
-(use-package! lexic
-  :defer t
-  :config
+(after! lexic
   (map! :map lexic-mode-map
         :n "q" #'lexic-return-from-lexic
         :nv "RET" #'lexic-search-word-at-point
@@ -465,8 +465,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (map!
    :map LaTeX-mode-map
    :n "<tab>" 'outline-cycle
-   :n "<backtab>" 'outline-cycle-buffer)
-  )
+   :n "<backtab>" 'outline-cycle-buffer))
 
 (after! cdlatex
   (map! :map cdlatex-mode-map
@@ -478,9 +477,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
          citar-notes-paths '("~/nc/personal/research/")))
 
 
-(use-package! laas
-  :hook ((LaTeX-mode org-mode) . laas-mode)
-  :config
+(add-hook! '(LaTeX-mode-hook org-mode-hook) #'laas-mode)
+(after! laas
   (aas-set-snippets 'laas-mode
     :cond #'laas-mathp
     "On" "O(n)"
@@ -516,11 +514,10 @@ the right. Refer to `ediff-swap-buffers' to swap them."
                     "_" nil
                     "^" nil)))
 
-(use-package! lazytab
-  :hook ((LaTeX-mode
-          ;; org-mode ; doesn't work
-          ) . lazytab-mode)
-  :config
+(add-hook! '(LaTeX-mode-hook
+             ;; org-mode-hook
+             ) #'lazytab-mode)
+(after! lazytab
   (add-to-list 'cdlatex-command-alist '("smat" "Insert smallmatrix env"
                                         "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
                                         lazytab-position-cursor-and-edit
@@ -556,22 +553,13 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 ;; TODO: make 'q' consistent across non-textual/popup buffers
 
 ;; TODO: fix popups
-(use-package! tldr
-  :defer t
-  :config
+(after! tldr
   (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
 
-(use-package! pdf-continuous-scroll-mode
-  :disabled
-  :after pdf-view
-  :config
-  (map!
-   :map pdf-view-mode-map
-   :n "C-j" 'pdf-continuous-scroll-forward
-   :n "C-k" 'pdf-continuous-scroll-backward
-   :n "C-S-j" 'pdf-continuous-next-page
-   :n "C-S-k" 'pdf-continuous-previous-page))
-
-(use-package! edwina
-  :config
-  (edwina-mode))
+(after! pdf-view
+  (require 'pdf-continuous-scroll-mode)
+  (map! :map pdf-view-mode-map
+        :n "C-j" 'pdf-continuous-scroll-forward
+        :n "C-k" 'pdf-continuous-scroll-backward
+        :n "C-S-j" 'pdf-continuous-next-page
+        :n "C-S-k" 'pdf-continuous-previous-page))

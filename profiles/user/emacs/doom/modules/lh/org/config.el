@@ -74,6 +74,12 @@
   ;; tag for optimizing agenda files doesn't need to be inherited
   (add-to-list 'org-tags-exclude-from-inheritance "has-todo")
 
+  (org-edna-mode)
+
+  (require 'org-transclusion)
+  (map! :map org-mode-map
+        :localleader "X" #'org-transclusion-mode)
+
   (defun my/org-fold-done--on-change ()
     "Make the current task appear folded by default if it is complete"
     (when (member org-state org-done-keywords)
@@ -97,21 +103,8 @@
         org-cite-export-processors '((latex biblatex "ieee")
                                      (t csl))))
 
-(use-package! org-edna
-  ;; defer seems to prevent it from loading?
-  :after org
-  :config
-  (org-edna-mode))
-
-(use-package! org-transclusion
-  :after org
-  :init
-  (map! :map org-mode-map
-        :localleader "X" #'org-transclusion-mode))
-
 ;; better latex preview
-(use-package! org-auctex
-  :hook (org-mode . org-auctex-mode))
+(add-hook 'org-mode-hook #'org-auctex-mode)
 
 ;; export
 (after! ox
@@ -161,11 +154,6 @@
              (looking-at-p (rx (* whitespace) "#+hide: t\n")))
            (org-hide-block-toggle t)))))
 
-(use-package! doct
-  :defer t
-  :config
-  (setq doct-default-entry-type 'entry))
-
 ;;; capture
 ;; org-capture can load before org if you call it too early
 (after! org
@@ -213,6 +201,7 @@
              ("project-local changelog" :keys "c"
               :file +org-capture-project-changelog-file :headline "Unreleased")))))))
 
+;;; org-roam
 (after! org-roam
   (setq org-roam-directory org-directory
         org-roam-file-exclude-regexp
@@ -226,16 +215,23 @@
         '(("d" "default" plain "%?"
            :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
                               "#+title: ${title}\n\n")
-           :unnarrowed t))))
+           :unnarrowed t)))
 
+  ;; this works based on what node your cursor is in when you save, which is not
+  ;; great. ideally, there would be a package that could parse Git revision history
+  ;; for modifications within nodes
+  (org-roam-timestamps-mode)
 
+  (require 'consult-org-roam)
+  (setq consult-org-roam-grep-func #'consult-ripgrep)
+  (map! :map org-mode-map
+        ;; TODO: backlinks needs autoload
+        :localleader "m b" #'consult-org-roam-backlinks))
 
 ;;; agenda
-;; for helper functions used below
-(use-package! vulpea-buffer
-  :after org-agenda)
-
 (after! org-agenda
+  ;; for helper functions used below
+  (require 'vulpea-buffer)
   ;; better agenda todo prefix
   (defun vulpea-agenda-category (&optional len)
     "Get category of item at point for agenda.
@@ -286,9 +282,7 @@ Refer to `org-agenda-prefix-format' for more information."
 
   (org-super-agenda-mode))
 
-(use-package! org-super-agenda
-  :defer t
-  :config
+(after! org-super-agenda
   (setq
    ;; disable special keybindings on header lines
    org-super-agenda-header-map nil
@@ -388,20 +382,8 @@ tasks."
 
   (advice-add 'org-agenda :before #'vulpea-agenda-files-update))
 
-(use-package! org-caldav
-  ;; agenda needs to ignore files in org-caldav-calendars
-  :after org-agenda
-  :config
-  (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
-        org-caldav-backup-file (expand-file-name "org-caldav/backup.org" doom-local-dir)
-        org-caldav-save-directory (expand-file-name "org-caldav/" doom-local-dir)
-        ;; This makes sure to-do items as a category can show up on the calendar
-        org-icalendar-include-todo t
-        ;; This ensures all org "deadlines" show up as due dates
-        org-icalendar-use-deadline '(todo-due)
-        ;; This ensures "scheduled" org items show up as start times
-        org-icalendar-use-scheduled '(todo-start)
-        org-caldav-calendars
+;; must be available for parsing to agenda files
+(setq org-caldav-calendars
       `((:calendar-id "school-1"
          :files
          ,(delete (expand-file-name "school-events/inbox.org" org-directory)
@@ -411,7 +393,17 @@ tasks."
          :files
          ,(delete (expand-file-name "events/inbox.org" org-directory)
                   (directory-files (expand-file-name "events" org-directory) t "^[^.]"))
-         :inbox ,(expand-file-name "events/inbox.org" org-directory)))))
+         :inbox ,(expand-file-name "events/inbox.org" org-directory))))
+(after! org-caldav
+  (setq org-caldav-url "https://nextcloud.hpfr.net/remote.php/dav/calendars/lh"
+        org-caldav-backup-file (expand-file-name "org-caldav/backup.org" doom-local-dir)
+        org-caldav-save-directory (expand-file-name "org-caldav/" doom-local-dir)
+        ;; This makes sure to-do items as a category can show up on the calendar
+        org-icalendar-include-todo t
+        ;; This ensures all org "deadlines" show up as due dates
+        org-icalendar-use-deadline '(todo-due)
+        ;; This ensures "scheduled" org items show up as start times
+        org-icalendar-use-scheduled '(todo-start)))
 
 ;; use hyphens instead of underscores in roam filenames
 (after! org-roam-node
@@ -432,25 +424,8 @@ tasks."
                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
           (downcase slug))))))
 
-;; this works based on what node your cursor is in when you save, which is not
-;; great. ideally, there would be a package that could parse Git revision history
-;; for modifications within nodes
-(use-package! org-roam-timestamps
-  :after org-roam
-  :config (org-roam-timestamps-mode))
-
 (after! org-pomodoro
   (setq org-pomodoro-manual-break t))
-
-(use-package! consult-org-roam
-  :after (consult org-roam)
-  :config
-  (setq consult-org-roam-grep-func #'consult-ripgrep)
-  (map! :map org-mode-map
-        :localleader "m b" #'consult-org-roam-backlinks))
-
-(use-package! org-roam-ui
-  :defer t)
 
 ;; I'm ok with longer link titles
 (after! org-cliplink
@@ -461,9 +436,6 @@ tasks."
   (map!
    :map pdf-view-mode-map
    :n "i" 'org-noter-insert-note))
-
-(use-package! org-chef
-  :defer t)
 
 (after! elfeed-org
   (setq rmh-elfeed-org-files
