@@ -213,6 +213,23 @@
              ("project-local changelog" :keys "c"
               :file +org-capture-project-changelog-file :headline "Unreleased")))))))
 
+(after! org-roam
+  (setq org-roam-directory org-directory
+        org-roam-file-exclude-regexp
+        (rx bol (literal org-roam-directory) "/" (or ".attach" "events" "school-events") "/")
+        org-roam-db-node-include-function
+        (lambda ()
+          (not (or (org-entry-get (point) "ROAM_EXCLUDE" 'selective)
+                   (and (member (or org-attach-auto-tag "ATTACH") (org-get-tags))
+                        (member (org-get-heading t t t) '("Attachments" "Resources"))))))
+        org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
+                              "#+title: ${title}\n\n")
+           :unnarrowed t))))
+
+
+
 ;;; agenda
 ;; for helper functions used below
 (use-package! vulpea-buffer
@@ -291,49 +308,6 @@ Refer to `org-agenda-prefix-format' for more information."
       :order 98)
      (:name "Scheduled earlier"
       :scheduled past))))
-
-(after! org-pomodoro
-  (setq org-pomodoro-manual-break t))
-
-(after! org-roam
-  (setq org-roam-directory org-directory
-        org-roam-file-exclude-regexp
-        (rx bol (literal org-roam-directory) "/" (or ".attach" "events" "school-events") "/")
-        org-roam-db-node-include-function
-        (lambda ()
-          (not (or (org-entry-get (point) "ROAM_EXCLUDE" 'selective)
-                   (and (member (or org-attach-auto-tag "ATTACH") (org-get-tags))
-                        (member (org-get-heading t t t) '("Attachments" "Resources"))))))
-        org-roam-capture-templates
-        '(("d" "default" plain "%?"
-           :if-new (file+head "%<%Y-%m-%d-%Hh%Mm%S>-${slug}.org"
-                              "#+title: ${title}\n\n")
-           :unnarrowed t))))
-
-;; this works based on what node your cursor is in when you save, which is not great
-;; ideally, there would be a package that could parse Git revision history for modifications within nodes
-(use-package! org-roam-timestamps
-  :after org-roam
-  :config (org-roam-timestamps-mode))
-
-;; use hyphens instead of underscores in roam filenames
-(after! org-roam-node
-  (cl-defmethod org-roam-node-slug ((node org-roam-node))
-    (let ((title (org-roam-node-title node)))
-      (cl-flet* ((nonspacing-mark-p (char)
-                                    (memq char ucs-normalize-combining-chars))
-                 (strip-nonspacing-marks (s)
-                                         (ucs-normalize-NFC-string
-                                          (apply #'string (seq-remove #'nonspacing-mark-p
-                                                                      (ucs-normalize-NFD-string s)))))
-                 (cl-replace (title pair)
-                             (replace-regexp-in-string (car pair) (cdr pair) title)))
-        (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ; convert anything not alphanumeric
-                        ("--*" . "-")   ; remove sequential hyphens
-                        ("^-" . "")     ; remove starting hyphen
-                        ("-$" . "")))   ; remove ending hyphen
-               (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-          (downcase slug))))))
 
 ;; dynamic agenda files with roam
 ;; good stopgap until roam agenda features come out
@@ -414,26 +388,6 @@ tasks."
 
   (advice-add 'org-agenda :before #'vulpea-agenda-files-update))
 
-(use-package! consult-org-roam
-  :after (consult org-roam)
-  :config
-  (setq consult-org-roam-grep-func #'consult-ripgrep)
-  (map! :map org-mode-map
-        :localleader "m b" #'consult-org-roam-backlinks))
-
-(use-package! org-roam-ui
-  :defer t)
-
-;; I'm ok with longer link titles
-(after! org-cliplink
-  (setq org-cliplink-max-length 120))
-
-(after! org-noter
-  ;;   (setq org-noter-always-create-frame nil)
-  (map!
-   :map pdf-view-mode-map
-   :n "i" 'org-noter-insert-note))
-
 (use-package! org-caldav
   ;; agenda needs to ignore files in org-caldav-calendars
   :after org-agenda
@@ -458,6 +412,55 @@ tasks."
          ,(delete (expand-file-name "events/inbox.org" org-directory)
                   (directory-files (expand-file-name "events" org-directory) t "^[^.]"))
          :inbox ,(expand-file-name "events/inbox.org" org-directory)))))
+
+;; use hyphens instead of underscores in roam filenames
+(after! org-roam-node
+  (cl-defmethod org-roam-node-slug ((node org-roam-node))
+    (let ((title (org-roam-node-title node)))
+      (cl-flet* ((nonspacing-mark-p (char)
+                                    (memq char ucs-normalize-combining-chars))
+                 (strip-nonspacing-marks (s)
+                                         (ucs-normalize-NFC-string
+                                          (apply #'string (seq-remove #'nonspacing-mark-p
+                                                                      (ucs-normalize-NFD-string s)))))
+                 (cl-replace (title pair)
+                             (replace-regexp-in-string (car pair) (cdr pair) title)))
+        (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ; convert anything not alphanumeric
+                        ("--*" . "-")   ; remove sequential hyphens
+                        ("^-" . "")     ; remove starting hyphen
+                        ("-$" . "")))   ; remove ending hyphen
+               (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+          (downcase slug))))))
+
+;; this works based on what node your cursor is in when you save, which is not
+;; great. ideally, there would be a package that could parse Git revision history
+;; for modifications within nodes
+(use-package! org-roam-timestamps
+  :after org-roam
+  :config (org-roam-timestamps-mode))
+
+(after! org-pomodoro
+  (setq org-pomodoro-manual-break t))
+
+(use-package! consult-org-roam
+  :after (consult org-roam)
+  :config
+  (setq consult-org-roam-grep-func #'consult-ripgrep)
+  (map! :map org-mode-map
+        :localleader "m b" #'consult-org-roam-backlinks))
+
+(use-package! org-roam-ui
+  :defer t)
+
+;; I'm ok with longer link titles
+(after! org-cliplink
+  (setq org-cliplink-max-length 120))
+
+(after! org-noter
+  ;;   (setq org-noter-always-create-frame nil)
+  (map!
+   :map pdf-view-mode-map
+   :n "i" 'org-noter-insert-note))
 
 (use-package! org-chef
   :defer t)
