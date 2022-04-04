@@ -226,11 +226,13 @@
   ;; for modifications within nodes
   (org-roam-timestamps-mode)
 
-  (require 'consult-org-roam)
   (setq consult-org-roam-grep-func #'consult-ripgrep)
   (map! :map org-mode-map
         ;; TODO: backlinks needs autoload
-        :localleader "m b" #'consult-org-roam-backlinks))
+        :localleader
+        :prefix ("m" . "org-roam")
+        "b" #'consult-org-roam-backlinks
+        "l" #'consult-org-roam-forward-links))
 
 ;;; agenda
 (after! org-agenda
