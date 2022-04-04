@@ -230,8 +230,19 @@
 
 ;;; agenda
 (after! org-agenda
-  ;; for helper functions used below
-  (require 'vulpea-buffer)
+  (setq
+   ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
+   ;; doesn't release until the scheduled time), don't warn me until the
+   ;; scheduled time
+   org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+   org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
+   ;; these items will appear in the standard agenda view and have already
+   ;; been prioritized
+   org-agenda-todo-ignore-deadlines 'near
+   org-agenda-todo-ignore-scheduled 'all
+   ;; org-agenda-todo-ignore-with-date t
+   )
+
   ;; better agenda todo prefix
   (defun vulpea-agenda-category (&optional len)
     "Get category of item at point for agenda.
@@ -247,6 +258,7 @@ Usage example:
   (setq org-agenda-prefix-format
         '((agenda . \" %(vulpea-agenda-category) %?-12t %12s\")))
 Refer to `org-agenda-prefix-format' for more information."
+    (require 'vulpea-buffer)
     (let* ((file-name (when buffer-file-name
                         (file-name-sans-extension
                          (file-name-nondirectory buffer-file-name))))
@@ -262,57 +274,14 @@ Refer to `org-agenda-prefix-format' for more information."
       (if (numberp len)
           (s-truncate len (s-pad-right len " " result) "…")
         result)))
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-12(vulpea-agenda-category 12)%?-12t% s")
+          (todo . " %i %-12(vulpea-agenda-category 12) ")
+          (tags . " %i %-12(vulpea-agenda-category 12) ")
+          (search . " %i %-12(vulpea-agenda-category 12) ")))
 
-  (setq
-   ;; if I've explicitly scheduled a task with a deadline (maybe an assignment
-   ;; doesn't release until the scheduled time), don't warn me until the
-   ;; scheduled time
-   org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-   org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
-   ;; these items will appear in the standard agenda view and have already
-   ;; been prioritized
-   org-agenda-todo-ignore-deadlines 'near
-   org-agenda-todo-ignore-scheduled 'all
-   ;; org-agenda-todo-ignore-with-date t
-   org-agenda-prefix-format
-   '((agenda . " %i %-12(vulpea-agenda-category 12)%?-12t% s")
-     (todo . " %i %-12(vulpea-agenda-category 12) ")
-     (tags . " %i %-12(vulpea-agenda-category 12) ")
-     (search . " %i %-12(vulpea-agenda-category 12) ")))
-
-  (org-super-agenda-mode))
-
-(defadvice! org-super-agenda-mode-silence (fn &rest args)
-  "Disable the org-super-agenda-mode toggle message"
-  :around 'org-super-agenda-mode
-  (let ((inhibit-message t)
-        (message-log-max nil))
-    (apply fn args)))
-
-(after! org-super-agenda
-  (setq
-   ;; disable special keybindings on header lines
-   org-super-agenda-header-map nil
-   org-super-agenda-groups
-   '((:name "Schedule"
-      :time-grid t)
-     (:name "Today"
-      :scheduled today)
-     (:name "Due today"
-      :deadline today)
-     (:name "Overdue"
-      :deadline past)
-     (:name "Due soon"
-      :deadline future)
-     (:name "Waiting"
-      :todo "WAIT"
-      :order 98)
-     (:name "Scheduled earlier"
-      :scheduled past))))
-
-;; dynamic agenda files with roam
-;; good stopgap until roam agenda features come out
-(after! (org-agenda org-roam)
+  ;; dynamic agenda files with roam
+  ;; good stopgap until roam agenda features come out
   ;; if todo's are missing, run:
   ;; (dolist (file (org-roam-list-files))
   ;;   (message "processing %s" file)
@@ -336,6 +305,8 @@ tasks."
 
   (defun vulpea-has-todo-update-tag ()
     "Update HAS-TODO tag in the current buffer."
+    (require 'vulpea-buffer)
+    (require 'org-roam)
     (when (and (not (active-minibuffer-window))
                (org-roam-file-p))
       (save-excursion
@@ -363,6 +334,7 @@ tasks."
 
   (defun vulpea-has-todo-files ()
     "Return a list of note files containing 'has-todo' tag." ;
+    (require 'org-roam)
     (seq-uniq
      (seq-map
       #'car
@@ -386,9 +358,39 @@ tasks."
 
   (add-hook 'find-file-hook #'vulpea-has-todo-update-tag)
   (add-hook 'before-save-hook #'vulpea-has-todo-update-tag)
+  (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
 
-  (advice-add 'org-agenda :before #'vulpea-agenda-files-update))
+  (org-super-agenda-mode))
 
+;;; org-super-agenda
+(defadvice! org-super-agenda-mode-silence (fn &rest args)
+  "Disable the org-super-agenda-mode toggle message"
+  :around 'org-super-agenda-mode
+  (let ((inhibit-message t)
+        (message-log-max nil))
+    (apply fn args)))
+(after! org-super-agenda
+  (setq
+   ;; disable special keybindings on header lines
+   org-super-agenda-header-map nil
+   org-super-agenda-groups
+   '((:name "Schedule"
+      :time-grid t)
+     (:name "Today"
+      :scheduled today)
+     (:name "Due today"
+      :deadline today)
+     (:name "Overdue"
+      :deadline past)
+     (:name "Due soon"
+      :deadline future)
+     (:name "Waiting"
+      :todo "WAIT"
+      :order 98)
+     (:name "Scheduled earlier"
+      :scheduled past))))
+
+;;; org-caldav
 ;; must be available for parsing to agenda files
 (setq org-caldav-calendars
       `((:calendar-id "school-1"
