@@ -80,10 +80,14 @@
   (map! :map org-mode-map
         :localleader "X" #'org-transclusion-mode)
 
-  (defun my/org-fold-done--on-change ()
-    "Make the current task appear folded by default if it is complete"
-    (when (member org-state org-done-keywords)
-      (org-set-property "VISIBILITY" "folded")))
+  (defun my/org-fold-done ()
+    "Fold all completed tasks"
+    (interactive)
+    (save-excursion
+      (goto-char (point-max))
+      (while (outline-previous-heading)
+        (when (org-entry-is-done-p)
+          (hide-entry)))))
 
   (define-minor-mode my/org-fold-done-mode
     "Make completed tasks appear folded by default"
@@ -92,8 +96,8 @@
     :lighter " org-fold-done"
     :init-value nil
     (if my/org-fold-done-mode
-        (add-hook 'org-after-todo-state-change-hook #'my/org-fold-done--on-change)
-      (remove-hook 'org-after-todo-state-change-hook #'my/org-fold-done--on-change)))
+        (add-hook 'org-mode-hook #'my/org-fold-done)
+      (remove-hook 'org-mode-hook #'my/org-fold-done)))
 
   (my/org-fold-done-mode))
 
