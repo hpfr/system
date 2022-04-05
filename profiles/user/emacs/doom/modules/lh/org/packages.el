@@ -1,7 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 (package! org-edna)
 (package! org-transclusion)
-(package! org-super-agenda)
+(package! org-super-agenda :recipe (:host github :repo "hpfr/org-super-agenda"))
 (package! doct)
 (package! org-caldav)
 (package! org-chef)

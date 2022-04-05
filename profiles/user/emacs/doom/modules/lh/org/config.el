@@ -380,14 +380,9 @@ tasks."
   (org-super-agenda-mode))
 
 ;;; org-super-agenda
-(defadvice! org-super-agenda-mode-silence (fn &rest args)
-  "Disable the org-super-agenda-mode toggle message"
-  :around 'org-super-agenda-mode
-  (let ((inhibit-message t)
-        (message-log-max nil))
-    (apply fn args)))
 (after! org-super-agenda
   (setq
+   org-super-agenda-show-message nil
    ;; disable special keybindings on header lines
    org-super-agenda-header-map nil
    org-super-agenda-groups
