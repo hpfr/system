@@ -557,7 +557,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (setq tldr-directory-path (expand-file-name "tldr/" doom-etc-dir)))
 
 (after! pdf-view
-  (require 'pdf-continuous-scroll-mode)
+  ;; ;; no autoloads
+  ;; (require 'pdf-continuous-scroll-mode)
   (map! :map pdf-view-mode-map
         :n "C-j" 'pdf-continuous-scroll-forward
         :n "C-k" 'pdf-continuous-scroll-backward
