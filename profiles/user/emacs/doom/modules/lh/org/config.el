@@ -87,7 +87,7 @@
       (goto-char (point-max))
       (while (outline-previous-heading)
         (when (org-entry-is-done-p)
-          (hide-entry)))))
+          (outline-hide-subtree)))))
 
   (define-minor-mode my/org-fold-done-mode
     "Make completed tasks appear folded by default"
