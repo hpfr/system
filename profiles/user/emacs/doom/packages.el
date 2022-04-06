@@ -1,4 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
+(package! vundo :recipe (:host github :repo "casouri/vundo"))
 (package! shrface)
 (package! emacs-conflict :recipe
   (:host github :repo "ibizaman/emacs-conflicts"))

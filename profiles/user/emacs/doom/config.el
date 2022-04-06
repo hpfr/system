@@ -138,6 +138,11 @@
 
   (global-display-fill-column-indicator-mode))
 
+;;; undo
+(map! :leader :desc "Undo tree" :n "U" #'vundo)
+(after! vundo
+    (setq vundo-glyph-alist vundo-unicode-symbols))
+
 ;;; shrface
 (add-hook 'eww-after-render-hook #'shrface-mode)
 (after! eww (require 'shrface))
