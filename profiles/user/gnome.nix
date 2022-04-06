@@ -171,12 +171,6 @@ in {
           # there's no reboot dconf key?
           # reboot = [ "<Super><Shift>x" ];
         };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
-          {
-            binding = "<Super>c";
-            command = "org-capture";
-            name = "org-capture";
-          };
         "org/gnome/shell/keybindings" = {
           toggle-overview = [ ];
           # bound to super+num, which I want for workspace switching
@@ -232,6 +226,21 @@ in {
           move-to-workspace-9 = [ "<Super><Shift>9" ];
           move-to-workspace-10 = [ "<Super><Shift>0" ];
         };
+        # folder names must follow this custom\d format, unfortunately. means I
+        # can't use Nix to ensure no conflicts
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+          {
+            binding = "<Super>e";
+            command =
+              "emacsclient --create-frame --alternate-editor emacs --no-wait";
+            name = "Emacsclient";
+          };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+          {
+            binding = "<Super>c";
+            command = "org-capture";
+            name = "org-capture";
+          };
       };
     };
   };
