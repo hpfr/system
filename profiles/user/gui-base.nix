@@ -147,6 +147,7 @@ in {
       cursorTheme = {
         package = pkgs.capitaine-cursors;
         name = "capitaine-cursors";
+        size = 32;
       };
     };
 

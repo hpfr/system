@@ -145,6 +145,8 @@ in {
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
           color-scheme = "prefer-dark";
+          cursor-theme = "capitaine-cursors";
+          cursor-size = 32;
         };
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
