@@ -163,7 +163,8 @@
 (after! org
   (setq org-capture-templates
         (doct
-         '((:group "standard todo's" :prepend t :kill-buffer t
+         '((:group "standard todo's"
+            :prepend t :empty-lines-after 1 :kill-buffer t
             :file "inbox.org"
             :template ("* %{todo-state} %?"
                        ":LOGBOOK:"
@@ -176,18 +177,21 @@
              ("upcoming task" :keys "u"
               :todo-state "NEXT")))
 
-           ("event" :keys "e" :prepend t :kill-buffer t
+           ("event" :keys "e"
+            :prepend t :empty-lines-after 1 :kill-buffer t
             :file "events/inbox.org"
             :template ("* %?"
                        "%^{LOCATION}p"
                        "%^t"
                        "%i"))
-           ("notes" :keys "n" :prepend t :kill-buffer t
+           ("notes" :keys "n"
+            :prepend t :empty-lines-after 1 :kill-buffer t
             :file +org-capture-notes-file
             :template ("* %?"
                        "%i"))
 
-           ("project-local" :keys "p" :prepend t :kill-buffer t
+           ("project-local" :keys "p"
+            :prepend t :empty-lines-after 1 :kill-buffer t
             :file +org-capture-project-todo-file :headline "Inbox"
             :template ("* %U %?"
                        "- %a"
