@@ -163,7 +163,7 @@
 (after! org
   (setq org-capture-templates
         (doct
-         '((:group "standard todo's"
+         `((:group "standard todo's"
             :prepend t :empty-lines-after 1 :kill-buffer t
             :file "inbox.org"
             :template ("* %{todo-state} %?"
@@ -181,9 +181,9 @@
             :prepend t :empty-lines-after 1 :kill-buffer t
             :file "events/inbox.org"
             :template ("* %?"
-                       "%^{LOCATION}p"
-                       "%^t"
-                       "%i"))
+                       "%^{LOCATION}p%^t"
+                       "%i")
+            :hook ,(lambda () (org-id-get (point) 'create)))
            ("notes" :keys "n"
             :prepend t :empty-lines-after 1 :kill-buffer t
             :file +org-capture-notes-file
