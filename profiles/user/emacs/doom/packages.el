@@ -20,6 +20,7 @@
   :recipe (:host github :repo "jeetelongname/dired-dragon")
   :disable t)
 (package! 0x0)
+(package! osm)
 (when (package! ement                   ; matrix
         :recipe (:host github :repo "alphapapa/ement.el"))
   (package! plz
