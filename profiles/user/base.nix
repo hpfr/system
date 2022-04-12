@@ -41,6 +41,8 @@ in {
         usbutils # lsusb
         ddcutil # change monitor settings
         evtest # debug integrated devices
+        git-annex # git beyond plain text
+        git-annex-utils # git-annex disk usage (gadu)
         difftastic # semantic diff
         diffoscope # advanced file diff tool
         rmlint # find and rm duplicate files
