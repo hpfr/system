@@ -477,9 +477,10 @@ the right. Refer to `ediff-swap-buffers' to swap them."
         :i "<tab>" 'cdlatex-tab))
 
 (after! citar
-  (setq! citar-bibliography '("~/nc/research/main.bib")
+  (setq citar-bibliography '("~/nc/research/main.bib")
          citar-library-paths '("~/nc/research/documents/")
-         citar-notes-paths '("~/nc/personal/research/")))
+         citar-notes-paths
+         (list (expand-file-name "research/" org-roam-directory))))
 
 
 (add-hook! '(LaTeX-mode-hook org-mode-hook) #'laas-mode)
