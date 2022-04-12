@@ -141,7 +141,7 @@
 ;;; undo
 (map! :leader :desc "Undo tree" :n "U" #'vundo)
 (after! vundo
-    (setq vundo-glyph-alist vundo-unicode-symbols))
+  (setq vundo-glyph-alist vundo-unicode-symbols))
 
 ;;; shrface
 (add-hook 'eww-after-render-hook #'shrface-mode)
@@ -478,9 +478,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 (after! citar
   (setq citar-bibliography '("~/nc/research/main.bib")
-         citar-library-paths '("~/nc/research/documents/")
-         citar-notes-paths
-         (list (expand-file-name "research/" org-roam-directory))))
+        citar-library-paths '("~/nc/research/documents/")
+        citar-notes-paths
+        (list (expand-file-name "research/" org-roam-directory))))
 
 
 (add-hook! '(LaTeX-mode-hook org-mode-hook) #'laas-mode)
