@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
-(setq org-directory (expand-file-name "~/nc/personal/")
+(setq org-directory (expand-file-name "~/exocortex/")
       org-ellipsis " ▼ ")
 
 (after! org

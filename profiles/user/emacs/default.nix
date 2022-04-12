@@ -136,8 +136,8 @@ in {
           SOURCES = [
               Source(
                   auto.index,
-                  '~/nc/personal',
-                  name='notes'
+                  '~/exocortex',
+                  name='exocortex'
               ),
               Source(
                   auto.index,
