@@ -39,7 +39,6 @@ in {
         # hardware
         onlykey-cli
         libimobiledevice # iOS device utils
-        sc-controller # use steam controller without steam
 
         # documents
         imagemagick7 # image editing CLI and GUI

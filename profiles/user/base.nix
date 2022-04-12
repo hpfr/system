@@ -30,7 +30,7 @@ in {
         fd # better find
         bat # better cat
         tokei # repo metrics
-        # scc # more repo metrics, blocked by sc-controller for now
+        scc # more repo metrics
         ripgrep # better grep
         ripgrep-all # pdf's, etc
         file # get filetypes
