@@ -12,6 +12,8 @@
 (package! lazytab :recipe (:host github :repo "karthink/lazytab"))
 (package! git-auto-commit-mode)
 (package! lexic)
+(package! magit-annex)
+(package! annexview :recipe (:host nil :repo "https://git.kyleam.com/annexview"))
 (package! disk-usage)
 (package! daemons)
 (package! ztree)

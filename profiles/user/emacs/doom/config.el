@@ -341,6 +341,20 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (setq gac-ask-for-summary-p t
         gac-default-message "Update [git-auto-commit-mode]"))
 
+;; move magit-annex from @ to & to accomodate forge
+(after! magit
+  (map! :map magit-mode-map
+        "&" #'magit-annex-dispatch)
+  (transient-append-suffix 'magit-dispatch '(0 -1 -1)
+    '("&" "Annex" magit-annex-dispatch)))
+;; despite the autoload after magit in magit-annex.el, the @ binding seems to
+;; happen after magit-annex loads, so overwrite it then
+(after! magit-annex
+  (map! :map magit-mode-map
+        "@" #'forge-dispatch)
+  (transient-replace-suffix 'magit-dispatch "@"
+    '("@" "Forge" forge-dispatch)))
+
 ;;; circe
 (after! circe
   (setq circe-default-part-message ""
