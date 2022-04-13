@@ -28,7 +28,6 @@ in {
         libarchive # unified extractor
         wget # file download
         fd # better find
-        bat # better cat
         tokei # repo metrics
         scc # more repo metrics
         ripgrep # better grep
@@ -116,6 +115,9 @@ in {
           };
         };
       };
+
+      # better cat
+      bat.enable = true;
     };
   };
 }
