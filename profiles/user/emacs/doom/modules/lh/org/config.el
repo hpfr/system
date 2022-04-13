@@ -431,10 +431,11 @@ tasks."
     (let ((title (org-roam-node-title node)))
       (cl-flet* ((nonspacing-mark-p (char)
                                     (memq char ucs-normalize-combining-chars))
-                 (strip-nonspacing-marks (s)
-                                         (ucs-normalize-NFC-string
-                                          (apply #'string (seq-remove #'nonspacing-mark-p
-                                                                      (ucs-normalize-NFD-string s)))))
+                 (strip-nonspacing-marks
+                  (s)
+                  (ucs-normalize-NFC-string
+                   (apply #'string (seq-remove #'nonspacing-mark-p
+                                               (ucs-normalize-NFD-string s)))))
                  (cl-replace (title pair)
                              (replace-regexp-in-string (car pair) (cdr pair) title)))
         (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-") ; convert anything not alphanumeric
@@ -459,7 +460,7 @@ tasks."
 
 (after! elfeed-org
   (setq rmh-elfeed-org-files
-        (list (expand-file-name  "2021-04-26-12h06m49-elfeed.org" org-directory))))
+        (list (expand-file-name "2021-04-26-12h06m49-elfeed.org" org-directory))))
 
 (after! org-re-reveal
   (setq org-re-reveal-theme "night"
@@ -471,4 +472,6 @@ tasks."
 <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.15.3/css/all.css\">
 "))
 
-  (add-to-list 'org-re-reveal-plugin-config '(chalkboard "RevealChalkboard" "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
+  (add-to-list 'org-re-reveal-plugin-config
+               '(chalkboard "RevealChalkboard"
+                            "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
