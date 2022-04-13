@@ -99,7 +99,13 @@
         (add-hook 'org-mode-hook #'my/org-fold-done)
       (remove-hook 'org-mode-hook #'my/org-fold-done)))
 
-  (my/org-fold-done-mode))
+  (my/org-fold-done-mode)
+
+  (defun my/zen-org-modern-h ()
+    "Enable org-modern when Zen is toggled in an Org buffer"
+    (when (derived-mode-p 'org-mode)
+      (org-modern-mode (if writeroom-mode +1 -1))))
+  (add-hook 'writeroom-mode-hook #'my/zen-org-modern-h))
 
 (after! oc
   ;; TODO biblio module should set from citar-bibliography
@@ -475,3 +481,8 @@ tasks."
   (add-to-list 'org-re-reveal-plugin-config
                '(chalkboard "RevealChalkboard"
                             "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
+
+(after! org-modern
+  ;; org-modern hides them completely, which looks weird with org-indent-mode as
+  ;; nesting deepens
+  (setq org-modern-hide-stars nil))
