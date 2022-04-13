@@ -56,9 +56,6 @@ in {
         nix-tree
         nixos-option
 
-        # TUI's
-        htop # system monitoring
-
         base-scripts
 
         foot.terminfo
@@ -118,6 +115,9 @@ in {
 
       # better cat
       bat.enable = true;
+
+      # better top
+      bottom.enable = true;
     };
   };
 }
