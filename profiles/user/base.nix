@@ -82,23 +82,6 @@ in {
         generateCaches = true; # M-x man completion
       };
 
-      # cross-shell prompt with many integrations
-      starship = {
-        enable = true;
-        settings = {
-          add_newline = false;
-          character = {
-            success_symbol = "🧮";
-            error_symbol = "[✘](bold red)";
-          };
-        };
-      };
-
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
-
       git = {
         enable = true;
         package = pkgs.gitAndTools.gitFull;
@@ -114,6 +97,23 @@ in {
           # I'm not sure if this works
           url."git@github.com:".pushInsteadOf =
             "git://github.com,https://github.com";
+        };
+      };
+
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
+      # cross-shell prompt with many integrations
+      starship = {
+        enable = true;
+        settings = {
+          add_newline = false;
+          character = {
+            success_symbol = "🧮";
+            error_symbol = "[✘](bold red)";
+          };
         };
       };
     };
