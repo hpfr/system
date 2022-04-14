@@ -28,6 +28,7 @@ in {
         libarchive # unified extractor
         wget # file download
         fd # better find
+        du-dust # better du
         tokei # repo metrics
         scc # more repo metrics
         ripgrep # better grep
