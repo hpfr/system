@@ -192,10 +192,22 @@
 (put 'projectile-project-name 'safe-local-variable 'stringp)
 (after! projectile
   (setq projectile-project-name-function
-        (lambda (project-root) (if (string= (expand-file-name project-root)
-                                            doom-emacs-dir)
-                                   "doom"
-                                 (projectile-default-project-name project-root)))))
+        (lambda (project-root)
+          (let* ((full-root (expand-file-name project-root))
+                 (root-filename (directory-file-name project-root))
+                 (root-basename (file-name-nondirectory root-filename))
+                 (local-project-name
+                  (cond ((string= full-root doom-emacs-dir) "doom")
+                        ((string= root-basename ".git-annex")
+                         (let ((parent-basename (file-name-nondirectory
+                                                 (directory-file-name
+                                                  (file-name-directory root-filename)))))
+                           (concat parent-basename "/annex")))
+                        (t root-basename))))
+            (if (tramp-tramp-file-p full-root)
+                (concat local-project-name "@"
+                        (tramp-file-name-host (tramp-dissect-file-name full-root)))
+              local-project-name)))))
 
 ;;; dired
 (after! dired
