@@ -52,6 +52,8 @@ in {
     programs = {
       # sets up fish as an available login shell
       fish.enable = true;
+      # need an editor when stuck in root environment
+      neovim.enable = true;
       ssh.startAgent = true;
     };
 
