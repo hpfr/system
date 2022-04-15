@@ -42,6 +42,7 @@ in {
         evtest # debug integrated devices
         git-annex # git beyond plain text
         git-annex-utils # git-annex disk usage (gadu)
+        metastore # filesystem metadata file format
         difftastic # semantic diff
         diffoscope # advanced file diff tool
         rmlint # find and rm duplicate files
