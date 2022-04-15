@@ -92,13 +92,17 @@ in {
 
     # users.mutableUsers = false;
     # Don't forget to set a password with ‘passwd’.
-    users.users.lh = {
-      isNormalUser = true;
-      shell = pkgs.fish;
-      extraGroups = [
-        "wheel" # root privileges
-        "input" # uinput? steam controller?
-      ];
+    users = {
+      users.lh = {
+        isNormalUser = true;
+        uid = 1000;
+        shell = pkgs.fish;
+        extraGroups = [
+          "wheel" # root privileges
+          "input" # uinput? steam controller?
+        ];
+      };
+      groups.users.gid = 100;
     };
 
     home-manager = {
