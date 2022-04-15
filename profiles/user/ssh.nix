@@ -23,33 +23,14 @@ in {
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
         };
-        monolith = {
-          hostname = "10.10.10.9";
-          user = "lh";
-          identityFile = "~/.ssh/kpxc-id.pub";
-          identitiesOnly = true;
-        };
-        moon-watcher = {
-          hostname = "10.10.10.8";
-          user = "lh";
-          identityFile = "~/.ssh/kpxc-id.pub";
-          identitiesOnly = true;
-        };
-        poole = {
-          hostname = "10.10.10.11";
-          user = "lh";
-          identityFile = "~/.ssh/kpxc-id.pub";
-          identitiesOnly = true;
-        };
-        dave = {
-          hostname = "10.10.10.12";
-          user = "lh";
-          identityFile = "~/.ssh/kpxc-id.pub";
-          identitiesOnly = true;
-        };
         star-child = with secrets.star-child; {
           hostname = ip;
           port = sshPort;
+          user = "lh";
+          identityFile = "~/.ssh/kpxc-id.pub";
+          identitiesOnly = true;
+        };
+        "*.lan" = {
           user = "lh";
           identityFile = "~/.ssh/kpxc-id.pub";
           identitiesOnly = true;
