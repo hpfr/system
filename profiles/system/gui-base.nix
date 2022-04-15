@@ -78,6 +78,25 @@ in {
     # passthrough USB devices to VM's over SPICE
     virtualisation.spiceUSBRedirection.enable = true;
 
+    environment.systemPackages = [ pkgs.bindfs ];
+    fileSystems."/home/lh/bindfs/media" = {
+      device = "/home/lh/media";
+      fsType = "fuse.bindfs";
+      options = [
+        "ro"
+        "owner"
+        "uid=${toString config.users.users.lh.uid}"
+        "gid=${toString config.users.groups.users.gid}"
+        # TODO: set up autofs or afuse
+        "noauto"
+        "default_permissions"
+        # only accessible to my user
+        "no-allow-other"
+        # resolve symlinks
+        "resolve-symlinks"
+      ];
+    };
+
     services = {
       logind.extraConfig = ''
         HandlePowerKey=suspend
