@@ -28,7 +28,7 @@ in {
 
         # CLI's
         # k2pdfopt # optimize pdf's for mobile devices NOTE: broken
-        quickserve # host files (like reveal.js presentations)
+        miniserve # host files (like reveal.js presentations)
       ];
     };
 
