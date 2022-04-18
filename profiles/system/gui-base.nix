@@ -45,7 +45,7 @@ in {
             super.isync.override { cyrus_sasl = cyrus_sasl_with_xoauth2; };
         })
       (self: super: {
-        gui-scripts = (super.runCommand "gui-scripts" {
+        gui-scripts = super.runCommand "gui-scripts" {
           preferLocalBuild = true;
           allowSubstitutes = false;
         } ''
@@ -54,7 +54,7 @@ in {
             [ -f $tool ] && install -D -m755 $tool $out/bin/$(basename $tool)
           done
           patchShebangs $out/bin
-        '');
+        '';
       })
     ];
 

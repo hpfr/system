@@ -111,8 +111,7 @@
   +pandoc
   +pomodoro
   +present
-  +roam2
-  )
+  +roam2)
  ;;raku
  (python +lsp +pyright)
  (sh +fish)
