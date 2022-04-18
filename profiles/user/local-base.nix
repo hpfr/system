@@ -24,7 +24,6 @@ in {
         # system-related
         # TODO: package as utils only? for relabeling
         # exfat # use exFAT-formatted drives
-        ntfs3g # write to NTFS-formatted drives
 
         miniserve # host files (like reveal.js presentations)
       ];

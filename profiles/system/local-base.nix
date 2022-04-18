@@ -13,21 +13,14 @@ in {
       syncthing.enable = true;
     };
 
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     nixpkgs.config = {
       # steam, etc
       allowUnfree = true;
-    };
-
-    boot = {
-      # Use the systemd-boot EFI boot loader.
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
-      # ntfs write support
-      supportedFilesystems = [ "ntfs-3g" ];
     };
 
     networking.networkmanager = {
