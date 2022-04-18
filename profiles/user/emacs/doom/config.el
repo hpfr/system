@@ -210,8 +210,35 @@
               local-project-name)))))
 
 ;;; dired
-(after! dired
-  (setq all-the-icons-dired-monochrome nil)
+(after! all-the-icons-dired
+  (setq all-the-icons-dired-monochrome nil))
+(after! (dired-aux dired-x)
+  ;; use bsdtar for common archival and compression tasks in dired
+  (let* ((bsdtar-rw-exts
+          (rx "." (or (seq (? "t") (? "ar.")
+                           (or "gz" "bz2" "xz" "zst" "lz" "lz4" "lzo" "Z"))
+                      "tar" "cpio" "iso" "zip" "ar" "xar" "lha" "lzh" "7z" "warc") eos))
+         (bsdtar-ro-exts (rx "." (or "rar" "cab") eos))
+         (bsdtar-r-exts (rx (or (regexp bsdtar-rw-exts) (regexp bsdtar-ro-exts)))))
+    ;; `dired-do-shell-command' suggestions
+    (add-to-list
+     'dired-guess-shell-alist-user
+     `(,bsdtar-r-exts
+       ;; TODO: fix bug that makes viewing .tar.zst so slow, then move this lower
+       "bsdtar -tvf"
+       ;; extract into new directory
+       (let ((name (string-remove-suffix ".tar" (file-name-sans-extension file))))
+         (concat "mkdir " name "; bsdtar -C " name " -xvf"))
+       ;; convert other archives to .tar.zst
+       (concat "bsdtar -acvf "
+               (string-remove-suffix ".tar" (file-name-sans-extension file)) ".tar.zst"
+               " @`?`")
+       "bsdtar -xvf"))
+    ;; decompression with `dired-do-compress'
+    (setq dired-compress-file-suffixes `((,bsdtar-r-exts "" "bsdtar -xf")))
+    ;; compression with `dired-do-compress-to'
+    (setq dired-compress-files-alist
+          `((,(rx (or (regexp bsdtar-rw-exts) (seq ".shar" eos))) . "bsdtar -acf %o -- %i"))))
 
   ;; TODO: get feedback on ergonomics of using file at point vs using it for
   ;; default in read-file-name
