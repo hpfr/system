@@ -47,7 +47,7 @@ in {
         trash-cli # manage XDG trash
         ssh-audit # audit ssh configuration
         exiftool # work with photo exif data
-        youtube-dl # video download
+        yt-dlp # video download
         rclone # multiplatform cloud sync
         entr # run commands when files change
         archivemount # mount archives as filesystems
