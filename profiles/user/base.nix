@@ -23,8 +23,6 @@ in {
       packages = with pkgs; [
         # CLI's
         libarchive # archival and compression
-        p7zip
-        unar
         wget # file download
         fd # better find
         du-dust # better du
