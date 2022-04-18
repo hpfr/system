@@ -19,15 +19,10 @@ in {
       }
     '';
 
-    home = {
-      packages = with pkgs; [
-        # system-related
-        # TODO: package as utils only? for relabeling
-        # exfat # use exFAT-formatted drives
-
-        miniserve # host files (like reveal.js presentations)
-      ];
-    };
+    home.packages = with pkgs; [
+      exfatprogs # debug exFAT filesystems
+      miniserve # host files (like reveal.js presentations)
+    ];
 
     services.syncthing.enable = true;
   };
