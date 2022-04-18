@@ -24,8 +24,6 @@ in {
       config = {
         # steam, etc
         allowUnfree = true;
-        # k2pdfopt
-        permittedInsecurePackages = [ "mupdf-1.17.0" ];
       };
       overlays = let
         rev = "13bd8f5d68519898e403d3cab231281b1fbd0d71";

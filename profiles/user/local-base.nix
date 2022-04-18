@@ -26,8 +26,6 @@ in {
         # exfat # use exFAT-formatted drives
         ntfs3g # write to NTFS-formatted drives
 
-        # CLI's
-        # k2pdfopt # optimize pdf's for mobile devices NOTE: broken
         miniserve # host files (like reveal.js presentations)
       ];
     };
