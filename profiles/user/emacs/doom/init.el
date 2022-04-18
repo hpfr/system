@@ -140,9 +140,7 @@
  (:when (member (system-name) personal-hosts)
   org
   email
-  ebooks)
- shrface
- )
+  ebooks))
 
 (setq use-package-inject-hooks t
       evil-respect-visual-line-mode t)
