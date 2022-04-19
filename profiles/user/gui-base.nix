@@ -50,7 +50,7 @@ in {
 
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
-        songrec # shazam client
+        mousai # song recognition
         piper # mouse configuration via libratbag
         xdragon # drag and drop from the terminal (and emacs)
 
