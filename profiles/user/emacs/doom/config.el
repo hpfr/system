@@ -217,7 +217,7 @@
   ;; use bsdtar for common archival and compression tasks in dired
   (let* ((bsdtar-rw-exts
           (rx "." (or (seq (? "t") (? "ar.")
-                           (or "gz" "bz2" "xz" "zst" "lz" "lz4" "lzo" "Z"))
+                           (or "gz" "bz2" "xz" "zst" "lz" "lz4" "lzo" "Z" "lrz"))
                       "tar" "cpio" "iso" "zip" "ar" "xar" "lha" "lzh" "7z" "warc") eos))
          (bsdtar-ro-exts (rx "." (or "rar" "cab") eos))
          (bsdtar-r-exts (rx (or (regexp bsdtar-rw-exts) (regexp bsdtar-ro-exts)))))
