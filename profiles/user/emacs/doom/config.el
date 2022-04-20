@@ -332,6 +332,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
         :localleader
         :desc "Drag and drop files" "d" #'dired-dragon))
 
+(after! tar
+  (setq tar-mode-show-date t))
+
 ;;; dashboard
 ;; shortcuts inspired by tecosaur
 (map! :map +doom-dashboard-mode-map
