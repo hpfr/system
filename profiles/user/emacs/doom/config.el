@@ -195,19 +195,17 @@
         (lambda (project-root)
           (let* ((full-root (expand-file-name project-root))
                  (root-filename (directory-file-name project-root))
-                 (root-basename (file-name-nondirectory root-filename))
-                 (local-project-name
-                  (cond ((string= full-root doom-emacs-dir) "doom")
-                        ((string= root-basename ".git-annex")
-                         (let ((parent-basename (file-name-nondirectory
-                                                 (directory-file-name
-                                                  (file-name-directory root-filename)))))
-                           (concat parent-basename "/annex")))
-                        (t root-basename))))
-            (if (tramp-tramp-file-p full-root)
-                (concat local-project-name "@"
-                        (tramp-file-name-host (tramp-dissect-file-name full-root)))
-              local-project-name)))))
+                 (root-basename (file-name-nondirectory root-filename)))
+            (concat (cond ((string= full-root doom-emacs-dir) "doom")
+                          ((string= root-basename ".git-annex")
+                           (let ((parent-basename
+                                  (file-name-nondirectory
+                                   (directory-file-name
+                                    (file-name-directory root-filename)))))
+                             (concat parent-basename "/annex")))
+                          (t root-basename))
+                    (when-let ((remote-host (file-remote-p full-root 'host)))
+                      (concat "@" remote-host))) ))))
 
 ;;; dired
 (after! all-the-icons-dired
