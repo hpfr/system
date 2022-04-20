@@ -34,6 +34,7 @@
   :recipe (:host github :repo "chenyanming/anki.el")
   :disable t)
 (package! elpher)
+(package! form-feed)
 ;; pretty hacky
 (package! pdf-continuous-scroll-mode
   :recipe (:host github :repo "dalanicolai/pdf-continuous-scroll-mode.el")

@@ -138,6 +138,9 @@
 
   (global-display-fill-column-indicator-mode))
 
+;; display form feed characters as horizontal rules
+(global-form-feed-mode)
+
 ;;; undo
 (map! :leader :desc "Undo tree" :n "U" #'vundo)
 (after! vundo
