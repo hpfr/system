@@ -485,4 +485,8 @@ tasks."
 (after! org-modern
   ;; org-modern hides them completely, which looks weird with org-indent-mode as
   ;; nesting deepens
-  (setq org-modern-hide-stars nil))
+  (setq org-modern-hide-stars nil
+        ;; consistent bullets
+        org-modern-list '((?+ . "•")
+                          (?- . "•")
+                          (?* . "•"))))
