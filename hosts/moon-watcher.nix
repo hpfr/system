@@ -72,8 +72,6 @@
         kicad
         inkscape
 
-        chromium # browser testing
-
         # MCU dev
         # TODO: make into shell.nix
         gcc-arm-embedded
