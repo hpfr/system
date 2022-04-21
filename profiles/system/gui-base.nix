@@ -15,48 +15,60 @@ in {
       remote-builds.enable = true;
     };
 
-    nixpkgs.overlays = [
-      # TODO: refactor and relocate scripts based on dependencies
-      (self: super:
-        let
-          cyrus-sasl-xoauth2-src = super.fetchFromGitHub {
-            owner = "moriyoshi";
-            repo = "cyrus-sasl-xoauth2";
-            rev = "36aabca54fd65c8fa7a707cb4936751599967904";
-            sha256 = "02bjzydw7drskkn9v1wwc7f3i17r324lycv3gnsd129xq6w8fn9s";
-          };
-          cyrus_sasl_with_xoauth2 = super.cyrus_sasl.overrideAttrs (oldAttrs: {
-            postInstall = ''
-              echo INSTALLING XOUATH2
-              mkdir -p cyrus-sasl-xoauth2
-              cp -t cyrus-sasl-xoauth2 ${cyrus-sasl-xoauth2-src}/*
-              cd cyrus-sasl-xoauth2
-              export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $dev/include"
-              ./autogen.sh
-              ./configure --with-cyrus-sasl=$out
-              make
-              make install
-              cd ..
-            '';
-          });
-        in {
-          inherit cyrus_sasl_with_xoauth2;
-          isync =
-            super.isync.override { cyrus_sasl = cyrus_sasl_with_xoauth2; };
+    nixpkgs = {
+
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "xow_dongle-firmware"
+          "joypixels"
+          # for steam hardware udev rules
+          "steam-original"
+        ];
+
+      overlays = [
+        # TODO: refactor and relocate scripts based on dependencies
+        (self: super:
+          let
+            cyrus-sasl-xoauth2-src = super.fetchFromGitHub {
+              owner = "moriyoshi";
+              repo = "cyrus-sasl-xoauth2";
+              rev = "36aabca54fd65c8fa7a707cb4936751599967904";
+              sha256 = "02bjzydw7drskkn9v1wwc7f3i17r324lycv3gnsd129xq6w8fn9s";
+            };
+            cyrus_sasl_with_xoauth2 = super.cyrus_sasl.overrideAttrs
+              (oldAttrs: {
+                postInstall = ''
+                  echo INSTALLING XOUATH2
+                  mkdir -p cyrus-sasl-xoauth2
+                  cp -t cyrus-sasl-xoauth2 ${cyrus-sasl-xoauth2-src}/*
+                  cd cyrus-sasl-xoauth2
+                  export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $dev/include"
+                  ./autogen.sh
+                  ./configure --with-cyrus-sasl=$out
+                  make
+                  make install
+                  cd ..
+                '';
+              });
+          in {
+            inherit cyrus_sasl_with_xoauth2;
+            isync =
+              super.isync.override { cyrus_sasl = cyrus_sasl_with_xoauth2; };
+          })
+        (self: super: {
+          gui-scripts = super.runCommand "gui-scripts" {
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          } ''
+            shopt -s globstar
+            for tool in ${./../../bin/gui}"/"**; do
+              [ -f $tool ] && install -D -m755 $tool $out/bin/$(basename $tool)
+            done
+            patchShebangs $out/bin
+          '';
         })
-      (self: super: {
-        gui-scripts = super.runCommand "gui-scripts" {
-          preferLocalBuild = true;
-          allowSubstitutes = false;
-        } ''
-          shopt -s globstar
-          for tool in ${./../../bin/gui}"/"**; do
-            [ -f $tool ] && install -D -m755 $tool $out/bin/$(basename $tool)
-          done
-          patchShebangs $out/bin
-        '';
-      })
-    ];
+      ];
+    };
 
     boot.extraModulePackages = with config.boot.kernelPackages;
       [ ddcci-driver ];
@@ -71,6 +83,8 @@ in {
         enable = true;
         enableGraphical = true;
       };
+      # steam controller
+      steam-hardware.enable = true;
       # Xbox One wireless adapter
       xone.enable = true;
     };
@@ -95,6 +109,15 @@ in {
         # resolve symlinks
         "resolve-symlinks"
       ];
+    };
+
+    # steam remote play
+    networking.firewall = {
+      allowedTCPPorts = [ 27036 ];
+      allowedUDPPortRanges = [{
+        from = 27031;
+        to = 27036;
+      }];
     };
 
     services = {
@@ -144,7 +167,7 @@ in {
       # usbmuxd for libimobiledevice
       usbmuxd.enable = true;
 
-      # for proprietary apps like Spotify, Discord, and Slack
+      # for proprietary apps and some apps that don't play very well with nix
       flatpak.enable = true;
     };
 
@@ -160,11 +183,6 @@ in {
       ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
       seahorse.enable = true;
       corectrl.enable = true;
-      steam = {
-        # TODO: allow opening firewall without enabling steam
-        enable = true;
-        remotePlay.openFirewall = true;
-      };
       gamemode.enable = true;
     };
 

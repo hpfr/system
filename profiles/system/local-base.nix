@@ -18,15 +18,7 @@ in {
       efi.canTouchEfiVariables = true;
     };
 
-    nixpkgs.config = {
-      # steam, etc
-      allowUnfree = true;
-    };
-
-    networking.networkmanager = {
-      enable = true;
-      # wifi.backend = "iwd";
-    };
+    networking.networkmanager.enable = true;
 
     # ddcutil i2c group
     users.groups.i2c = { };
