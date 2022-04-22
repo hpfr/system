@@ -33,7 +33,10 @@
      visual-fill-column-width 82)
     (visual-fill-column-mode 1)
     (hl-line-mode -1)
-    (shrface-mode 1)))
+    (shrface-mode 1))
+
+  (setq nov-unzip-program (executable-find "bsdtar")
+        nov-unzip-args '("-xC" directory "-f" filename)))
 
 ;;; calibredb
 (setq calibredb-root-dir "~/nc/library/"
