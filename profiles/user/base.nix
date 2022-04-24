@@ -119,6 +119,9 @@ in {
 
       # better top
       bottom.enable = true;
+
+      # colors for filetypes in ls output
+      dircolors.enable = true;
     };
   };
 }
