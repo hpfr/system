@@ -115,7 +115,7 @@ in {
           (setq lh/doom-source-dir "${toString ./doom}/")
         '';
         "doom/modules/lh/email/mu4e-load-path.el".text = ''
-          (add-to-list 'load-path "${pkgs.mu}/share/emacs/site-lisp/mu4e")
+          (cl-pushnew "${pkgs.mu}/share/emacs/site-lisp/mu4e" load-path)
         '';
         "doom/languagetool-server-jar.el".text = ''
           (after! langtool

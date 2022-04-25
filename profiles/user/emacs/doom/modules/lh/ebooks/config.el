@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; nov
-(add-to-list 'auto-mode-alist `(,(rx ".epub" eos) . nov-mode))
+(setf (alist-get (rx ".epub" eos) auto-mode-alist nil nil #'string=) 'nov-mode)
 (add-hook 'nov-mode-hook #'+nov-mode-setup-h)
 ;; necessary for first render
 (require 'shrface)

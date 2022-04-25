@@ -473,9 +473,8 @@ tasks."
 <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.15.3/css/all.css\">
 "))
 
-  (add-to-list 'org-re-reveal-plugin-config
-               '(chalkboard "RevealChalkboard"
-                            "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
+  (setf (alist-get 'chalkboard org-re-reveal-plugin-config)
+        '("RevealChalkboard" "../revealjs-plugins-rajgoel/chalkboard/plugin.js")))
 
 (after! org-modern
   ;; org-modern hides them completely, which looks weird with org-indent-mode as

@@ -1,11 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 (load! "doom-source-dir.el")
-;; doom does this automatically for doomdirs, but home-manager has a different directory
-(add-to-list '+emacs-lisp-disable-flycheck-in-dirs lh/doom-source-dir)
+;; doom does this automatically for doomdirs, but home-manager has a different
+;; directory
+(cl-pushnew lh/doom-source-dir +emacs-lisp-disable-flycheck-in-dirs :test #'string=)
 
-;; append because first element is "not" which negates the list
-(add-to-list '+format-on-save-enabled-modes 'sh-mode t) ; weird bash formatting
-(add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
+;; first element is "not" which negates the list
+(pushnew! (cdr +format-on-save-enabled-modes)
+          'sh-mode ; weird bash formatting
+          'web-mode) ; noisy htmltidy output buffers for emails
 
 ;; opacity for current frame and new frames
 (setf (alist-get 'alpha default-frame-alist) '(88 . 82)
@@ -173,7 +175,7 @@
   ;; to work on NixOS, only returning /run/current-system/sw/bin:/bin:/usr/bin
   ;; this means magit, rg, etc don't work. this fixes the issue
   ;; https://www.gnu.org/software/tramp/#Remote-programs
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (cl-pushnew 'tramp-own-remote-path tramp-remote-path)
 
   ;; tramp stores .tramp_history in the home directory by default
   (when-let ((data-home (getenv "XDG_DATA_HOME")))
@@ -223,19 +225,16 @@
          (bsdtar-ro-exts (rx "." (or "rar" "cab") eos))
          (bsdtar-r-exts (rx (or (regexp bsdtar-rw-exts) (regexp bsdtar-ro-exts)))))
     ;; `dired-do-shell-command' suggestions
-    (add-to-list
-     'dired-guess-shell-alist-user
-     `(,bsdtar-r-exts
-       ;; TODO: fix bug that makes viewing .tar.zst so slow, then move this lower
-       "bsdtar -tvf"
-       ;; extract into new directory
-       (let ((name (string-remove-suffix ".tar" (file-name-sans-extension file))))
-         (concat "mkdir " name "; bsdtar -C " name " -xvf"))
-       ;; convert other archives to .tar.zst
-       (concat "bsdtar -acvf "
-               (string-remove-suffix ".tar" (file-name-sans-extension file)) ".tar.zst"
-               " @`?`")
-       "bsdtar -xvf"))
+    (setf (alist-get bsdtar-r-exts dired-guess-shell-alist-user nil nil #'string=)
+          '("bsdtar -tvf"
+            ;; extract into new directory
+            (let ((name (string-remove-suffix ".tar" (file-name-sans-extension file))))
+              (concat "mkdir " name "; bsdtar -C " name " -xvf"))
+            ;; convert other archives to .tar.zst
+            (concat "bsdtar -acvf "
+                    (string-remove-suffix ".tar" (file-name-sans-extension file)) ".tar.zst"
+                    " @`?`")
+            "bsdtar -xvf"))
     ;; decompression with `dired-do-compress'
     (setq dired-compress-file-suffixes `((,bsdtar-r-exts "" "bsdtar -xf")))
     ;; compression with `dired-do-compress-to'
@@ -359,12 +358,12 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;; view HEIC files from Apple devices
 (after! files
-  (add-to-list 'auto-mode-alist
-               `(,(rx "." (or "heic" "HEIC") string-end) . image-mode)))
+  (setf (alist-get (rx "." (or "heic" "HEIC") string-end)
+                   auto-mode-alist nil nil #'string=) 'image-mode))
 (after! image
   (setq image-use-external-converter t))
 (after! image-file
-  (add-to-list 'image-file-name-extensions "heic"))
+  (cl-pushnew "heic" image-file-name-extensions :test #'string=))
 
 ;; use pdf-tools for latex rather than zathura, etc
 (setq +latex-viewers '(pdf-tools))
@@ -457,7 +456,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;; eshell
 (after! eshell
-  (add-to-list 'eshell-modules-list 'eshell-tramp)
+  (cl-pushnew 'eshell-tramp eshell-modules-list)
   (set-eshell-alias!
    "nrs" "doas nixos-rebuild switch $*"
    "nrsu" "doas nix-channel --update; doas nixos-rebuild switch $*"
@@ -582,22 +581,19 @@ the right. Refer to `ediff-swap-buffers' to swap them."
              ;; org-mode-hook
              ) #'lazytab-mode)
 (after! lazytab
-  (add-to-list 'cdlatex-command-alist '("smat" "Insert smallmatrix env"
-                                        "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
-                                        lazytab-position-cursor-and-edit
-                                        nil nil t))
-  (add-to-list 'cdlatex-command-alist '("bmat" "Insert bmatrix env"
-                                        "\\begin{bmatrix} ? \\end{bmatrix}"
-                                        lazytab-position-cursor-and-edit
-                                        nil nil t))
-  (add-to-list 'cdlatex-command-alist '("pmat" "Insert pmatrix env"
-                                        "\\begin{pmatrix} ? \\end{pmatrix}"
-                                        lazytab-position-cursor-and-edit
-                                        nil nil t))
-  (add-to-list 'cdlatex-command-alist '("tbl" "Insert table"
-                                        "\\begin{table}\n\\centering ? \\caption{}\n\\end{table}\n"
-                                        lazytab-position-cursor-and-edit
-                                        nil t nil)))
+
+  (setf (alist-get "smat" cdlatex-command-alist nil nil #'string=)
+        '("Insert smallmatrix env" "\\left( \\begin{smallmatrix} ? \\end{smallmatrix} \\right)"
+          lazytab-position-cursor-and-edit nil nil t)
+        (alist-get "bmat" cdlatex-command-alist nil nil #'string=)
+        '("Insert bmatrix env" "\\begin{bmatrix} ? \\end{bmatrix}"
+          lazytab-position-cursor-and-edit nil nil t)
+        (alist-get "pmat" cdlatex-command-alist nil nil #'string=)
+        '("Insert pmatrix env" "\\begin{pmatrix} ? \\end{pmatrix}"
+          lazytab-position-cursor-and-edit nil nil t)
+        (alist-get "tbl" cdlatex-command-alist nil nil #'string=)
+        '("Insert table" "\\begin{table}\n\\centering ? \\caption{}\n\\end{table}\n"
+          lazytab-position-cursor-and-edit nil t nil)))
 
 ;;; csharp
 (add-to-list 'safe-local-eval-forms '(setq lsp-csharp-server-path (executable-find "omnisharp")))
