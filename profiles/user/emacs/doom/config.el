@@ -8,8 +8,9 @@
 (add-to-list '+format-on-save-enabled-modes 'web-mode t) ; noisy htmltidy output buffers for emails
 
 ;; opacity for current frame and new frames
-(set-frame-parameter (selected-frame) 'alpha '(88 . 82))
-(add-to-list 'default-frame-alist '(alpha . (88 . 82)))
+(setf (alist-get 'alpha default-frame-alist) '(88 . 82)
+      ;; frames start maximized
+      (alist-get 'fullscreen default-frame-alist) 'maximized)
 
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
