@@ -7,7 +7,6 @@
   (setq org-log-into-drawer t
         org-log-redeadline 'time
         org-log-reschedule 'time
-        org-log-refile 'time
         org-treat-insert-todo-heading-as-state-change t
         org-todo-keywords
         '((sequence
