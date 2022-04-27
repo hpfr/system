@@ -170,6 +170,7 @@ in {
           "inode/directory"
           "text/x-diff"
           "application/epub+zip"
+          "text/xml"
 
           # override the original Emacs desktop entry
           "text/english"
