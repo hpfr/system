@@ -195,56 +195,6 @@ in {
       };
       # these are output to /etc/profiles/per-user/lh/share/applications
       desktopEntries = {
-        emacsclient = {
-          type = "Application";
-          name = "Emacsclient";
-          genericName = "Text Editor";
-          comment = "Edit text";
-          mimeType = [
-            "text/english"
-            "text/plain"
-            "text/x-makefile"
-            "text/x-c++hdr"
-            "text/x-c++src"
-            "text/x-chdr"
-            "text/x-csrc"
-            "text/x-java"
-            "text/x-moc"
-            "text/x-pascal"
-            "text/x-tcl"
-            "text/x-tex"
-            "application/x-shellscript"
-            "text/x-c"
-            "text/x-c++"
-          ];
-          # the --no-wait option is necessary to actually get a new frame for
-          # some reason. from terminal you don't need it but you do from openers
-          # like firefox
-          # https://forum.manjaro.org/t/emacsclient-as-desktop-application/132072
-          exec =
-            "emacsclient --create-frame --alternate-editor emacs --no-wait %F";
-          icon = "emacs";
-          categories = [ "Development" "TextEditor" ];
-          settings = {
-            StartupWMClass = "Emacs";
-            Keywords = "Text;Editor;";
-          };
-        };
-        emacsclient-mail = let
-          execScript = pkgs.writeShellScript "emacsclient-mail.sh" ''
-            set -euo pipefail
-            emacsclient --create-frame --alternate-editor 'emacs --eval' --no-wait --eval "(progn (x-focus-frame nil) (mu4e-compose-from-mailto \"$1\"))"
-          '';
-        in {
-          type = "Application";
-          name = "Mu4e";
-          genericName = "Email client";
-          comment = "Compose email";
-          mimeType = [ "x-scheme-handler/mailto" ];
-          exec = "${execScript} %u";
-          categories = [ "Network" "Email" ];
-          settings.NoDisplay = "true";
-        };
         emacsclient-gemini = let
           execScript = pkgs.writeShellScript "emacsclient-gemini.sh" ''
             set -euo pipefail
