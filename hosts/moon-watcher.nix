@@ -22,14 +22,6 @@
     secret-key-files = /home/lh/.ssh/cache-priv-key.pem
   '';
 
-  nixpkgs.overlays = [
-    (self: super: {
-      quartus-prime-lite = super.quartus-prime-lite.override {
-        supportedDevices = [ "Cyclone IV" ];
-      };
-    })
-  ];
-
   services = {
     cpupower-gui.enable = lib.mkForce false; # virtual machine
     clight.enable = lib.mkForce false;
@@ -58,9 +50,6 @@
         # blender
         kicad
         inkscape
-
-        # closed-source
-        # quartus-prime-lite
       ];
     };
 
