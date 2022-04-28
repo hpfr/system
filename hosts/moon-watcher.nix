@@ -28,15 +28,6 @@
         supportedDevices = [ "Cyclone IV" ];
       };
     })
-    (self: super: {
-      openocd = super.openocd.overrideAttrs (oldAttrs: {
-        configureFlags = oldAttrs.configureFlags or [ ] ++ [
-          "--enable-maintainer-mode"
-          "--enable-ti-icdi"
-          "--enable-stlink"
-        ];
-      });
-    })
   ];
 
   services = {
@@ -44,10 +35,6 @@
     clight.enable = lib.mkForce false;
     fstrim.enable = true;
     xserver.dpi = 96;
-    udev.extraRules = ''
-      # flash Tiva Launchpad without root permissions
-      SUBSYSTEM=="usb", ATTRS{idVendor}=="1cbe", ATTRS{idProduct}=="00fd", MODE="0666"
-    '';
     qemuGuest.enable = true;
   };
 
@@ -71,12 +58,6 @@
         # blender
         kicad
         inkscape
-
-        # MCU dev
-        # TODO: make into shell.nix
-        gcc-arm-embedded
-        openocd
-        picocom
 
         # closed-source
         # quartus-prime-lite
