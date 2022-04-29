@@ -24,7 +24,7 @@ in {
           font-0 = "undefined medium:size=10;2";
           font-1 = "Iosevka Nerd Font:size=10;3";
           # https://github.com/polybar/polybar/wiki/Known-Issues#huge-emojis
-          font-2 = "JoyPixels:scale=12;2";
+          font-2 = "Noto Color Emoji:scale=12;2";
           modules-right =
             "temperature cpu memory filesystem battery eth wlan backlight-acpi pulseaudio date";
         };

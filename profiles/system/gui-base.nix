@@ -20,7 +20,6 @@ in {
       config.allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
           "xow_dongle-firmware"
-          "joypixels"
           # for steam hardware udev rules
           "steam-original"
         ];

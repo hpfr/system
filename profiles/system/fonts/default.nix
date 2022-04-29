@@ -8,7 +8,6 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs = {
-      config.joypixels.acceptLicense = true;
       overlays = [
         (import ./iosevka.nix { inherit lib; })
         # TODO: remove nerd font icon usage in favor of emoji
@@ -52,7 +51,7 @@ in {
         iosevka-term # monospace
         iosevka-term-curly-slab # monospace serif for emacs
         julia-mono # monospaced unicode
-        joypixels # emoji
+        noto-fonts-emoji # emoji
         undefined-medium # pseudo-bitmap
         # https://github.com/adobe-fonts/source-han-mono/issues/1
         source-han-sans # CJK support
@@ -68,7 +67,7 @@ in {
         serif = [ "Source Serif 4 Variable" "Noto Serif" "Source Han Serif" ];
         sansSerif = [ "Lato" "Source Sans 3 VF" "Noto Sans" "Source Han Sans" ];
         monospace = [ "Iosevka Term" "Source Han Mono" "JuliaMono" ];
-        emoji = [ "JoyPixels" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
