@@ -3,6 +3,7 @@
 (package! org-transclusion)
 (package! org-super-agenda :recipe (:host github :repo "hpfr/org-super-agenda"))
 (package! doct)
+(package! org-ql)
 (package! org-caldav)
 (package! org-chef)
 (when (featurep! :lang org +present)
