@@ -573,12 +573,6 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (put 'lsp-csharp-solution-file 'safe-local-variable 'stringp)
 (set-docsets! 'csharp-mode :add "NET Framework")
 
-;;; java
-;; (setq lsp-java-format-settings-url "file:///home/lh/repos/system/profiles/user/emacs/doom/lib/eclipse-style-four-spaces.xml"
-;;       lsp-java-format-settings-profile "Wisc")
-;; (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-;;       lsp-java-format-settings-profile "GoogleStyle")
-
 ;;; python
 (set-docsets! 'python-mode :add "Matplotlib")
 
