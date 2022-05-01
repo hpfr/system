@@ -22,33 +22,6 @@
 (after! orderless
   (setq orderless-component-separator #'orderless-escapable-split-on-space))
 
-(after! evil
-  (require 'evil-textobj-anyblock)
-  (evil-define-text-object my-evil-textobj-anyblock-inner-quote
-    (count &optional beg end type)
-    "Select the closest outer quote."
-    (let ((evil-textobj-anyblock-blocks
-           '(("'" . "'")
-             ("\"" . "\"")
-             ("`" . "`")
-             ("“" . "”"))))
-      (evil-textobj-anyblock--make-textobj beg end type count nil)))
-
-  (evil-define-text-object my-evil-textobj-anyblock-a-quote
-    (count &optional beg end type)
-    "Select the closest outer quote."
-    (let ((evil-textobj-anyblock-blocks
-           '(("'" . "'")
-             ("\"" . "\"")
-             ("`" . "`")
-             ("“" . "”"))))
-      (evil-textobj-anyblock--make-textobj beg end type count t)))
-
-  (define-key evil-inner-text-objects-map "q"
-    'my-evil-textobj-anyblock-inner-quote)
-  (define-key evil-outer-text-objects-map "q"
-    'my-evil-textobj-anyblock-a-quote))
-
 (after! magit-section
   (map! :map magit-section-mode-map
         "C-n" #'magit-section-forward
