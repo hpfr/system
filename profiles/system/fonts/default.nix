@@ -15,15 +15,6 @@ in {
           iosevka-nerd-font =
             super.nerdfonts.override { fonts = [ "Iosevka" ]; };
         })
-        (self: super: {
-          lato = super.lato.overrideAttrs (oldAttrs: {
-            postFetch = ''
-              mkdir -p $out/share/fonts
-              unzip -j $downloadedFile \*.ttf -x \*Hairline\*.ttf -d $out/share/fonts/lato
-            '';
-            outputHash = "109pywbskq0f830ahrpgh4l56a0g9anzz0f12db2zhqlfi5gcbbw";
-          });
-        })
         # ignore redundant ttf's, as well as variable ttf's which break latex usage
         (self: super: {
           stix-two = super.stix-two.overrideAttrs (oldAttrs: {
@@ -41,7 +32,6 @@ in {
       fonts = with pkgs; [
         noto-fonts # no tofu
         noto-fonts-extra # all weights
-        lato # sans-serif
         source-serif
         source-sans
         source-code-pro
@@ -65,7 +55,7 @@ in {
       # https://src.fedoraproject.org/rpms/google-noto-fonts/c/6ec5a0916978c1565534038d084a88a9913f1837?branch=rawhide
       fontconfig.defaultFonts = {
         serif = [ "Source Serif 4 Variable" "Noto Serif" "Source Han Serif" ];
-        sansSerif = [ "Lato" "Source Sans 3 VF" "Noto Sans" "Source Han Sans" ];
+        sansSerif = [ "Source Sans 3 VF" "Noto Sans" "Source Han Sans" ];
         monospace = [ "Iosevka Term" "Source Han Mono" "JuliaMono" ];
         emoji = [ "Noto Color Emoji" ];
       };
