@@ -445,6 +445,9 @@ tasks."
                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
           (downcase slug))))))
 
+(after! ob-core
+  (setq org-babel-results-keyword "results"))
+
 (after! org-pomodoro
   (setq org-pomodoro-manual-break t))
 
