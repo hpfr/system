@@ -77,7 +77,7 @@
       doom-symbol-fallback-font-families nil
       ;; TODO: could set-fontset-font accept Fontconfig strings like face
       ;; functions do?
-      doom-emoji-fallback-font-families '("Noto Color Emoji"))
+      doom-emoji-fallback-font-families '("Noto Emoji"))
 ;; this is the only tofu I get with `view-hello-file'. not sure why it doesn't
 ;; work out of the box like the dozens of other scripts
 (set-fontset-font t 'egyptian "Noto Sans Egyptian Hieroglyphs")
