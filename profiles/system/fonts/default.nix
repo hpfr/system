@@ -49,17 +49,6 @@ in {
         source-han-serif
         source-han-mono
       ];
-
-      # TODO: copy this option's functionality into home-manager module
-      # TODO: figure out Noto fallbacks
-      # https://docs.fedoraproject.org/en-US/packaging-guidelines/FontsPolicy/
-      # https://src.fedoraproject.org/rpms/google-noto-fonts/c/6ec5a0916978c1565534038d084a88a9913f1837?branch=rawhide
-      fontconfig.defaultFonts = {
-        serif = [ "Source Serif 4 Variable" "Noto Serif" "Source Han Serif" ];
-        sansSerif = [ "Source Sans 3 VF" "Noto Sans" "Source Han Sans" ];
-        monospace = [ "Iosevka Term" "Source Han Mono" "JuliaMono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
     };
   };
 }
