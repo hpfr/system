@@ -32,6 +32,7 @@ in {
       fonts = with pkgs; [
         noto-fonts # no tofu
         noto-fonts-extra # all weights
+        last-resort # final fallback
         source-serif
         source-sans
         source-code-pro
