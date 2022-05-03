@@ -16,13 +16,13 @@ in {
     };
     # also sets dconf
     gtk.font = {
-      name = "Sans";
+      name = "sans-serif";
       size = 11;
     };
     dconf.settings = {
       "org/gnome/desktop/interface" = {
-        monospace-font-name = "Monospace 11";
-        document-font-name = "Sans 11";
+        monospace-font-name = "monospace 11";
+        document-font-name = "sans-serif 11";
       };
       "org/gnome/desktop/wm/preferences".titlebar-uses-system-font = true;
     };
