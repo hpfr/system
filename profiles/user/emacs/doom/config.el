@@ -76,21 +76,43 @@
       doom-emoji-fallback-font-families '("Noto Color Emoji"))
 (add-hook 'after-setting-font-hook
           (lambda ()
-            ;; this is the only tofu I get with `view-hello-file'. not sure why it doesn't
-            ;; work out of the box like the dozens of other scripts
+            ;; these are the only tofu I get with `view-hello-file'. not sure
+            ;; why they don't follow fontconfig like the dozens of other scripts
+            ;; fc-match -s 'monospace:charset=aa26'
+            (set-fontset-font t 'cham "Noto Sans Cham")
+            (set-fontset-font t 'cherokee "Noto Sans Cherokee")
             (set-fontset-font t 'egyptian "Noto Sans Egyptian Hieroglyphs")
-            ;; match monospace better. how can I change this for variable pitch face
-            ;; can most of this be done in fontconfig? fall back from Iosevka to Julia Mono
-            ;; to Source Han Mono and only then to sans-serif depending on script
+            (set-fontset-font t 'tai-viet "Noto Sans Tai Viet")
+
+            ;; these use serif out of the box, again, contra fontconfig
+            ;; fc-match -s 'monospace:charset=1019'
+            (set-fontset-font t 'burmese "Noto Sans Myanmar")
+            ;; fc-match -s 'monospace:charset=924'
+            (set-fontset-font t 'devanagari "Noto Sans Devanagari")
+            ;; fc-match -s 'monospace:charset=cae'
+            (set-fontset-font t 'kannada "Noto Sans Kannada")
+            ;; fc-match -s 'monospace:charset=d2e'
+            (set-fontset-font t 'malayalam "Noto Sans Malayalam")
+            ;; fc-match -s 'monospace:charset=dba'
+            (set-fontset-font t 'sinhala "Noto Sans Sinhala")
+            ;; fc-match -s 'monospace:charset=ba3'
+            (set-fontset-font t 'tamil "Noto Sans Tamil")
+            ;; fc-match -s 'monospace:charset=c2e'
+            (set-fontset-font t 'telugu "Noto Sans Telugu")
+            ;; fc-match -s 'monospace:charset=e27'
+            (set-fontset-font t 'thai "Noto Sans Thai")
+            ;; fc-match -s 'monospace:charset=f40'
+            (set-fontset-font t 'tibetan "Noto Sans Tibetan")
+
+            ;; fontconfig handles this, not sure why emacs goes for the serif
+            ;; variant
+            ;; fc-match -s 'monospace:charset=597d'
             (set-fontset-font t 'cjk-misc "Source Han Mono")
             (set-fontset-font t 'han "Source Han Mono")
             (set-fontset-font t 'kana "Source Han Mono")
             (set-fontset-font t 'hangul "Source Han Mono")
-            (set-fontset-font t 'greek "monospace")
-            ;; Iosevka doesn't have complete phonetic or Cyrillic coverage, but good enough
-            (set-fontset-font t 'phonetic "monospace")
-            (set-fontset-font t 'cyrillic "monospace")
-            (set-fontset-font t 'georgian "JuliaMono")
+
+            ;; TODO: set up separate variable-pitch fontset?
 
             (setq emojify-display-style 'unicode)))
 
