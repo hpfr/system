@@ -148,6 +148,9 @@ in {
           cursor-theme = "capitaine-cursors";
           cursor-size = 32;
         };
+        # compose key
+        "org/gnome/desktop/input-sources".xkb-options =
+          [ "terminate:ctrl_alt_bksp" "compose:ralt" ];
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
         "org/gnome/shell".enabled-extensions = [
