@@ -87,7 +87,6 @@
  ;; upload
 
  :lang
- assembly
  (beancount +lsp)
  (cc +lsp)
  (csharp +lsp +dotnet)
