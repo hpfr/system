@@ -204,6 +204,15 @@ in {
           activate-window-menu = [ "<Super>space" ];
           switch-input-source = [ "XF86Keyboard" ];
           switch-input-source-backward = [ "<Shift>XF86Keyboard" ];
+
+          # windows-like window switching
+          cycle-windows = [ "<Super>Tab" ];
+          cycle-windows-backward = [ "<Super><Shift>Tab" ];
+          switch-applications = [ ];
+          switch-applications-backward = [ ];
+          switch-windows = [ ];
+          switch-windows-backward = [ "<Super><Shift>Tab" ];
+
           move-to-monitor-up = [ "<Super><Shift>Up" "<Super><Shift>k" ];
           move-to-monitor-down = [ "<Super><Shift>Down" "<Super><Shift>j" ];
           move-to-monitor-left = [ "<Super><Shift>Left" "<Super><Shift>h" ];
