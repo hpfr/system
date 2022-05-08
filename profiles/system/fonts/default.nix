@@ -10,11 +10,6 @@ in {
     nixpkgs = {
       overlays = [
         (import ./iosevka.nix { inherit lib; })
-        # TODO: remove nerd font icon usage in favor of emoji
-        (self: super: {
-          iosevka-nerd-font =
-            super.nerdfonts.override { fonts = [ "Iosevka" ]; };
-        })
         # ignore redundant ttf's, as well as variable ttf's which break latex usage
         (self: super: {
           stix-two = super.stix-two.overrideAttrs (oldAttrs: {
