@@ -119,6 +119,10 @@ in {
 
             "browser.ctrlTab.sortByRecentlyUsed" = true;
 
+            # pipewire and gnome shell handle this
+            "privacy.webrtc.legacyGlobalIndicator" = false;
+            "privacy.webrtc.hideGlobalIndicator" = true;
+
             # blank page allows tridactyl
             # windows and homepage
             "browser.startup" = "about.blank";
