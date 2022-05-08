@@ -67,55 +67,7 @@
       ;; before 07:00 to avoid it running immediately
       (run-at-time "6 hour" nil (lambda () (run-at-time "07:00" 43200 #'lh/load-random-theme))))))
 
-;; fonts
-(setq doom-font "monospace-12"
-      doom-serif-font "Iosevka Term Curly Slab-12"
-      doom-variable-pitch-font "sans-serif-12"
-      ;; doom-unicode-font "sans-serif"
-      doom-symbol-fallback-font-families nil
-      doom-emoji-fallback-font-families '("Noto Color Emoji"))
-(add-hook 'after-setting-font-hook
-          (lambda ()
-            ;; these are the only tofu I get with `view-hello-file'. not sure
-            ;; why they don't follow fontconfig like the dozens of other scripts
-            ;; fc-match -s 'monospace:charset=aa26'
-            (set-fontset-font t 'cham "Noto Sans Cham")
-            (set-fontset-font t 'cherokee "Noto Sans Cherokee")
-            (set-fontset-font t 'egyptian "Noto Sans Egyptian Hieroglyphs")
-            (set-fontset-font t 'tai-viet "Noto Sans Tai Viet")
-
-            ;; these use serif out of the box, again, contra fontconfig
-            ;; fc-match -s 'monospace:charset=1019'
-            (set-fontset-font t 'burmese "Noto Sans Myanmar")
-            ;; fc-match -s 'monospace:charset=924'
-            (set-fontset-font t 'devanagari "Noto Sans Devanagari")
-            ;; fc-match -s 'monospace:charset=cae'
-            (set-fontset-font t 'kannada "Noto Sans Kannada")
-            ;; fc-match -s 'monospace:charset=d2e'
-            (set-fontset-font t 'malayalam "Noto Sans Malayalam")
-            ;; fc-match -s 'monospace:charset=dba'
-            (set-fontset-font t 'sinhala "Noto Sans Sinhala")
-            ;; fc-match -s 'monospace:charset=ba3'
-            (set-fontset-font t 'tamil "Noto Sans Tamil")
-            ;; fc-match -s 'monospace:charset=c2e'
-            (set-fontset-font t 'telugu "Noto Sans Telugu")
-            ;; fc-match -s 'monospace:charset=e27'
-            (set-fontset-font t 'thai "Noto Sans Thai")
-            ;; fc-match -s 'monospace:charset=f40'
-            (set-fontset-font t 'tibetan "Noto Sans Tibetan")
-
-            ;; fontconfig handles this, not sure why emacs goes for the serif
-            ;; variant
-            ;; fc-match -s 'monospace:charset=597d'
-            (set-fontset-font t 'cjk-misc "Source Han Mono")
-            (set-fontset-font t 'han "Source Han Mono")
-            (set-fontset-font t 'kana "Source Han Mono")
-            (set-fontset-font t 'hangul "Source Han Mono")
-
-            ;; TODO: set up separate variable-pitch fontset?
-
-            (setq emojify-display-style 'unicode)))
-
+;;; fill column
 (after! visual-fill-column
   ;; account for fringe, margin, and some org-indent
   (setq-default visual-fill-column-width 90

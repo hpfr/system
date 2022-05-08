@@ -137,8 +137,9 @@
  :lh                                    ; personal modules
  (:when (member (system-name) personal-hosts)
   org
-  email
-  ebooks))
+  email)
+ ebooks
+ unicode)
 
 (setq use-package-inject-hooks t
       evil-respect-visual-line-mode t)
