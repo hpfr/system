@@ -6,6 +6,8 @@ in {
   options.profiles.system.hidpi.enable = mkEnableOption "hiDPI configuration";
 
   config = mkIf cfg.enable {
+    console.font = "latarcyrheb-sun32";
+
     services.xserver.dpi = 192; # doesn't work with startx
     fonts.fontconfig.dpi = 192;
 

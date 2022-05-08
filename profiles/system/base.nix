@@ -49,6 +49,9 @@ in {
 
     time.timeZone = "America/Chicago";
 
+    # https://fedoraproject.org/wiki/Changes/NewDefaultConsoleFont
+    console.font = lib.mkDefault "eurlatgr";
+
     programs = {
       # sets up fish as an available login shell
       fish.enable = true;
