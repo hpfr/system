@@ -14,8 +14,8 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(defvar gui-capable-hosts '("moon-watcher" "dave" "poole"))
-(defvar personal-hosts '("moon-watcher" "dave"))
+(defvar my/gui-capable-hosts '("moon-watcher" "dave" "poole"))
+(defvar my/personal-hosts '("moon-watcher" "dave"))
 
 (doom!
 
@@ -81,7 +81,7 @@
  (lsp +peek)
  (magit +forge)
  ;; make
- (:when (member (system-name) gui-capable-hosts)
+ (:when (member (system-name) my/gui-capable-hosts)
   pdf)
  rgb
  ;; upload
@@ -119,13 +119,13 @@
  ;; :os
  ;; tty
 
- :email
- (:when (member (system-name) personal-hosts)
+ (:when (member (system-name) my/personal-hosts)
+  :email
   (mu4e +org +gmail))
 
  :app
  ;; everywhere
- (:when (member (system-name) personal-hosts)
+ (:when (member (system-name) my/personal-hosts)
   irc
   (rss +org))
 
@@ -134,7 +134,7 @@
  (default +bindings +smartparens)
 
  :lh                                    ; personal modules
- (:when (member (system-name) personal-hosts)
+ (:when (member (system-name) my/personal-hosts)
   org
   email)
  ebooks
