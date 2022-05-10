@@ -205,13 +205,19 @@ in {
           switch-input-source = [ "XF86Keyboard" ];
           switch-input-source-backward = [ "<Shift>XF86Keyboard" ];
 
-          # windows-like window switching
+          # no-preview window switching
           cycle-windows = [ "<Super>Tab" ];
           cycle-windows-backward = [ "<Super><Shift>Tab" ];
+          # no-preview window switching within app
+          cycle-group = [ "<Super>Above_Tab" ];
+          cycle-group-backward = [ "<Super><Shift>Above_Tab" ];
+          # disable preview (switcher)
+          switch-windows = [ ];
+          switch-windows-backward = [ ];
           switch-applications = [ ];
           switch-applications-backward = [ ];
-          switch-windows = [ ];
-          switch-windows-backward = [ "<Super><Shift>Tab" ];
+          switch-group = [ ];
+          switch-group-backward = [ ];
 
           move-to-monitor-up = [ "<Super><Shift>Up" "<Super><Shift>k" ];
           move-to-monitor-down = [ "<Super><Shift>Down" "<Super><Shift>j" ];
