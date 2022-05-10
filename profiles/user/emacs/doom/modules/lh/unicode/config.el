@@ -60,9 +60,14 @@
                                         (mapcar noto-script-to-serif-font noto-both-scripts)))
        ;; https://notofonts.github.io/noto-docs/specimen/
        (font-scripts `(("monospace" ,@iosevka-scripts)
+                       ("Iosevka Term" ,@iosevka-scripts)
                        ("Iosevka Term Curly Slab" ,@iosevka-scripts)
                        ("sans-serif" ,@source-scripts)
+                       ("Source Sans 3 VF" ,@source-scripts)
+                       ;; number at end parsed as size without backslash
+                       ("Source Sans\ 3" ,@source-scripts)
                        ("Source Serif 4 Variable" ,@source-scripts)
+                       ("Source Serif\ 4" ,@source-scripts)
                        ("Source Han Mono" ,@cjk-scripts)
                        ("Source Han Sans" ,@cjk-scripts)
                        ("Source Han Serif" ,@cjk-scripts)
@@ -113,8 +118,6 @@
                        ("Noto Serif Myanmar" burmese)
                        ("Noto Serif Tangut" tangut tangut-components)
                        ("Noto Tranditional Nushu" nushu)
-                       ("fontset-sans-serif" unicode)
-                       ("fontset-serif" unicode)
 
                        ,@noto-sans-font-scripts
                        ,@noto-serif-font-scripts))
@@ -146,13 +149,15 @@
                     (mapcar (lambda (script) (list script font))
                             (alist-get font font-scripts nil nil #'string=)))
                   fonts)))
-       ;; NOTE: fallback to other fontsets in fontsets doesn't work, use variable
-       (fontset-sans-serif (funcall make-fontset `("sans-serif"
+       ;; NOTE: fallback to other fontsets in fontsets doesn't work, splice
+       ;; variable with contents
+       ;; NOTE: variable fonts don't play well with attributes like weight, use standard
+       (fontset-sans-serif (funcall make-fontset `("Source Sans\ 3"
                                                    "Source Han Sans"
                                                    "Noto Color Emoji"
                                                    ,@noto-sans-fonts
                                                    ,@noto-serif-fonts)))
-       (fontset-serif (append (funcall make-fontset `("Source Serif 4 Variable"
+       (fontset-serif (append (funcall make-fontset `("Source Serif\ 4"
                                                       "Source Han Serif"
                                                       "Noto Color Emoji"
                                                       "STIX Two Math"
