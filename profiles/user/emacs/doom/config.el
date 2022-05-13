@@ -67,6 +67,9 @@
       ;; before 07:00 to avoid it running immediately
       (run-at-time "6 hour" nil (lambda () (run-at-time "07:00" 43200 #'lh/load-random-theme))))))
 
+;; not necessary with avy
+(setq display-line-numbers-type nil)
+
 ;;; fill column
 (after! visual-fill-column
   ;; account for fringe, margin, and some org-indent
