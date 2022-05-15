@@ -100,6 +100,8 @@ in {
       mbsync.enable = true;
     };
 
+    home.packages = [ pkgs.public-inbox ];
+
     services.imapnotify.enable = true;
   };
 }
