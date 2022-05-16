@@ -370,8 +370,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
       :sasl-password ,(secrets-get-secret "Main" "chat.sr.ht"))))
 
 ;;; anki
-(after! org
-  (require 'anki-editor))
+(setq anki-editor-use-math-jax t)
+(add-hook 'org-mode-hook #'anki-editor-mode)
+
 (add-hook 'anki-mode-hook #'shrface-mode)
 (add-hook 'anki-card-mode-hook #'shrface-mode)
 (after! anki
