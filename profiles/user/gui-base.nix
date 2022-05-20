@@ -57,8 +57,6 @@ in {
         safeeyes # reminds user on eye health
         nextcloud-client
 
-        drawio
-
         # virtualization
         libvirt # manage VM's
         virtmanager # manage VM's graphically
