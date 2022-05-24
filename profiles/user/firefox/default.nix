@@ -100,7 +100,9 @@ in {
 
             "browser.contentblocking.category" = "strict";
 
-            # TODO: have to set this for every language?
+            # accept more than 3 fontconfig fallbacks for generic families
+            "gfx.font_rendering.fontconfig.max_generic_substitutions" = 255;
+
             # use sans serif rather than serif for default proportional font
             "font.default.x-western" = "sans-serif";
             # use system emoji font
