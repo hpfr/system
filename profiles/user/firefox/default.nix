@@ -104,7 +104,36 @@ in {
             "gfx.font_rendering.fontconfig.max_generic_substitutions" = 255;
 
             # use sans serif rather than serif for default proportional font
+            "font.default.ar" = "sans-serif";
+            "font.default.el" = "sans-serif";
+            "font.default.he" = "sans-serif";
+            "font.default.ja" = "sans-serif";
+            "font.default.ko" = "sans-serif";
+            "font.default.th" = "sans-serif";
+            "font.default.x-armn" = "sans-serif";
+            "font.default.x-beng" = "sans-serif";
+            "font.default.x-cans" = "sans-serif";
+            "font.default.x-cyrillic" = "sans-serif";
+            "font.default.x-devanagari" = "sans-serif";
+            "font.default.x-ethi" = "sans-serif";
+            "font.default.x-geor" = "sans-serif";
+            "font.default.x-gujr" = "sans-serif";
+            "font.default.x-guru" = "sans-serif";
+            "font.default.x-khmr" = "sans-serif";
+            "font.default.x-knda" = "sans-serif";
+            "font.default.x-math" = "sans-serif";
+            "font.default.x-mlym" = "sans-serif";
+            "font.default.x-orya" = "sans-serif";
+            "font.default.x-sinh" = "sans-serif";
+            "font.default.x-tamil" = "sans-serif";
+            "font.default.x-telu" = "sans-serif";
+            "font.default.x-tibt" = "sans-serif";
+            "font.default.x-unicode" = "sans-serif";
             "font.default.x-western" = "sans-serif";
+            "font.default.zh-CN" = "sans-serif";
+            "font.default.zh-HK" = "sans-serif";
+            "font.default.zh-TW" = "sans-serif";
+
             # use system emoji font
             "font.name-list.emoji" = "emoji";
             # firefox uses a specific font list here for some reason
