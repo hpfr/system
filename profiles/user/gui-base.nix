@@ -126,11 +126,7 @@ in {
       '';
       # need time to unlock keepassxc database
       configFile."autostart/com.nextcloud.desktopclient.nextcloud.desktop".text =
-        builtins.replaceStrings [''
-          Exec=nextcloud
-        ''] [''
-          Exec=sh -c "sleep 60 && nextcloud"
-        ''] ''
+        ''
           ${fileContents
           "${pkgs.nextcloud-client}/share/applications/com.nextcloud.desktopclient.nextcloud.desktop"}
         '';
