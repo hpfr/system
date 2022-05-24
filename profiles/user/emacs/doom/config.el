@@ -383,6 +383,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;; elfeed
 (after! elfeed
+  ;; poor man's sync
+  (setq elfeed-db-directory "~/nc/config/elfeed/db/")
   ;; celluloid connects to MPRIS for playback control
   (defun celluloid-view (url)
     "Watch a video from URL in Celluloid"
