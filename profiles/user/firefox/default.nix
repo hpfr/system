@@ -107,6 +107,8 @@ in {
             "font.default.x-western" = "sans-serif";
             # use system emoji font
             "font.name-list.emoji" = "emoji";
+            # firefox uses a specific font list here for some reason
+            "font.name-list.serif.x-math" = "serif";
             # don't allow webpages to choose fonts beyond serif, sans, mono
             "browser.display.use_document_fonts" = 0;
 
