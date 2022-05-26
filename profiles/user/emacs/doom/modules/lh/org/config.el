@@ -121,7 +121,9 @@
 
 (after! ox-html
   (setq org-html-doctype "html5"
-        org-html-html5-fancy t))
+        org-html-html5-fancy t
+        ;; org-html-head "<link rel=\"stylesheet\" href=\"https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css\">"
+        ))
 
 (after! ox-latex
   (let ((article-sections '(("\\section{%s}" . "\\section*{%s}")
@@ -150,8 +152,6 @@
  citecolor=cite
 }
 \\urlstyle{same}\n"))
-;; (after! ox-html
-;;   (setq org-html-head "<link rel=\"stylesheet\" href=\"https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css\">"))
 
 ;; hide individual blocks with #+hide: t on the line preceding #+begin_...
 (add-hook! 'org-mode-hook
