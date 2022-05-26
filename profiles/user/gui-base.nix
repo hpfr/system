@@ -163,11 +163,15 @@ in {
           inherit (tpkgs)
             collection-basic collection-latex collection-latexrecommended
             collection-xetex collection-luatex dvipng dvisvgm latexmk synctex
-            fontsetup newcomputermodern
+            fontsetup
             # archival and deps
             pdfx xmpincl
             # org export
             wrapfig ulem capt-of
+            # list formatting
+            enumitem
+            # citations
+            biblatex biblatex-apa biblatex-ieee
             # auctex preview (pdfcrop includes pdf2dsc)
             preview pdfcrop
             # koma
@@ -179,14 +183,12 @@ in {
             mdframed zref subfiles todonotes algorithm2e relsize ccicons
             glossaries mfirstuc xfor datatool nomencl abstract
 
-            biblatex-apa biblatex-ieee
-
             # building inputnormalization
             l3build
 
             # mla.cls
-            enumitem preprint newtx titlesec xstring csquotes hanging biblatex
-            enotez fontaxes biblatex-mla translations;
+            preprint newtx titlesec xstring csquotes hanging enotez fontaxes
+            biblatex-mla translations;
         };
       };
     };
