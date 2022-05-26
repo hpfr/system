@@ -39,6 +39,7 @@ in {
           nodejs # dap-mode
           openssl # elpher gemini support
           python3 # treemacs advanced features
+          perl534Packages.LaTeXML # org-latex-to-mathml-convert-command
 
           # language linting and formatting
           (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))

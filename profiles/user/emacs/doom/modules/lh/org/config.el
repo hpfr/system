@@ -51,6 +51,7 @@
         (lambda () (not (member (nth 2 (org-heading-components))
                                 org-done-keywords)))
         org-refile-allow-creating-parent-nodes 'confirm
+        org-latex-to-mathml-convert-command "latexmlmath \"%i\" --presentationmathml=%o"
         org-format-latex-header "\\documentclass{my-article}
 \\usepackage[usenames]{color}
 \[NO-PACKAGES]
