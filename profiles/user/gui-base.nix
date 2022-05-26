@@ -65,6 +65,7 @@ in {
         # applications
         keepassxc # password manager
         xournalpp # handwritten notes and PDF markup
+        rnote # modern handwritten notes
         calibre # ebook manager
         foliate # ebook reader
         zotero # research citation manager
