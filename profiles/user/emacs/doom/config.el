@@ -383,6 +383,7 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;; elfeed
 (after! elfeed
+  (setq-default elfeed-search-filter "@6-month-ago -read ")
   ;; poor man's sync
   (setq elfeed-db-directory "~/nc/config/elfeed/db/"
         elfeed-enclosure-default-dir "~/nc/config/elfeed/enclosures/")
