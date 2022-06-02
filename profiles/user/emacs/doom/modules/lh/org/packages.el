@@ -18,3 +18,5 @@
         (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
   (package! websocket))
 (package! org-modern)
+(package! org-ol-tree :recipe
+  (:host github :repo "townk/org-ol-tree"))
