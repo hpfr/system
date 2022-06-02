@@ -82,6 +82,31 @@ in {
         SUDO_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
         CALIBRE_USE_SYSTEM_THEME = 1;
       };
+
+      file.".XCompose".text = ''
+        include "%L"
+
+        XCOMM smart quotes
+        <Multi_key> <l> <q>	: "“"
+        <Multi_key> <q> <l>	: "“"
+        <Multi_key> <r> <q>	: "”"
+        <Multi_key> <q> <r>	: "”"
+        <Multi_key> <l> <a>	: "‘"
+        <Multi_key> <a> <l>	: "‘"
+        <Multi_key> <r> <a>	: "’"
+        <Multi_key> <a> <r>	: "’"
+        <Multi_key> <apostrophe> <p>	: "′"
+        <Multi_key> <p> <apostrophe>	: "′"
+        <Multi_key> <quotedbl> <p>	: "″"
+        <Multi_key> <p> <quotedbl>	: "″"
+
+        XCOMM combining accents
+        <Multi_key> <apostrophe> <apostrophe>	: "́"
+        <Multi_key> <grave> <grave>	: "́"
+        <Multi_key> <comma> <comma>	: "̧"
+        <Multi_key> <asciicircum> <asciicircum>	: "̂"
+        <Multi_key> <quotedbl> <quotedbl>	: "̈"
+      '';
     };
 
     systemd.user = {
