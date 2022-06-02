@@ -92,6 +92,12 @@
 ;; display form feed characters as horizontal rules
 (global-form-feed-mode)
 
+;;; elastic tabstops
+(use-package! spaceship-mode
+  :commands spaceship-mode)
+(use-package! tabble-mode
+  :commands tabble-mode)
+
 ;;; undo
 (map! :leader :desc "Undo tree" :n "U" #'vundo)
 (after! vundo

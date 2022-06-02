@@ -9,6 +9,8 @@
 (package! cook-mode
   :recipe (:host github :repo "cooklang/cook-mode"))
 (package! unfill)
+(package! spaceship-mode
+  :recipe (:host github :repo "tenbillionwords/spaceship-mode"))
 (package! aas)
 (package! laas)
 (package! lazytab :recipe (:host github :repo "karthink/lazytab"))
