@@ -424,7 +424,12 @@ tasks."
         ;; This ensures all org "deadlines" show up as due dates
         org-icalendar-use-deadline '(todo-due)
         ;; This ensures "scheduled" org items show up as start times
-        org-icalendar-use-scheduled '(todo-start)))
+        org-icalendar-use-scheduled '(todo-start))
+  ;; allow export with mu4e links
+  (defadvice! org-caldav-ignore-broken (orig-fn &rest args)
+    :around #'org-caldav-sync
+    (let ((org-export-with-broken-links t))
+      (apply orig-fn args))))
 
 ;; use hyphens instead of underscores in roam filenames
 (after! org-roam-node
