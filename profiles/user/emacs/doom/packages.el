@@ -7,8 +7,7 @@
   (:host github :repo "ibizaman/emacs-conflicts"))
 (package! vimrc-mode)
 (package! cook-mode
-  :recipe (:host github
-            :repo "cooklang/cook-mode"))
+  :recipe (:host github :repo "cooklang/cook-mode"))
 (package! unfill)
 (package! aas)
 (package! laas)
