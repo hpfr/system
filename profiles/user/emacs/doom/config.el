@@ -273,14 +273,6 @@ the right. Refer to `ediff-swap-buffers' to swap them."
         :desc "Ediff files"
         :ng "e" #'my/dired-ediff-dwim))
 
-;; use dired as a drag and drop source (dired already works as a sink)
-(use-package! dired-dragon
-  :after dired
-  :config
-  (map! :map dired-mode-map
-        :localleader
-        :desc "Drag and drop files" "d" #'dired-dragon))
-
 (after! tar
   (setq tar-mode-show-date t))
 

@@ -20,9 +20,6 @@
 (package! daemons)
 (package! ztree)
 (package! tldr)
-(package! dired-dragon                  ; drag and drop
-  :recipe (:host github :repo "jeetelongname/dired-dragon")
-  :disable t)
 (package! 0x0)
 (package! osm)
 (when (package! ement                   ; matrix
