@@ -39,12 +39,11 @@ in {
       ];
       gnome.excludePackages = with pkgs.gnome; [
         epiphany # firefox, chromium
-        gedit # emacs for text editing
+        pkgs.gnome-text-editor # emacs for text editing
         geary # emacs for mail
         totem # mpv/celluloid for media
         gnome-music # spotify/mpd+emacs
         simple-scan # I don't have a scanner
-        gnome-terminal # gnome console
         pkgs.gnome-photos # gthumb actually lets you browse directories
       ];
     };
