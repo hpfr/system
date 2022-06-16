@@ -131,7 +131,20 @@ in {
     xdg = {
       enable = true;
       # see application profiles for file associations and defaults
-      mimeApps.enable = true;
+      mimeApps = {
+        enable = true;
+        # calibre includes a viewer I never want to use
+        defaultApplications = {
+          "application/vnd.oasis.opendocument.text" = "writer.desktop";
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+            "writer.desktop";
+          "application/rtf" = "writer.desktop";
+          "text/rtf" = "writer.desktop";
+          "application/x-cbr" = "com.github.johnfactotum.foliate";
+          "application/x-cbz" = "com.github.johnfactotum.foliate";
+        };
+      };
+
       userDirs = {
         enable = true;
         desktop = "$HOME/documents/desktop";

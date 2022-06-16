@@ -159,8 +159,8 @@ in {
           "application/pdf"
           "inode/directory"
           "text/x-diff"
+          "text/x-markdown"
           "application/epub+zip"
-          "application/vnd.ms-powerpoint"
         ] // {
           "x-scheme-handler/mailto" = "emacsclient-mail.desktop";
           "x-scheme-handler/gopher" = "emacsclient-gemini.desktop";
@@ -170,6 +170,7 @@ in {
           "application/pdf"
           "inode/directory"
           "text/x-diff"
+          "text/x-markdown"
           "application/epub+zip"
           "text/xml"
 
