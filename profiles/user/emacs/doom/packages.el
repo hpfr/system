@@ -31,6 +31,8 @@
 (package! anki
   :recipe (:host github :repo "chenyanming/anki.el")
   :disable t)
+(when (package! elfeed-tube :recipe (:host github :repo "karthink/elfeed-tube"))
+  (package! mpv))
 (package! elpher)
 (package! form-feed)
 ;; pretty hacky

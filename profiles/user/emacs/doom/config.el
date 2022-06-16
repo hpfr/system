@@ -388,21 +388,20 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   ;; poor man's sync
   (setq elfeed-db-directory "~/nc/config/elfeed/db/"
         elfeed-enclosure-default-dir "~/nc/config/elfeed/enclosures/")
-  ;; celluloid connects to MPRIS for playback control
-  (defun celluloid-view (url)
-    "Watch a video from URL in Celluloid"
-    (async-shell-command (format "celluloid --new-window %s" url)))
+  (require 'elfeed-tube))
 
-  (defun elfeed-view-video ()
-    "View feed link video in external program"
-    (interactive)
-    (let ((entries (elfeed-search-selected)))
-      (cl-loop for entry in entries
-               do (elfeed-untag entry 'unread)
-               when (elfeed-entry-link entry)
-               do (celluloid-view it))
-      (mapc #'elfeed-search-update-entry entries)
-      (unless (use-region-p) (forward-line)))))
+(after! elfeed-tube
+  (elfeed-tube-setup)
+  (require 'elfeed-tube-mpv)
+  (map! (:map elfeed-show-mode-map
+         "F" #'elfeed-tube-fetch
+         :localleader
+         "f" #'elfeed-tube-mpv-follow-mode
+         "w" #'elfeed-tube-mpv-where)
+        (:map elfeed-search-mode-map
+         "F" #'elfeed-tube-fetch)))
+
+(after! elfeed-tube-mpv)
 
 ;;; elpher
 (after! elpher
