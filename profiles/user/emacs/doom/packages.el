@@ -1,7 +1,6 @@
 ;; -*- no-byte-compile: t; -*-
 ;; doom includes this by default
 (package! magit-gitflow :disable t)
-(package! vundo)
 (package! shrface)
 (package! emacs-conflict :recipe
   (:host github :repo "ibizaman/emacs-conflicts"))

@@ -99,7 +99,10 @@
   :commands tabble-mode)
 
 ;;; undo
-(map! :leader :desc "Undo tree" :n "U" #'vundo)
+(map! :leader
+      (:prefix ("b" . "buffer")
+       :desc "Undo tree" "u" #'vundo
+       :desc "Save buffer as root" "U" #'doom/sudo-save-buffer))
 (after! vundo
   (setq vundo-glyph-alist vundo-unicode-symbols))
 
