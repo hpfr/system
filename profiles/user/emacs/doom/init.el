@@ -54,7 +54,8 @@
 
  :emacs
  (dired
-  +icons)
+  +icons
+  +dirvish)
  electric
  (ibuffer +icons)
  undo
