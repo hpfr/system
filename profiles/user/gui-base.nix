@@ -83,6 +83,7 @@ in {
         CALIBRE_USE_SYSTEM_THEME = 1;
       };
 
+      # compose key definitions
       file.".XCompose".text = ''
         include "%L"
 
@@ -107,6 +108,21 @@ in {
         <Multi_key> <asciicircum> <asciicircum>	: "̂"
         <Multi_key> <quotedbl> <quotedbl>	: "̈"
       '';
+    };
+
+    # emoji and special character input
+    dconf = {
+      enable = true;
+      settings = {
+        "desktop/ibus/panel/emoji" = {
+          unicode-hotkey = [ "<Super><Shift>u" ];
+          hotkey = [ "<Super>period" ];
+          has-partial-match = true;
+          partial-match-length = 3;
+          # match all containing
+          partial-match-condition = 2;
+        };
+      };
     };
 
     systemd.user = {

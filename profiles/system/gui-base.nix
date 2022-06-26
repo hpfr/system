@@ -91,6 +91,9 @@ in {
     # passthrough USB devices to VM's over SPICE
     virtualisation.spiceUSBRedirection.enable = true;
 
+    i18n.inputMethod.enabled = "ibus";
+    i18n.inputMethod.ibus.engines = [ pkgs.ibus-engines.typing-booster ];
+
     environment.systemPackages = [ pkgs.bindfs ];
     fileSystems."/home/lh/bindfs/media" = {
       device = "/home/lh/media";
