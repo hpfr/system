@@ -219,8 +219,7 @@
 (after! org-roam
   (setq org-roam-directory org-directory
         org-roam-file-exclude-regexp
-        (rx bol (literal (file-name-as-directory org-roam-directory))
-            (or ".attach" "events" "school-events") "/")
+        (rx bol (or ".attach" "events" "school-events") "/")
         org-roam-db-node-include-function
         (lambda ()
           (not (or (org-entry-get (point) "ROAM_EXCLUDE" 'selective)
