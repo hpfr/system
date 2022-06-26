@@ -23,10 +23,7 @@
 (package! tldr)
 (package! 0x0)
 (package! osm)
-(when (package! ement                   ; matrix
-        :recipe (:host github :repo "alphapapa/ement.el"))
-  (package! plz
-    :recipe (:host github :repo "alphapapa/plz.el")))
+(package! ement :recipe (:host github :repo "alphapapa/ement.el")) ; matrix
 (package! anki-editor)
 (package! anki
   :recipe (:host github :repo "chenyanming/anki.el")
