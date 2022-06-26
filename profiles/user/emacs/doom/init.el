@@ -84,6 +84,7 @@
  (:when (member (system-name) my/gui-capable-hosts)
   pdf)
  rgb
+ tree-sitter
  ;; upload
 
  :lang
