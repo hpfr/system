@@ -22,6 +22,8 @@ in {
           "xow_dongle-firmware"
           # for steam hardware udev rules
           "steam-original"
+          # source-available
+          "mpv-youtube-quality"
         ];
 
       overlays = [
