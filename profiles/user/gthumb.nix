@@ -8,7 +8,10 @@ in {
     mkEnableOption "my gthumb configuration";
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.gthumb ];
+    # # nix package currently lacks support for avif and jxl
+    # # https://github.com/NixOS/nixpkgs/pull/153275
+    # # https://github.com/NixOS/nixpkgs/pull/102189
+    # home.packages = [ pkgs.gthumb ];
 
     xdg.mimeApps.defaultApplications = let
       applyToAll = list:
