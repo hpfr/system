@@ -38,6 +38,7 @@ in {
 
         # hardware
         onlykey-cli
+        solo2-cli
         libimobiledevice # iOS device utils
 
         # documents
