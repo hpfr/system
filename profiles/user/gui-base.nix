@@ -43,6 +43,7 @@ in {
 
         # documents
         imagemagick7 # image editing CLI and GUI
+        libjxl # jpeg xl tools
         qpdf # pdf manipulation CLI
         diff-pdf # pdf comparison
         ocrmypdf # OCR tool wrapping tesseract
