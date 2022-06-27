@@ -246,6 +246,7 @@ in {
         };
         # folder names must follow this custom\d format, unfortunately. means I
         # can't use Nix to ensure no conflicts
+        # TODO: this doesn't work on a fresh system
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
           {
             binding = "<Super>e";
