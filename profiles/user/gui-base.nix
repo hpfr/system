@@ -229,6 +229,8 @@ in {
             enumitem
             # citations
             biblatex biblatex-apa biblatex-ieee
+            # arbitrary text placement
+            textpos
             # auctex preview (pdfcrop includes pdf2dsc)
             preview pdfcrop
             # koma
