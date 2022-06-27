@@ -323,6 +323,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;;; apps
 ;;; magit
+(after! embark
+  (require 'embark-vc))
+
 (after! magit-branch
   (setq magit-branch-read-upstream-first 'fallback))
 
