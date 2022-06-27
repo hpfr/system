@@ -16,6 +16,7 @@
 (package! git-auto-commit-mode)
 (package! lexic)
 (package! magit-annex)
+(package! gitignore-templates)
 (package! annexview :recipe (:host nil :repo "https://git.kyleam.com/annexview"))
 (package! disk-usage)
 (package! daemons)
