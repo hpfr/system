@@ -174,6 +174,10 @@
 (after! all-the-icons-dired
   (setq all-the-icons-dired-monochrome nil))
 (after! (dired-aux dired-x)
+  ;; conversion for office files
+  (setf (alist-get (rx "." (or "doc" "docx" "ppt" "pptx") eos)
+                   dired-guess-shell-alist-user nil nil #'string=)
+        '("libreoffice --headless --convert-to pdf"))
   ;; use bsdtar for common archival and compression tasks in dired
   (let* ((bsdtar-rw-exts
           (rx "." (or (seq (? "t") (? "ar.")
