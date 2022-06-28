@@ -36,7 +36,6 @@
   +all)
  (treemacs +lsp)
  vc-gutter
- vi-tilde-fringe
  window-select
  workspaces
  zen
