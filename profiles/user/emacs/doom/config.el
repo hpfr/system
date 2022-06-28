@@ -189,11 +189,11 @@
     (setf (alist-get bsdtar-r-exts dired-guess-shell-alist-user nil nil #'string=)
           '("bsdtar -tvf"
             ;; extract into new directory
-            (let ((name (string-remove-suffix ".tar" (file-name-sans-extension file))))
+            (let ((name (shell-quote-argument (string-remove-suffix ".tar" (file-name-sans-extension file)))))
               (concat "mkdir " name "; bsdtar -C " name " -xvf"))
             ;; convert other archives to .tar.zst
             (concat "bsdtar -acvf "
-                    (string-remove-suffix ".tar" (file-name-sans-extension file)) ".tar.zst"
+                    (shell-quote-argument (string-remove-suffix ".tar" (file-name-sans-extension file))) ".tar.zst"
                     " @`?`")
             "bsdtar -xvf"))
     ;; decompression with `dired-do-compress'
