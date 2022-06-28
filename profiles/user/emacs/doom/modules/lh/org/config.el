@@ -195,6 +195,11 @@
             :file +org-capture-notes-file
             :template ("* %?"
                        "%i"))
+           ("bookmark" :keys "b"
+            :kill-buffer t
+            :file "bookmarks.org"
+            :template ("* %i"
+                       "%?"))
 
            ("project-local" :keys "p"
             :prepend t :empty-lines-after 1 :kill-buffer t

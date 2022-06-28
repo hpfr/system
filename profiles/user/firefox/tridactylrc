@@ -32,11 +32,8 @@ bind F hint -t
 bind gd tabdetach
 bind gD composite tabduplicate | tabdetach
 
-" default bookmark storage to the Mobile Bookmarks folder since the default
-" can't be changed on iOS. replace slashes in title to prevent tridactyl seeing
-" them as path separators
-command mobile_bmark_path js -d€ JS_ARGS[2] + ' /Mobile Bookmarks/' + (JS_ARGS[1] == 't' ? document.title.replace(new RegExp('/','g'), '／') : '')€
-bind a composite get_current_url | mobile_bmark_path t | fillcmdline_notrail bmark
+command orglink js -p '"[[' + JS_ARG + '][' + document.title + ']]"'
+bind a composite get_current_url | orglink | exclaim_quiet org-capture -k b
 
 " toggle summary elements (and comment view for common link aggregators)
 bind ;c hint -Jc summary,[class*='expand'],[class*='togg'],[aria-label='Collapse'],[class='comment_folder']
