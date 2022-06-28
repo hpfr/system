@@ -57,6 +57,7 @@ set searchurls.def https://www.wordnik.com/words?myWord=
 set searchurls.ol https://openlibrary.org/search?q=
 set searchurls.hn https://hn.algolia.com/?q=
 set searchurls.rd https://old.reddit.com/search?q=
+set searchurls.rds https://old.reddit.com/r/%s1/search?q=%s2&restrict_sr=on
 set searchurls.yt https://www.youtube.com/results?search_query=
 set searchurls.gen https://genius.com/search?q=
 set searchurls.man https://www.mankier.com/?q=
