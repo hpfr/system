@@ -10,9 +10,8 @@
           'web-mode) ; noisy htmltidy output buffers for emails
 
 ;; opacity for current frame and new frames
-(setf (alist-get 'alpha default-frame-alist) '(88 . 82)
-      ;; frames start maximized
-      (alist-get 'fullscreen default-frame-alist) 'maximized)
+(setf (alist-get 'alpha default-frame-alist) '(88 . 82))
+(set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
