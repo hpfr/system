@@ -502,8 +502,9 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 (add-hook! '(LaTeX-mode-hook org-mode-hook) #'laas-mode)
 (after! laas
   (aas-set-snippets 'laas-mode
+    "..." "…"
     :cond #'laas-mathp
-    "On" "O(n)"
+    "Olin" "O(n)"
     "O1" "O(1)"
     "Olog" "O(\\log n)"
     "Olon" "O(n \\log n)"
@@ -518,10 +519,11 @@ the right. Refer to `ediff-swap-buffers' to swap them."
     "QQ" "ℚ"
     "RR" "ℝ"
     "ZZ" "ℤ"
-    "..." "…"
     "..c" "⋯"
 
-    "comp" "^c")
+    ";;u" "\\cup"
+    ";;n" "\\cap"
+    ";;F" "ℱ")
 
   (setq laas-use-unicode t)
 
