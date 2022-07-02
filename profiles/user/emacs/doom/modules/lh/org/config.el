@@ -148,9 +148,8 @@
  pdflang={%L},
  breaklinks=true,
  colorlinks=true,
- linkcolor=link,
- urlcolor=url,
- citecolor=cite
+ urlcolor=DarkRed,
+ citecolor=DarkRed
 }
 \\urlstyle{same}\n"))
 
