@@ -496,7 +496,8 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (setq citar-bibliography '("~/nc/research/main.bib")
         citar-library-paths '("~/nc/research/documents/")
         citar-notes-paths
-        (list (expand-file-name "research/" org-roam-directory))))
+        (list (expand-file-name "research/" org-roam-directory)))
+  (citar-filenotify-setup '(LaTeX-mode-hook org-mode-hook)))
 
 
 (add-hook! '(LaTeX-mode-hook org-mode-hook) #'laas-mode)
