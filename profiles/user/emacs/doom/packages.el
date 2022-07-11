@@ -26,11 +26,14 @@
 (package! 0x0)
 (package! osm)
 (package! ement :recipe (:host github :repo "alphapapa/ement.el")) ; matrix
-(package! anki-editor)
-(package! anki
-  :recipe (:host github :repo "chenyanming/anki.el")
-  :disable t)
-(when (package! elfeed-tube :recipe (:host github :repo "karthink/elfeed-tube"))
+(when (member (system-name) my/personal-hosts)
+  (package! anki-editor)
+  (package! anki
+    :recipe (:host github :repo "chenyanming/anki.el")
+    :disable t))
+(when (featurep! :app rss)
+  (package! elfeed-tube)
+  (package! elfeed-tube-mpv)
   (package! mpv))
 (package! elpher)
 (package! form-feed)
