@@ -102,12 +102,12 @@ Prevents a series of redisplays from being called (when set to an appropriate va
                                  #'mu4e-file-reindex-request)))
 
   (defadvice! mu4e-stop-watching-for-reindex-request ()
-    :after #'mu4e~proc-kill
+    :after #'mu4e--server-kill
     (if mu4e-reindex-request--file-watcher
         (file-notify-rm-watch mu4e-reindex-request--file-watcher)))
 
   (defadvice! mu4e-watch-for-reindex-request ()
-    :after #'mu4e~proc-start
+    :after #'mu4e--server-start
     (mu4e-stop-watching-for-reindex-request)
     (when (file-exists-p mu4e-reindex-request-file)
       (delete-file mu4e-reindex-request-file))
