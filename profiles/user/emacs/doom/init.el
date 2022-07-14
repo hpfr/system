@@ -88,20 +88,20 @@
 
  :lang
  (beancount +lsp)
- (cc +lsp)
- (csharp +lsp +dotnet)
+ (cc +lsp +tree-sitter)
+ (csharp +lsp +dotnet +tree-sitter)
  data
  emacs-lisp
- (go +lsp)
- (java +lsp)
- (javascript +lsp)
+ (go +lsp +tree-sitter)
+ (java +lsp +tree-sitter)
+ (javascript +lsp +tree-sitter)
  (latex
   +latexmk
   +cdlatex
   +lsp
   +fold)
  markdown
- nix
+ (nix +tree-sitter)
  (org
   +dragndrop
   +hugo
@@ -111,9 +111,9 @@
   +present
   +roam2)
  ;;raku
- (python +lsp +pyright)
- (sh +fish)
- web
+ (python +lsp +pyright +tree-sitter)
+ (sh +fish +tree-sitter)
+ (web +lsp +tree-sitter)
  yaml
 
  ;; :os
