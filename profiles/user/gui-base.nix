@@ -47,6 +47,7 @@ in {
         qpdf # pdf manipulation CLI
         diff-pdf # pdf comparison
         ocrmypdf # OCR tool wrapping tesseract
+        poppler_utils # pdfimages
         zbar # QR decode
         qrencode
 
