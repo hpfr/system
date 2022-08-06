@@ -30,7 +30,9 @@ in {
     # aplay
     sound.enable = true;
 
-    # gui patchbay
-    environment.systemPackages = [ pkgs.helvum ];
+    environment.systemPackages = [
+      pkgs.helvum # gui patchbay
+      pkgs.easyeffects # gui equalizer and effects
+    ];
   };
 }
