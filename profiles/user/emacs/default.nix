@@ -112,9 +112,6 @@ in {
           source = ./doom;
           recursive = true;
         };
-        "doom/doom-source-dir.el".text = ''
-          (setq lh/doom-source-dir "${toString ./doom}/")
-        '';
         "doom/modules/lh/email/mu4e-load-path.el".text = ''
           (cl-pushnew "${pkgs.mu}/share/emacs/site-lisp/mu4e" load-path)
         '';

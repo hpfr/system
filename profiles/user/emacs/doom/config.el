@@ -1,8 +1,4 @@
 ;;; -*- lexical-binding: t; -*-
-(load! "doom-source-dir.el")
-;; doom does this automatically for doomdirs, but home-manager has a different
-;; directory
-(cl-pushnew lh/doom-source-dir +emacs-lisp-disable-flycheck-in-dirs :test #'string=)
 
 ;; first element is "not" which negates the list
 (pushnew! (cdr +format-on-save-enabled-modes)
