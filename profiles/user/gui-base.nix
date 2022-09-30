@@ -42,7 +42,7 @@ in {
         libimobiledevice # iOS device utils
 
         # documents
-        imagemagick7 # image editing CLI and GUI
+        imagemagick # image editing CLI and GUI
         libjxl # jpeg xl tools
         qpdf # pdf manipulation CLI
         diff-pdf # pdf comparison
@@ -62,7 +62,7 @@ in {
 
         # virtualization
         libvirt # manage VM's
-        virtmanager # manage VM's graphically
+        virt-manager # manage VM's graphically
         openconnect # cs.wisc.edu VPN
 
         # applications
