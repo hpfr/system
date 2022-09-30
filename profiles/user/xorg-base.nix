@@ -75,7 +75,13 @@ in {
         fade = true;
         fadeDelta = 4;
         # inactiveOpacity = "0.9";
-        blur = true;
+        settings = {
+          blur = {
+            method = "gaussian";
+            size = 10;
+            deviation = 5.0;
+          };
+        };
       };
 
       # hide pointer

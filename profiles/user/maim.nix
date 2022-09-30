@@ -9,7 +9,9 @@ in {
   config = mkIf cfg.enable {
     home.packages = [ pkgs.maim ];
     # https://github.com/naelstrof/maim/issues/172
-    services.picom.blurExclude = [ "class_g = 'slop'" ];
+    services.picom.settings = {
+      blur-background-exclude = [ "class_g = 'slop'" ];
+    };
     services.sxhkd.keybindings = {
       "Print" =
         ''maim ~/documents/pictures/"$(date '+%F-%Hh%Mm%S')"-screenshot.png'';
