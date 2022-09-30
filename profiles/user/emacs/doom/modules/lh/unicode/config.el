@@ -10,6 +10,7 @@
 ;; cypro-minoan tangsa khitan-small-script znamenny-musical-notation
 ;; counting-rod-numeral toto ottoman-siyaq-number)
 
+;; FIXME: performance. pcase?
 (let* ((iosevka-scripts '(latin greek phonetic coptic cyrillic symbol mathematical))
        (source-scripts '(latin greek phonetic coptic cyrillic symbol))
 
@@ -64,10 +65,10 @@
                        ("Iosevka Term Curly Slab" ,@iosevka-scripts)
                        ("sans-serif" ,@source-scripts)
                        ("Source Sans 3 VF" ,@source-scripts)
-                       ;; number at end parsed as size without backslash
-                       ("Source Sans\ 3" ,@source-scripts)
+                       ;; colon ensures string is parsed as fontconfig name, not GTK pattern with size
+                       ("Source Sans 3:" ,@source-scripts)
                        ("Source Serif 4 Variable" ,@source-scripts)
-                       ("Source Serif\ 4" ,@source-scripts)
+                       ("Source Serif 4:" ,@source-scripts)
                        ("Source Han Mono" ,@cjk-scripts)
                        ("Source Han Sans" ,@cjk-scripts)
                        ("Source Han Serif" ,@cjk-scripts)
@@ -152,12 +153,12 @@
        ;; NOTE: fallback to other fontsets in fontsets doesn't work, splice
        ;; variable with contents
        ;; NOTE: variable fonts don't play well with attributes like weight, use standard
-       (fontset-sans-serif (funcall make-fontset `("Source Sans\ 3"
+       (fontset-sans-serif (funcall make-fontset `("Source Sans 3:"
                                                    "Source Han Sans"
                                                    "Noto Color Emoji"
                                                    ,@noto-sans-fonts
                                                    ,@noto-serif-fonts)))
-       (fontset-serif (append (funcall make-fontset `("Source Serif\ 4"
+       (fontset-serif (append (funcall make-fontset `("Source Serif 4:"
                                                       "Source Han Serif"
                                                       "Noto Color Emoji"
                                                       "STIX Two Math"
