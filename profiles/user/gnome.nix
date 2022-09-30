@@ -150,7 +150,7 @@ in {
         };
         # compose key
         "org/gnome/desktop/input-sources".xkb-options =
-          [ "terminate:ctrl_alt_bksp" "compose:ralt" ];
+          [ "terminate:ctrl_alt_bksp" "compose:ralt" "caps:escape" ];
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
         "org/gnome/shell".enabled-extensions = [
