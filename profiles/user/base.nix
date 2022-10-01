@@ -47,7 +47,6 @@ in {
         trash-cli # manage XDG trash
         ssh-audit # audit ssh configuration
         exiftool # work with photo exif data
-        yt-dlp # video download
         rclone # multiplatform cloud sync
         entr # run commands when files change
         archivemount # mount archives as filesystems
@@ -123,6 +122,11 @@ in {
 
       # colors for filetypes in ls output
       dircolors.enable = true;
+
+      # video download
+      yt-dlp.enable = true;
+      # image gallery download
+      gallery-dl.enable = true;
     };
   };
 }
