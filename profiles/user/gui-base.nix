@@ -57,7 +57,6 @@ in {
         piper # mouse configuration via libratbag
         xdragon # drag and drop from the terminal (and emacs)
 
-        safeeyes # reminds user on eye health
         nextcloud-client
 
         # virtualization
@@ -257,6 +256,8 @@ in {
       network-manager-applet.enable = true;
       # notifications for earlyoom
       systembus-notify.enable = true;
+      # eye health
+      safeeyes.enable = true;
     };
   };
 }

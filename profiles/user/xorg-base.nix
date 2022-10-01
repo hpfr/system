@@ -56,7 +56,6 @@ in {
         [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
         setbg ~/.config/wall # set background
         xset r rate 300 50 & # faster hold key repeat rate
-        safeeyes &
         # acts as ssh agent and secret service
         keepassxc &
       '';
