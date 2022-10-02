@@ -162,7 +162,16 @@ in {
         KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0660", GROUP:="onlykey", RUN+="${pkgs.onlykey-cli}/bin/onlykey-cli settime"
         KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0660", GROUP:="onlykey", RUN+="${pkgs.onlykey-cli}/bin/onlykey-cli settime"
-        #
+
+        # udev rules for solo 2 https://github.com/solokeys/solo2-cli/blob/main/70-solo2.rules
+        # NXP LPC55 ROM bootloader (unmodified)
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1fc9", ATTRS{idProduct}=="0021", TAG+="uaccess"
+        # NXP LPC55 ROM bootloader (with Solo 2 VID:PID)
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="b000", TAG+="uaccess"
+        # Solo 2
+        SUBSYSTEM=="tty", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="beee", TAG+="uaccess"
+        # Solo 2
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="beee", TAG+="uaccess"
       '';
 
       # libratbag for mouse configuration
