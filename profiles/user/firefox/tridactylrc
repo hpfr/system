@@ -32,6 +32,11 @@ bind F hint -t
 bind gd tabdetach
 bind gD composite tabduplicate | tabdetach
 
+" SPC and S-SPC can do this, freeing native find for pages that hijack /
+unbind --mode=normal <C-f>
+" might as well free bookmark sidebar as well
+unbind --mode=normal <C-b>
+
 command orglink js -p '"[[' + JS_ARG + '][' + document.title + ']]"'
 bind a composite get_current_url | orglink | exclaim_quiet org-capture -k b
 
