@@ -62,6 +62,7 @@ set searchurls.def https://www.wordnik.com/words?myWord=
 set searchurls.ol https://openlibrary.org/search?q=
 set searchurls.hn https://hn.algolia.com/?q=
 set searchurls.rd https://old.reddit.com/search?q=
+set searchurls.rdu https://old.reddit.com/search?q=url:
 set searchurls.rds https://old.reddit.com/r/%s1/search?q=%s2&restrict_sr=on
 set searchurls.yt https://www.youtube.com/results?search_query=
 set searchurls.gen https://genius.com/search?q=
@@ -76,7 +77,7 @@ command canon_fallback js document.querySelector("link[rel='canonical']")?.getAt
 bind gsw composite canon_fallback | open wb
 bind gsa composite canon_fallback | open at
 bind gsh composite canon_fallback | tabopen hn
-bind gsr composite canon_fallback | tabopen rd
+bind gsr composite canon_fallback | tabopen rdu
 
 seturl ^moz-extension://b2a9b85a-18a4-419b-9e51-22e80fca4c2a/static/docs/modules/_src_excmds_.html gotoselector h1,h2,h3
 
