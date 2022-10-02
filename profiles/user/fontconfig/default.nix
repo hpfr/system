@@ -39,6 +39,7 @@ in {
       julia-mono # monospaced unicode
       noto-fonts-emoji # emoji
       undefined-medium # pseudo-bitmap
+      symbols-nerd-font # extra-unicode icons
 
       # https://github.com/adobe-fonts/source-han-mono/issues/1
       source-han-sans # CJK support

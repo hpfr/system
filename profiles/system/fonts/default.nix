@@ -10,6 +10,10 @@ in {
     nixpkgs = {
       overlays = [
         (import ./iosevka.nix { inherit lib; })
+        (self: super: {
+          symbols-nerd-font =
+            super.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
+        })
         # ignore redundant ttf's, as well as variable ttf's which break latex usage
         (self: super: {
           stix-two = super.stix-two.overrideAttrs (oldAttrs: {

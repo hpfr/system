@@ -4,6 +4,8 @@
       doom-emoji-fallback-font-families nil
       emojify-display-style 'unicode)
 
+(set-fontset-font t '(#xe000 . #xf8ff) "Symbols Nerd Font" nil 'append)
+
 ;; ;; missing:
 ;; (vithkuqi rumi-number old-uyghur chorasmian
 ;; sinhala-archaic-number dives-akuru nandinagari makasar
