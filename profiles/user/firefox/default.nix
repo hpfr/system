@@ -150,6 +150,10 @@ in {
             "browser.link.open_newwindow.restriction" = 0;
             "browser.tabs.warnOnClose" = false;
 
+            # F11 hides chrome while remaining windowed
+            # true fullscreen still available via window manager binding
+            "full-screen-api.ignore-widgets" = true;
+
             "browser.ctrlTab.sortByRecentlyUsed" = true;
 
             # pipewire and gnome shell handle this
