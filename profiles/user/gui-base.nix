@@ -50,6 +50,7 @@ in {
         poppler_utils # pdfimages
         zbar # QR decode
         qrencode
+        fontforge-gtk # font editor
 
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
@@ -71,6 +72,7 @@ in {
         calibre # ebook manager
         foliate # ebook reader
         zotero # research citation manager
+        shortwave # internet radio
 
         # messaging
         tdesktop # telegram client (FOSS)
