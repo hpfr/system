@@ -9,8 +9,8 @@
 command hint_focus hint -;
 
 " workaround race condition with inserting spaces in query
-:unbind --mode=ex <Space>
-:bind --mode=ex <A-Space> ex.insert_space_or_completion
+unbind --mode=ex <Space>
+bind --mode=ex <A-Space> ex.insert_space_or_completion
 
 colors midnight
 
