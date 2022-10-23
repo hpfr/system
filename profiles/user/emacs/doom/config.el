@@ -431,7 +431,6 @@ the right. Refer to `ediff-swap-buffers' to swap them."
         ispell-personal-dictionary (expand-file-name "~/nc/config/aspell/en.pws")))
 (after! langtool
   (setq langtool-bin "languagetool-commandline"))
-(load! "languagetool-server-jar.el")
 (after! lexic
   (map! :map lexic-mode-map
         :n "q" #'lexic-return-from-lexic

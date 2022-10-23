@@ -114,10 +114,6 @@ in {
         "doom/modules/lh/email/mu4e-load-path.el".text = ''
           (cl-pushnew "${pkgs.mu}/share/emacs/site-lisp/mu4e" load-path)
         '';
-        "doom/languagetool-server-jar.el".text = ''
-          (after! langtool
-            (setq langtool-language-tool-server-jar "${pkgs.languagetool}/share/languagetool-server.jar"))
-        '';
 
         # https://github.com/karlicoss/promnesia/blob/master/doc/config.py
         "promnesia/config.py".text = ''
