@@ -112,6 +112,7 @@
   +roam2)
  ;;raku
  (python +lsp +pyright +tree-sitter)
+ (rest +jq)
  (sh +fish +tree-sitter)
  (web +lsp +tree-sitter)
  yaml
