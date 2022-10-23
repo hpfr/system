@@ -31,7 +31,7 @@
   (package! anki
     :recipe (:host github :repo "chenyanming/anki.el")
     :disable t))
-(when (featurep! :app rss)
+(when (modulep! :app rss)
   (package! elfeed-tube)
   (package! elfeed-tube-mpv)
   (package! mpv))

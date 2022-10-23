@@ -6,7 +6,7 @@
 (package! org-ql)
 (package! org-caldav)
 (package! org-chef)
-(when (featurep! :lang org +present)
+(when (modulep! :lang org +present)
   (package! revealjs-plugins-rajgoel :recipe (:host github :repo "rajgoel/reveal.js-plugins" :files ("chalkboard"))))
 (package! org-roam-timestamps)
 ;; convenient org and roam extensions by d12frosted, can probably be removed in

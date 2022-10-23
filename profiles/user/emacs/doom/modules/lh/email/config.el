@@ -68,7 +68,7 @@
                          (:name "Messages with images" :query "mime:image/*" :key ?p)
                          (:name "Flagged messages" :query "flag:flagged" :key ?f)))
 
-  (when (featurep! :lang org)
+  (when (modulep! :lang org)
     (setq org-capture-templates
           (doct-add-to org-capture-templates
                        '(("email" :keys "m" :prepend t :kill-buffer t
