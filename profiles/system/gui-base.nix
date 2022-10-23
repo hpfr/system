@@ -182,6 +182,10 @@ in {
 
       # for proprietary apps and some apps that don't play very well with nix
       flatpak.enable = true;
+
+      # TODO: make user service
+      # for Emacs
+      languagetool.enable = true;
     };
 
     # for Flatpak

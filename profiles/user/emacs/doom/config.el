@@ -430,7 +430,10 @@ the right. Refer to `ediff-swap-buffers' to swap them."
   (setq ispell-dictionary "en_US-w_accents"
         ispell-personal-dictionary (expand-file-name "~/nc/config/aspell/en.pws")))
 (after! langtool
-  (setq langtool-bin "languagetool-commandline"))
+  ;; NOTE: evaluate (setq langtool-http-server-host nil) to fall back to CLI
+  (setq langtool-http-server-host "localhost"
+        langtool-http-server-port 8081
+        langtool-bin "languagetool-commandline"))
 (after! lexic
   (map! :map lexic-mode-map
         :n "q" #'lexic-return-from-lexic
