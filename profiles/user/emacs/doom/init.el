@@ -81,7 +81,7 @@
  (magit +forge)
  ;; make
  (:when (member (system-name) my/gui-capable-hosts)
-  pdf)
+   pdf)
  rgb
  tree-sitter
  ;; upload
@@ -110,7 +110,6 @@
   +pomodoro
   +present
   +roam2)
- ;;raku
  (python +lsp +pyright +tree-sitter)
  (rest +jq)
  (sh +fish +tree-sitter)
@@ -121,14 +120,14 @@
  ;; tty
 
  (:when (member (system-name) my/personal-hosts)
-  :email
-  (mu4e +org +gmail))
+   :email
+   (mu4e +org +gmail))
 
  :app
  ;; everywhere
  (:when (member (system-name) my/personal-hosts)
-  irc
-  (rss +org))
+   irc
+   (rss +org))
 
  :config
  ;;literate
@@ -136,8 +135,8 @@
 
  :lh                                    ; personal modules
  (:when (member (system-name) my/personal-hosts)
-  org
-  email)
+   org
+   email)
  ebooks
  unicode)
 
