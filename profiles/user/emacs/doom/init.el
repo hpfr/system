@@ -35,7 +35,7 @@
   +defaults
   +all)
  (treemacs +lsp)
- vc-gutter
+ (vc-gutter +pretty)
  window-select
  workspaces
  zen
