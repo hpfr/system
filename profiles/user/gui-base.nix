@@ -57,6 +57,7 @@ in {
         mousai # song recognition
         piper # mouse configuration via libratbag
         xdragon # drag and drop from the terminal (and emacs)
+        d-spy # d-bus explorer
 
         nextcloud-client
 
