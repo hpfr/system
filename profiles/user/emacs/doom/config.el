@@ -322,6 +322,10 @@ the right. Refer to `ediff-swap-buffers' to swap them."
 
 ;;;; apps
 ;;; magit
+;; TODO: for emacs.git. remove when Emacs 29 is released
+(put 'vc-git-annotate-switches 'safe-local-variable (lambda (switches) (equal switches "-w")))
+(put 'diff-add-log-use-relative-names 'safe-local-variable #'booleanp)
+
 (after! embark
   (require 'embark-vc))
 
