@@ -68,6 +68,9 @@ in {
             patchShebangs $out/bin
           '';
         })
+        (self: super: {
+          keepassxc = super.keepassxc.override { withKeePassX11 = false; };
+        })
       ];
     };
 
