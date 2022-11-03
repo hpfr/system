@@ -14,6 +14,9 @@
 
 (setq which-key-idle-delay 3.0)
 
+;; access Doom leader map from the minibuffer
+(map! :map minibuffer-local-map doom-leader-alt-key #'doom/leader)
+
 (after! orderless
   (setq orderless-component-separator #'orderless-escapable-split-on-space))
 
