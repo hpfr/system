@@ -179,6 +179,8 @@ in {
             # snippets
             "browser.newtabpage.activity-stream.feeds.snippets" = false;
 
+            "browser.tabs.firefox-view" = false;
+
             "extensions.formautofill.addresses.enabled" = false;
             "extensions.formautofill.creditCards.available" = false;
             "extensions.formautofill.creditCards.enabled" = false;
