@@ -12,7 +12,13 @@
 ;; show weekend at week's end
 (setq calendar-week-start-day 1)
 
-(setq which-key-idle-delay 3.0)
+;; de-which-key
+(remove-hook 'doom-first-input-hook #'which-key-mode)
+;; no need for verbose embark indicators, embark-prefix-help-command (C-h) is
+;; sufficient
+(after! embark
+  (cl-nsubstitute #'embark-minimal-indicator #'+vertico-embark-which-key-indicator
+                  embark-indicators))
 
 ;; access Doom leader map from the minibuffer
 (map! :map minibuffer-local-map doom-leader-alt-key #'doom/leader)
