@@ -52,6 +52,7 @@ in {
         qrencode
         fontforge-gtk # font editor
 
+        opensnitch-ui # application firewall
         pavucontrol # pulseaudio GUI
         gnome.gnome-sound-recorder # audio recording
         mousai # song recognition
