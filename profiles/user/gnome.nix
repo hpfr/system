@@ -158,6 +158,7 @@ in {
           "emoji-selector@maestroschan.fr"
           "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
           "gsconnect@andyholmes.github.io"
+          "GPaste@gnome-shell-extensions.gnome.org"
         ];
         "org/gnome/shell".favorite-apps = [
           "emacsclient.desktop"
