@@ -121,7 +121,6 @@ in {
       with pkgs.gnomeExtensions; [
         dconf-editor
 
-        sound-output-device-chooser
         emoji-selector
         just-perfection
         random-wallpaper
@@ -154,7 +153,6 @@ in {
         "org/gnome/shell/app-switcher".current-workspace-only = true;
         "org/gnome/desktop/privacy".remove-old-trash-files = true;
         "org/gnome/shell".enabled-extensions = [
-          "sound-output-device-chooser@kgshank.net"
           "emoji-selector@maestroschan.fr"
           "drive-menu@gnome-shell-extensions.gcampax.github.com" # drive menu icon in activities bar
           "gsconnect@andyholmes.github.io"
