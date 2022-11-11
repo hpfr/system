@@ -66,6 +66,7 @@ in {
         libvirt # manage VM's
         virt-manager # manage VM's graphically
         openconnect # cs.wisc.edu VPN
+        distrobox # other distro userlands
 
         # applications
         keepassxc # password manager

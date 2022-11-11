@@ -93,8 +93,14 @@ in {
       xone.enable = true;
     };
 
-    # passthrough USB devices to VM's over SPICE
-    virtualisation.spiceUSBRedirection.enable = true;
+    virtualisation = {
+      podman = {
+        enable = true;
+        defaultNetwork.dnsname.enable = true;
+      };
+      # passthrough USB devices to VM's over SPICE
+      spiceUSBRedirection.enable = true;
+    };
 
     i18n.inputMethod.enabled = "ibus";
     i18n.inputMethod.ibus.engines = [ pkgs.ibus-engines.typing-booster ];
