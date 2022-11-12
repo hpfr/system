@@ -121,9 +121,9 @@
   (setq org-export-with-toc nil))
 
 (after! ox-html
-  (setq org-html-doctype "html5"
+  (setq org-html-doctype "xhtml5"
         org-html-html5-fancy t
-        ;; org-html-head "<link rel=\"stylesheet\" href=\"https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css\">"
+        ;; org-html-head "<link rel=\"stylesheet\" href=\"https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css\"></link>"
         ))
 
 (after! ox-latex
@@ -480,8 +480,8 @@ tasks."
         org-re-reveal-plugins '(markdown notes search zoom chalkboard)
         org-re-reveal-progress 'nil
         org-re-reveal-head-preamble (concat "
-<link rel=\"stylesheet\" href=\"" org-re-reveal-root "../revealjs-plugins-rajgoel/chalkboard/style.css\">
-<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.15.3/css/all.css\">
+<link rel=\"stylesheet\" href=\"" org-re-reveal-root "../revealjs-plugins-rajgoel/chalkboard/style.css\"></link>
+<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.15.3/css/all.css\"></link>
 "))
 
   (setf (alist-get 'chalkboard org-re-reveal-plugin-config)
