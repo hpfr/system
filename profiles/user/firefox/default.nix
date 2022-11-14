@@ -79,6 +79,200 @@ in {
       profiles = {
         default = {
           name = "default";
+          search = {
+            force = true;
+            default = "DuckDuckGo";
+            order = [
+              "DuckDuckGo"
+              "Wikipedia (en)"
+              "Google"
+              "WayBack Machine"
+              "archive.today"
+              "WayBack Machine (all)"
+              "archive.today (all)"
+              "Wordnik"
+              "Open Library"
+              "Marginalia"
+              "Discu.eu"
+              "Hacker News"
+              "Reddit"
+              "YouTube"
+              "Genius"
+              "ManKier"
+              "Nix Packages"
+              "NixOS Options"
+              "Nix Home Manager Options"
+              "NixOS Wiki"
+              "Reddit (URL)"
+              "Nixpkgs PR Tracker"
+            ];
+            engines = {
+              "Bing".metaData.hidden = true;
+              "Amazon.com".metaData.hidden = true;
+              "eBay".metaData.hidden = true;
+              "Wikipedia (en)".metaData.alias = "@wk";
+              "Google".metaData.alias = "@g";
+
+              "WayBack Machine" = {
+                urls =
+                  [{ template = "https://web.archive.org/web/{searchTerms}"; }];
+                iconUpdateURL =
+                  "https://web.archive.org/_static/images/archive.ico";
+                updateInterval = 24 * 60 * 60 * 1000; # daily
+                definedAliases = [ "@wb" ];
+              };
+              "archive.today" = {
+                urls = [{
+                  template = "https://archive.today/newest/{searchTerms}";
+                }];
+                iconUpdateURL = "https://archive.today/apple-touch-icon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@at" ];
+              };
+              "WayBack Machine (all)" = {
+                urls = [{
+                  template = "https://web.archive.org/web/*/{searchTerms}";
+                }];
+                iconUpdateURL =
+                  "https://web.archive.org/_static/images/archive.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@wba" ];
+              };
+              "archive.today (all)" = {
+                urls = [{ template = "https://archive.today/{searchTerms}*"; }];
+                iconUpdateURL = "https://archive.today/apple-touch-icon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@ata" ];
+              };
+              "Wordnik" = {
+                urls = [{
+                  template = "https://wordnik.com/words/?myWord={searchTerms}";
+                }];
+                iconUpdateURL = "https://wordnik.com/img/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@wd" ];
+              };
+              "Open Library" = {
+                urls = [{
+                  template = "https://openlibrary.org/search?q={searchTerms}";
+                }];
+                iconUpdateURL =
+                  "https://openlibrary.org/static/images/openlibrary-192x192.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@ol" ];
+              };
+              "Marginalia" = {
+                urls = [{
+                  template =
+                    "https://search.marginalia.nu/search?query={searchTerms}";
+                }];
+                iconUpdateURL = "https://search.marginalia.nu/favicon.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@mg" ];
+              };
+              "Discu.eu" = {
+                urls = [{ template = "https://discu.eu/?q={searchTerms}"; }];
+                iconUpdateURL = "https://discu.eu/static/favicon-32x32.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@du" ];
+              };
+              "Hacker News" = {
+                urls =
+                  [{ template = "https://hn.algolia.com/?q={searchTerms}"; }];
+                iconUpdateURL = "https://news.ycombinator.com/favicon.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@hn" ];
+              };
+              "Reddit" = {
+                urls = [{
+                  template = "https://old.reddit.com/search?q={searchTerms}";
+                }];
+                iconUpdateURL =
+                  "https://www.redditstatic.com/desktop2x/img/favicon/favicon-96x96.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@rd" ];
+              };
+              "Reddit (URL)" = {
+                urls = [{
+                  template =
+                    "https://old.reddit.com/search?q=url:{searchTerms}";
+                }];
+                iconUpdateURL =
+                  "https://www.redditstatic.com/desktop2x/img/favicon/favicon-96x96.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@rdu" ];
+              };
+              "YouTube" = {
+                urls = [{
+                  template =
+                    "https://www.youtube.com/results?search_query={searchTerms}";
+                }];
+                iconUpdateURL =
+                  "https://www.youtube.com/s/desktop/271dfaff/img/favicon_144x144.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@yt" ];
+              };
+              "Genius" = {
+                urls =
+                  [{ template = "https://genius.com/search?q={searchTerms}"; }];
+                iconUpdateURL = "https://genius.com/favicon.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@gen" ];
+              };
+              "ManKier" = {
+                urls =
+                  [{ template = "https://www.mankier.com/?q={searchTerms}"; }];
+                iconUpdateURL = "https://www.mankier.com/favicon.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@man" ];
+              };
+              "Nix Packages" = {
+                urls = [{
+                  template =
+                    "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+                }];
+                icon =
+                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@nxp" ];
+              };
+              "Nixpkgs PR Tracker" = {
+                urls = [{
+                  template =
+                    "https://nixpk.gs/pr-tracker.html?pr={searchTerms}";
+                }];
+                icon =
+                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@nxpr" ];
+              };
+              "NixOS Options" = {
+                urls = [{
+                  template =
+                    "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
+                }];
+                icon =
+                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@nxo" ];
+              };
+              "Nix Home Manager Options" = {
+                urls = [{
+                  template =
+                    "https://mipmip.github.io/home-manager-option-search/?{searchTerms}";
+                }];
+                icon =
+                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@nxh" ];
+              };
+              "NixOS Wiki" = {
+                urls = [{
+                  template =
+                    "https://nixos.wiki/index.php?search={searchTerms}";
+                }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = [ "@nxw" ];
+              };
+            };
+          };
           settings = {
             "general.warnOnAboutConfig" = false;
             "browser.aboutConfig.showWarning" = false;
