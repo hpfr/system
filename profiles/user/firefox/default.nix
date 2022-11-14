@@ -16,10 +16,17 @@ in {
     };
 
     xdg = {
-      # vim keybindings extension
       configFile = {
-        "tridactyl/tridactylrc".source = ./tridactylrc;
-        "tridactyl/privaterc".source = ./tridactylrc-private;
+        # surfingkeys requires a single-file JS config
+        "surfingkeys/config.js".text = ''
+          ${builtins.readFile ./surfingkeys/config.js}
+
+          ${builtins.readFile ./surfingkeys/private.js}
+
+          settings.theme = `
+          ${builtins.readFile ./surfingkeys/theme.css}
+          `
+        '';
       };
       mimeApps = let
         applyToAll = list:
@@ -42,6 +49,16 @@ in {
           "application/x-extension-xht"
         ];
       };
+    };
+
+    # URL for surfingkeys settings: http://localhost:41066/config.js
+    # NOTE: have to clear browser cache, otherwise it grabs the old version?
+    systemd.user.services.surfingkeys-config = {
+      Unit.Description =
+        "Run a local web server to serve the surfingkeys config";
+      Service.ExecStart =
+        "${pkgs.miniserve}/bin/miniserve --port 41066 ${config.xdg.configHome}/surfingkeys";
+      Install.WantedBy = [ "graphical-session.target" ];
     };
 
     programs.firefox = {
@@ -72,8 +89,7 @@ in {
             Placement = "toolbar";
           };
         };
-        extraNativeMessagingHosts = [ pkgs.tridactyl-native ]
-          ++ optional config.profiles.user.gnome.enable
+        extraNativeMessagingHosts = optional config.profiles.user.gnome.enable
           pkgs.gnomeExtensions.gsconnect;
       };
       profiles = {
@@ -354,7 +370,7 @@ in {
             "privacy.webrtc.legacyGlobalIndicator" = false;
             "privacy.webrtc.hideGlobalIndicator" = true;
 
-            # blank page allows tridactyl
+            # blank page allows surfingkeys
             # windows and homepage
             "browser.startup" = "about.blank";
 
