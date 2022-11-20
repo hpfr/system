@@ -212,6 +212,7 @@ in {
       seahorse.enable = true;
       corectrl.enable = true;
       gamemode.enable = true;
+      mepo.enable = true;
     };
 
     users = {
