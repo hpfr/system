@@ -348,8 +348,6 @@ in {
             "font.name-list.emoji" = "emoji";
             # firefox uses a specific font list here for some reason
             "font.name-list.serif.x-math" = "serif";
-            # don't allow webpages to choose fonts beyond serif, sans, mono
-            "browser.display.use_document_fonts" = 0;
 
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
