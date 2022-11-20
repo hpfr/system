@@ -73,6 +73,7 @@ api.addSearchAlias('nxp', 'Nix Packages', 'https://search.nixos.org/packages?cha
 api.addSearchAlias('nxo', 'NixOS Options', 'https://search.nixos.org/options?channel=unstable&query=');
 api.addSearchAlias('nxpr', 'Nixpkgs PR Tracker', 'https://nixpk.gs/pr-tracker.html?pr=');
 api.addSearchAlias('nxh', 'Nix Home Manager Options', 'https://mipmip.github.io/home-manager-option-search/?');
+api.addSearchAlias('nxw', 'NixOS Wiki', 'https://nixos.wiki/index.php?search=');
 api.addSearchAlias('gg', 'Google', 'https://www.google.com/search?q=', 's',
                'https://www.google.com/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=',
                response => JSON.parse(response.text)[1]
